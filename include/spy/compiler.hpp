@@ -6,8 +6,8 @@
   (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
  */
 //==================================================================================================
-#ifndef SPY_COMPILER_COMPILER_HPP_INLUDED
-#define SPY_COMPILER_COMPILER_HPP_INLUDED
+#ifndef SPY_COMPILER_HPP_INLUDED
+#define SPY_COMPILER_HPP_INLUDED
 
 #include <iosfwd>
 #include <spy/version.hpp>
@@ -86,7 +86,7 @@ namespace spy
   //================================================================================================
   // Unsupported compilers
   //================================================================================================
-  constexpr inline detail::compiler_info<compiler_::undefined_,0,0,0> current_compiler_;
+  constexpr inline detail::compiler_info<compiler_::undefined_,-1,0,0> current_compiler_;
 
 #endif
 }

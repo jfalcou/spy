@@ -22,6 +22,8 @@ namespace spy
 
   template<int M, int N = 0, int P = 0> constexpr inline version_<M,N,P> version = {};
 
+  constexpr inline version_<-1> unspecified_version = {};
+
   template<int M1, int N1, int P1, int M2, int N2, int P2>
   constexpr bool operator==(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
   {
@@ -70,6 +72,11 @@ namespace spy
   std::ostream& operator<<(std::ostream& os, version_<M,N,P> const&)
   {
     return os << "v" << M << "." << N << "." << P;
+  }
+
+  inline std::ostream& operator<<(std::ostream& os, version_<-1> const&)
+  {
+    return os << "(unspecified)";
   }
 
   template<typename Descriptor>

@@ -45,9 +45,8 @@ const lest::test specification[] =
 #else
   CASE( "Check that detected compiler is undefined" )
   {
-    auto compiler_version = spy::version<0>;
     EXPECT( spy::current_compiler_                  == spy::compiler_::undefined_ );
-    EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version           );
+    EXPECT( spy::version_of(spy::current_compiler_) == spy::unspecified_version   );
   }
 #endif
 };
