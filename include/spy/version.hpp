@@ -24,19 +24,19 @@ namespace spy
   constexpr inline version_<M,N,P> version = {};
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator==(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&)
+  constexpr bool operator==(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
   {
     return (M1==M2) && (N1==N2) && (P1==P2);
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator!=(version_<M1,N1,P1> const& v1, version_<M2,N2,P2> const& v2)
+  constexpr bool operator!=(version_<M1,N1,P1> const& v1, version_<M2,N2,P2> const& v2) noexcept
   {
     return !(v1==v2);
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator<(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&)
+  constexpr bool operator<(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
   {
     if constexpr(M1 < M2) return true;
     if constexpr(M1 > M2) return false;
@@ -46,7 +46,7 @@ namespace spy
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator>(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&)
+  constexpr bool operator>(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
   {
     if constexpr(M1 > M2) return true;
     if constexpr(M1 < M2) return false;
@@ -56,13 +56,13 @@ namespace spy
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator<=(version_<M1,N1,P1> const& a, version_<M2,N2,P2> const& b)
+  constexpr bool operator<=(version_<M1,N1,P1> const& a, version_<M2,N2,P2> const& b) noexcept
   {
     return !(a>b);
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator>=(version_<M1,N1,P1> const& a, version_<M2,N2,P2> const& b)
+  constexpr bool operator>=(version_<M1,N1,P1> const& a, version_<M2,N2,P2> const& b) noexcept
   {
     return !(a<b);
   }
@@ -71,6 +71,11 @@ namespace spy
   std::ostream& operator<<(std::ostream& os, version_<M,N,P> const&)
   {
     return os << "v" << M << "." << N << "." << P;
+  }
+
+  template<typename Descriptor> constexpr auto version_of(Descriptor const& d) noexcept
+  {
+    return d.version;
   }
 }
 
