@@ -11,5 +11,6 @@
 
 #include <spy/version.hpp>
 #include <spy/compiler.hpp>
+#include <spy/library.hpp>
 
 #endif
