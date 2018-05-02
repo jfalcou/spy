@@ -15,22 +15,14 @@ endif()
 add_executable          ( spy.version   version.cpp   )
 add_executable          ( spy.compiler  compiler.cpp  )
 add_executable          ( spy.libc      libc.cpp  )
+add_executable          ( spy.stdlib    stdlib.cpp  )
 
 target_compile_options  ( spy.version   PUBLIC ${options} )
 target_compile_options  ( spy.compiler  PUBLIC ${options} )
 target_compile_options  ( spy.libc      PUBLIC ${options} )
+target_compile_options  ( spy.stdlib    PUBLIC ${options} )
 
-add_test                ( NAME spy.version
-                          COMMAND spy.version
-                          WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
-                        )
-
-add_test                ( NAME spy.compiler
-                          COMMAND spy.compiler
-                          WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
-                        )
-
-add_test                ( NAME spy.libc
-                          COMMAND spy.libc
-                          WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
-                        )
+add_test( NAME spy.version  COMMAND spy.version  WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
+add_test( NAME spy.compiler COMMAND spy.compiler WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
+add_test( NAME spy.libc     COMMAND spy.libc     WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
+add_test( NAME spy.stdlib   COMMAND spy.stdlib   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
