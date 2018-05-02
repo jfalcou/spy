@@ -28,4 +28,4 @@ add_custom_target(tests)
 add_custom_target(unit)
 add_dependencies(tests unit)
 
-#add_subdirectory(${PROJECT_SOURCE_DIR}/test/)
+add_subdirectory(${PROJECT_SOURCE_DIR}/test/)
