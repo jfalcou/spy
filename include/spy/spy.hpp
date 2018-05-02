@@ -10,5 +10,6 @@
 #define SPY_SPY_HPP_INLUDED
 
 #include <spy/version.hpp>
+#include <spy/compiler.hpp>
 
 #endif

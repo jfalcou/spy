@@ -7,11 +7,23 @@
 ## -------------------------------------------------------------------------------------------------
 
 if( MSVC )
-    set( options /std:c++latest -W3 -EHsc )
+  set( options /std:c++latest -W3 -EHsc )
 else()
-    set( options -std=c++17 -Wall -Wextra -Dlest_FEATURE_COLOURISE=1)
+  set( options -std=c++17 -Wall -Wno-missing-braces )
 endif()
 
-add_executable          ( spy.version       version.cpp         )
-target_compile_options  ( spy.version       PUBLIC ${options}   )
-add_test                ( NAME spy.version  COMMAND spy.version )
+add_executable          ( spy.version   version.cpp   )
+add_executable          ( spy.compiler  compiler.cpp  )
+
+target_compile_options  ( spy.version   PUBLIC ${options} )
+target_compile_options  ( spy.compiler  PUBLIC ${options} )
+
+add_test                ( NAME spy.version
+                          COMMAND spy.version
+                          WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
+                        )
+
+add_test                ( NAME spy.compiler
+                          COMMAND spy.compiler
+                          WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test"
+                        )
