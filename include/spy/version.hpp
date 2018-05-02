@@ -20,8 +20,7 @@ namespace spy
     static constexpr int patch = P;
   };
 
-  template<int M, int N = 0, int P = 0>
-  constexpr inline version_<M,N,P> version = {};
+  template<int M, int N = 0, int P = 0> constexpr inline version_<M,N,P> version = {};
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
   constexpr bool operator==(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
@@ -73,7 +72,8 @@ namespace spy
     return os << "v" << M << "." << N << "." << P;
   }
 
-  template<typename Descriptor> constexpr auto version_of(Descriptor const& d) noexcept
+  template<typename Descriptor>
+  constexpr auto version_of(Descriptor const& d) noexcept -> decltype(d.version)
   {
     return d.version;
   }
