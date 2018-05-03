@@ -13,5 +13,6 @@
 #include <spy/compiler.hpp>
 #include <spy/libc.hpp>
 #include <spy/stdlib.hpp>
+#include <spy/os.hpp>
 
 #endif
