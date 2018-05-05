@@ -79,6 +79,13 @@ namespace spy
   //================================================================================================
   constexpr inline auto current_os_ = os_::undefined_;
 #endif
+
+  template<os_ TargetOS>
+  struct is_os : std::integral_constant<bool, TargetOS == current_os_>
+  {};
+
+  template<os_ TargetOS> using is_os_t = typename is_os<TargetOS>::type;
+  template<os_ TargetOS> constexpr inline bool  is_os_v = is_os<TargetOS>::value;
 }
 
 #endif

@@ -32,6 +32,8 @@ namespace spy
     {
       static constexpr stdlib_            vendor  = Vendor;
       static constexpr version_<M,N,P>  version = {};
+
+      inline constexpr operator stdlib_() const { return vendor; }
     };
 
     template<stdlib_ Vendor, int M, int N, int P>
@@ -70,8 +72,14 @@ namespace spy
   // Unsupported libstd
   //================================================================================================
   constexpr inline detail::stdlib_info<stdlib_::undefined_,-1,0,0> current_stdlib_;
-
 #endif
+
+  template<stdlib_ TargetLib>
+  struct is_stdlib : std::integral_constant<bool, TargetLib == current_stdlib_.vendor>
+  {};
+
+  template<stdlib_ TargetLib> using is_stdlib_t = typename is_stdlib<TargetLib>::type;
+  template<stdlib_ TargetLib> constexpr inline bool  is_stdlib_v = is_stdlib<TargetLib>::value;
 }
 
 #endif

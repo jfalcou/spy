@@ -20,35 +20,41 @@ const lest::test specification[] =
     auto compiler_version = spy::version<19,5>;
     EXPECT( spy::current_compiler_                  == spy::compiler_::msvc_  );
     EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version       );
-  }
+  },
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
   CASE( "Check that detected compiler is ICPC" )
   {
     auto compiler_version = spy::version<19>;
     EXPECT( spy::current_compiler_                  == spy::compiler_::intel_   );
     EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version         );
-  }
+  },
 #elif defined(__clang__)
   CASE( "Check that detected compiler is Clang" )
   {
     auto compiler_version = spy::version<3,9>;
     EXPECT( spy::current_compiler_                  == spy::compiler_::clang_ );
     EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version       );
-  }
+  },
 #elif defined(__GNUC__)
   CASE( "Check that detected compiler is GCC" )
   {
     auto compiler_version = spy::version<7>;
     EXPECT( spy::current_compiler_                  == spy::compiler_::gcc_ );
     EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version     );
-  }
+  },
 #else
   CASE( "Check that detected compiler is undefined" )
   {
     EXPECT( spy::current_compiler_                  == spy::compiler_::undefined_ );
     EXPECT( spy::version_of(spy::current_compiler_) == spy::unspecified_version   );
-  }
+  },
 #endif
+  CASE( "Check that compiler detection via traits is coherent" )
+  {
+    EXPECT( spy::is_compiler  <spy::current_compiler_>::value );
+    EXPECT( spy::is_compiler_t<spy::current_compiler_>::value );
+    EXPECT( spy::is_compiler_v<spy::current_compiler_>        );
+  }
 };
 
 int main( int argc, char** argv )

@@ -31,6 +31,8 @@ namespace spy
     {
       static constexpr compiler_        id      = Compiler;
       static constexpr version_<M,N,P>  version = {};
+
+      inline constexpr operator compiler_() const { return id; }
     };
 
     template<compiler_ Compiler, int M, int N, int P>
@@ -89,6 +91,16 @@ namespace spy
   constexpr inline detail::compiler_info<compiler_::undefined_,-1,0,0> current_compiler_;
 
 #endif
+
+  template<compiler_ TargetCompiler>
+  struct is_compiler : std::integral_constant<bool, TargetCompiler == current_compiler_.id>
+  {};
+
+  template<compiler_ TargetCompiler>
+  using is_compiler_t = typename is_compiler<TargetCompiler>::type;
+
+  template<compiler_ TargetCompiler>
+  constexpr inline bool is_compiler_v = is_compiler<TargetCompiler>::value;
 }
 
 #endif

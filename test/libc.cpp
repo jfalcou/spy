@@ -20,28 +20,28 @@ const lest::test specification[] =
     auto libc_version = spy::version<__cloudlibc_major__,__cloudlibc_minor__>;
     EXPECT( spy::current_libc_                  == spy::libc_::cloudabi_  );
     EXPECT( spy::version_of(spy::current_libc_) >= libc_version       );
-  }
+  },
 #elif defined(__GLIBC__)
   CASE( "Check that detected libc is glibc" )
   {
     auto libc_version = spy::version<__GLIBC__, __GLIBC_MINOR__>;
     EXPECT( spy::current_libc_                  == spy::libc_::gcc_ );
     EXPECT( spy::version_of(spy::current_libc_) >= libc_version     );
-  }
+  },
 #elif defined(__GNU_LIBRARY__)
   CASE( "Check that detected libc is GNU libc" )
   {
     auto libc_version = spy::version<__GNU_LIBRARY__,__GNU_LIBRARY_MINOR__>;
     EXPECT( spy::current_libc_                  == spy::libc_::gcc_ );
     EXPECT( spy::version_of(spy::current_libc_) >= libc_version     );
-  }
+  },
 #elif defined(__UCLIBC__)
   CASE( "Check that detected libc is UC libc" )
   {
     auto libc_version = spy::version<__UCLIBC_MAJOR__, __UCLIBC_MINOR__, __UCLIBC_SUBLEVEL__>;
     EXPECT( spy::current_libc_                  == spy::libc_::uc_  );
     EXPECT( spy::version_of(spy::current_libc_) >= libc_version     );
-  }
+  },
 #elif defined(__CRTL_VER)
   CASE( "Check that detected libc is VMS libc" )
   {
@@ -51,7 +51,7 @@ const lest::test specification[] =
                                     >;
     EXPECT( spy::current_libc_                  == spy::libc_::vms_ );
     EXPECT( spy::version_of(spy::current_libc_) >= libc_version     );
-  }
+  },
 #elif defined(__LIBREL__)
   CASE( "Check that detected libc is z/OS libc" )
   {
@@ -61,14 +61,20 @@ const lest::test specification[] =
                                     >;
     EXPECT( spy::current_libc_                  == spy::libc_::zos_ );
     EXPECT( spy::version_of(spy::current_libc_) >= libc_version     );
-  }
+  },
 #else
   CASE( "Check that detected libc is undefined" )
   {
     EXPECT( spy::current_libc_                  == spy::libc_::undefined_ );
     EXPECT( spy::version_of(spy::current_libc_) == spy::unspecified_version   );
-  }
+  },
 #endif
+  CASE( "Check that libc detection via traits is coherent" )
+  {
+    EXPECT( spy::is_libc  <spy::current_libc_>::value );
+    EXPECT( spy::is_libc_t<spy::current_libc_>::value );
+    EXPECT( spy::is_libc_v<spy::current_libc_>        );
+  }
 };
 
 int main( int argc, char** argv )

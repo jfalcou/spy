@@ -35,6 +35,8 @@ namespace spy
     {
       static constexpr libc_            vendor  = Vendor;
       static constexpr version_<M,N,P>  version = {};
+
+      inline constexpr operator libc_() const { return vendor; }
     };
 
     template<libc_ Vendor, int M, int N, int P>
@@ -107,8 +109,14 @@ namespace spy
   // Unsupported libc
   //================================================================================================
   constexpr inline detail::libc_info<libc_::undefined_,-1,0,0> current_libc_;
-
 #endif
+
+  template<libc_ TargetLib>
+  struct is_libc : std::integral_constant<bool, TargetLib == current_libc_.vendor>
+  {};
+
+  template<libc_ TargetLib> using is_libc_t = typename is_libc<TargetLib>::type;
+  template<libc_ TargetLib> constexpr inline bool is_libc_v = is_libc<TargetLib>::value;
 }
 
 #endif
