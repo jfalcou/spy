@@ -7,12 +7,10 @@ traditionally done using preprocessor macros. Library like
 interface on top of those but still live in a world where the preprocessor is king.
 
 SPY is a C++17 (and onward) library that gathers similar informations and provides a `constexpr`
-compatible interface to access those information, thus making their exploitation safe within the
-now widely accepted `if constexpr` language construct.
+compatible interface to access those information, thus making their exploitation within `constexpr`
+context possible.
 
 ## Basic usage
-
-
 
 ## Support
 
