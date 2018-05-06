@@ -21,11 +21,11 @@ current_libc
    }
 
 A global object that gathers current C stadnard library's identification and version number.
-The actual type of ``spy::current_libc`` is implementation-defined.
 
-**See also:**
+The actual type of ``spy::current_libc`` is an implementation detail that can be inserted into
+standard output streams and compared directly to instance of :ref:`libc-libc`.
 
-version_of, :ref:`libc-is_libc`
+.. seealso:: :ref:`version-version_of`, :ref:`libc-is_libc`
 
 **Example:**
 
@@ -92,8 +92,7 @@ to :ref:`libc-current_libc`.
 
 **Template parameters**
 
-``TargetLib`` - the C Standard Library identification to check. This value must be an enumerator listed by
-:ref:`libc-libc`
+  - ``TargetLib``: the C Standard Library identification to check. This value must be an enumerator listed by :ref:`libc-libc`
 
 **Helper alias template**
 

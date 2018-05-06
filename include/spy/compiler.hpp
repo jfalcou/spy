@@ -27,24 +27,24 @@ namespace spy
 
   namespace detail
   {
-    template<compilers Compiler, int M, int N, int P> struct compilersinfo
+    template<compilers Compiler, int M, int N, int P> struct compilers_info
     {
-      static constexpr compilers          id      = Compiler;
-      static constexpr version_id<M,N,P>  version = {};
+      static constexpr compilers              vendor  = Compiler;
+      static constexpr version_vendor<M,N,P>  version = {};
 
-      inline constexpr operator compilers() const { return id; }
+      inline constexpr operator compilers() const { return vendor; }
     };
 
     template<compilers Compiler, int M, int N, int P>
-    constexpr bool operator==(compilersinfo<Compiler, M, N, P> const& d, compilers const c)
+    constexpr bool operator==(compilers_info<Compiler, M, N, P> const& d, compilers const c)
     {
-      return d.id == c;
+      return d.vendor == c;
     }
 
     template<compilers Compiler, int M, int N, int P>
-    std::ostream& operator<<(std::ostream& os, compilersinfo<Compiler, M, N, P> const& c)
+    std::ostream& operator<<(std::ostream& os, compilers_info<Compiler, M, N, P> const& c)
     {
-      return os << c.id << " " <<c.version;
+      return os << c.vendor << " " <<c.version;
     }
   }
 
@@ -52,7 +52,7 @@ namespace spy
   //================================================================================================
   // MSVC compilers
   //================================================================================================
-  constexpr inline detail::compilersinfo< compilers::msvc_, _MSC_VER/100
+  constexpr inline detail::compilers_info< compilers::msvc_, _MSC_VER/100
                                                           , _MSC_VER%100
                                                           , _MSC_FULL_VER % 100000
                                         > current_compiler;
@@ -61,7 +61,7 @@ namespace spy
   //================================================================================================
   // Intel compilers
   //================================================================================================
-  constexpr inline detail::compilersinfo< compilers::intel_ , (__INTEL_COMPILER/100)%100
+  constexpr inline detail::compilers_info< compilers::intel_ , (__INTEL_COMPILER/100)%100
                                                             , __INTEL_COMPILER % 100
                                                             , __INTEL_COMPILER_UPDATE
                                         > current_compiler;
@@ -70,7 +70,7 @@ namespace spy
   //================================================================================================
   // Clang compilers
   //================================================================================================
-  constexpr inline detail::compilersinfo< compilers::clang_ , __clang_major__
+  constexpr inline detail::compilers_info< compilers::clang_ , __clang_major__
                                                             , __clang_minor__
                                                             , __clang_patchlevel__
                                         > current_compiler;
@@ -79,7 +79,7 @@ namespace spy
   //================================================================================================
   // GCC compilers
   //================================================================================================
-  constexpr inline detail::compilersinfo< compilers::gcc_ , __GNUC__
+  constexpr inline detail::compilers_info< compilers::gcc_ , __GNUC__
                                                           , __GNUC_MINOR__
                                                           , __GNUC_PATCHLEVEL__
                                         > current_compiler;
@@ -88,12 +88,12 @@ namespace spy
   //================================================================================================
   // Unsupported compilers
   //================================================================================================
-  constexpr inline detail::compilersinfo<compilers::undefined_,-1,0,0> current_compiler;
+  constexpr inline detail::compilers_info<compilers::undefined_,-1,0,0> current_compiler;
 
 #endif
 
   template<compilers TargetCompiler>
-  struct is_compiler : std::integral_constant<bool, TargetCompiler == current_compiler.id>
+  struct is_compiler : std::integral_constant<bool, TargetCompiler == current_compiler.vendor>
   {};
 
   template<compilers TargetCompiler>

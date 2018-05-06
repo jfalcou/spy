@@ -20,12 +20,12 @@ current_compiler
      constexpr inline auto current_compiler;
    }
 
-A global object that gathers current compiler's identification and version number. The actual type
-of ``spy::current_compiler`` is implementation-defined.
+A global object that gathers current compiler's identification and version number.
 
-**See also:**
+The actual type of ``spy::current_compiler`` is an implementation detail that can be inserted into
+standard output streams and compared directly to instance of :ref:`compiler-compilers`.
 
-version_of, :ref:`compiler-is_compiler`
+.. seealso:: :ref:`version-version_of`, :ref:`compiler-is_compiler`
 
 **Example:**
 
@@ -90,8 +90,7 @@ to :ref:`compiler-current_compiler`.
 
 **Template parameters**
 
-``TargetCompiler`` - the compiler identification to check. This value must be an enumerator listed by
-:ref:`compiler-compilers`
+  - ``TargetCompiler``: the compiler identification to check. This value must be an enumerator listed by :ref:`compiler-compilers`
 
 **Helper alias template**
 

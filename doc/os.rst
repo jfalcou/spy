@@ -20,12 +20,12 @@ current_os
      constexpr inline auto current_os;
    }
 
-A global object that gathers current OS' identification. The actual type
-of ``spy::current_os`` is implementation-defined.
+A global object that gathers current OS' identification.
 
-**See also:**
+The actual type of ``spy::current_os`` is an implementation detail that can be inserted into
+standard output streams and compared directly to instance of :ref:`os-systems`.
 
-version_of, :ref:`os-is_os`
+.. seealso:: :ref:`os-is_os`
 
 **Example:**
 
@@ -100,8 +100,7 @@ to :ref:`os-current_os`.
 
 **Template parameters**
 
-``TargetOS`` - the os identification to check. This value must be an enumerator listed by
-:ref:`os-systems`
+  - ``TargetOS``: the os identification to check. This value must be an enumerator listed by :ref:`os-systems`
 
 **Helper alias template**
 

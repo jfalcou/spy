@@ -21,11 +21,11 @@ current_stdlib
    }
 
 A global object that gathers current C++ standard library's identification and version number.
-The actual type of ``spy::current_stdlib`` is implementation-defined.
 
-**See also:**
+The actual type of ``spy::current_stdlib`` is an implementation detail that can be inserted into
+standard output streams and compared directly to instance of :ref:`stdlib-stdlib`.
 
-version_of, :ref:`stdlib-is_stdlib`
+.. seealso:: :ref:`stdlib-is_stdlib`
 
 **Example:**
 
@@ -86,8 +86,7 @@ to :ref:`stdlib-current_stdlib`.
 
 **Template parameters**
 
-``TargetLib`` - the C++ Standard Library identification to check. This value must be an enumerator listed by
-:ref:`stdlib-stdlib`
+  - ``TargetLib``: the C++ Standard Library identification to check. This value must be an enumerator listed by :ref:`stdlib-stdlib`
 
 **Helper alias template**
 
