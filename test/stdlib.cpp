@@ -18,8 +18,8 @@ const lest::test specification[] =
   CASE( "Check that detected stdlib is libc++" )
   {
     auto stdlib_version = spy::version<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
-    EXPECT( spy::current_stdlib_                  == spy::stdlib_::libcpp_  );
-    EXPECT( spy::version_of(spy::current_stdlib_) >= stdlib_version         );
+    EXPECT( spy::current_stdlib                  == spy::stdlib::libcpp_  );
+    EXPECT( spy::version_of(spy::current_stdlib) >= stdlib_version        );
   },
 #elif defined(__GLIBCXX__)
   CASE( "Check that detected stdlib is GNU libstd" )
@@ -28,21 +28,21 @@ const lest::test specification[] =
                                       , (__GLIBCXX__/100)%100
                                       , __GLIBCXX__%100
                                       >;
-    EXPECT( spy::current_stdlib_                  == spy::stdlib_::gcc_ );
-    EXPECT( spy::version_of(spy::current_stdlib_) >= stdlib_version     );
+    EXPECT( spy::current_stdlib                  == spy::stdlib::gcc_ );
+    EXPECT( spy::version_of(spy::current_stdlib) >= stdlib_version    );
   },
 #else
   CASE( "Check that detected stdlib is undefined" )
   {
-    EXPECT( spy::current_stdlib_                  == spy::stdlib_::undefined_ );
-    EXPECT( spy::version_of(spy::current_stdlib_) == spy::unspecified_version );
+    EXPECT( spy::current_stdlib                  == spy::stdlib::undefined_  );
+    EXPECT( spy::version_of(spy::current_stdlib) == spy::unspecified_version );
   },
 #endif
   CASE( "Check that stdlib detection via traits is coherent" )
   {
-    EXPECT( spy::is_stdlib  <spy::current_stdlib_>::value );
-    EXPECT( spy::is_stdlib_t<spy::current_stdlib_>::value );
-    EXPECT( spy::is_stdlib_v<spy::current_stdlib_>        );
+    EXPECT( spy::is_stdlib  <spy::current_stdlib>::value );
+    EXPECT( spy::is_stdlib_t<spy::current_stdlib>::value );
+    EXPECT( spy::is_stdlib_v<spy::current_stdlib>        );
   }
 };
 

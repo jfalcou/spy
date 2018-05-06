@@ -14,35 +14,35 @@
 
 namespace spy
 {
-  enum class compiler_ { undefined_  = - 1, msvc_, intel_, clang_, gcc_ };
+  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_ };
 
-  inline std::ostream& operator<<(std::ostream& os, compiler_ const& c)
+  inline std::ostream& operator<<(std::ostream& os, compilers const& c)
   {
-    if(c == compiler_::msvc_ ) return os << "Microsoft Visual Studio";
-    if(c == compiler_::intel_) return os << "Intel icpc";
-    if(c == compiler_::clang_) return os << "clang";
-    if(c == compiler_::gcc_  ) return os << "g++";
+    if(c == compilers::msvc_ ) return os << "Microsoft Visual Studio";
+    if(c == compilers::intel_) return os << "Intel icpc";
+    if(c == compilers::clang_) return os << "clang";
+    if(c == compilers::gcc_  ) return os << "g++";
     return os << "Undefined";
   }
 
   namespace detail
   {
-    template<compiler_ Compiler, int M, int N, int P> struct compiler_info
+    template<compilers Compiler, int M, int N, int P> struct compilersinfo
     {
-      static constexpr compiler_        id      = Compiler;
-      static constexpr version_<M,N,P>  version = {};
+      static constexpr compilers          id      = Compiler;
+      static constexpr version_id<M,N,P>  version = {};
 
-      inline constexpr operator compiler_() const { return id; }
+      inline constexpr operator compilers() const { return id; }
     };
 
-    template<compiler_ Compiler, int M, int N, int P>
-    constexpr bool operator==(compiler_info<Compiler, M, N, P> const& d, compiler_ const c)
+    template<compilers Compiler, int M, int N, int P>
+    constexpr bool operator==(compilersinfo<Compiler, M, N, P> const& d, compilers const c)
     {
       return d.id == c;
     }
 
-    template<compiler_ Compiler, int M, int N, int P>
-    std::ostream& operator<<(std::ostream& os, compiler_info<Compiler, M, N, P> const& c)
+    template<compilers Compiler, int M, int N, int P>
+    std::ostream& operator<<(std::ostream& os, compilersinfo<Compiler, M, N, P> const& c)
     {
       return os << c.id << " " <<c.version;
     }
@@ -52,55 +52,55 @@ namespace spy
   //================================================================================================
   // MSVC compilers
   //================================================================================================
-  constexpr inline detail::compiler_info< compiler_::msvc_, _MSC_VER/100
+  constexpr inline detail::compilersinfo< compilers::msvc_, _MSC_VER/100
                                                           , _MSC_VER%100
                                                           , _MSC_FULL_VER % 100000
-                                        > current_compiler_;
+                                        > current_compiler;
 
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
   //================================================================================================
   // Intel compilers
   //================================================================================================
-  constexpr inline detail::compiler_info< compiler_::intel_ , (__INTEL_COMPILER/100)%100
+  constexpr inline detail::compilersinfo< compilers::intel_ , (__INTEL_COMPILER/100)%100
                                                             , __INTEL_COMPILER % 100
                                                             , __INTEL_COMPILER_UPDATE
-                                        > current_compiler_;
+                                        > current_compiler;
 
 #elif defined(__clang__)
   //================================================================================================
   // Clang compilers
   //================================================================================================
-  constexpr inline detail::compiler_info< compiler_::clang_ , __clang_major__
+  constexpr inline detail::compilersinfo< compilers::clang_ , __clang_major__
                                                             , __clang_minor__
                                                             , __clang_patchlevel__
-                                        > current_compiler_;
+                                        > current_compiler;
 
 #elif defined(__GNUC__)
   //================================================================================================
   // GCC compilers
   //================================================================================================
-  constexpr inline detail::compiler_info< compiler_::gcc_ , __GNUC__
+  constexpr inline detail::compilersinfo< compilers::gcc_ , __GNUC__
                                                           , __GNUC_MINOR__
                                                           , __GNUC_PATCHLEVEL__
-                                        > current_compiler_;
+                                        > current_compiler;
 
 #else
   //================================================================================================
   // Unsupported compilers
   //================================================================================================
-  constexpr inline detail::compiler_info<compiler_::undefined_,-1,0,0> current_compiler_;
+  constexpr inline detail::compilersinfo<compilers::undefined_,-1,0,0> current_compiler;
 
 #endif
 
-  template<compiler_ TargetCompiler>
-  struct is_compiler : std::integral_constant<bool, TargetCompiler == current_compiler_.id>
+  template<compilers TargetCompiler>
+  struct is_compiler : std::integral_constant<bool, TargetCompiler == current_compiler.id>
   {};
 
-  template<compiler_ TargetCompiler>
-  using is_compiler_t = typename is_compiler<TargetCompiler>::type;
+  template<compilers TargetCompiler>
+  using is_compilerst = typename is_compiler<TargetCompiler>::type;
 
-  template<compiler_ TargetCompiler>
-  constexpr inline bool is_compiler_v = is_compiler<TargetCompiler>::value;
+  template<compilers TargetCompiler>
+  constexpr inline bool is_compilersv = is_compiler<TargetCompiler>::value;
 }
 
 #endif

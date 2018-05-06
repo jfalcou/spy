@@ -18,42 +18,42 @@ const lest::test specification[] =
   CASE( "Check that detected compiler is MSVC" )
   {
     auto compiler_version = spy::version<19,5>;
-    EXPECT( spy::current_compiler_                  == spy::compiler_::msvc_  );
-    EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version       );
+    EXPECT( spy::current_compiler                  == spy::compilers::msvc_  );
+    EXPECT( spy::version_of(spy::current_compiler) >= compiler_version       );
   },
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
   CASE( "Check that detected compiler is ICPC" )
   {
     auto compiler_version = spy::version<19>;
-    EXPECT( spy::current_compiler_                  == spy::compiler_::intel_   );
-    EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version         );
+    EXPECT( spy::current_compiler                  == spy::compilers::intel_   );
+    EXPECT( spy::version_of(spy::current_compiler) >= compiler_version         );
   },
 #elif defined(__clang__)
   CASE( "Check that detected compiler is Clang" )
   {
     auto compiler_version = spy::version<3,9>;
-    EXPECT( spy::current_compiler_                  == spy::compiler_::clang_ );
-    EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version       );
+    EXPECT( spy::current_compiler                  == spy::compilers::clang_ );
+    EXPECT( spy::version_of(spy::current_compiler) >= compiler_version       );
   },
 #elif defined(__GNUC__)
   CASE( "Check that detected compiler is GCC" )
   {
     auto compiler_version = spy::version<7>;
-    EXPECT( spy::current_compiler_                  == spy::compiler_::gcc_ );
-    EXPECT( spy::version_of(spy::current_compiler_) >= compiler_version     );
+    EXPECT( spy::current_compiler                  == spy::compilers::gcc_ );
+    EXPECT( spy::version_of(spy::current_compiler) >= compiler_version     );
   },
 #else
   CASE( "Check that detected compiler is undefined" )
   {
-    EXPECT( spy::current_compiler_                  == spy::compiler_::undefined_ );
-    EXPECT( spy::version_of(spy::current_compiler_) == spy::unspecified_version   );
+    EXPECT( spy::current_compiler                  == spy::compilers::undefined_ );
+    EXPECT( spy::version_of(spy::current_compiler) == spy::unspecified_version   );
   },
 #endif
   CASE( "Check that compiler detection via traits is coherent" )
   {
-    EXPECT( spy::is_compiler  <spy::current_compiler_>::value );
-    EXPECT( spy::is_compiler_t<spy::current_compiler_>::value );
-    EXPECT( spy::is_compiler_v<spy::current_compiler_>        );
+    EXPECT( spy::is_compiler  <spy::current_compiler>::value );
+    EXPECT( spy::is_compilerst<spy::current_compiler>::value );
+    EXPECT( spy::is_compilersv<spy::current_compiler>        );
   }
 };
 

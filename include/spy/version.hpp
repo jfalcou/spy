@@ -13,31 +13,32 @@
 
 namespace spy
 {
-  template<int M, int N = 0, int P = 0> struct version_
+  template<int M, int N, int P> struct version_id
   {
     static constexpr int major = M;
     static constexpr int minor = N;
     static constexpr int patch = P;
   };
 
-  template<int M, int N = 0, int P = 0> constexpr inline version_<M,N,P> version = {};
+  template<int M = 1, int N = 0, int P = 0> constexpr inline version_id<M,N,P> version = {};
 
-  constexpr inline version_<-1> unspecified_version = {};
+  using unspecified_version_t = version_id<-1,0,0>;
+  constexpr inline unspecified_version_t unspecified_version = {};
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator==(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
+  constexpr bool operator==(version_id<M1,N1,P1> const&, version_id<M2,N2,P2> const&) noexcept
   {
     return (M1==M2) && (N1==N2) && (P1==P2);
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator!=(version_<M1,N1,P1> const& v1, version_<M2,N2,P2> const& v2) noexcept
+  constexpr bool operator!=(version_id<M1,N1,P1> const& v1, version_id<M2,N2,P2> const& v2) noexcept
   {
     return !(v1==v2);
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator<(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
+  constexpr bool operator<(version_id<M1,N1,P1> const&, version_id<M2,N2,P2> const&) noexcept
   {
     if constexpr(M1 < M2) return true;
     if constexpr(M1 > M2) return false;
@@ -47,7 +48,7 @@ namespace spy
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator>(version_<M1,N1,P1> const&, version_<M2,N2,P2> const&) noexcept
+  constexpr bool operator>(version_id<M1,N1,P1> const&, version_id<M2,N2,P2> const&) noexcept
   {
     if constexpr(M1 > M2) return true;
     if constexpr(M1 < M2) return false;
@@ -57,24 +58,24 @@ namespace spy
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator<=(version_<M1,N1,P1> const& a, version_<M2,N2,P2> const& b) noexcept
+  constexpr bool operator<=(version_id<M1,N1,P1> const& a, version_id<M2,N2,P2> const& b) noexcept
   {
     return !(a>b);
   }
 
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator>=(version_<M1,N1,P1> const& a, version_<M2,N2,P2> const& b) noexcept
+  constexpr bool operator>=(version_id<M1,N1,P1> const& a, version_id<M2,N2,P2> const& b) noexcept
   {
     return !(a<b);
   }
 
   template<int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, version_<M,N,P> const&)
+  std::ostream& operator<<(std::ostream& os, version_id<M,N,P> const&)
   {
     return os << "v" << M << "." << N << "." << P;
   }
 
-  inline std::ostream& operator<<(std::ostream& os, version_<-1> const&)
+  inline std::ostream& operator<<(std::ostream& os, version_id<-1,0,0> const&)
   {
     return os << "(unspecified)";
   }

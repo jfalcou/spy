@@ -18,25 +18,37 @@ const lest::test specification[] =
   {
     auto my_version = spy::version<1,2,3>;
 
-    EXPECT( my_version.major == 1 );
-    EXPECT( my_version.minor == 2 );
-    EXPECT( my_version.patch == 3 );
+    int major = my_version.major;
+    int minor = my_version.minor;
+    int patch = my_version.patch;
+
+    EXPECT( major == 1 );
+    EXPECT( minor == 2 );
+    EXPECT( patch == 3 );
   },
   CASE( "Default patch level version object members behave normally" )
   {
-    auto my_version = spy::version<4,5>;
+    auto my_version  = spy::version<4,5>;
 
-    EXPECT( my_version.major == 4 );
-    EXPECT( my_version.minor == 5 );
-    EXPECT( my_version.patch == 0 );
+    int major = my_version.major;
+    int minor = my_version.minor;
+    int patch = my_version.patch;
+
+    EXPECT( major == 4 );
+    EXPECT( minor == 5 );
+    EXPECT( patch == 0 );
   },
   CASE( "Fully default version object members behave normally" )
   {
-    auto my_version = spy::version<6>;
+    auto my_version  = spy::version<6>;
 
-    EXPECT( my_version.major == 6 );
-    EXPECT( my_version.minor == 0 );
-    EXPECT( my_version.patch == 0 );
+    int major = my_version.major;
+    int minor = my_version.minor;
+    int patch = my_version.patch;
+
+    EXPECT( major == 6 );
+    EXPECT( minor == 0 );
+    EXPECT( patch == 0 );
   },
   CASE( "Versions objects compares for equality" )
   {
