@@ -8,7 +8,7 @@ Provides objects and meta-functions to access current Operating System informati
 Objects
 -------
 
-.. _os-current_os-label:
+.. _os-current_os:
 
 current_os
 **********
@@ -25,7 +25,7 @@ of ``spy::current_os`` is implementation-defined.
 
 **See also:**
 
-version_of, :ref:`os-is_os-label`
+version_of, :ref:`os-is_os`
 
 **Example:**
 
@@ -45,7 +45,7 @@ version_of, :ref:`os-is_os-label`
 Types
 -----
 
-.. _os-systems-label:
+.. _os-systems:
 
 systems
 *********
@@ -83,7 +83,7 @@ An enumeration of all OS supported by SPY.
 | ``windows_``    | Windows identification        |
 +-----------------+-------------------------------+
 
-.. _os-is_os-label:
+.. _os-is_os:
 
 is_os
 ***********
@@ -96,12 +96,12 @@ is_os
    }
 
 Checks whether the os identified by the ``TargetOS`` value is similar
-to :ref:`os-current_os-label`.
+to :ref:`os-current_os`.
 
 **Template parameters**
 
 ``TargetOS`` - the os identification to check. This value must be an enumerator listed by
-:ref:`os-systems-label`
+:ref:`os-systems`
 
 **Helper alias template**
 
