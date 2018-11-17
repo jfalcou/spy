@@ -18,8 +18,6 @@ download_project( PROJ                lest
                 )
 
 add_subdirectory(${lest_SOURCE_DIR} ${lest_BINARY_DIR})
-include_directories("${lest_SOURCE_DIR}/include")
-include_directories("${PROJECT_SOURCE_DIR}/test")
 
 ## Setup our tests
 add_custom_target(tests)

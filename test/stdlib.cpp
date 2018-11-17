@@ -7,46 +7,34 @@
  */
 //==================================================================================================
 
-#include <lest/lest.hpp>
+#include "test.hpp"
 #include <spy/stdlib.hpp>
 
-using namespace lest;
-
-const lest::test specification[] =
+CASE( "Check that detected stdlib is correct" )
 {
 #if defined(_LIBCPP_VERSION)
-  CASE( "Check that detected stdlib is libc++" )
-  {
-    auto stdlib_version = spy::version<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
-    EXPECT( spy::current_stdlib                  == spy::stdlib::libcpp_  );
-    EXPECT( spy::version_of(spy::current_stdlib) >= stdlib_version        );
-  },
+  EXPECT    ( spy::stdlib == spy::libcpp_ );
+  EXPECT_NOT( spy::stdlib == spy::gnucpp_ );
 #elif defined(__GLIBCXX__)
-  CASE( "Check that detected stdlib is GNU libstd" )
-  {
-    auto stdlib_version = spy::version< (__GLIBCXX__/10000)%10000
-                                      , (__GLIBCXX__/100)%100
-                                      , __GLIBCXX__%100
-                                      >;
-    EXPECT( spy::current_stdlib                  == spy::stdlib::gcc_ );
-    EXPECT( spy::version_of(spy::current_stdlib) >= stdlib_version    );
-  },
-#else
-  CASE( "Check that detected stdlib is undefined" )
-  {
-    EXPECT( spy::current_stdlib                  == spy::stdlib::undefined_  );
-    EXPECT( spy::version_of(spy::current_stdlib) == spy::unspecified_version );
-  },
+  EXPECT_NOT( spy::stdlib == spy::libcpp_ );
+  EXPECT    ( spy::stdlib == spy::gnucpp_ );
 #endif
-  CASE( "Check that stdlib detection via traits is coherent" )
-  {
-    EXPECT( spy::is_stdlib  <spy::current_stdlib>::value );
-    EXPECT( spy::is_stdlib_t<spy::current_stdlib>::value );
-    EXPECT( spy::is_stdlib_v<spy::current_stdlib>        );
-  }
-};
+}
 
-int main( int argc, char** argv )
+CASE( "Check that detected constexpr selection on exact stdlib is correct" )
 {
-  return lest::run( specification, argc, argv );
+  using namespace spy::literal;
+
+#if defined(_LIBCPP_VERSION)
+  auto const wrong_constexpr_behavior = 1'42'1337_libcpp;
+#elif defined(__GLIBCXX__)
+  auto const wrong_constexpr_behavior = 1'42'1337_gnucpp;
+#else
+  auto const wrong_constexpr_behavior = false;
+#endif
+
+  if constexpr(spy::stdlib)
+    EXPECT_NOT( bool(wrong_constexpr_behavior) );
+  else
+    EXPECT    ( bool(wrong_constexpr_behavior) );
 }
