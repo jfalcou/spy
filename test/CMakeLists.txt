@@ -6,24 +6,26 @@
 ## -------------------------------------------------------------------------------------------------
 
 if( MSVC )
-  set( options /std:c++latest -W3 -EHsc )
+  set( options /std:c++latest /W3 /EHsc )
 else()
   set( options -std=c++17 -Wall -Wno-missing-braces )
 endif()
 
-add_executable          ( spy.version   version.cpp   )
-add_executable          ( spy.compiler  compiler.cpp  )
-add_executable          ( spy.libc      libc.cpp  )
-add_executable          ( spy.stdlib    stdlib.cpp  )
-add_executable          ( spy.os        os.cpp  )
+set ( test_includes -I${lest_SOURCE_DIR}/include
+                    -I${PROJECT_SOURCE_DIR}/test
+                    -I${PROJECT_SOURCE_DIR}/include
+    )
 
-target_compile_options  ( spy.version   PUBLIC ${options} )
-target_compile_options  ( spy.compiler  PUBLIC ${options} )
-target_compile_options  ( spy.libc      PUBLIC ${options} )
-target_compile_options  ( spy.stdlib    PUBLIC ${options} )
-target_compile_options  ( spy.os        PUBLIC ${options} )
+add_executable( spy.compiler  compiler.cpp  )
+add_executable( spy.libc      libc.cpp  )
+add_executable( spy.stdlib    stdlib.cpp  )
+add_executable( spy.os        os.cpp  )
 
-add_test( NAME spy.version  COMMAND spy.version  WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
+target_compile_options  ( spy.compiler  PUBLIC ${options} ${test_includes})
+target_compile_options  ( spy.libc      PUBLIC ${options} ${test_includes})
+target_compile_options  ( spy.stdlib    PUBLIC ${options} ${test_includes})
+target_compile_options  ( spy.os        PUBLIC ${options} ${test_includes})
+
 add_test( NAME spy.compiler COMMAND spy.compiler WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
 add_test( NAME spy.libc     COMMAND spy.libc     WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )
 add_test( NAME spy.stdlib   COMMAND spy.stdlib   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/test" )

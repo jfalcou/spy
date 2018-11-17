@@ -10,82 +10,93 @@
 #define SPY_OS_HPP_INLUDED
 
 #include <iosfwd>
-#include <spy/version.hpp>
 
-namespace spy
+namespace spy { namespace detail
 {
   enum class systems  { undefined_  = - 1
                       , android_, bsd_, cygwin_, ios_, linux_, macos_, unix_, windows_
                       };
 
-  inline std::ostream& operator<<(std::ostream& os, systems const& c)
+  template<systems OS> struct os_info
   {
-    if(c == systems::android_ ) return os << "Android";
-    if(c == systems::bsd_     ) return os << "BSD";
-    if(c == systems::cygwin_  ) return os << "Cygwin";
-    if(c == systems::ios_     ) return os << "iOS";
-    if(c == systems::linux_   ) return os << "Linux";
-    if(c == systems::macos_   ) return os << "MacOS";
-    if(c == systems::unix_    ) return os << "UNIX";
-    if(c == systems::windows_ ) return os << "Windows";
-    return os << "Undefined Operatign System";
+    static constexpr systems            vendor  = OS;
+
+    inline constexpr operator bool() const noexcept;
+
+    template<systems C2>
+    constexpr bool operator==(os_info<C2> const& c2) const noexcept
+    {
+      return C2 == vendor;
+    }
+  };
+
+  template<systems OS>
+  std::ostream& operator<<(std::ostream& os, os_info<OS> const&)
+  {
+    if(OS == systems::android_ ) return os << "Android";
+    if(OS == systems::bsd_     ) return os << "BSD";
+    if(OS == systems::cygwin_  ) return os << "Cygwin";
+    if(OS == systems::ios_     ) return os << "iOS";
+    if(OS == systems::linux_   ) return os << "Linux";
+    if(OS == systems::macos_   ) return os << "MacOS";
+    if(OS == systems::unix_    ) return os << "UNIX";
+    if(OS == systems::windows_ ) return os << "Windows";
+
+    return os << "Undefined Operating System";
   }
 
+} }
+
+namespace spy
+{
 #if defined(__ANDROID__)
-  //================================================================================================
-  // Android
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::android_;
+  using os_type = detail::os_info<detail::systems::android_>;
 #elif defined(BSD) || defined(_SYSTYPE_BSD)
-  //================================================================================================
-  // BSD
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::bsd_;
+  using os_type = detail::os_info<detail::systems::bsd_>;
 #elif defined(__CYGWIN__)
-  //================================================================================================
-  // Cygwin
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::cygwin_;
-#elif     defined(__APPLE__) && defined(__MACH__) \
-      &&  defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
-  //================================================================================================
-  // iOS
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::ios_;
+  using os_type = detail::os_info<detail::systems::cygwin_>;
+#elif defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+  using os_type = detail::os_info<detail::systems::ios_>;
 #elif defined(linux) || defined(__linux)
-  //================================================================================================
-  // Linux
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::linux_;
+  using os_type = detail::os_info<detail::systems::linux_>;
 #elif defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
-  //================================================================================================
-  // MacOS
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::macos_;
+  using os_type = detail::os_info<detail::systems::macos_>;
 #elif defined(unix) || defined(__unix) || defined(_XOPEN_SOURCE) || defined(_POSIX_SOURCE)
-  //================================================================================================
-  // UNIX
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::unix_;
-#elif   defined(_WIN32) || defined(_WIN64)  \
-    ||  defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
-  //================================================================================================
-  // Windows
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::windows_;
+  using os_type = detail::os_info<detail::systems::unix_>;
+#elif defined(_WIN32) || defined(_WIN64) ||  defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+  using os_type = detail::os_info<detail::systems::windows_>;
 #else
-  //================================================================================================
-  // Unsupported OS
-  //================================================================================================
-  constexpr inline auto current_os_ = systems::undefined_;
+  using os_type = detail::os_info<detail::systems::undefined_>;
 #endif
 
-  template<systems TargetOS>
-  struct is_os : std::integral_constant<bool, TargetOS == current_os_>
-  {};
+  //================================================================================================
+  // OS detection object
+  //================================================================================================
+  constexpr inline os_type operating_system;
+}
 
-  template<systems TargetOS> using is_os_t = typename is_os<TargetOS>::type;
-  template<systems TargetOS> constexpr inline bool  is_os_v = is_os<TargetOS>::value;
+namespace spy { namespace detail
+{
+  template<systems OS>
+  inline constexpr os_info<OS>::operator bool() const noexcept
+  {
+    return *this == spy::operating_system;
+  }
+} }
+
+namespace spy
+{
+  //================================================================================================
+  // OS detector stand-alone instances
+  //================================================================================================
+  constexpr inline auto android_  = detail::os_info<detail::systems::android_>{};
+  constexpr inline auto bsd_      = detail::os_info<detail::systems::bsd_>{};
+  constexpr inline auto cygwin_   = detail::os_info<detail::systems::cygwin_>{};
+  constexpr inline auto ios_      = detail::os_info<detail::systems::ios_>{};
+  constexpr inline auto linux_    = detail::os_info<detail::systems::linux_>{};
+  constexpr inline auto macos_    = detail::os_info<detail::systems::macos_>{};
+  constexpr inline auto unix_     = detail::os_info<detail::systems::unix_>{};
+  constexpr inline auto windows_  = detail::os_info<detail::systems::windows_>{};
 }
 
 #endif

@@ -6,80 +6,94 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_STDLIB_HPP_INLUDED
-#define SPY_STDLIB_HPP_INLUDED
+#ifndef SPY_LIBC_HPP_INLUDED
+#define SPY_LIBC_HPP_INLUDED
 
 // Make sure the proper header is included to detect libstd
 #include <cstddef>
-
 #include <iosfwd>
-#include <spy/version.hpp>
+#include <spy/detail.hpp>
 
-namespace spy
+namespace spy { namespace detail
 {
-  enum class stdlib { undefined_  = - 1, libcpp_, gcc_ };
+  enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
 
-  inline std::ostream& operator<<(std::ostream& os, stdlib const& c)
+  template<stdlib Lib, int M, int N, int P> struct stdlib_info
   {
-    if(c == stdlib::libcpp_  ) return os << "libc++ Standard C++ Library";
-    if(c == stdlib::gcc_     ) return os << "GNU Standard C++ Library";
+    static constexpr stdlib             vendor  = Lib;
+    static constexpr version_id<M,N,P>  version = {};
+
+    inline constexpr operator bool() const noexcept;
+
+    template<stdlib C2>
+    constexpr bool operator==(stdlib_info<C2,-1,0,0> const& c2) const noexcept
+    {
+      return C2 == vendor;
+    }
+
+    SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
+  };
+
+  template<stdlib SLIB, int M, int N, int P>
+  std::ostream& operator<<(std::ostream& os, stdlib_info<SLIB, M, N, P> const&)
+  {
+    if(SLIB == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
+    if(SLIB == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
+
     return os << "Undefined Standard C++ Library";
   }
 
-  namespace detail
-  {
-    template<stdlib Vendor, int M, int N, int P> struct stdlib_info
-    {
-      static constexpr stdlib            vendor  = Vendor;
-      static constexpr version_id<M,N,P>  version = {};
+  template<int M, int N, int P> using libcpp_t        = stdlib_info<stdlib::libcpp_,M,N,P>;
+  template<int M, int N, int P> using gnucpp_t        = stdlib_info<stdlib::gnucpp_,M,N,P>;
+} }
 
-      inline constexpr operator stdlib() const { return vendor; }
-    };
-
-    template<stdlib Vendor, int M, int N, int P>
-    constexpr bool operator==(stdlib_info<Vendor, M, N, P> const& d, stdlib const c)
-    {
-      return d.vendor == c;
-    }
-
-    template<stdlib Vendor, int M, int N, int P>
-    std::ostream& operator<<(std::ostream& os, stdlib_info<Vendor, M, N, P> const& c)
-    {
-      return os << c.vendor << " " << c.version;
-    }
-  }
-
+namespace spy
+{
 #if defined(_LIBCPP_VERSION)
-  //================================================================================================
-  // CloudABI
-  //================================================================================================
-  constexpr inline detail::stdlib_info< stdlib::libcpp_
-                                    , (_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000
-                                    > current_stdlib;
-
+  using stdlib_type = detail::stdcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000,0>;
 #elif defined(__GLIBCXX__)
-  //================================================================================================
-  // GLIBS version 6 or later
-  //================================================================================================
-  constexpr inline detail::stdlib_info< stdlib::gcc_
-                                      , (__GLIBCXX__/10000)%10000
-                                      , (__GLIBCXX__/100)%100
-                                      , __GLIBCXX__%100
-                                      > current_stdlib;
-
+  #define SPY0 (__GLIBCXX__/100)
+  using stdlib_type = detail::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
+  #undef SPY0
 #else
-  //================================================================================================
-  // Unsupported libstd
-  //================================================================================================
-  constexpr inline detail::stdlib_info<stdlib::undefined_,-1,0,0> current_stdlib;
+  using stdlib_type = detail::stdlib_info<detail::stdlib::undefined_,-1,0,0>;
 #endif
 
-  template<stdlib TargetLib>
-  struct is_stdlib : std::integral_constant<bool, TargetLib == current_stdlib.vendor>
-  {};
-
-  template<stdlib TargetLib> using is_stdlib_t = typename is_stdlib<TargetLib>::type;
-  template<stdlib TargetLib> constexpr inline bool  is_stdlib_v = is_stdlib<TargetLib>::value;
+  //================================================================================================
+  // STDLIB detection object
+  //================================================================================================
+  constexpr inline stdlib_type stdlib;
 }
+
+namespace spy { namespace detail
+{
+  template<stdlib SLIB, int M, int N, int P>
+  inline constexpr stdlib_info<SLIB,M,N,P>::operator bool() const noexcept
+  {
+    return *this == spy::stdlib;
+  }
+} }
+
+namespace spy
+{
+  //================================================================================================
+  // STDLIBs detector stand-alone instances
+  //================================================================================================
+  constexpr inline auto  libcpp_  = detail::libcpp_t<-1,0,0>{};
+  constexpr inline auto  gnucpp_  = detail::gnucpp_t<-1,0,0>{};
+}
+
+namespace spy { namespace literal
+{
+  template<char ...c> constexpr auto operator"" _libcpp()
+  {
+    return detail::literal_wrap<detail::libcpp_t,c...>();
+  }
+
+  template<char ...c> constexpr auto operator"" _gnucpp()
+  {
+    return detail::literal_wrap<detail::gnucpp_t,c...>();
+  }
+} }
 
 #endif
