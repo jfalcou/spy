@@ -75,7 +75,7 @@ namespace spy
     return os << "v" << M << "." << N << "." << P;
   }
 
-  inline std::ostream& operator<<(std::ostream& os, version_id<-1,0,0> const&)
+  inline std::ostream& operator<<(std::ostream& os, unspecified_version_t const&)
   {
     return os << "(unspecified)";
   }
