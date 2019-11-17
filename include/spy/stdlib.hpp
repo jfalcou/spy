@@ -1,13 +1,13 @@
 //==================================================================================================
 /*
-  Copyright 2018 Joel FALCOU
+  Copyright 2018-2019 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_LIBC_HPP_INLUDED
-#define SPY_LIBC_HPP_INLUDED
+#ifndef SPY_STDLIB_HPP_INLUDED
+#define SPY_STDLIB_HPP_INLUDED
 
 // Make sure the proper header is included to detect libstd
 #include <cstddef>

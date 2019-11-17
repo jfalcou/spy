@@ -1,40 +1,52 @@
 //==================================================================================================
 /*
-  Copyright 2018 Joel FALCOU
+  Copyright 2018-2019 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
+#include <spy/spy.hpp>
+#include <cassert>
 
-#include "test.hpp"
-#include <spy/stdlib.hpp>
-
-CASE( "Check that detected stdlib is correct" )
+int main()
 {
+  std::cout << "Check that detected stdlib is correct: " << std::flush;
+  {
 #if defined(_LIBCPP_VERSION)
-  EXPECT    ( spy::stdlib == spy::libcpp_ );
-  EXPECT_NOT( spy::stdlib == spy::gnucpp_ );
+  {
+    assert(  spy::stdlib == spy::libcpp_ );
+    assert( !spy::stdlib == spy::gnucpp_ );
+  }
 #elif defined(__GLIBCXX__)
-  EXPECT_NOT( spy::stdlib == spy::libcpp_ );
-  EXPECT    ( spy::stdlib == spy::gnucpp_ );
+  {
+    assert( !spy::stdlib == spy::libcpp_ );
+    assert(  spy::stdlib == spy::gnucpp_ );
+  }
 #endif
-}
+  }
+  std::cout << "Done." << std::endl;
 
-CASE( "Check that detected constexpr selection on exact stdlib is correct" )
-{
-  using namespace spy::literal;
+  std::cout << "Check that detected constexpr selection on exact stdlib is correct: " << std::flush;
+  {
+    using namespace spy::literal;
 
 #if defined(_LIBCPP_VERSION)
-  auto const wrong_constexpr_behavior = 1'42'1337_libcpp;
+    auto const wrong_constexpr_behavior = 1'42'1337_libcpp;
 #elif defined(__GLIBCXX__)
-  auto const wrong_constexpr_behavior = 1'42'1337_gnucpp;
+    auto const wrong_constexpr_behavior = 1'42'1337_gnucpp;
 #else
-  auto const wrong_constexpr_behavior = false;
+    auto const wrong_constexpr_behavior = false;
 #endif
 
-  if constexpr(spy::stdlib)
-    EXPECT_NOT( bool(wrong_constexpr_behavior) );
-  else
-    EXPECT    ( bool(wrong_constexpr_behavior) );
+    if constexpr(spy::stdlib)
+    {
+      assert( !bool(wrong_constexpr_behavior) );
+    }
+    else
+    {
+      assert( bool(wrong_constexpr_behavior) );
+    }
+  }
+  std::cout << "Done." << std::endl;
 }
