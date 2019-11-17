@@ -15,8 +15,9 @@ namespace spy { namespace detail
 {
   template<char... c> constexpr int find(int i0)
   {
+    int sz = sizeof...(c);
     char arr[] = {c...};
-    while( i0<sizeof...(c) && arr[i0] != '\'' ) ++i0;
+    while( i0<sz && arr[i0] != '\'' ) ++i0;
     return i0;
   }
 
