@@ -29,7 +29,8 @@ option( SPY_BUILD_TEST  "Build tests for spy" ON )
 ## -------------------------------------------------------------------------------------------------
 ## Install target
 ## -------------------------------------------------------------------------------------------------
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION .)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/spy     DESTINATION spy )
+install(FILES     ${PROJECT_SOURCE_DIR}/include/spy.hpp DESTINATION .   )
 
 ## -------------------------------------------------------------------------------------------------
 ## Standalone command
