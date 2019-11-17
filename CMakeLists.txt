@@ -32,6 +32,24 @@ option( SPY_BUILD_TEST  "Build tests for spy" ON )
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION .)
 
 ## -------------------------------------------------------------------------------------------------
+## Standalone command
+## -------------------------------------------------------------------------------------------------
+add_custom_command(OUTPUT spy.hpp
+  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/script/embed.py"
+          ${CMAKE_CURRENT_SOURCE_DIR}/include/spy/spy.hpp
+          -I include
+          -o ${CMAKE_CURRENT_SOURCE_DIR}/include/spy.hpp
+          --include-match spy/*
+          --guard-match .*_HPP_INLUDED
+
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  COMMENT "Generating standalone headers"
+  VERBATIM
+)
+
+add_custom_target(spy.standalone DEPENDS spy.hpp)
+
+## -------------------------------------------------------------------------------------------------
 ## Test target
 ## -------------------------------------------------------------------------------------------------
 if( SPY_BUILD_TEST )
