@@ -63,7 +63,7 @@ Don't forget to add the path to the SPY library files to your favorite compiler'
 
 ## User manual
 ### Supported detectors
-SPY can detects:
+SPY can detect:
 
 - OS vendor via the `spy::os` object.
 - Compiler vendor and version (in the M.N.P format) via the `spy::compiler` object.
@@ -141,7 +141,7 @@ void f()
 
   if constexpr( spy::compiler >= 8_clang )
   {
-    std::cout << "This code has been compiled with g++ 8 or above.\n";
+    std::cout << "This code has been compiled with clang++ 8 or above.\n";
   }
 
   if constexpr( spy::stdlib < 2'0'1_libcpp )
