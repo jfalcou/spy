@@ -1,8 +1,7 @@
-<img src="https://github.com/jfalcou/spy/raw/develop/logo.png" alt="SPY Library logo" data-canonical-src="https://github.com/jfalcou/spy/raw/develop/logo.png" align="left" width="15%" height="15%" />
+<img src="https://github.com/jfalcou/spy/raw/develop/logo.png" alt="SPY Library logo" data-canonical-src="https://github.com/jfalcou/spy/raw/develop/logo.png" align="left" width="20%" height="20%" />
 
 # C++17 macro-less informations gatherer
 
-**Table of contents**
 * [Purpose](#purpose)
 * [How to install](#how-to-install)
   + [Using CMake](#using-cmake)
@@ -16,9 +15,6 @@
   + [Redistribuable include](redistribuable-include)
 * [Useful Links](#useful-links)
 * [License](#license)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 ## Purpose
 Detection and versioning of operating systems, compilers, architecture and other element are
@@ -234,3 +230,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Credits
+- <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
