@@ -153,7 +153,44 @@ void f()
 
 ### Caveat
 The detection and comparisons of versions using SPY detectors are subject to some
-caveats that stem from the way `if constexpr` behaves.
+caveats that stem from the way `if constexpr` behaves. As both branch of the `if constexpr`
+are ODR_checked, all functions and type names must be defined even if not used. This means
+that this can't compile whatsoever:
+
+```c++
+#include <spy/spy.hpp>
+
+template<typename T>
+auto f(T t)
+{
+  if constexpr( spy::clang )
+  {
+    return __builtin_bitreverse32(t);
+  }
+  else if constexpr( spy::gcc )
+  {
+    return __builtin_bswap32(t);
+  }
+}
+```
+
+Post C++20, we advice you to use concepts with template functions:
+
+```c++
+#include <spy/spy.hpp>
+
+template<typename T>
+auto f(T t) requires( spy::clang )
+{
+  return __builtin_bitreverse32(t);
+}
+
+template<typename T>
+auto f(T t) requires( spy::gcc )
+{
+  return __builtin_bswap32(t);
+}
+```
 
 ### Redistribuable include
 If you want to use SPY in your own project but want to keep a low imprint on your own source code,
