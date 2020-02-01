@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.2)
 ## Setup project
 ## -------------------------------------------------------------------------------------------------
 project(spy LANGUAGES CXX)
-set(PROJECT_VERSION 1.18.6.0)
+set(PROJECT_VERSION 0.0.2.0)
 set(PROJECT_DOC_DIR   ${PROJECT_SOURCE_DIR}/doc)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake )
 

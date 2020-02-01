@@ -1,0 +1,45 @@
+##==================================================================================================
+##  Copyright 2020 Joel FALCOU
+##
+##  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+##  SPDX-License-Identifier: MIT
+##==================================================================================================
+version: 2.0
+
+jobs:
+  clang:
+    docker:
+      - image: ubuntu:disco
+    steps:
+      - checkout
+      - run:
+          name: Setup dependencies
+          command: . .circleci/prepare.sh
+      - run:
+          name: Install git
+          command: 'apt-get update && sudo apt-get install -y git'
+      - run:
+          name: Install clang-8
+          command: 'apt-get update && sudo apt-get install -y clang-8'
+      - run:
+          name: Running tests
+          command: . .circleci/run.sh clang++-8
+
+  gcc:
+    docker:
+      - image: gcc:latest
+    steps:
+      - checkout
+      - run:
+          name: Setup dependencies
+          command: . .circleci/prepare.sh
+      - run:
+          name: Running tests
+          command: . .circleci/run.sh g++
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - gcc
+      - clang
