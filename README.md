@@ -16,6 +16,8 @@
 * [Useful Links](#useful-links)
 * [License](#license)
 
+[![CircleCI](https://circleci.com/gh/jfalcou/spy.svg?style=svg&circle-token=91ebbf06adfe257ebdff3a5ed17ea512fe02771c)](https://circleci.com/gh/jfalcou/spy) [![Build status](https://ci.appveyor.com/api/projects/status/3us8906c0lvdl8ld/branch/develop?svg=true)](https://ci.appveyor.com/project/jfalcou/spy/branch/develop)
+
 ## Purpose
 Detection and versioning of operating systems, compilers, architecture and other element are
 traditionally done using preprocessor macros. Library like
