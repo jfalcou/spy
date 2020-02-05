@@ -53,10 +53,11 @@ SPY is usable by simply including the `spy.hpp` file as demonstrated here:
 
 int main()
 {
-  std::cout << spy::os        << std::endl;
-  std::cout << spy::compiler  << std::endl;
-  std::cout << spy::libc      << std::endl;
-  std::cout << spy::stdlib    << std::endl;
+  std::cout << spy::os            << std::endl;
+  std::cout << spy::architecture  << std::endl;
+  std::cout << spy::compiler      << std::endl;
+  std::cout << spy::libc          << std::endl;
+  std::cout << spy::stdlib        << std::endl;
 }
 ```
 
@@ -67,6 +68,7 @@ Don't forget to add the path to the SPY library files to your favorite compiler'
 ### Supported detectors
 SPY can detect:
 
+- Architecture family via the `spy::architecture` object.
 - OS vendor via the `spy::os` object.
 - Compiler vendor and version (in the M.N.P format) via the `spy::compiler` object.
 - libc vendor and version (in the M.N.P format) via the `spy::libc` object.
@@ -80,12 +82,13 @@ Knowing is half the battle, we may want to compare the current compiler or OS to
 so you can branch off your code based on this informations. Here is the list of each detected
 vendor for each SPY objects.
 
-| Detector        | Supported vendor                                                               |
-| --------------- | ------------------------------------------------------------------------------ |
-| `spy::os`       | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
-| `spy::compiler` | `clang_`, `gcc_`, `intel_`, `msvc_`                                            |
-| `spy::libc`     | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
-| `spy::stdlib`   | `gnucpp_`, `libcpp_`                                                           |
+| Detector            | Supported vendor                                                               |
+| ------------------- | ------------------------------------------------------------------------------ |
+| `spy::architecture` | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
+| `spy::os`           | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
+| `spy::compiler`     | `clang_`, `gcc_`, `intel_`, `msvc_`                                            |
+| `spy::libc`         | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
+| `spy::stdlib`       | `gnucpp_`, `libcpp_`                                                           |
 
 Here is a sample code comparing some detectors to a specific vendor:
 
@@ -103,6 +106,11 @@ void f()
   if constexpr( spy::compiler == spy::gcc_ )
   {
     std::cout << "This code has been compiled with g++.\n";
+  }
+
+  if constexpr( spy::compiler == spy::amd64_ )
+  {
+    std::cout << "This code has been compiled on AMD64 architecture.\n";
   }
 
   if constexpr( spy::stdlib == spy::libcpp_ )

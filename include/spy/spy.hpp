@@ -9,6 +9,7 @@
 #ifndef SPY_SPY_HPP_INLUDED
 #define SPY_SPY_HPP_INLUDED
 
+#include <spy/arch.hpp>
 #include <spy/compiler.hpp>
 #include <spy/libc.hpp>
 #include <spy/stdlib.hpp>
