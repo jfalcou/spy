@@ -1,3 +1,9 @@
+## -------------------------------------------------------------------------------------------------
+## Copyright 2018-2020 Joel FALCOU
+##
+##  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+##  SPDX-License-Identifier: MIT
+## -------------------------------------------------------------------------------------------------
 version: 1.0.{build}
 os: Visual Studio 2019
 
