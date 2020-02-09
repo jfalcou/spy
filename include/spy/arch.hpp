@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class archs  { undefined_  = -1
                     , x86_ = 10, amd64_ = 11
@@ -42,7 +42,7 @@ namespace spy { namespace detail
 
     return os << "Undefined Architecture";
   }
-} }
+}
 
 namespace spy
 {
@@ -69,14 +69,14 @@ namespace spy
   constexpr inline arch_type architecture;
 }
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<archs ARCH>
   inline constexpr arch_info<ARCH>::operator bool() const noexcept
   {
     return *this == spy::architecture;
   }
-} }
+}
 
 namespace spy
 {

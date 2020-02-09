@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<char... c> constexpr int find(int i0)
   {
@@ -105,7 +105,7 @@ namespace spy { namespace detail
   {
     return os << "(unspecified)";
   }
-} }
+}
 
 #define SPY_VERSION_COMPARISONS_OPERATOR(ID,TYPE)                       \
 template<ID C2,int M2, int N2, int P2>                                  \

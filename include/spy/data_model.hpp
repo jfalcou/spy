@@ -12,7 +12,7 @@
 
 #include <iosfwd>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<int SS, int SI, int SL, int SPTR>
   struct data_model_info
@@ -37,7 +37,7 @@ namespace spy { namespace detail
     else  if constexpr(SPTR == 8 && SL == 8 && SI == 4 && SS == 2)  return os << "LP64";
     else  return os << "Unknown data model";
   }
-} }
+}
 
 namespace spy
 {
@@ -51,14 +51,14 @@ namespace spy
   constexpr inline data_model_type data_model;
 }
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<int SS, int SI, int SL, int SPTR>
   inline constexpr data_model_info<SS, SI, SL, SPTR>::operator bool() const noexcept
   {
     return *this == spy::data_model;
   }
-} }
+}
 
 namespace spy
 {

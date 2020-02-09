@@ -12,7 +12,7 @@
 
 #include <iosfwd>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class systems  { undefined_  = - 1
                       , android_, bsd_, cygwin_, ios_, linux_, macos_, unix_, windows_
@@ -45,8 +45,7 @@ namespace spy { namespace detail
 
     return os << "Undefined Operating System";
   }
-
-} }
+}
 
 namespace spy
 {
@@ -76,14 +75,14 @@ namespace spy
   constexpr inline os_type operating_system;
 }
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<systems OS>
   inline constexpr os_info<OS>::operator bool() const noexcept
   {
     return *this == spy::operating_system;
   }
-} }
+}
 
 namespace spy
 {

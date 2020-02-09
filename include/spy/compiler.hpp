@@ -13,7 +13,7 @@
 #include <iosfwd>
 #include <spy/detail.hpp>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_ };
 
@@ -48,7 +48,7 @@ namespace spy { namespace detail
   template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_,M,N,P>;
   template<int M, int N, int P> using clang_t = compilers_info<compilers::clang_,M,N,P>;
   template<int M, int N, int P> using gcc_t   = compilers_info<compilers::gcc_  ,M,N,P>;
-} }
+}
 
 namespace spy
 {
@@ -75,14 +75,14 @@ namespace spy
   constexpr inline compiler_type compiler;
 }
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<compilers C, int M, int N, int P>
   inline constexpr compilers_info<C,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::compiler;
   }
-} }
+}
 
 namespace spy
 {
@@ -95,7 +95,7 @@ namespace spy
   constexpr inline auto  gcc_    = detail::gcc_t<-1,0,0>{};
 }
 
-namespace spy { namespace literal
+namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _msvc()
   {
@@ -116,6 +116,6 @@ namespace spy { namespace literal
   {
     return detail::literal_wrap<detail::gcc_t,c...>();
   }
-} }
+}
 
 #endif

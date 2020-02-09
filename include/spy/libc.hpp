@@ -15,7 +15,7 @@
 #include <iosfwd>
 #include <spy/detail.hpp>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class libC  { undefined_  = - 1, cloudabi_, uc_, vms_, zos_, gnu_ };
 
@@ -52,7 +52,7 @@ namespace spy { namespace detail
   template<int M, int N, int P> using vms_t       = libc_info<libC::vms_,M,N,P>;
   template<int M, int N, int P> using zos_t       = libc_info<libC::zos_,M,N,P>;
   template<int M, int N, int P> using gnu_t       = libc_info<libC::gnu_,M,N,P>;
-} }
+}
 
 namespace spy
 {
@@ -86,14 +86,14 @@ namespace spy
   constexpr inline libc_type libc;
 }
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<libC C, int M, int N, int P>
   inline constexpr libc_info<C,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::libc;
   }
-} }
+}
 
 namespace spy
 {
@@ -107,7 +107,7 @@ namespace spy
   constexpr inline auto  gnu_       = detail::gnu_t<-1,0,0>{};
 }
 
-namespace spy { namespace literal
+namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _cloud()
   {
@@ -133,6 +133,6 @@ namespace spy { namespace literal
   {
     return detail::literal_wrap<detail::gnu_t,c...>();
   }
-} }
+}
 
 #endif

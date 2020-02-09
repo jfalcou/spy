@@ -15,7 +15,7 @@
 #include <iosfwd>
 #include <spy/detail.hpp>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
 
@@ -46,7 +46,7 @@ namespace spy { namespace detail
 
   template<int M, int N, int P> using libcpp_t        = stdlib_info<stdlib::libcpp_,M,N,P>;
   template<int M, int N, int P> using gnucpp_t        = stdlib_info<stdlib::gnucpp_,M,N,P>;
-} }
+}
 
 namespace spy
 {
@@ -66,14 +66,14 @@ namespace spy
   constexpr inline stdlib_type stdlib;
 }
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<stdlib SLIB, int M, int N, int P>
   inline constexpr stdlib_info<SLIB,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::stdlib;
   }
-} }
+}
 
 namespace spy
 {
@@ -84,7 +84,7 @@ namespace spy
   constexpr inline auto  gnucpp_  = detail::gnucpp_t<-1,0,0>{};
 }
 
-namespace spy { namespace literal
+namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _libcpp()
   {
@@ -95,6 +95,6 @@ namespace spy { namespace literal
   {
     return detail::literal_wrap<detail::gnucpp_t,c...>();
   }
-} }
+}
 
 #endif
