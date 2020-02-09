@@ -1,5 +1,5 @@
 ##==================================================================================================
-##  SPY - C++ System Informations Broker
+##  SPY - C++ Informations Broker
 ##  Copyright 2020 Joel FALCOU
 ##
 ##  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
