@@ -2,16 +2,77 @@
 /*
   SPY - C++ Informations Broker
   Copyright 2020 Joel FALCOU
-
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
 #ifndef SPY_SPY_HPP_INLUDED
 #define SPY_SPY_HPP_INLUDED
+#include <iostream>
+namespace spy::detail
+{
+  enum class archs  { undefined_  = -1
+                    , x86_ = 10, amd64_ = 11
+                    , ppc_ = 20, arm_ = 30
+                    };
+  template<archs ARCH> struct arch_info
+  {
+    static constexpr archs  vendor  = ARCH;
+    inline constexpr operator bool() const noexcept;
+    template<archs A2>
+    constexpr bool operator==(arch_info<A2> const& c2) const noexcept
+    {
+      return A2 == vendor;
+    }
+  };
+  template<archs ARCH>
+  std::ostream& operator<<(std::ostream& os, arch_info<ARCH> const&)
+  {
+    if(ARCH == archs::x86_  ) return os << "X86";
+    if(ARCH == archs::amd64_) return os << "AMD64";
+    if(ARCH == archs::ppc_  ) return os << "PowerPC";
+    if(ARCH == archs::arm_  ) return os << "ARM";
+    return os << "Undefined Architecture";
+  }
+}
+namespace spy
+{
+#if defined(i386) || defined(__i386__) || defined(__i486__) || defined(__i586__) ||                \
+    defined(__i686__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) ||                  \
+    defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
+  using arch_type = detail::arch_info<detail::archs::x86_>;
+#elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(__amd64) || defined(_M_X64)
+  using arch_type = detail::arch_info<detail::archs::amd64_>;
+#elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) ||     \
+      defined(_M_PPC) || defined(_ARCH_PPC) || defined(__PPCGECKO__) || defined(__PPCBROADWAY__) || \
+      defined(_XENON)
+  using arch_type = detail::arch_info<detail::archs::ppc_>;
+#elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
+      defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
+  using arch_type = detail::arch_info<detail::archs::arm_>;
+#else
+  using arch_type = detail::arch_info<detail::archs::undefined_>;
+#endif
+  constexpr inline arch_type architecture;
+}
+namespace spy::detail
+{
+  template<archs ARCH>
+  inline constexpr arch_info<ARCH>::operator bool() const noexcept
+  {
+    return *this == spy::architecture;
+  }
+}
+namespace spy
+{
+  constexpr inline auto x86_    = detail::arch_info<detail::archs::x86_>{};
+  constexpr inline auto amd64_  = detail::arch_info<detail::archs::amd64_>{};
+  constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
+  constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
+}
 #include <iosfwd>
 #include <iostream>
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<char... c> constexpr int find(int i0)
   {
@@ -90,7 +151,7 @@ namespace spy { namespace detail
   {
     return os << "(unspecified)";
   }
-} }
+}
 #define SPY_VERSION_COMPARISONS_OPERATOR(ID,TYPE)                       \
 template<ID C2,int M2, int N2, int P2>                                  \
 constexpr bool operator==( TYPE<C2,M2,N2,P2> const& c2 ) const noexcept \
@@ -128,7 +189,7 @@ constexpr bool operator<=( TYPE<C2,M2,N2,P2> const& c2 ) const noexcept \
   return C2 == vendor && version <= c2.version;                         \
 }                                                                       \
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_ };
   template<compilers Compiler, int M, int N, int P> struct compilers_info
@@ -156,7 +217,7 @@ namespace spy { namespace detail
   template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_,M,N,P>;
   template<int M, int N, int P> using clang_t = compilers_info<compilers::clang_,M,N,P>;
   template<int M, int N, int P> using gcc_t   = compilers_info<compilers::gcc_  ,M,N,P>;
-} }
+}
 namespace spy
 {
 #if defined(_MSC_VER)
@@ -174,14 +235,14 @@ namespace spy
 #endif
   constexpr inline compiler_type compiler;
 }
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<compilers C, int M, int N, int P>
   inline constexpr compilers_info<C,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::compiler;
   }
-} }
+}
 namespace spy
 {
   constexpr inline auto  msvc_   = detail::msvc_t<-1,0,0>{};
@@ -189,7 +250,7 @@ namespace spy
   constexpr inline auto  clang_  = detail::clang_t<-1,0,0>{};
   constexpr inline auto  gcc_    = detail::gcc_t<-1,0,0>{};
 }
-namespace spy { namespace literal
+namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _msvc()
   {
@@ -207,10 +268,59 @@ namespace spy { namespace literal
   {
     return detail::literal_wrap<detail::gcc_t,c...>();
   }
-} }
+}
+#include <iosfwd>
+namespace spy::detail
+{
+  template<int SS, int SI, int SL, int SPTR>
+  struct data_model_info
+  {
+    inline constexpr operator bool() const noexcept;
+    template<int SS2, int SI2, int SL2, int SPTR2>
+    constexpr bool operator==(data_model_info<SS2, SI2, SL2, SPTR2> const& c2) const noexcept
+    {
+      return (SS==SS2) && (SI == SI2) && (SL == SL2) && (SPTR == SPTR2);
+    }
+  };
+  template<int SS, int SI, int SL, int SPTR>
+  std::ostream& operator<<(std::ostream& os, data_model_info<SS, SI, SL, SPTR> const&)
+  {
+          if constexpr(SPTR == 4 && SI == 4) return os << "ILP32";
+    else  if constexpr(SPTR == 4 && SI == 2) return os << "LP32";
+    else  if constexpr(SPTR == 8 && SL == 8 && SI == 8 && SS == 8)  return os << "SILP64";
+    else  if constexpr(SPTR == 8 && SS == 8 && SI == 8 && SS == 2)  return os << "ILP64";
+    else  if constexpr(SPTR == 8 && SL == 4 && SI == 8 && SS == 2)  return os << "LLP64";
+    else  if constexpr(SPTR == 8 && SL == 8 && SI == 4 && SS == 2)  return os << "LP64";
+    else  return os << "Unknown data model";
+  }
+}
+namespace spy
+{
+  using data_model_type = detail::data_model_info < sizeof(short), sizeof(int)
+                                                  , sizeof(long), sizeof(void*)
+                                                  >;
+  constexpr inline data_model_type data_model;
+}
+namespace spy::detail
+{
+  template<int SS, int SI, int SL, int SPTR>
+  inline constexpr data_model_info<SS, SI, SL, SPTR>::operator bool() const noexcept
+  {
+    return *this == spy::data_model;
+  }
+}
+namespace spy
+{
+  constexpr inline auto ilp32_  = detail::data_model_info<2,4,sizeof(long),4>{};
+  constexpr inline auto lp32_   = detail::data_model_info<2,2,sizeof(long),4>{};
+  constexpr inline auto silp64_ = detail::data_model_info<8,8,8,8>{};
+  constexpr inline auto ilp64_  = detail::data_model_info<2,8,8,8>{};
+  constexpr inline auto llp64_  = detail::data_model_info<2,8,4,8>{};
+  constexpr inline auto lp64_   = detail::data_model_info<2,4,8,8>{};
+}
 #include <cstddef>
 #include <iosfwd>
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class libC  { undefined_  = - 1, cloudabi_, uc_, vms_, zos_, gnu_ };
   template<libC Lib, int M, int N, int P> struct libc_info
@@ -240,7 +350,7 @@ namespace spy { namespace detail
   template<int M, int N, int P> using vms_t       = libc_info<libC::vms_,M,N,P>;
   template<int M, int N, int P> using zos_t       = libc_info<libC::zos_,M,N,P>;
   template<int M, int N, int P> using gnu_t       = libc_info<libC::gnu_,M,N,P>;
-} }
+}
 namespace spy
 {
 #if defined(__cloudlibc__)
@@ -265,14 +375,14 @@ namespace spy
 #endif
   constexpr inline libc_type libc;
 }
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<libC C, int M, int N, int P>
   inline constexpr libc_info<C,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::libc;
   }
-} }
+}
 namespace spy
 {
   constexpr inline auto  cloudabi_  = detail::cloudabi_t<-1,0,0>{};
@@ -281,7 +391,7 @@ namespace spy
   constexpr inline auto  zos_       = detail::zos_t<-1,0,0>{};
   constexpr inline auto  gnu_       = detail::gnu_t<-1,0,0>{};
 }
-namespace spy { namespace literal
+namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _cloud()
   {
@@ -303,10 +413,10 @@ namespace spy { namespace literal
   {
     return detail::literal_wrap<detail::gnu_t,c...>();
   }
-} }
+}
 #include <cstddef>
 #include <iosfwd>
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
   template<stdlib Lib, int M, int N, int P> struct stdlib_info
@@ -330,7 +440,7 @@ namespace spy { namespace detail
   }
   template<int M, int N, int P> using libcpp_t        = stdlib_info<stdlib::libcpp_,M,N,P>;
   template<int M, int N, int P> using gnucpp_t        = stdlib_info<stdlib::gnucpp_,M,N,P>;
-} }
+}
 namespace spy
 {
 #if defined(_LIBCPP_VERSION)
@@ -344,20 +454,20 @@ namespace spy
 #endif
   constexpr inline stdlib_type stdlib;
 }
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<stdlib SLIB, int M, int N, int P>
   inline constexpr stdlib_info<SLIB,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::stdlib;
   }
-} }
+}
 namespace spy
 {
   constexpr inline auto  libcpp_  = detail::libcpp_t<-1,0,0>{};
   constexpr inline auto  gnucpp_  = detail::gnucpp_t<-1,0,0>{};
 }
-namespace spy { namespace literal
+namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _libcpp()
   {
@@ -367,9 +477,9 @@ namespace spy { namespace literal
   {
     return detail::literal_wrap<detail::gnucpp_t,c...>();
   }
-} }
+}
 #include <iosfwd>
-namespace spy { namespace detail
+namespace spy::detail
 {
   enum class systems  { undefined_  = - 1
                       , android_, bsd_, cygwin_, ios_, linux_, macos_, unix_, windows_
@@ -397,7 +507,7 @@ namespace spy { namespace detail
     if(OS == systems::windows_ ) return os << "Windows";
     return os << "Undefined Operating System";
   }
-} }
+}
 namespace spy
 {
 #if defined(__ANDROID__)
@@ -421,14 +531,14 @@ namespace spy
 #endif
   constexpr inline os_type operating_system;
 }
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<systems OS>
   inline constexpr os_info<OS>::operator bool() const noexcept
   {
     return *this == spy::operating_system;
   }
-} }
+}
 namespace spy
 {
   constexpr inline auto android_  = detail::os_info<detail::systems::android_>{};
