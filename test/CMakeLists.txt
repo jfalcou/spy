@@ -35,11 +35,29 @@ target_include_directories( spy.libc     PRIVATE ${PROJECT_SOURCE_DIR}/include )
 target_include_directories( spy.stdlib   PRIVATE ${PROJECT_SOURCE_DIR}/include )
 target_include_directories( spy.os       PRIVATE ${PROJECT_SOURCE_DIR}/include )
 
-add_test( NAME spy.arch     COMMAND spy.arch WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.compiler COMMAND spy.compiler WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.libc     COMMAND spy.libc     WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.stdlib   COMMAND spy.stdlib   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.os       COMMAND spy.os       WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+if (CMAKE_CROSSCOMPILING_CMD)
+    add_test( NAME spy.arch    WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND ${CMAKE_CROSSCOMPILING_CMD} $<TARGET_FILE:spy.arch> --no-color --pass
+            )
+    add_test( NAME spy.compiler WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND ${CMAKE_CROSSCOMPILING_CMD} $<TARGET_FILE:spy.compiler> --no-color --pass
+            )
+    add_test( NAME spy.libc     WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND ${CMAKE_CROSSCOMPILING_CMD} $<TARGET_FILE:spy.libc> --no-color --pass
+            )
+    add_test( NAME spy.stdlib   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND ${CMAKE_CROSSCOMPILING_CMD} $<TARGET_FILE:spy.stdlib> --no-color --pass
+            )
+    add_test( NAME spy.os       WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND ${CMAKE_CROSSCOMPILING_CMD} $<TARGET_FILE:spy.os> --no-color --pass
+            )
+  else()
+    add_test( NAME spy.arch     COMMAND spy.arch      WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+    add_test( NAME spy.compiler COMMAND spy.compiler  WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+    add_test( NAME spy.libc     COMMAND spy.libc      WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+    add_test( NAME spy.stdlib   COMMAND spy.stdlib    WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+    add_test( NAME spy.os       COMMAND spy.os        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+endif()
 
 add_custom_target(unit)
 add_custom_target(spy.unit)

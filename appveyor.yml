@@ -16,6 +16,8 @@ build_script:
 - cd build
 - cmake -G "Visual Studio 16 2019" -A x64 ..
 - cmake --build . --target unit --verbose --config Release
+- cmake --build . --target unit --verbose --config Debug
 
 test_script:
 - ctest -C Release -VV
+- ctest -C Debug -VV
