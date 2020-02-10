@@ -1,6 +1,6 @@
 <img src="https://github.com/jfalcou/spy/raw/develop/logo.png" alt="SPY Library logo" data-canonical-src="https://github.com/jfalcou/spy/raw/develop/logo.png" align="left" width="20%" height="20%" />
 
-# SPY - C++ Informations Broker
+# C++ Informations Broker
 
 * [Purpose](#purpose)
 * [How to install](#how-to-install)
