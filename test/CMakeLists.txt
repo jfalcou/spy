@@ -61,5 +61,6 @@ generate_test("spy" "compiler.cpp")
 generate_test("spy" "data_model.cpp")
 generate_test("spy" "libc.cpp")
 generate_test("spy" "os.cpp")
+generate_test("spy" "simd.cpp")
 generate_test("spy" "stdlib.cpp")
 

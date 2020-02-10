@@ -15,6 +15,7 @@
 #include <spy/data_model.hpp>
 #include <spy/libc.hpp>
 #include <spy/stdlib.hpp>
+#include <spy/simd.hpp>
 #include <spy/os.hpp>
 
 #endif
