@@ -478,6 +478,172 @@ namespace spy::literal
     return detail::literal_wrap<detail::gnucpp_t,c...>();
   }
 }
+#include <iostream>
+#if !defined(SPY_SIMD_DETECTED) && defined(__AVX2__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx2_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__AVX__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__SSE4_2__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse42_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__SSE4_1__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse41_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__SSSE3__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::ssse3_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__SSE3__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse3_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && (defined(__SSE2__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2))
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse2_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && (defined(__SSE__) || defined(_M_IX86_FP))
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse1_
+#endif
+#if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::x86_
+#endif
+namespace spy::supports
+{
+#if defined(__FMA__)
+  constexpr inline auto fma_ = true;
+#else
+  constexpr inline auto fma_ = false;
+#endif
+#if defined(__FMA4__)
+  constexpr inline auto fma4_ = true;
+#else
+  constexpr inline auto fma4_ = false;
+#endif
+#if defined(__XOP__)
+  constexpr inline auto xop_ = true;
+#else
+  constexpr inline auto xop_ = false;
+#endif
+}
+#if !defined(SPY_SIMD_DETECTED) && (defined(__ARM_NEON__) || defined(_M_ARM) || defined(__aarch64__))
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::neon_
+#endif
+#if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_
+#endif
+namespace spy::supports
+{
+#if defined(__aarch64__)
+  constexpr inline auto aarch64_ = true;
+#else
+  constexpr inline auto aarch64_ = false;
+#endif
+}
+#if !defined(SPY_SIMD_DETECTED) && defined(__VSX__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_
+#endif
+#if !defined(SPY_SIMD_DETECTED) && (defined(__ALTIVEC__) || defined(__VEC__))
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_
+#endif
+#if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::ppc_
+#endif
+namespace spy::detail
+{
+  enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000 };
+  enum class simd_version { undefined_ = -1
+                          , sse1_  = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
+                          , sse41_ = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
+                          , vmx_   = 2001, vsx_   = 2002
+                          , neon_  = 3001
+                          };
+  template<simd_isa ISA = simd_isa::undefined_, simd_version VERSION = simd_version::undefined_>
+  struct simd_info
+  {
+    friend std::ostream& operator<<(std::ostream& os, simd_info const&)
+    {
+            if constexpr ( VERSION == simd_version::sse1_ ) os << "X86 SSE";
+      else  if constexpr ( VERSION == simd_version::sse2_ ) os << "X86 SSE2";
+      else  if constexpr ( VERSION == simd_version::sse3_ ) os << "X86 SSE3";
+      else  if constexpr ( VERSION == simd_version::ssse3_) os << "X86 SSSE3";
+      else  if constexpr ( VERSION == simd_version::sse41_) os << "X86 SSE4.1";
+      else  if constexpr ( VERSION == simd_version::sse42_) os << "X86 SSE4.2";
+      else  if constexpr ( VERSION == simd_version::avx_  ) os << "X86 AVX";
+      else  if constexpr ( VERSION == simd_version::avx2_ ) os << "X86 AVX2";
+      else  if constexpr ( VERSION == simd_version::vmx_  ) os << "PPC VMX";
+      else  if constexpr ( VERSION == simd_version::vsx_  ) os << "PPC VSX";
+      else  if constexpr ( VERSION == simd_version::neon_ ) os << "ARM NEON";
+      else return os << "Undefined SIMD instructions set";
+      if constexpr (spy::supports::aarch64_) os << " (with AARCH64 support)";
+      if constexpr (spy::supports::fma_)     os << " (with FMA3 support)";
+      if constexpr (spy::supports::fma4_)    os << " (with FMA4 support)";
+      if constexpr (spy::supports::xop_)     os << " (with XOP support)";
+      return os;
+    }
+    template<simd_isa OISA>
+    constexpr bool operator==(simd_info<OISA> const&) const noexcept { return OISA == ISA; }
+    template<simd_isa OISA>
+    constexpr bool operator!=(simd_info<OISA> const&) const noexcept { return OISA != ISA; }
+    template<simd_isa OISA, simd_version OVERSION>
+    constexpr bool operator==(simd_info<OISA,OVERSION> const&) const noexcept
+    {
+      return (VERSION == OVERSION) && (OISA == ISA);
+    }
+    template<simd_isa OISA, simd_version OVERSION>
+    constexpr bool operator!=(simd_info<OISA,OVERSION> const&) const noexcept
+    {
+      return (VERSION != OVERSION) || (OISA != ISA);
+    }
+    template<simd_isa OISA, simd_version OVERSION>
+    constexpr bool operator<(simd_info<OISA,OVERSION> const&) const noexcept
+    {
+      return (VERSION < OVERSION) && (OISA == ISA);
+    }
+    template<simd_isa OISA, simd_version OVERSION>
+    constexpr bool operator>(simd_info<OISA,OVERSION> const&) const noexcept
+    {
+      return (VERSION > OVERSION) && (OISA == ISA);
+    }
+    template<simd_isa OISA, simd_version OVERSION>
+    constexpr bool operator<=(simd_info<OISA,OVERSION> const&) const noexcept
+    {
+      return (VERSION <= OVERSION) && (OISA == ISA);
+    }
+    template<simd_isa OISA, simd_version OVERSION>
+    constexpr bool operator>=(simd_info<OISA,OVERSION> const&) const noexcept
+    {
+      return (VERSION >= OVERSION) && (OISA == ISA);
+    }
+  };
+}
+namespace spy
+{
+  #if defined(SPY_SIMD_DETECTED)
+  constexpr inline auto simd_instruction_set = detail::simd_info<SPY_SIMD_VENDOR,SPY_SIMD_DETECTED>{};
+  #else
+  constexpr inline auto simd_instruction_set = detail::simd_info<>{};
+  #endif
+  constexpr inline auto undefined_simd_ = detail::simd_info<>{};
+  template<detail::simd_version V = detail::simd_version::undefined_>
+  using x86_simd_info = detail::simd_info<detail::simd_isa::x86_,V>;
+  constexpr inline auto x86_simd_ = x86_simd_info<>{};
+  constexpr inline auto sse1_     = x86_simd_info<detail::simd_version::sse1_ >{};
+  constexpr inline auto sse2_     = x86_simd_info<detail::simd_version::sse2_ >{};
+  constexpr inline auto sse3_     = x86_simd_info<detail::simd_version::sse3_ >{};
+  constexpr inline auto ssse3_    = x86_simd_info<detail::simd_version::ssse3_>{};
+  constexpr inline auto sse41_    = x86_simd_info<detail::simd_version::sse41_>{};
+  constexpr inline auto sse42_    = x86_simd_info<detail::simd_version::sse42_>{};
+  constexpr inline auto avx_      = x86_simd_info<detail::simd_version::avx_  >{};
+  constexpr inline auto avx2_     = x86_simd_info<detail::simd_version::avx2_ >{};
+  template<detail::simd_version V = detail::simd_version::undefined_>
+  using ppc_simd_info = detail::simd_info<detail::simd_isa::ppc_,V>;
+  constexpr inline auto ppc_simd_ = ppc_simd_info<>{};
+  constexpr inline auto vmx_      = ppc_simd_info<detail::simd_version::vmx_>{};
+  constexpr inline auto vsx_      = ppc_simd_info<detail::simd_version::vsx_>{};
+  template<detail::simd_version V = detail::simd_version::undefined_>
+  using arm_simd_info = detail::simd_info<detail::simd_isa::arm_,V>;
+  constexpr inline auto arm_simd_ = arm_simd_info<>{};
+  constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
+}
 #include <iosfwd>
 namespace spy::detail
 {
