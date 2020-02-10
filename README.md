@@ -11,6 +11,7 @@
   + [Supported detectors](#supported-detectors)
   + [Comparing vendors](#comparing-vendors)
   + [Comparing versions](#comparing-versions)
+  + [Handling SIMD extensions](#handling-simd-extensions)
   + [Caveat](#caveat)
   + [Redistribuable include](redistribuable-include)
 * [Useful Links](#useful-links)
@@ -53,11 +54,12 @@ SPY is usable by simply including the `spy.hpp` file as demonstrated here:
 
 int main()
 {
-  std::cout << spy::os            << std::endl;
-  std::cout << spy::architecture  << std::endl;
-  std::cout << spy::compiler      << std::endl;
-  std::cout << spy::libc          << std::endl;
-  std::cout << spy::stdlib        << std::endl;
+  std::cout << spy::os                    << std::endl;
+  std::cout << spy::architecture          << std::endl;
+  std::cout << spy::simd_instruction_set  << std::endl;
+  std::cout << spy::compiler              << std::endl;
+  std::cout << spy::libc                  << std::endl;
+  std::cout << spy::stdlib                << std::endl;
 }
 ```
 
@@ -84,7 +86,7 @@ vendor for each SPY objects.
 
 | Detector            | Supported vendor                                                               |
 | ------------------- | ------------------------------------------------------------------------------ |
-| `spy::architecture` | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
+| `spy::architecture` | `x86_`, `amd64_`, `ppc_`, `arm_`                                               |
 | `spy::os`           | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
 | `spy::compiler`     | `clang_`, `gcc_`, `intel_`, `msvc_`                                            |
 | `spy::libc`         | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
@@ -157,6 +159,100 @@ void f()
   if constexpr( spy::stdlib < 2'0'1_libcpp )
   {
     std::cout << "This code uses libcpp below v2.0.1.\n";
+  }
+}
+```
+
+### Handling SIMD extensions
+SIMD extensions set detection is made so that one can ask if the current SIMD extension is exactly,
+below or above a given reference instruction set. Detectable instructions sets depends on SIMD
+hardware vendor
+
+| Architecture  | Supported SIMD instructions sets                                         |
+| ------------- | ------------------------------------------------------------------------ |
+| X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_` |
+| Power PC      | `vmx_`, `vsx_`                                                           |
+| ARM           | `neon_`                                                                  |
+
+Complete set of comparison operators is provided for those sets. Order of instructions sets
+are built so that if an instructions set supersedes another, it is considered greater than. For
+example, `avx_` is greater than `sse41_` as the former is a super-set of the later.
+
+```c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+void f()
+{
+  if constexpr( spy::simd_instruction_set == spy::avx_ )
+  {
+    std::cout << "This code has been compiled with AVX instructions set.\n";
+  }
+
+  if constexpr( spy::simd_instruction_set >= spy::sse41_ )
+  {
+    std::cout << "This code has been compiled with at least support for SSE 4.1\n";
+  }
+
+  if constexpr( spy::simd_instruction_set <= spy::sse2_ )
+  {
+    std::cout << "This code has been compiled with support for SSE2 at most.\n";
+  }
+}
+```
+
+One can also simply asks if a given family of instructions set is available.
+
+```c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+void f()
+{
+  if constexpr( spy::simd_instruction_set == spy::x86_simd_ )
+  {
+    std::cout << "This code has been compiled with some Intel SIMD instructions set.\n";
+  }
+
+  if constexpr( spy::simd_instruction_set == spy::arm_simd_ )
+  {
+    std::cout << "This code has been compiled with some ARM SIMD instructions set.\n";
+  }
+
+  if constexpr( spy::simd_instruction_set == spy::ppc_simd_ )
+  {
+    std::cout << "This code has been compiled with some Power PC SIMD instructions set.\n";
+  }
+}
+```
+
+Some SIMD instructions set provides supplemental instructions on top of existing system. Those
+supplemental instruction set can be checked using the `spy::supports` namespace.
+
+```c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+void f()
+{
+  if constexpr( spy::supports::fma_ )
+  {
+    std::cout << "This code has been compiled with FMA3 support.\n";
+  }
+
+  if constexpr( spy::supports::fma4_ )
+  {
+    std::cout << "This code has been compiled with FMA4 support.\n";
+  }
+
+  if constexpr( spy::supports::xop_ )
+  {
+    std::cout << "This code has been compiled with XOP support.\n";
+  }
+
+  if constexpr( spy::supports::aarch64_ )
+  {
+    std::cout << "This code has been compiled with AARCH64 support.\n";
   }
 }
 ```
