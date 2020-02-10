@@ -1,6 +1,6 @@
 <img src="https://github.com/jfalcou/spy/raw/develop/logo.png" alt="SPY Library logo" data-canonical-src="https://github.com/jfalcou/spy/raw/develop/logo.png" align="left" width="20%" height="20%" />
 
-# C++17 macro-less informations gatherer
+# C++ Informations Broker
 
 * [Purpose](#purpose)
 * [How to install](#how-to-install)
@@ -11,10 +11,13 @@
   + [Supported detectors](#supported-detectors)
   + [Comparing vendors](#comparing-vendors)
   + [Comparing versions](#comparing-versions)
+  + [Handling SIMD extensions](#handling-simd-extensions)
   + [Caveat](#caveat)
   + [Redistribuable include](redistribuable-include)
 * [Useful Links](#useful-links)
 * [License](#license)
+
+[![CircleCI](https://circleci.com/gh/jfalcou/spy.svg?style=svg&circle-token=91ebbf06adfe257ebdff3a5ed17ea512fe02771c)](https://circleci.com/gh/jfalcou/spy) [![Build status](https://ci.appveyor.com/api/projects/status/3us8906c0lvdl8ld/branch/develop?svg=true)](https://ci.appveyor.com/project/jfalcou/spy/branch/develop)
 
 ## Purpose
 Detection and versioning of operating systems, compilers, architecture and other element are
@@ -51,10 +54,12 @@ SPY is usable by simply including the `spy.hpp` file as demonstrated here:
 
 int main()
 {
-  std::cout << spy::os        << std::endl;
-  std::cout << spy::compiler  << std::endl;
-  std::cout << spy::libc      << std::endl;
-  std::cout << spy::stdlib    << std::endl;
+  std::cout << spy::os                    << std::endl;
+  std::cout << spy::architecture          << std::endl;
+  std::cout << spy::simd_instruction_set  << std::endl;
+  std::cout << spy::compiler              << std::endl;
+  std::cout << spy::libc                  << std::endl;
+  std::cout << spy::stdlib                << std::endl;
 }
 ```
 
@@ -65,6 +70,7 @@ Don't forget to add the path to the SPY library files to your favorite compiler'
 ### Supported detectors
 SPY can detect:
 
+- Architecture family via the `spy::architecture` object.
 - OS vendor via the `spy::os` object.
 - Compiler vendor and version (in the M.N.P format) via the `spy::compiler` object.
 - libc vendor and version (in the M.N.P format) via the `spy::libc` object.
@@ -78,12 +84,13 @@ Knowing is half the battle, we may want to compare the current compiler or OS to
 so you can branch off your code based on this informations. Here is the list of each detected
 vendor for each SPY objects.
 
-| Detector        | Supported vendor                                                               |
-| --------------- | ------------------------------------------------------------------------------ |
-| `spy::os`       | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
-| `spy::compiler` | `clang_`, `gcc_`, `intel_`, `msvc_`                                            |
-| `spy::libc`     | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
-| `spy::stdlib`   | `gnucpp_`, `libcpp_`                                                           |
+| Detector            | Supported vendor                                                               |
+| ------------------- | ------------------------------------------------------------------------------ |
+| `spy::architecture` | `x86_`, `amd64_`, `ppc_`, `arm_`                                               |
+| `spy::os`           | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
+| `spy::compiler`     | `clang_`, `gcc_`, `intel_`, `msvc_`                                            |
+| `spy::libc`         | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
+| `spy::stdlib`       | `gnucpp_`, `libcpp_`                                                           |
 
 Here is a sample code comparing some detectors to a specific vendor:
 
@@ -101,6 +108,11 @@ void f()
   if constexpr( spy::compiler == spy::gcc_ )
   {
     std::cout << "This code has been compiled with g++.\n";
+  }
+
+  if constexpr( spy::compiler == spy::amd64_ )
+  {
+    std::cout << "This code has been compiled on AMD64 architecture.\n";
   }
 
   if constexpr( spy::stdlib == spy::libcpp_ )
@@ -147,6 +159,100 @@ void f()
   if constexpr( spy::stdlib < 2'0'1_libcpp )
   {
     std::cout << "This code uses libcpp below v2.0.1.\n";
+  }
+}
+```
+
+### Handling SIMD extensions
+SIMD extensions set detection is made so that one can ask if the current SIMD extension is exactly,
+below or above a given reference instruction set. Detectable instructions sets depends on SIMD
+hardware vendor
+
+| Architecture  | Supported SIMD instructions sets                                         |
+| ------------- | ------------------------------------------------------------------------ |
+| X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_` |
+| Power PC      | `vmx_`, `vsx_`                                                           |
+| ARM           | `neon_`                                                                  |
+
+Complete set of comparison operators is provided for those sets. Order of instructions sets
+are built so that if an instructions set supersedes another, it is considered greater than. For
+example, `avx_` is greater than `sse41_` as the former is a super-set of the later.
+
+```c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+void f()
+{
+  if constexpr( spy::simd_instruction_set == spy::avx_ )
+  {
+    std::cout << "This code has been compiled with AVX instructions set.\n";
+  }
+
+  if constexpr( spy::simd_instruction_set >= spy::sse41_ )
+  {
+    std::cout << "This code has been compiled with at least support for SSE 4.1\n";
+  }
+
+  if constexpr( spy::simd_instruction_set <= spy::sse2_ )
+  {
+    std::cout << "This code has been compiled with support for SSE2 at most.\n";
+  }
+}
+```
+
+One can also simply asks if a given family of instructions set is available.
+
+```c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+void f()
+{
+  if constexpr( spy::simd_instruction_set == spy::x86_simd_ )
+  {
+    std::cout << "This code has been compiled with some Intel SIMD instructions set.\n";
+  }
+
+  if constexpr( spy::simd_instruction_set == spy::arm_simd_ )
+  {
+    std::cout << "This code has been compiled with some ARM SIMD instructions set.\n";
+  }
+
+  if constexpr( spy::simd_instruction_set == spy::ppc_simd_ )
+  {
+    std::cout << "This code has been compiled with some Power PC SIMD instructions set.\n";
+  }
+}
+```
+
+Some SIMD instructions set provides supplemental instructions on top of existing system. Those
+supplemental instruction set can be checked using the `spy::supports` namespace.
+
+```c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+void f()
+{
+  if constexpr( spy::supports::fma_ )
+  {
+    std::cout << "This code has been compiled with FMA3 support.\n";
+  }
+
+  if constexpr( spy::supports::fma4_ )
+  {
+    std::cout << "This code has been compiled with FMA4 support.\n";
+  }
+
+  if constexpr( spy::supports::xop_ )
+  {
+    std::cout << "This code has been compiled with XOP support.\n";
+  }
+
+  if constexpr( spy::supports::aarch64_ )
+  {
+    std::cout << "This code has been compiled with AARCH64 support.\n";
   }
 }
 ```
@@ -210,7 +316,7 @@ advertise it here.
 ```
 The MIT License (MIT)
 
-Copyright (c) 2018-2019 Joel FALCOU
+Copyright (c) 2018-2020 Joel FALCOU
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

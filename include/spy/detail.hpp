@@ -1,6 +1,7 @@
 //==================================================================================================
 /*
-  Copyright 2018-2019 Joel FALCOU
+  SPY - C++ Informations Broker
+  Copyright 2020 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
@@ -11,7 +12,7 @@
 
 #include <iostream>
 
-namespace spy { namespace detail
+namespace spy::detail
 {
   template<char... c> constexpr int find(int i0)
   {
@@ -104,7 +105,7 @@ namespace spy { namespace detail
   {
     return os << "(unspecified)";
   }
-} }
+}
 
 #define SPY_VERSION_COMPARISONS_OPERATOR(ID,TYPE)                       \
 template<ID C2,int M2, int N2, int P2>                                  \

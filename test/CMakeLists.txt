@@ -1,5 +1,6 @@
 ## -------------------------------------------------------------------------------------------------
-## Copyright 2018 Joel FALCOU
+##  SPY - C++ Informations Broker
+##  Copyright 2020 Joel FALCOU
 ##
 ##  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 ##  SPDX-License-Identifier: MIT
@@ -11,35 +12,55 @@ else()
   set( options -std=c++17 -Wall)
 endif()
 
-add_executable( spy.compiler  compiler.cpp  )
-add_executable( spy.libc      libc.cpp      )
-add_executable( spy.stdlib    stdlib.cpp    )
-add_executable( spy.os        os.cpp        )
+function(generate_test root file)
+  string(REPLACE ".cpp" ".unit" base ${file})
+  string(REPLACE "/"    "." base ${base})
+  string(REPLACE "\\"   "." base ${base})
+  set(test "${root}.${base}")
 
-target_compile_options( spy.compiler  PUBLIC ${options} )
-target_compile_options( spy.libc      PUBLIC ${options} )
-target_compile_options( spy.stdlib    PUBLIC ${options} )
-target_compile_options( spy.os        PUBLIC ${options} )
+  add_executable( ${test}  "${file}")
+  target_compile_options  ( ${test} PUBLIC ${options} )
 
-set_property( TARGET spy.compiler PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-set_property( TARGET spy.libc     PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-set_property( TARGET spy.stdlib   PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-set_property( TARGET spy.os       PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+  set_property( TARGET ${test}
+                PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              )
 
-target_include_directories( spy.compiler PRIVATE ${PROJECT_SOURCE_DIR}/include )
-target_include_directories( spy.libc     PRIVATE ${PROJECT_SOURCE_DIR}/include )
-target_include_directories( spy.stdlib   PRIVATE ${PROJECT_SOURCE_DIR}/include )
-target_include_directories( spy.os       PRIVATE ${PROJECT_SOURCE_DIR}/include )
+  if (CMAKE_CROSSCOMPILING_CMD)
+    add_test( NAME ${test}
+              WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND ${CMAKE_CROSSCOMPILING_CMD} $<TARGET_FILE:${test}> --no-color --pass
+            )
+  else()
+    add_test( NAME ${test}
+              WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
+              COMMAND $<TARGET_FILE:${test}> --no-color --pass
+            )
+  endif()
 
-add_test( NAME spy.compiler COMMAND spy.compiler WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.libc     COMMAND spy.libc     WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.stdlib   COMMAND spy.stdlib   WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
-add_test( NAME spy.os       COMMAND spy.os       WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/unit" )
+  set_target_properties ( ${test} PROPERTIES
+                          EXCLUDE_FROM_DEFAULT_BUILD TRUE
+                          EXCLUDE_FROM_ALL TRUE
+                          ${MAKE_UNIT_TARGET_PROPERTIES}
+                        )
+
+  target_include_directories( ${test}
+                              PRIVATE
+                                ${PROJECT_SOURCE_DIR}/test
+                                ${PROJECT_SOURCE_DIR}/include
+                            )
+
+  add_dependencies(unit ${test})
+endfunction()
 
 add_custom_target(unit)
 add_custom_target(spy.unit)
-add_dependencies(unit     spy.unit      )
-add_dependencies(spy.unit spy.compiler  )
-add_dependencies(spy.unit spy.libc      )
-add_dependencies(spy.unit spy.stdlib    )
-add_dependencies(spy.unit spy.os        )
+add_dependencies(unit spy.unit)
+
+generate_test("spy" "arch.cpp")
+generate_test("spy" "compiler.cpp")
+generate_test("spy" "data_model.cpp")
+generate_test("spy" "libc.cpp")
+generate_test("spy" "os.cpp")
+generate_test("spy" "simd.cpp")
+generate_test("spy" "stdlib.cpp")
+
