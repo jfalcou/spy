@@ -50,16 +50,21 @@ namespace spy
     defined(__i686__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) ||                  \
     defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
   using arch_type = detail::arch_info<detail::archs::x86_>;
+  #define SPY_ARCH_IS_X86
 #elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(__amd64) || defined(_M_X64)
+  #define SPY_ARCH_IS_AMD64
   using arch_type = detail::arch_info<detail::archs::amd64_>;
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) ||     \
       defined(_M_PPC) || defined(_ARCH_PPC) || defined(__PPCGECKO__) || defined(__PPCBROADWAY__) || \
       defined(_XENON)
   using arch_type = detail::arch_info<detail::archs::ppc_>;
+  #define SPY_ARCH_IS_PPC
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
       defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
   using arch_type = detail::arch_info<detail::archs::arm_>;
+  #define SPY_ARCH_IS_ARM
 #else
+  #define SPY_ARCH_IS_UNKNOWN
   using arch_type = detail::arch_info<detail::archs::undefined_>;
 #endif
 

@@ -56,16 +56,21 @@ namespace spy
   // Compiler detection object type
   //================================================================================================
 #if defined(_MSC_VER)
+  #define SPY_COMPILER_IS_MSVC
   using compiler_type = detail::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+  #define SPY_COMPILER_IS_INTEL
   #define SPY0 __INTEL_COMPILER
   using compiler_type = detail::intel_t<(SPY0 / 100) % 100,SPY0 % 100, __INTEL_COMPILER_UPDATE>;
   #undef SPY0
 #elif defined(__clang__)
+  #define SPY_COMPILER_IS_CLANG
   using compiler_type = detail::clang_t<__clang_major__, __clang_minor__, __clang_patchlevel__>;
 #elif defined(__GNUC__)
+  #define SPY_COMPILER_IS_GCC
   using compiler_type = detail::gcc_t<__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__>;
 #else
+  #define SPY_COMPILER_IS_UNKNOWN
   using compiler_type = detail::compilers_info<compilers::undefined_,-1,0,0>;
 #endif
 

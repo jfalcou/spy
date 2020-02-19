@@ -41,16 +41,21 @@ namespace spy
     defined(__i686__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) ||                  \
     defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
   using arch_type = detail::arch_info<detail::archs::x86_>;
+  #define SPY_ARCH_IS_X86
 #elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(__amd64) || defined(_M_X64)
+  #define SPY_ARCH_IS_AMD64
   using arch_type = detail::arch_info<detail::archs::amd64_>;
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) ||     \
       defined(_M_PPC) || defined(_ARCH_PPC) || defined(__PPCGECKO__) || defined(__PPCBROADWAY__) || \
       defined(_XENON)
   using arch_type = detail::arch_info<detail::archs::ppc_>;
+  #define SPY_ARCH_IS_PPC
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
       defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
   using arch_type = detail::arch_info<detail::archs::arm_>;
+  #define SPY_ARCH_IS_ARM
 #else
+  #define SPY_ARCH_IS_UNKNOWN
   using arch_type = detail::arch_info<detail::archs::undefined_>;
 #endif
   constexpr inline arch_type architecture;
@@ -221,16 +226,21 @@ namespace spy::detail
 namespace spy
 {
 #if defined(_MSC_VER)
+  #define SPY_COMPILER_IS_MSVC
   using compiler_type = detail::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+  #define SPY_COMPILER_IS_INTEL
   #define SPY0 __INTEL_COMPILER
   using compiler_type = detail::intel_t<(SPY0 / 100) % 100,SPY0 % 100, __INTEL_COMPILER_UPDATE>;
   #undef SPY0
 #elif defined(__clang__)
+  #define SPY_COMPILER_IS_CLANG
   using compiler_type = detail::clang_t<__clang_major__, __clang_minor__, __clang_patchlevel__>;
 #elif defined(__GNUC__)
+  #define SPY_COMPILER_IS_GCC
   using compiler_type = detail::gcc_t<__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__>;
 #else
+  #define SPY_COMPILER_IS_UNKNOWN
   using compiler_type = detail::compilers_info<compilers::undefined_,-1,0,0>;
 #endif
   constexpr inline compiler_type compiler;
@@ -354,23 +364,30 @@ namespace spy::detail
 namespace spy
 {
 #if defined(__cloudlibc__)
+  #define SPY_LIBC_IS_CLOUDABI
   using libc_type = detail::cloudabi_t<__cloudlibc_major__,__cloudlibc_minor__,0>;
 #elif defined(__GLIBC__)
+  #define SPY_LIBC_IS_GNU
   using libc_type = detail::gnu_t<__GLIBC__, __GLIBC_MINOR__, 0>;
 #elif defined(__GNU_LIBRARY__)
+  #define SPY_LIBC_IS_GNU
   using libc_type = detail::gnu_t<__GNU_LIBRARY__, __GNU_LIBRARY_MINOR__, 0>;
 #elif defined(__UCLIBC__)
+  #define SPY_LIBC_IS_UCLIBC
   using libc_type = detail::uc_t<__UCLIBC_MAJOR__, __UCLIBC_MINOR__, __UCLIBC_SUBLEVEL__>;
 #elif defined(__CRTL_VER)
+  #define SPY_LIBC_IS_VMS
   #define SPY0  (__CRTL_VER/100)
   using libc_type = detail::vms_t<(SPY0/100000)%100, (SPY0/1000)%100, (SPY0)%100>;
   #undef SPY0
 #elif defined(__LIBREL__)
+  #define SPY_LIBC_IS_ZOS
   using libc_type = detail::zos_t < (__LIBREL__&0xF000000)>>24
                                   , (__LIBREL__&0xFF0000)>>16
                                   , (__LIBREL__&0xFFFF)
                                   >;
 #else
+  #define SPY_LIBC_IS_UNKNOWN
   using libc_type = detail::libc_info<detail::libC::undefined_,-1,0,0>;
 #endif
   constexpr inline libc_type libc;
@@ -444,12 +461,15 @@ namespace spy::detail
 namespace spy
 {
 #if defined(_LIBCPP_VERSION)
+  #define SPY_STDLIB_IS_LIBCPP
   using stdlib_type = detail::stdcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000,0>;
 #elif defined(__GLIBCXX__)
+  #define SPY_STDLIB_IS_GLIBCXX
   #define SPY0 (__GLIBCXX__/100)
   using stdlib_type = detail::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
   #undef SPY0
 #else
+  #define SPY_STDLIB_IS_UNKNOWN
   using stdlib_type = detail::stdlib_info<detail::stdlib::undefined_,-1,0,0>;
 #endif
   constexpr inline stdlib_type stdlib;
@@ -480,72 +500,90 @@ namespace spy::literal
 }
 #include <iostream>
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX2__)
+#  define SPY_SIMD_IS_X86_AVX2
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx2_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX__)
+#  define SPY_SIMD_IS_X86_AVX
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__SSE4_2__)
+#  define SPY_SIMD_IS_X86_SSE4_2
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse42_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__SSE4_1__)
+#  define SPY_SIMD_IS_X86_SSE4_1
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse41_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__SSSE3__)
+#  define SPY_SIMD_IS_X86_SSSE3
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::ssse3_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__SSE3__)
+#  define SPY_SIMD_IS_X86_SSE3
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse3_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && (defined(__SSE2__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2))
+#  define SPY_SIMD_IS_X86_SSE2
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse2_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && (defined(__SSE__) || defined(_M_IX86_FP))
+#  define SPY_SIMD_IS_X86_SSE
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::sse1_
 #endif
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
-# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::x86_
+#  define SPY_SIMD_IS_X86
+#  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::x86_
 #endif
 namespace spy::supports
 {
 #if defined(__FMA__)
+#  define SPY_SIMD_SUPPORTS_FMA
   constexpr inline auto fma_ = true;
 #else
   constexpr inline auto fma_ = false;
 #endif
 #if defined(__FMA4__)
+#  define SPY_SIMD_SUPPORTS_FMA4
   constexpr inline auto fma4_ = true;
 #else
   constexpr inline auto fma4_ = false;
 #endif
 #if defined(__XOP__)
+#  define SPY_SIMD_SUPPORTS_XOP
   constexpr inline auto xop_ = true;
 #else
   constexpr inline auto xop_ = false;
 #endif
 }
 #if !defined(SPY_SIMD_DETECTED) && (defined(__ARM_NEON__) || defined(_M_ARM) || defined(__aarch64__))
+#  define SPY_SIMD_IS_ARM_NEON
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::neon_
 #endif
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
-# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_
+#  define SPY_SIMD_IS_ARM
+#  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_
 #endif
 namespace spy::supports
 {
 #if defined(__aarch64__)
+#  define SPY_SIMD_SUPPORTS_AARCH64
   constexpr inline auto aarch64_ = true;
 #else
   constexpr inline auto aarch64_ = false;
 #endif
 }
 #if !defined(SPY_SIMD_DETECTED) && defined(__VSX__)
+#  define SPY_SIMD_IS_PPC_VSX
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && (defined(__ALTIVEC__) || defined(__VEC__))
+#  define SPY_SIMD_IS_PPC_VMX
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_
 #endif
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
-# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::ppc_
+#  define SPY_SIMD_IS_PPC
+#  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::ppc_
 #endif
 namespace spy::detail
 {
@@ -677,22 +715,31 @@ namespace spy::detail
 namespace spy
 {
 #if defined(__ANDROID__)
+  #define SPY_OS_IS_ANDROID
   using os_type = detail::os_info<detail::systems::android_>;
 #elif defined(BSD) || defined(_SYSTYPE_BSD)
+  #define SPY_OS_IS_BSD
   using os_type = detail::os_info<detail::systems::bsd_>;
 #elif defined(__CYGWIN__)
+  #define SPY_OS_IS_CYGWIN
   using os_type = detail::os_info<detail::systems::cygwin_>;
 #elif defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+  #define SPY_OS_IS_IOS
   using os_type = detail::os_info<detail::systems::ios_>;
 #elif defined(linux) || defined(__linux)
+  #define SPY_OS_IS_LINUX
   using os_type = detail::os_info<detail::systems::linux_>;
 #elif defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
+  #define SPY_OS_IS_MACOS
   using os_type = detail::os_info<detail::systems::macos_>;
 #elif defined(unix) || defined(__unix) || defined(_XOPEN_SOURCE) || defined(_POSIX_SOURCE)
+  #define SPY_OS_IS_UNIX
   using os_type = detail::os_info<detail::systems::unix_>;
 #elif defined(_WIN32) || defined(_WIN64) ||  defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+  #define SPY_OS_IS_WINDOWS
   using os_type = detail::os_info<detail::systems::windows_>;
 #else
+  #define SPY_OS_IS_UNKNOWN
   using os_type = detail::os_info<detail::systems::undefined_>;
 #endif
   constexpr inline os_type operating_system;

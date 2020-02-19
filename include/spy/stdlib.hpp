@@ -51,12 +51,15 @@ namespace spy::detail
 namespace spy
 {
 #if defined(_LIBCPP_VERSION)
+  #define SPY_STDLIB_IS_LIBCPP
   using stdlib_type = detail::stdcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000,0>;
 #elif defined(__GLIBCXX__)
+  #define SPY_STDLIB_IS_GLIBCXX
   #define SPY0 (__GLIBCXX__/100)
   using stdlib_type = detail::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
   #undef SPY0
 #else
+  #define SPY_STDLIB_IS_UNKNOWN
   using stdlib_type = detail::stdlib_info<detail::stdlib::undefined_,-1,0,0>;
 #endif
 
