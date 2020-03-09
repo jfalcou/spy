@@ -597,6 +597,8 @@ namespace spy::detail
   template<simd_isa ISA = simd_isa::undefined_, simd_version VERSION = simd_version::undefined_>
   struct simd_info
   {
+    static constexpr auto isa     = ISA;
+    static constexpr auto version = VERSION;
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
             if constexpr ( VERSION == simd_version::sse1_ ) os << "X86 SSE";
@@ -683,6 +685,9 @@ namespace spy
   constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
 }
 #include <iosfwd>
+#if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
+#  include <AvailabilityMacros.h>
+#endif
 namespace spy::detail
 {
   enum class systems  { undefined_  = - 1
@@ -762,5 +767,14 @@ namespace spy
   constexpr inline auto macos_    = detail::os_info<detail::systems::macos_>{};
   constexpr inline auto unix_     = detail::os_info<detail::systems::unix_>{};
   constexpr inline auto windows_  = detail::os_info<detail::systems::windows_>{};
+}
+namespace spy::supports
+{
+#if(MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
+#define SPY_SUPPORTS_POSIX
+  constexpr inline auto posix_ = true;
+#else
+  constexpr inline auto posix_ = false;
+#endif
 }
 #endif
