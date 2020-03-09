@@ -122,6 +122,10 @@ void f()
 }
 ```
 
+Additional features can be checked using the `spy::supports` namespace:
+
+ - Checking for POSIX capability via `spy::supports::posix_`
+
 ### Comparing versions
 Checking for a vendor is sometimes not enough, we need to check which version of a given
 component is used. To do this, you can compare a detector to a given version value using

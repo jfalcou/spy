@@ -12,6 +12,10 @@
 
 #include <iosfwd>
 
+#if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
+#  include <AvailabilityMacros.h>
+#endif
+
 namespace spy::detail
 {
   enum class systems  { undefined_  = - 1
@@ -106,6 +110,19 @@ namespace spy
   constexpr inline auto macos_    = detail::os_info<detail::systems::macos_>{};
   constexpr inline auto unix_     = detail::os_info<detail::systems::unix_>{};
   constexpr inline auto windows_  = detail::os_info<detail::systems::windows_>{};
+}
+
+namespace spy::supports
+{
+  //================================================================================================
+  // POSIX supports detection
+  //================================================================================================
+#if(MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
+#define SPY_SUPPORTS_POSIX
+  constexpr inline auto posix_ = true;
+#else
+  constexpr inline auto posix_ = false;
+#endif
 }
 
 #endif
