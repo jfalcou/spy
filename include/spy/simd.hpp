@@ -29,6 +29,9 @@ namespace spy::detail
   template<simd_isa ISA = simd_isa::undefined_, simd_version VERSION = simd_version::undefined_>
   struct simd_info
   {
+    static constexpr auto isa     = ISA;
+    static constexpr auto version = VERSION;
+
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
             if constexpr ( VERSION == simd_version::sse1_ ) os << "X86 SSE";

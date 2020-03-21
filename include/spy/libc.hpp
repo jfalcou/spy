@@ -60,23 +60,30 @@ namespace spy
   // LIBC detection object type
   //================================================================================================
 #if defined(__cloudlibc__)
+  #define SPY_LIBC_IS_CLOUDABI
   using libc_type = detail::cloudabi_t<__cloudlibc_major__,__cloudlibc_minor__,0>;
 #elif defined(__GLIBC__)
+  #define SPY_LIBC_IS_GNU
   using libc_type = detail::gnu_t<__GLIBC__, __GLIBC_MINOR__, 0>;
 #elif defined(__GNU_LIBRARY__)
+  #define SPY_LIBC_IS_GNU
   using libc_type = detail::gnu_t<__GNU_LIBRARY__, __GNU_LIBRARY_MINOR__, 0>;
 #elif defined(__UCLIBC__)
+  #define SPY_LIBC_IS_UCLIBC
   using libc_type = detail::uc_t<__UCLIBC_MAJOR__, __UCLIBC_MINOR__, __UCLIBC_SUBLEVEL__>;
 #elif defined(__CRTL_VER)
+  #define SPY_LIBC_IS_VMS
   #define SPY0  (__CRTL_VER/100)
   using libc_type = detail::vms_t<(SPY0/100000)%100, (SPY0/1000)%100, (SPY0)%100>;
   #undef SPY0
 #elif defined(__LIBREL__)
+  #define SPY_LIBC_IS_ZOS
   using libc_type = detail::zos_t < (__LIBREL__&0xF000000)>>24
                                   , (__LIBREL__&0xFF0000)>>16
                                   , (__LIBREL__&0xFFFF)
                                   >;
 #else
+  #define SPY_LIBC_IS_UNKNOWN
   using libc_type = detail::libc_info<detail::libC::undefined_,-1,0,0>;
 #endif
 
