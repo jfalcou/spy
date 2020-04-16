@@ -25,18 +25,7 @@ else
 fi
 
 ##==================================================================================================
-## PATH Infos
-##==================================================================================================
-if [[ -v EXTRA_PATH ]]
-then
-  echo "Updating path for $EXTRA_PATH/$EXTRA_NAME ..."
-  LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EXTRA_PATH
-  export LD_LIBRARY_PATH
-  ln -sf $EXTRA_PATH/$EXTRA_NAME /$EXTRA_LIB/$EXTRA_NAME
-fi
-
-##==================================================================================================
-## Run every test up to SIMD
+## Run every tests
 ##==================================================================================================
 ninja unit -j 8
 ctest  -j 8
