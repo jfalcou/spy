@@ -7,8 +7,8 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_SIMD_HPP_INLUDED
-#define SPY_SIMD_HPP_INLUDED
+#ifndef SPY_SIMD_HPP_INCLUDED
+#define SPY_SIMD_HPP_INCLUDED
 
 #include <iostream>
 #include <spy/simd/x86.hpp>

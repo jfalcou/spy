@@ -7,8 +7,8 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_LIBC_HPP_INLUDED
-#define SPY_LIBC_HPP_INLUDED
+#ifndef SPY_LIBC_HPP_INCLUDED
+#define SPY_LIBC_HPP_INCLUDED
 
 // Make sure the proper header is included to detect GNU libc
 #include <cstddef>
