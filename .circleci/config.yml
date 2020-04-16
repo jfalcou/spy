@@ -12,48 +12,33 @@ version: 2.1
 ##==================================================================================================
 docker_gcc: &docker_gcc
   docker:
-    - image: gcc:latest
+    - image: compilaction/gcc-dev:latest
       environment:
-        COMPILER: g++
-docker_i686: &docker_i686
-  docker:
-    - image: gcc:latest
-      environment:
-        COMPILER_PACKAGE: g++-multilib
-        COMPILER: g++-8
+        COMPILER: g++-9
 docker_clang: &docker_clang
   docker:
-    - image: ubuntu:disco
+    - image: compilaction/clang-dev:latest
       environment:
-        COMPILER: clang++-8
+        COMPILER: clang++-9
 docker_ppc64: &docker_ppc64
   docker:
-    - image: ubuntu:disco
+    - image: compilaction/gcc-dev:latest
       environment:
-        COMPILER_PACKAGE: g++-8-powerpc64-linux-gnu
-        COMPILER: powerpc64-linux-gnu-g++-8
         RUN_COMMAND: qemu-ppc64
-        EXTRA_PATH: /usr/powerpc64-linux-gnu/lib/
-        EXTRA_LIB: lib64
-        EXTRA_NAME: ld64.so.1
+        COMPILER: powerpc64-linux-gnu-g++-9
 docker_aarch64: &docker_aarch64
   docker:
-    - image: ubuntu:disco
+    - image: compilaction/gcc-dev:latest
       environment:
-        COMPILER_PACKAGE: g++-8-aarch64-linux-gnu
-        COMPILER: aarch64-linux-gnu-g++-8
         RUN_COMMAND: qemu-aarch64
-        EXTRA_PATH: /usr/aarch64-linux-gnu/lib/
-        EXTRA_LIB: lib
-        EXTRA_NAME: ld-linux-aarch64.so.1
+        COMPILER: aarch64-linux-gnu-g++-9
+
 
 ##==================================================================================================
 ## Build configurations
 ##==================================================================================================
 config_gcc_amd64: &config_gcc_amd64
   <<: *docker_gcc
-config_gcc_x86: &config_gcc_x86
-  <<: *docker_i686
 config_clang_amd64: &config_clang_amd64
   <<: *docker_clang
 config_clang_x86: &config_clang_x86
@@ -75,9 +60,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup dependencies
-          command: . .circleci/prepare.sh
-      - run:
           name: Running Basic Tests - SSE2
           command: VARIANT="sse2" OPTIONS="-O3 -msse2" . .circleci/run.sh
       - run:
@@ -92,43 +74,14 @@ jobs:
       - run:
           name: Running Basic Tests - AVX2
           command: VARIANT="avx2" OPTIONS="-O3 -mavx2" . .circleci/run.sh
-
-  gcc_x86:
-    <<: *config_gcc_x86
-    steps:
-      - checkout
       - run:
-          name: Setup dependencies
-          command: . .circleci/prepare.sh
-      - run:
-          name: Setup cross compiler
-          command: . .circleci/prepare_cc.sh
-      - run:
-          name: Running Basic Tests - SSE2
-          command: VARIANT="sse2" OPTIONS="-O3 -msse2 -m32" . .circleci/run.sh
-      - run:
-          name: Running Basic Tests - SSE4
-          command: VARIANT="sse4" OPTIONS="-O3 -msse4 -m32" . .circleci/run.sh
-      - run:
-          name: Running Basic Tests - AVX
-          command: VARIANT="avx" OPTIONS="-O3 -mavx -m32" . .circleci/run.sh
-      - run:
-          name: Running Basic Tests - FMA3
-          command: VARIANT="fma" OPTIONS="-O3 -mavx -mfma -m32" . .circleci/run.sh
-      - run:
-          name: Running Basic Tests - AVX2
-          command: VARIANT="avx2" OPTIONS="-O3 -mavx2 -m32" . .circleci/run.sh
+          name: Running Basic Tests - AVX512
+          command: VARIANT="avx2" OPTIONS="-O3 -mavx512f" . .circleci/run.sh
 
   clang_amd64:
     <<: *config_clang_amd64
     steps:
       - checkout
-      - run:
-          name: Setup dependencies
-          command: . .circleci/prepare.sh
-      - run:
-          name: Install clang-8
-          command: 'apt-get update && sudo apt-get install -y clang-8'
       - run:
           name: Running Basic Tests - SSE2
           command: VARIANT="sse2" OPTIONS="-O3 -msse2" . .circleci/run.sh
@@ -150,12 +103,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup dependencies
-          command: . .circleci/prepare.sh
-      - run:
-          name: Setup cross compiler
-          command: . .circleci/prepare_cc.sh
-      - run:
           name: Running Basic Tests - AARCH64 NEON
           command: VARIANT="aarch64" OPTIONS="-O3 -Wno-psabi" . .circleci/run.sh
 
@@ -163,12 +110,6 @@ jobs:
     <<: *config_gcc_ppc64
     steps:
       - checkout
-      - run:
-          name: Setup dependencies
-          command: . .circleci/prepare.sh
-      - run:
-          name: Setup cross compiler
-          command: . .circleci/prepare_cc.sh
       - run:
           name: Running Basic Tests - PPC64
           command: VARIANT="vsx" OPTIONS="-O3" . .circleci/run.sh
@@ -184,7 +125,6 @@ workflows:
     ## All tests
     ##==============================================================================================
       - gcc_amd64
-      - gcc_x86
       - clang_amd64
       - arm_aarch64
       - ppc64
