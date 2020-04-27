@@ -294,7 +294,7 @@ void f()
     std::cout << "This code has been compiled with XOP support.\n";
   }
 
-  if constexpr( spy::supports::avx512::vnni )
+  if constexpr( spy::supports::avx512::vnni_ )
   {
     std::cout << "This code has been compiled with AV512-VNNI support.\n";
   }
@@ -328,11 +328,11 @@ that this can't compile whatsoever:
 
 template<typename T> auto f(T t)
 {
-  if constexpr( spy::clang )
+  if constexpr( spy::clang_ )
   {
     return __builtin_bitreverse32(t);
   }
-  else if constexpr( spy::gcc )
+  else if constexpr( spy::gcc_ )
   {
     return __builtin_bswap32(t);
   }
@@ -346,12 +346,12 @@ Post C++20, we advice you to use concepts with template functions:
 ~~~~~ c++
 #include <spy/spy.hpp>
 
-template<typename T> auto f(T t) requires( spy::clang )
+template<typename T> auto f(T t) requires( spy::clang_ )
 {
   return __builtin_bitreverse32(t);
 }
 
-template<typename T> auto f(T t) requires( spy::gcc )
+template<typename T> auto f(T t) requires( spy::gcc_ )
 {
   return __builtin_bswap32(t);
 }
