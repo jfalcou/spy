@@ -7,8 +7,8 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_COMPILER_HPP_INLUDED
-#define SPY_COMPILER_HPP_INLUDED
+#ifndef SPY_COMPILER_HPP_INCLUDED
+#define SPY_COMPILER_HPP_INCLUDED
 
 #include <iosfwd>
 #include <spy/detail.hpp>

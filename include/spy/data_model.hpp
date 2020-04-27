@@ -7,8 +7,8 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_DATA_MODEL_HPP_INLUDED
-#define SPY_DATA_MODEL_HPP_INLUDED
+#ifndef SPY_DATA_MODEL_HPP_INCLUDED
+#define SPY_DATA_MODEL_HPP_INCLUDED
 
 #include <iosfwd>
 
