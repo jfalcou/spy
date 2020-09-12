@@ -504,67 +504,51 @@ namespace spy::literal
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx512_
 #if defined(__AVX512BW__)
 #  define SPY_SIMD_IS_X86_AVX512_BW
-#  define SPY_SIMD_X86_AVX512_SUB 0x0001
 #endif
 #if defined(__AVX512CD__)
 #  define SPY_SIMD_IS_X86_AVX512_CD
-#  define SPY_SIMD_X86_AVX512_SUB 0x0002
 #endif
 #if defined(__AVX512DQ__)
 #  define SPY_SIMD_IS_X86_AVX512_DQ
-#  define SPY_SIMD_X86_AVX512_SUB 0x0004
 #endif
 #if defined(__AVX512ER__)
 #  define SPY_SIMD_IS_X86_AVX512_ER
-#  define SPY_SIMD_X86_AVX512_SUB 0x0008
 #endif
 #if defined(__AVX512IFMA__)
 #  define SPY_SIMD_IS_X86_AVX512_IFMA
-#  define SPY_SIMD_X86_AVX512_SUB 0x0010
 #endif
 #if defined(__AVX512PF__)
 #  define SPY_SIMD_IS_X86_AVX512_PF
-#  define SPY_SIMD_X86_AVX512_SUB 0x0020
 #endif
 #if defined(__AVX512VL__)
 #  define SPY_SIMD_IS_X86_AVX512_VL
-#  define SPY_SIMD_X86_AVX512_SUB 0x0040
 #endif
 #if defined(__AVX512VPOPCNTDQ__)
 #  define SPY_SIMD_IS_X86_AVX512_POPCNTDQ
-#  define SPY_SIMD_X86_AVX512_SUB 0x0080
 #endif
 #if defined(__AVX5124FMAPS__)
 #  define SPY_SIMD_IS_X86_AVX512_4FMAPS
-#  define SPY_SIMD_X86_AVX512_SUB 0x0100
 #endif
 #if defined(__AVX5124VNNIW__)
 #  define SPY_SIMD_IS_X86_AVX512_VNNIW
-#  define SPY_SIMD_X86_AVX512_SUB 0x0200
 #endif
 #if defined(__AVX512VBMI__)
 #  define SPY_SIMD_IS_X86_AVX512_VBMI
-#  define SPY_SIMD_X86_AVX512_SUB 0x0400
 #endif
 #if defined(__AVX512BF16__)
 #  define SPY_SIMD_IS_X86_AVX512_BF16
-#  define SPY_SIMD_X86_AVX512_SUB 0x0800
 #endif
 #if defined(__AVX512BITALG__)
 #  define SPY_SIMD_IS_X86_AVX512_BITALG
-#  define SPY_SIMD_X86_AVX512_SUB 0x1000
 #endif
 #if defined(__AVX512VBMI2__)
 #  define SPY_SIMD_IS_X86_AVX512_VBMI2
-#  define SPY_SIMD_X86_AVX512_SUB 0x2000
 #endif
 #if defined(__AVX512VNNI__)
 #  define SPY_SIMD_IS_X86_AVX512_VNNI
-#  define SPY_SIMD_X86_AVX512_SUB 0x4000
 #endif
 #if defined(__AVX512VP2INTERSECT__)
 #  define SPY_SIMD_IS_X86_AVX512_VP2INTERSECT
-#  define SPY_SIMD_X86_AVX512_SUB 0x8000
 #endif
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX2__)
