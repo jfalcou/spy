@@ -27,26 +27,26 @@ namespace spy::detail
                           , neon_   = 3001
                           };
 
-  template<simd_isa ISA = simd_isa::undefined_, simd_version VERSION = simd_version::undefined_>
+  template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
   struct simd_info
   {
-    static constexpr auto isa     = ISA;
-    static constexpr auto version = VERSION;
+    static constexpr auto isa     = InsSetArch;
+    static constexpr auto version = Version;
 
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
-            if constexpr ( VERSION == simd_version::sse1_   ) os << "X86 SSE";
-      else  if constexpr ( VERSION == simd_version::sse2_   ) os << "X86 SSE2";
-      else  if constexpr ( VERSION == simd_version::sse3_   ) os << "X86 SSE3";
-      else  if constexpr ( VERSION == simd_version::ssse3_  ) os << "X86 SSSE3";
-      else  if constexpr ( VERSION == simd_version::sse41_  ) os << "X86 SSE4.1";
-      else  if constexpr ( VERSION == simd_version::sse42_  ) os << "X86 SSE4.2";
-      else  if constexpr ( VERSION == simd_version::avx_    ) os << "X86 AVX";
-      else  if constexpr ( VERSION == simd_version::avx2_   ) os << "X86 AVX2";
-      else  if constexpr ( VERSION == simd_version::avx512_ ) os << "X86 AVX512";
-      else  if constexpr ( VERSION == simd_version::vmx_    ) os << "PPC VMX";
-      else  if constexpr ( VERSION == simd_version::vsx_    ) os << "PPC VSX";
-      else  if constexpr ( VERSION == simd_version::neon_   ) os << "ARM NEON";
+            if constexpr ( Version == simd_version::sse1_   ) os << "X86 SSE";
+      else  if constexpr ( Version == simd_version::sse2_   ) os << "X86 SSE2";
+      else  if constexpr ( Version == simd_version::sse3_   ) os << "X86 SSE3";
+      else  if constexpr ( Version == simd_version::ssse3_  ) os << "X86 SSSE3";
+      else  if constexpr ( Version == simd_version::sse41_  ) os << "X86 SSE4.1";
+      else  if constexpr ( Version == simd_version::sse42_  ) os << "X86 SSE4.2";
+      else  if constexpr ( Version == simd_version::avx_    ) os << "X86 AVX";
+      else  if constexpr ( Version == simd_version::avx2_   ) os << "X86 AVX2";
+      else  if constexpr ( Version == simd_version::avx512_ ) os << "X86 AVX512";
+      else  if constexpr ( Version == simd_version::vmx_    ) os << "PPC VMX";
+      else  if constexpr ( Version == simd_version::vsx_    ) os << "PPC VSX";
+      else  if constexpr ( Version == simd_version::neon_   ) os << "ARM NEON";
       else return os << "Undefined SIMD instructions set";
 
       if constexpr (spy::supports::aarch64_) os << " (with AARCH64 support)";
@@ -57,46 +57,46 @@ namespace spy::detail
       return os;
     }
 
-    template<simd_isa OISA>
-    constexpr bool operator==(simd_info<OISA> const&) const noexcept { return OISA == ISA; }
+    template<simd_isa OInsSetArch>
+    constexpr bool operator==(simd_info<OInsSetArch> const&) const noexcept { return OInsSetArch == InsSetArch; }
 
-    template<simd_isa OISA>
-    constexpr bool operator!=(simd_info<OISA> const&) const noexcept { return OISA != ISA; }
+    template<simd_isa OInsSetArch>
+    constexpr bool operator!=(simd_info<OInsSetArch> const&) const noexcept { return OInsSetArch != InsSetArch; }
 
-    template<simd_isa OISA, simd_version OVERSION>
-    constexpr bool operator==(simd_info<OISA,OVERSION> const&) const noexcept
+    template<simd_isa OInsSetArch, simd_version OVersion>
+    constexpr bool operator==(simd_info<OInsSetArch,OVersion> const&) const noexcept
     {
-      return (VERSION == OVERSION) && (OISA == ISA);
+      return (Version == OVersion) && (OInsSetArch == InsSetArch);
     }
 
-    template<simd_isa OISA, simd_version OVERSION>
-    constexpr bool operator!=(simd_info<OISA,OVERSION> const&) const noexcept
+    template<simd_isa OInsSetArch, simd_version OVersion>
+    constexpr bool operator!=(simd_info<OInsSetArch,OVersion> const&) const noexcept
     {
-      return (VERSION != OVERSION) || (OISA != ISA);
+      return (Version != OVersion) || (OInsSetArch != InsSetArch);
     }
 
-    template<simd_isa OISA, simd_version OVERSION>
-    constexpr bool operator<(simd_info<OISA,OVERSION> const&) const noexcept
+    template<simd_isa OInsSetArch, simd_version OVersion>
+    constexpr bool operator<(simd_info<OInsSetArch,OVersion> const&) const noexcept
     {
-      return (VERSION < OVERSION) && (OISA == ISA);
+      return (Version < OVersion) && (OInsSetArch == InsSetArch);
     }
 
-    template<simd_isa OISA, simd_version OVERSION>
-    constexpr bool operator>(simd_info<OISA,OVERSION> const&) const noexcept
+    template<simd_isa OInsSetArch, simd_version OVersion>
+    constexpr bool operator>(simd_info<OInsSetArch,OVersion> const&) const noexcept
     {
-      return (VERSION > OVERSION) && (OISA == ISA);
+      return (Version > OVersion) && (OInsSetArch == InsSetArch);
     }
 
-    template<simd_isa OISA, simd_version OVERSION>
-    constexpr bool operator<=(simd_info<OISA,OVERSION> const&) const noexcept
+    template<simd_isa OInsSetArch, simd_version OVersion>
+    constexpr bool operator<=(simd_info<OInsSetArch,OVersion> const&) const noexcept
     {
-      return (VERSION <= OVERSION) && (OISA == ISA);
+      return (Version <= OVersion) && (OInsSetArch == InsSetArch);
     }
 
-    template<simd_isa OISA, simd_version OVERSION>
-    constexpr bool operator>=(simd_info<OISA,OVERSION> const&) const noexcept
+    template<simd_isa OInsSetArch, simd_version OVersion>
+    constexpr bool operator>=(simd_info<OInsSetArch,OVersion> const&) const noexcept
     {
-      return (VERSION >= OVERSION) && (OISA == ISA);
+      return (Version >= OVersion) && (OInsSetArch == InsSetArch);
     }
   };
 }

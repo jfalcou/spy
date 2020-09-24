@@ -19,9 +19,9 @@ namespace spy::detail
                     , ppc_ = 20, arm_ = 30
                     };
 
-  template<archs ARCH> struct arch_info
+  template<archs Arch> struct arch_info
   {
-    static constexpr archs  vendor  = ARCH;
+    static constexpr archs  vendor  = Arch;
 
     inline constexpr operator bool() const noexcept;
 
@@ -32,13 +32,13 @@ namespace spy::detail
     }
   };
 
-  template<archs ARCH>
-  std::ostream& operator<<(std::ostream& os, arch_info<ARCH> const&)
+  template<archs Arch>
+  std::ostream& operator<<(std::ostream& os, arch_info<Arch> const&)
   {
-    if(ARCH == archs::x86_  ) return os << "X86";
-    if(ARCH == archs::amd64_) return os << "AMD64";
-    if(ARCH == archs::ppc_  ) return os << "PowerPC";
-    if(ARCH == archs::arm_  ) return os << "ARM";
+    if(Arch == archs::x86_  ) return os << "X86";
+    if(Arch == archs::amd64_) return os << "AMD64";
+    if(Arch == archs::ppc_  ) return os << "PowerPC";
+    if(Arch == archs::arm_  ) return os << "ARM";
 
     return os << "Undefined Architecture";
   }
@@ -76,8 +76,8 @@ namespace spy
 
 namespace spy::detail
 {
-  template<archs ARCH>
-  inline constexpr arch_info<ARCH>::operator bool() const noexcept
+  template<archs Arch>
+  inline constexpr arch_info<Arch>::operator bool() const noexcept
   {
     return *this == spy::architecture;
   }

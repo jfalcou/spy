@@ -35,11 +35,11 @@ namespace spy::detail
     SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
   };
 
-  template<stdlib SLIB, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, stdlib_info<SLIB, M, N, P> const&)
+  template<stdlib SLib, int M, int N, int P>
+  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const&)
   {
-    if(SLIB == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
-    if(SLIB == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
+    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
 
     return os << "Undefined Standard C++ Library";
   }
@@ -71,8 +71,8 @@ namespace spy
 
 namespace spy::detail
 {
-  template<stdlib SLIB, int M, int N, int P>
-  inline constexpr stdlib_info<SLIB,M,N,P>::operator bool() const noexcept
+  template<stdlib SLib, int M, int N, int P>
+  inline constexpr stdlib_info<SLib,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::stdlib;
   }
