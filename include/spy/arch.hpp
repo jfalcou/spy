@@ -26,7 +26,7 @@ namespace spy::detail
     inline constexpr operator bool() const noexcept;
 
     template<archs A2>
-    constexpr bool operator==(arch_info<A2> const& c2) const noexcept
+    constexpr bool operator==(arch_info<A2> const&) const noexcept
     {
       return A2 == vendor;
     }

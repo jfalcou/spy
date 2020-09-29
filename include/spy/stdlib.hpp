@@ -27,7 +27,7 @@ namespace spy::detail
     inline constexpr operator bool() const noexcept;
 
     template<stdlib C2>
-    constexpr bool operator==(stdlib_info<C2,-1,0,0> const& c2) const noexcept
+    constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -52,7 +52,7 @@ namespace spy
 {
 #if defined(_LIBCPP_VERSION)
   #define SPY_STDLIB_IS_LIBCPP
-  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000,0>;
+  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
 #elif defined(__GLIBCXX__)
   #define SPY_STDLIB_IS_GLIBCXX
   #define SPY0 (__GLIBCXX__/100)

@@ -20,7 +20,7 @@ namespace spy::detail
     static constexpr archs  vendor  = Arch;
     inline constexpr operator bool() const noexcept;
     template<archs A2>
-    constexpr bool operator==(arch_info<A2> const& c2) const noexcept
+    constexpr bool operator==(arch_info<A2> const&) const noexcept
     {
       return A2 == vendor;
     }
@@ -203,7 +203,7 @@ namespace spy::detail
     static constexpr version_id<M,N,P>  version = {};
     inline constexpr operator bool() const noexcept;
     template<compilers C2>
-    constexpr bool operator==(compilers_info<C2,-1,0,0> const& c2) const noexcept
+    constexpr bool operator==(compilers_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -282,25 +282,25 @@ namespace spy::literal
 #include <iosfwd>
 namespace spy::detail
 {
-  template<int SS, int SI, int SL, int SPTR>
+  template<int Short, int Integer, int Long, int Pointer>
   struct data_model_info
   {
     inline constexpr operator bool() const noexcept;
-    template<int SS2, int SI2, int SL2, int SPTR2>
-    constexpr bool operator==(data_model_info<SS2, SI2, SL2, SPTR2> const& c2) const noexcept
+    template<int Short2, int Integer2, int Long2, int Pointer2>
+    constexpr bool operator==(data_model_info<Short2, Integer2, Long2, Pointer2> const& ) const noexcept
     {
-      return (SS==SS2) && (SI == SI2) && (SL == SL2) && (SPTR == SPTR2);
+      return (Short==Short2) && (Integer == Integer2) && (Long == Long2) && (Pointer == Pointer2);
     }
   };
-  template<int SS, int SI, int SL, int SPTR>
-  std::ostream& operator<<(std::ostream& os, data_model_info<SS, SI, SL, SPTR> const&)
+  template<int Short, int Integer, int Long, int Pointer>
+  std::ostream& operator<<(std::ostream& os, data_model_info<Short, Integer, Long, Pointer> const&)
   {
-          if constexpr(SPTR == 4 && SI == 4) return os << "ILP32";
-    else  if constexpr(SPTR == 4 && SI == 2) return os << "LP32";
-    else  if constexpr(SPTR == 8 && SL == 8 && SI == 8 && SS == 8)  return os << "SILP64";
-    else  if constexpr(SPTR == 8 && SS == 8 && SI == 8 && SS == 2)  return os << "ILP64";
-    else  if constexpr(SPTR == 8 && SL == 4 && SI == 8 && SS == 2)  return os << "LLP64";
-    else  if constexpr(SPTR == 8 && SL == 8 && SI == 4 && SS == 2)  return os << "LP64";
+          if constexpr(Pointer == 4 && Integer == 4) return os << "ILP32";
+    else  if constexpr(Pointer == 4 && Integer == 2) return os << "LP32";
+    else  if constexpr(Pointer == 8 && Long == 8 && Integer == 8 && Short == 8)  return os << "IntegerLP64";
+    else  if constexpr(Pointer == 8 && Short == 8 && Integer == 8 && Short == 2)  return os << "ILP64";
+    else  if constexpr(Pointer == 8 && Long == 4 && Integer == 8 && Short == 2)  return os << "LLP64";
+    else  if constexpr(Pointer == 8 && Long == 8 && Integer == 4 && Short == 2)  return os << "LP64";
     else  return os << "Unknown data model";
   }
 }
@@ -313,8 +313,8 @@ namespace spy
 }
 namespace spy::detail
 {
-  template<int SS, int SI, int SL, int SPTR>
-  inline constexpr data_model_info<SS, SI, SL, SPTR>::operator bool() const noexcept
+  template<int Short, int Integer, int Long, int Pointer>
+  inline constexpr data_model_info<Short, Integer, Long, Pointer>::operator bool() const noexcept
   {
     return *this == spy::data_model;
   }
@@ -339,7 +339,7 @@ namespace spy::detail
     static constexpr version_id<M,N,P>  version = {};
     inline constexpr operator bool() const noexcept;
     template<libC C2>
-    constexpr bool operator==(libc_info<C2,-1,0,0> const& c2) const noexcept
+    constexpr bool operator==(libc_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -442,7 +442,7 @@ namespace spy::detail
     static constexpr version_id<M,N,P>  version = {};
     inline constexpr operator bool() const noexcept;
     template<stdlib C2>
-    constexpr bool operator==(stdlib_info<C2,-1,0,0> const& c2) const noexcept
+    constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -462,7 +462,7 @@ namespace spy
 {
 #if defined(_LIBCPP_VERSION)
   #define SPY_STDLIB_IS_LIBCPP
-  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000,0>;
+  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
 #elif defined(__GLIBCXX__)
   #define SPY_STDLIB_IS_GLIBCXX
   #define SPY0 (__GLIBCXX__/100)
@@ -852,7 +852,7 @@ namespace spy::detail
     static constexpr systems            vendor  = OpSys;
     inline constexpr operator bool() const noexcept;
     template<systems C2>
-    constexpr bool operator==(os_info<C2> const& c2) const noexcept
+    constexpr bool operator==(os_info<C2> const&) const noexcept
     {
       return C2 == vendor;
     }

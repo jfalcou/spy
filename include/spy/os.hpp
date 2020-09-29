@@ -29,7 +29,7 @@ namespace spy::detail
     inline constexpr operator bool() const noexcept;
 
     template<systems C2>
-    constexpr bool operator==(os_info<C2> const& c2) const noexcept
+    constexpr bool operator==(os_info<C2> const&) const noexcept
     {
       return C2 == vendor;
     }
