@@ -42,7 +42,7 @@ add_custom_command(OUTPUT spy.hpp
           -I include
           -o ${CMAKE_CURRENT_SOURCE_DIR}/include/spy.hpp
           --include-match spy/*
-          --guard-match .*_HPP_INLUDED
+          --guard-match .*_HPP_INCLUDED
 
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   COMMENT "Generating standalone headers"

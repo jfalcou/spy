@@ -9,7 +9,7 @@
 if( MSVC )
   set( options /std:c++latest /W3 /EHsc )
 else()
-  set( options -std=c++17 -Wall)
+  set( options -std=c++17 -Wall -Wunused-parameter -Werror)
 endif()
 
 function(generate_test root file)

@@ -27,7 +27,7 @@ namespace spy::detail
     inline constexpr operator bool() const noexcept;
 
     template<libC C2>
-    constexpr bool operator==(libc_info<C2,-1,0,0> const& c2) const noexcept
+    constexpr bool operator==(libc_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }

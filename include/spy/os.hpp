@@ -22,30 +22,30 @@ namespace spy::detail
                       , android_, bsd_, cygwin_, ios_, linux_, macos_, unix_, windows_
                       };
 
-  template<systems OS> struct os_info
+  template<systems OpSys> struct os_info
   {
-    static constexpr systems            vendor  = OS;
+    static constexpr systems            vendor  = OpSys;
 
     inline constexpr operator bool() const noexcept;
 
     template<systems C2>
-    constexpr bool operator==(os_info<C2> const& c2) const noexcept
+    constexpr bool operator==(os_info<C2> const&) const noexcept
     {
       return C2 == vendor;
     }
   };
 
-  template<systems OS>
-  std::ostream& operator<<(std::ostream& os, os_info<OS> const&)
+  template<systems OpSys>
+  std::ostream& operator<<(std::ostream& os, os_info<OpSys> const&)
   {
-    if(OS == systems::android_ ) return os << "Android";
-    if(OS == systems::bsd_     ) return os << "BSD";
-    if(OS == systems::cygwin_  ) return os << "Cygwin";
-    if(OS == systems::ios_     ) return os << "iOS";
-    if(OS == systems::linux_   ) return os << "Linux";
-    if(OS == systems::macos_   ) return os << "MacOS";
-    if(OS == systems::unix_    ) return os << "UNIX";
-    if(OS == systems::windows_ ) return os << "Windows";
+    if(OpSys == systems::android_ ) return os << "Android";
+    if(OpSys == systems::bsd_     ) return os << "BSD";
+    if(OpSys == systems::cygwin_  ) return os << "Cygwin";
+    if(OpSys == systems::ios_     ) return os << "iOs";
+    if(OpSys == systems::linux_   ) return os << "Linux";
+    if(OpSys == systems::macos_   ) return os << "MacOs";
+    if(OpSys == systems::unix_    ) return os << "UNIX";
+    if(OpSys == systems::windows_ ) return os << "Windows";
 
     return os << "Undefined Operating System";
   }

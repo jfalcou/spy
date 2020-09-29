@@ -27,7 +27,7 @@ namespace spy::detail
     inline constexpr operator bool() const noexcept;
 
     template<stdlib C2>
-    constexpr bool operator==(stdlib_info<C2,-1,0,0> const& c2) const noexcept
+    constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -35,11 +35,11 @@ namespace spy::detail
     SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
   };
 
-  template<stdlib SLIB, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, stdlib_info<SLIB, M, N, P> const&)
+  template<stdlib SLib, int M, int N, int P>
+  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const&)
   {
-    if(SLIB == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
-    if(SLIB == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
+    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
 
     return os << "Undefined Standard C++ Library";
   }
@@ -52,7 +52,7 @@ namespace spy
 {
 #if defined(_LIBCPP_VERSION)
   #define SPY_STDLIB_IS_LIBCPP
-  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000,0>;
+  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
 #elif defined(__GLIBCXX__)
   #define SPY_STDLIB_IS_GLIBCXX
   #define SPY0 (__GLIBCXX__/100)
@@ -71,8 +71,8 @@ namespace spy
 
 namespace spy::detail
 {
-  template<stdlib SLIB, int M, int N, int P>
-  inline constexpr stdlib_info<SLIB,M,N,P>::operator bool() const noexcept
+  template<stdlib SLib, int M, int N, int P>
+  inline constexpr stdlib_info<SLib,M,N,P>::operator bool() const noexcept
   {
     return *this == spy::stdlib;
   }
