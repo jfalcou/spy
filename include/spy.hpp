@@ -8,7 +8,7 @@
 //==================================================================================================
 #ifndef SPY_SPY_HPP_INCLUDED
 #define SPY_SPY_HPP_INCLUDED
-#include <iostream>
+#include <ostream>
 namespace spy::detail
 {
   enum class archs  { undefined_  = -1
@@ -76,7 +76,7 @@ namespace spy
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
 }
 #include <iosfwd>
-#include <iostream>
+#include <ostream>
 namespace spy::detail
 {
   template<char... c> constexpr int find(int i0)
@@ -498,7 +498,7 @@ namespace spy::literal
     return detail::literal_wrap<detail::gnucpp_t,c...>();
   }
 }
-#include <iostream>
+#include <ostream>
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX512F__)
 #  define SPY_SIMD_IS_X86_AVX512
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx512_

@@ -10,7 +10,7 @@
 #ifndef SPY_DETAIL_HPP_INCLUDED
 #define SPY_DETAIL_HPP_INCLUDED
 
-#include <iostream>
+#include <ostream>
 
 namespace spy::detail
 {
