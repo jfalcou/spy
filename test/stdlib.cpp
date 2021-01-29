@@ -34,11 +34,11 @@ int main()
     using namespace spy::literal;
 
 #if defined(_LIBCPP_VERSION)
-    auto const wrong_constexpr_behavior = 1'42'1337_libcpp;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_libcpp;
 #elif defined(__GLIBCXX__)
-    auto const wrong_constexpr_behavior = 1'42'1337_gnucpp;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_gnucpp;
 #else
-    auto const wrong_constexpr_behavior = false;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
     if constexpr(spy::stdlib)

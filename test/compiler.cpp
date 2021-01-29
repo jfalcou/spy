@@ -72,15 +72,15 @@ int main()
     using namespace spy::literal;
 
 #if defined(_MSC_VER)
-    auto const wrong_constexpr_behavior = 1'42'1337_msvc;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_msvc;
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
-    auto const wrong_constexpr_behavior = 1'42'1337_intel;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_intel;
 #elif defined(__clang__)
-    auto const wrong_constexpr_behavior = 1'42'1337_clang;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_clang;
 #elif defined(__GNUC__)
-    auto const wrong_constexpr_behavior = 1'42'1337_gcc;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_gcc;
 #else
-    auto const wrong_constexpr_behavior = false;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
     if constexpr(spy::compiler)
