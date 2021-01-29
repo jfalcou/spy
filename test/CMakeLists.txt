@@ -1,17 +1,25 @@
-## -------------------------------------------------------------------------------------------------
+##==================================================================================================
 ##  SPY - C++ Informations Broker
-##  Copyright 2020 Joel FALCOU
+##  Copyright 2020-2021 Joel FALCOU
 ##
 ##  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 ##  SPDX-License-Identifier: MIT
-## -------------------------------------------------------------------------------------------------
+##==================================================================================================
 
-if( MSVC )
-  set( options /std:c++latest /W3 /EHsc )
+##==================================================================================================
+# Unit test Configuration
+##==================================================================================================
+add_library(spy_test INTERFACE)
+target_compile_features ( spy_test INTERFACE  cxx_std_17 )
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  target_compile_options( spy_test INTERFACE /W3 /EHsc)
 else()
-  set( options -std=c++17 -Wall -Wunused-parameter -Werror)
+  target_compile_options( spy_test INTERFACE -Wall -Werror)
 endif()
 
+##==================================================================================================
+# Generate a test
+##==================================================================================================
 function(generate_test root file)
   string(REPLACE ".cpp" ".unit" base ${file})
   string(REPLACE "/"    "." base ${base})
@@ -19,7 +27,7 @@ function(generate_test root file)
   set(test "${root}.${base}")
 
   add_executable( ${test}  "${file}")
-  target_compile_options  ( ${test} PUBLIC ${options} )
+  target_link_libraries(${test} PUBLIC spy_test)
 
   set_property( TARGET ${test}
                 PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/unit"
@@ -56,6 +64,9 @@ add_custom_target(unit)
 add_custom_target(spy.unit)
 add_dependencies(unit spy.unit)
 
+##==================================================================================================
+# All tests
+##==================================================================================================
 generate_test("spy" "arch.cpp")
 generate_test("spy" "compiler.cpp")
 generate_test("spy" "data_model.cpp")
@@ -63,4 +74,3 @@ generate_test("spy" "libc.cpp")
 generate_test("spy" "os.cpp")
 generate_test("spy" "simd.cpp")
 generate_test("spy" "stdlib.cpp")
-

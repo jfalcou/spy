@@ -1,7 +1,7 @@
 //==================================================================================================
 /*
   SPY - C++ Informations Broker
-  Copyright 2020 Joel FALCOU
+  Copyright 2020-2021 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
@@ -24,7 +24,7 @@ namespace spy::detail
                           , sse41_  = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
                           , avx512_ = 1300
                           , vmx_    = 2001, vsx_   = 2002
-                          , neon_   = 3001
+                          , neon_   = 3001, asimd_ = 3002
                           };
 
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
@@ -47,9 +47,9 @@ namespace spy::detail
       else  if constexpr ( Version == simd_version::vmx_    ) os << "PPC VMX";
       else  if constexpr ( Version == simd_version::vsx_    ) os << "PPC VSX";
       else  if constexpr ( Version == simd_version::neon_   ) os << "ARM NEON";
+      else  if constexpr ( Version == simd_version::asimd_  ) os << "ARM ASIMD";
       else return os << "Undefined SIMD instructions set";
 
-      if constexpr (spy::supports::aarch64_) os << " (with AARCH64 support)";
       if constexpr (spy::supports::fma_)     os << " (with FMA3 support)";
       if constexpr (spy::supports::fma4_)    os << " (with FMA4 support)";
       if constexpr (spy::supports::xop_)     os << " (with XOP support)";
@@ -143,6 +143,7 @@ namespace spy
 
   constexpr inline auto arm_simd_ = arm_simd_info<>{};
   constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
+  constexpr inline auto asimd_    = arm_simd_info<detail::simd_version::asimd_>{};
 }
 
 #endif

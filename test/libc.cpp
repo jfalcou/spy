@@ -1,7 +1,7 @@
 //==================================================================================================
 /*
   SPY - C++ Informations Broker
-  Copyright 2020 Joel FALCOU
+  Copyright 2020-2021 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
@@ -60,17 +60,17 @@ int main()
     using namespace spy::literal;
 
 #if defined(__cloudlibc__)
-    auto const wrong_constexpr_behavior = 1'42'1337_cloud;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_cloud;
 #elif defined(__UCLIBC__)
-    auto const wrong_constexpr_behavior = 1'42'1337_uc;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_uc;
 #elif defined(__CRTL_VER)
-    auto const wrong_constexpr_behavior = 1'42'1337_vms;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_vms;
 #elif defined(__LIBREL__)
-    auto const wrong_constexpr_behavior = 1'42'1337_zos;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_zos;
 #elif defined(__GLIBC__) || defined(__GNU_LIBRARY__)
-    auto const wrong_constexpr_behavior = 1'42'1337_gnu;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = 1'42'1337_gnu;
 #else
-    auto const wrong_constexpr_behavior = false;
+    [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
     if constexpr(spy::libc)
