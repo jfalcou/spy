@@ -70,7 +70,10 @@ jobs:
       - checkout
       - run:
           name: Update ARM processor model to emulate
-          command: echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm
+          command:                                                                |
+          mkdir -p build && cd build                                              &&
+          echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm      &&
+          cd ..
       - run_test:
           desc: Running Debug tests
           tool: "../test/toolchain/clang.arm.debug.cmake"
@@ -82,7 +85,10 @@ jobs:
       - checkout
       - run:
           name: Update ARM processor model to emulate
-          command: echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm
+          command:                                                                |
+          mkdir -p build && cd build                                              &&
+          echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm      &&
+          cd ..
       - run_test:
           desc: Running Release tests
           tool: "../test/toolchain/clang.arm.release.cmake"
