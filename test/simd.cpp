@@ -1,13 +1,14 @@
 //==================================================================================================
 /*
   SPY - C++ Informations Broker
-  Copyright 2020 Joel FALCOU
+  Copyright 2020-2021 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
 #include <spy/spy.hpp>
+#include <iostream>
 #include <cassert>
 
 int main()
@@ -49,8 +50,8 @@ int main()
   std::cout << "Check that ARM SIMD extension detection is correct: " << std::endl;
   {
     std::cout << "ARM SIMD status: "  << std::boolalpha << (spy::simd_instruction_set == spy::arm_simd_ ) << std::endl;
-    std::cout << "NEON     status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::neon_ ) << std::endl;
-    std::cout << "AARCH64 support: "  << std::boolalpha << (spy::supports::aarch64_  ) << std::endl;
+    std::cout << "NEON     status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::neon_ )     << std::endl;
+    std::cout << "ASIMD    status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::asimd_)     << std::endl;
   }
   std::cout << std::endl;
 

@@ -1,3 +1,10 @@
+<!---
+  SPY - C++ Informations Broker
+  Copyright 2018-2021 Joel FALCOU
+
+  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+  SPDX-License-Identifier: MIT
+--->
 <meta charset="utf-8" lang="en"><style class="fallback">body{visibility:hidden;}</style>
 
      ![**The C++ Informations Broker**](https://github.com/jfalcou/spy/raw/develop/logo.png)
@@ -14,7 +21,6 @@ compatible interface to access those information, thus making their exploitation
 context possible.
 
 **References:**
-
 
 ![**Our CppCon 2019 Ligthning talk video**](https://www.youtube.com/watch?v=t406o2EhG-A)
 
@@ -211,7 +217,7 @@ hardware vendor
 | ------------- | ----------------------------------------------------------------------------------- |
 | X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_`, `avx512_` |
 | Power PC      | `vmx_`, `vsx_`                                                                      |
-| ARM           | `neon_`                                                                             |
+| ARM           | `neon_`,`asimd_`                                                                    |
 
 Complete set of comparison operators is provided for those sets. Order of instructions sets
 are built so that if an instructions set supersedes another, it is considered greater than. For
@@ -298,11 +304,6 @@ void f()
   {
     std::cout << "This code has been compiled with AV512-VNNI support.\n";
   }
-
-  if constexpr( spy::supports::aarch64_ )
-  {
-    std::cout << "This code has been compiled with AARCH64 support.\n";
-  }
 }
 ~~~~~
 </script>
@@ -313,7 +314,6 @@ The complete list of supplemental instruction sets si given in the following tab
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | X86 AVX       | `xop_`, `fma_`, `fma4_`                                                                                                         |
 | X86 AVX512    | `avx512::bw_`, `avx512::cd_`, `avx512::dq_`, `avx512::er_`, `avx512::ifma_`, `avx512::pf_`, `avx512::vl_`, `avx512::popcntdq_`, `avx512::_4fmaps_`, `avx512::vnniw_`, `avx512::vbmi_`, `avx512::bf16_`, `avx512::bitalg_`, `avx512::vbmi2_`, `avx512::vnni_`, `avx512::vpintersect_`                  |
-| ARM           | `spy::supports::aarch64_`                                                                                                       |
 
 Caveat with `if constexpr`
 ----------------------------------------------------------------------------------------------------
@@ -367,7 +367,7 @@ advertise it here.
 ```
 The MIT License (MIT)
 
-Copyright (c) 2018-2020 Joel FALCOU
+Copyright (c) 2018-2021 Joel FALCOU
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

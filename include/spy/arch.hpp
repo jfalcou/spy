@@ -1,7 +1,7 @@
 //==================================================================================================
 /*
   SPY - C++ Informations Broker
-  Copyright 2020 Joel FALCOU
+  Copyright 2020-2021 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
   SPDX-License-Identifier: MIT
@@ -10,7 +10,7 @@
 #ifndef SPY_ARCH_HPP_INCLUDED
 #define SPY_ARCH_HPP_INCLUDED
 
-#include <iostream>
+#include <ostream>
 
 namespace spy::detail
 {
