@@ -10,7 +10,7 @@
 #ifndef SPY_SIMD_HPP_INCLUDED
 #define SPY_SIMD_HPP_INCLUDED
 
-#include <iostream>
+#include <ostream>
 #include <spy/simd/x86.hpp>
 #include <spy/simd/arm.hpp>
 #include <spy/simd/ppc.hpp>

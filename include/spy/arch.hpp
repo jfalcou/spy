@@ -10,7 +10,7 @@
 #ifndef SPY_ARCH_HPP_INCLUDED
 #define SPY_ARCH_HPP_INCLUDED
 
-#include <iostream>
+#include <ostream>
 
 namespace spy::detail
 {
