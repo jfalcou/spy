@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_SIMD_ARM_HPP_INCLUDED
-#define SPY_SIMD_ARM_HPP_INCLUDED
+#pragma once
 
 #if !defined(SPY_SIMD_DETECTED) && defined(__aarch64__)
 #  define SPY_SIMD_IS_ARM_ASIMD
@@ -23,6 +22,4 @@
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
 #  define SPY_SIMD_IS_ARM
 #  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_
-#endif
-
 #endif

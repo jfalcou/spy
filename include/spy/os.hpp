@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_OS_HPP_INCLUDED
-#define SPY_OS_HPP_INCLUDED
+#pragma once
 
 #if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
 #  include <AvailabilityMacros.h>
@@ -122,5 +121,3 @@ namespace spy::supports
   constexpr inline auto posix_ = false;
 #endif
 }
-
-#endif

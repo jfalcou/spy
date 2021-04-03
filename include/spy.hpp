@@ -6,8 +6,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_SPY_HPP_INCLUDED
-#define SPY_SPY_HPP_INCLUDED
+#pragma once
 #include <ostream>
 namespace spy::detail
 {
@@ -75,7 +74,6 @@ namespace spy
   constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
 }
-
 #include <ostream>
 namespace spy::detail
 {
@@ -279,7 +277,6 @@ namespace spy::literal
     return detail::literal_wrap<detail::gcc_t,c...>();
   }
 }
-#include <ostream>
 namespace spy::detail
 {
   template<int Short, int Integer, int Long, int Pointer>
@@ -329,7 +326,6 @@ namespace spy
   constexpr inline auto lp64_   = detail::data_model_info<2,4,8,8>{};
 }
 #include <cstddef>
-#include <ostream>
 namespace spy::detail
 {
   enum class libC  { undefined_  = - 1, cloudabi_, uc_, vms_, zos_, gnu_ };
@@ -432,7 +428,6 @@ namespace spy::literal
   }
 }
 #include <cstddef>
-#include <ostream>
 namespace spy::detail
 {
   enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
@@ -499,6 +494,7 @@ namespace spy::literal
   }
 }
 #include <ostream>
+-
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX512F__)
 #  define SPY_SIMD_IS_X86_AVX512
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx512_
@@ -834,7 +830,6 @@ namespace spy
   constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
   constexpr inline auto asimd_    = arm_simd_info<detail::simd_version::asimd_>{};
 }
-#include <ostream>
 #if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
 #  include <AvailabilityMacros.h>
 #endif
@@ -927,4 +922,3 @@ namespace spy::supports
   constexpr inline auto posix_ = false;
 #endif
 }
-#endif

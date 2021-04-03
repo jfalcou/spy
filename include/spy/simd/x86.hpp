@@ -7,9 +7,8 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_SIMD_X86_HPP_INCLUDED
-#define SPY_SIMD_X86_HPP_INCLUDED
-
+#pragma once
+-
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX512F__)
 #  define SPY_SIMD_IS_X86_AVX512
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx512_
@@ -267,5 +266,3 @@ namespace avx512
 }
 
 }
-
-#endif

@@ -7,9 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_ARCH_HPP_INCLUDED
-#define SPY_ARCH_HPP_INCLUDED
-
+#pragma once
 #include <ostream>
 
 namespace spy::detail
@@ -93,5 +91,3 @@ namespace spy
   constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
 }
-
-#endif

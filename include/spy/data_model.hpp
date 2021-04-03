@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_DATA_MODEL_HPP_INCLUDED
-#define SPY_DATA_MODEL_HPP_INCLUDED
+#pragma once
 
 namespace spy::detail
 {
@@ -70,5 +69,3 @@ namespace spy
   constexpr inline auto llp64_  = detail::data_model_info<2,8,4,8>{};
   constexpr inline auto lp64_   = detail::data_model_info<2,4,8,8>{};
 }
-
-#endif
