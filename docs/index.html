@@ -1,5 +1,5 @@
 <!---
-  SPY - C++ Informations Broker
+  SPY - C++ Information Broker
   Copyright 2018-2021 Joel FALCOU
 
   Licensed under the MIT License <http://opensource.org/licenses/MIT>.
@@ -7,7 +7,7 @@
 --->
 <meta charset="utf-8" lang="en"><style class="fallback">body{visibility:hidden;}</style>
 
-     ![**The C++ Informations Broker**](https://github.com/jfalcou/spy/raw/develop/logo.png)
+     ![**The C++ Information Broker**](https://github.com/jfalcou/spy/raw/develop/logo.png)
 
 Purpose
 ====================================================================================================
@@ -16,7 +16,7 @@ traditionally done using preprocessor macros. Library like
 [Boost.Predef](https://www.boost.org/doc/libs/release/doc/html/predef.html) provides a sanitized
 interface on top of those but still live in a world where the preprocessor is king.
 
-SPY is a C++17 (and onward) library that gathers similar informations and provides a `constexpr`
+SPY is a C++17 (and onward) library that gathers similar information and provides a `constexpr`
 compatible interface to access those information, thus making their exploitation within `constexpr`
 context possible.
 
@@ -24,7 +24,7 @@ context possible.
 
 ![**Our CppCon 2019 Ligthning talk video**](https://www.youtube.com/watch?v=t406o2EhG-A)
 
-- [Our CppCon 2019 Ligthning talk slides](https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing)
+- [Our CppCon 2019 Lightning talk slides](https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing)
 - [Boost.Predef](https://www.boost.org/doc/libs/release/doc/html/predef.html)
 
 How to install
@@ -95,7 +95,7 @@ SPY can detect:
 - stdlib vendor and version (in the M.N.P format) via the `spy::stdlib` object.
 
 The simplest usage of those objects is to pass them to an output stream to get
-a readable display of their informations.
+a readable display of their information.
 
 <script type="preformatted">
 ~~~~~ c++
@@ -116,7 +116,7 @@ int main()
 Comparing vendors
 ----------------------------------------------------------------------------------------------------
 Knowing is half the battle, we may want to compare the current compiler or OS to a given one
-so you can branch off your code based on this informations. Here is the list of each detected
+so you can branch off your code based on this information. Here is the list of each detected
 vendor for each SPY objects.
 
 | Detector                | Supported vendor                                                               |
@@ -367,7 +367,7 @@ advertise it here.
 ```
 The MIT License (MIT)
 
-Copyright (c) 2018-2021 Joel FALCOU
+Copyright (c) SPY Contributors & Maintainers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

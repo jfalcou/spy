@@ -1,8 +1,6 @@
 ##==================================================================================================
 ##  SPY - C++ Informations Broker
-##  Copyright 2020-2021 Joel FALCOU
-##
-##  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+##  Copyright : SPY Contributors & Maintainers
 ##  SPDX-License-Identifier: MIT
 ##==================================================================================================
 set(CMAKE_SYSTEM_NAME       Linux   )
