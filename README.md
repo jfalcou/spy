@@ -3,6 +3,9 @@
 # C++ Informations Broker
 
 [![CircleCI](https://circleci.com/gh/jfalcou/spy.svg?style=svg&circle-token=91ebbf06adfe257ebdff3a5ed17ea512fe02771c)](https://circleci.com/gh/jfalcou/spy) [![Build status](https://ci.appveyor.com/api/projects/status/3us8906c0lvdl8ld/branch/develop?svg=true)](https://ci.appveyor.com/project/jfalcou/spy/branch/develop)
+[![Licence](https://img.shields.io/github/license/jfalcou/ofw?style=plastic)](https://img.shields.io/github/license/jfalcou/ofw?style=plastic) 
+[![Discord](https://img.shields.io/discord/692734675726237696?style=plastic)](https://discord.com/channels/692734675726237696/778909280866664488) 
+
 
 # Purpose
 Detection and versioning of operating systems, compilers, architecture and other element are
