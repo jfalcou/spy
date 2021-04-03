@@ -10,7 +10,6 @@
 #ifndef SPY_COMPILER_HPP_INCLUDED
 #define SPY_COMPILER_HPP_INCLUDED
 
-#include <iosfwd>
 #include <spy/detail.hpp>
 
 namespace spy::detail

@@ -75,7 +75,7 @@ namespace spy
   constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
 }
-#include <iosfwd>
+
 #include <ostream>
 namespace spy::detail
 {
@@ -279,7 +279,7 @@ namespace spy::literal
     return detail::literal_wrap<detail::gcc_t,c...>();
   }
 }
-#include <iosfwd>
+#include <ostream>
 namespace spy::detail
 {
   template<int Short, int Integer, int Long, int Pointer>
@@ -329,7 +329,7 @@ namespace spy
   constexpr inline auto lp64_   = detail::data_model_info<2,4,8,8>{};
 }
 #include <cstddef>
-#include <iosfwd>
+#include <ostream>
 namespace spy::detail
 {
   enum class libC  { undefined_  = - 1, cloudabi_, uc_, vms_, zos_, gnu_ };
@@ -432,7 +432,7 @@ namespace spy::literal
   }
 }
 #include <cstddef>
-#include <iosfwd>
+#include <ostream>
 namespace spy::detail
 {
   enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
@@ -834,7 +834,7 @@ namespace spy
   constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
   constexpr inline auto asimd_    = arm_simd_info<detail::simd_version::asimd_>{};
 }
-#include <iosfwd>
+#include <ostream>
 #if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
 #  include <AvailabilityMacros.h>
 #endif

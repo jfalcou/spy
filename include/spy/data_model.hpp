@@ -10,8 +10,6 @@
 #ifndef SPY_DATA_MODEL_HPP_INCLUDED
 #define SPY_DATA_MODEL_HPP_INCLUDED
 
-#include <iosfwd>
-
 namespace spy::detail
 {
   template<int Short, int Integer, int Long, int Pointer>
