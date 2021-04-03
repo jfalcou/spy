@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_SIMD_PPC_HPP_INCLUDED
-#define SPY_SIMD_PPC_HPP_INCLUDED
+#pragma once
 
 #if !defined(SPY_SIMD_DETECTED) && defined(__VSX__)
 #  define SPY_SIMD_IS_PPC_VSX
@@ -23,6 +22,4 @@
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
 #  define SPY_SIMD_IS_PPC
 #  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::ppc_
-#endif
-
 #endif

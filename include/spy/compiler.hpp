@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_COMPILER_HPP_INCLUDED
-#define SPY_COMPILER_HPP_INCLUDED
+#pragma once
 
 #include <spy/detail.hpp>
 
@@ -121,5 +120,3 @@ namespace spy::literal
     return detail::literal_wrap<detail::gcc_t,c...>();
   }
 }
-
-#endif

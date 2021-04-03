@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_SIMD_HPP_INCLUDED
-#define SPY_SIMD_HPP_INCLUDED
+#pragma once
 
 #include <ostream>
 #include <spy/simd/x86.hpp>
@@ -145,5 +144,3 @@ namespace spy
   constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
   constexpr inline auto asimd_    = arm_simd_info<detail::simd_version::asimd_>{};
 }
-
-#endif

@@ -7,9 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_DETAIL_HPP_INCLUDED
-#define SPY_DETAIL_HPP_INCLUDED
-
+#pragma once
 #include <ostream>
 
 namespace spy::detail
@@ -144,5 +142,3 @@ constexpr bool operator<=( TYPE<C2,M2,N2,P2> const& c2 ) const noexcept \
   return C2 == vendor && version <= c2.version;                         \
 }                                                                       \
 /***/
-
-#endif

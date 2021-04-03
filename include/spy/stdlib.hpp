@@ -7,8 +7,7 @@
   SPDX-License-Identifier: MIT
  */
 //==================================================================================================
-#ifndef SPY_STDLIB_HPP_INCLUDED
-#define SPY_STDLIB_HPP_INCLUDED
+#pragma once
 
 // Make sure the proper header is included to detect libstd
 #include <cstddef>
@@ -98,5 +97,3 @@ namespace spy::literal
     return detail::literal_wrap<detail::gnucpp_t,c...>();
   }
 }
-
-#endif
