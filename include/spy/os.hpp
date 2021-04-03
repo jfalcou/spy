@@ -10,8 +10,6 @@
 #ifndef SPY_OS_HPP_INCLUDED
 #define SPY_OS_HPP_INCLUDED
 
-#include <iosfwd>
-
 #if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
 #  include <AvailabilityMacros.h>
 #endif

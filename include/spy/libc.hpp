@@ -12,7 +12,6 @@
 
 // Make sure the proper header is included to detect GNU libc
 #include <cstddef>
-#include <iosfwd>
 #include <spy/detail.hpp>
 
 namespace spy::detail
