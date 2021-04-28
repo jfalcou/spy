@@ -56,8 +56,16 @@ int main()
   std::cout << "Check that PPC SIMD extension detection is correct: " << std::endl;
   {
     std::cout << "PPC SIMD status: "  << std::boolalpha << (spy::simd_instruction_set == spy::ppc_simd_ ) << std::endl;
-    std::cout << "VMX      status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_ ) << std::endl;
-    std::cout << "VSX      status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vsx_ ) << std::endl;
+    std::cout << "VMX (ISA v2.03) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_2_03_ ) << std::endl;
+    std::cout << "VMX (ISA v2.05) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_2_05_ ) << std::endl;
+    std::cout << "VMX (ISA v2.06) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_2_06_ ) << std::endl;
+    std::cout << "VMX (ISA v2.07) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_2_07_ ) << std::endl;
+    std::cout << "VMX (ISA v3.00) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_3_00_ ) << std::endl;
+    std::cout << "VMX (ISA v3.01) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vmx_3_01_ ) << std::endl;
+    std::cout << "VSX (ISA v2.06) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vsx_2_06_ ) << std::endl;
+    std::cout << "VSX (ISA v2.07) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vsx_2_07_ ) << std::endl;
+    std::cout << "VSX (ISA v3.00) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vsx_3_00_ ) << std::endl;
+    std::cout << "VSX (ISA v3.01) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vsx_3_01_ ) << std::endl;
   }
   std::cout << std::endl;
 }
