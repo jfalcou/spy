@@ -42,21 +42,3 @@
 #  define SPY_SIMD_IS_PPC
 #  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::ppc_
 #endif
-
-/*
-#if defined(_ARCH_PWR10)
-int version = 10;
-#elif defined(_ARCH_PWR9)
-int version = 9;
-#elif defined(_ARCH_PWR8)
-int version = 8;
-#elif defined(_ARCH_PWR7)
-int version = 7	;
-#elif defined(_ARCH_PWR6)
-int version = 6	;
-#elif defined(_ARCH_PWR5)
-int version = 5;
-#else
-int version = 4;
-#endif
-*/
