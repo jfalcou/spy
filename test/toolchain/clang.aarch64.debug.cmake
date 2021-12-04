@@ -7,8 +7,8 @@ set(CMAKE_SYSTEM_NAME Linux     )
 set(CMAKE_SYSTEM_PROCESSOR arm  )
 
 set(CMAKE_SYSROOT       /usr/aarch64-linux-gnu)
-set(CMAKE_C_COMPILER    clang-10              )
-set(CMAKE_CXX_COMPILER  clang++-10            )
+set(CMAKE_C_COMPILER    clang                 )
+set(CMAKE_CXX_COMPILER  clang++               )
 set(CMAKE_BUILD_TYPE    Debug                 )
 
 set(CMAKE_CXX_FLAGS         "--target=aarch64-pc-linux-gnu -I/usr/aarch64-linux-gnu/include/c++/10/aarch64-linux-gnu" )
