@@ -18,4 +18,4 @@ set(ECMASCRIPT_ROOT get_filename_component(${CMAKE_CXX_COMPILER}))
 
 set(CMAKE_FIND_ROOT_PATH "$ENV{EMSDK}/upstream/emscripten/cache/sysroot/")
 
-set(CMAKE_CROSSCOMPILING_CMD ${PROJECT_SOURCE_DIR}/cmake/toolchain/run_wasm.sh     )
+set(CMAKE_CROSSCOMPILING_CMD ${PROJECT_SOURCE_DIR}/test/toolchain/run_wasm.sh     )
