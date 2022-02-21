@@ -26,6 +26,7 @@ int main()
 #endif
   }
   std::cout << "Done." << std::endl;
+  std::cout << "Detected stdlib: " << spy::stdlib  << std::endl;
 
   std::cout << "Check that detected constexpr selection on exact stdlib is correct: " << std::flush;
   {

@@ -1,10 +1,9 @@
 //==================================================================================================
-/*
+/**
   SPY - C++ Informations Broker
-  Copyright 2020-2021 Joel FALCOU
-  Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+  Copyright : SPY Contributors & Maintainers
   SPDX-License-Identifier: MIT
- */
+**/
 //==================================================================================================
 #pragma once
 #include <ostream>
@@ -13,6 +12,7 @@ namespace spy::detail
   enum class archs  { undefined_  = -1
                     , x86_ = 10, amd64_ = 11
                     , ppc_ = 20, arm_ = 30
+                    , wasm_ = 40
                     };
   template<archs Arch> struct arch_info
   {
@@ -31,6 +31,7 @@ namespace spy::detail
     if(Arch == archs::amd64_) return os << "AMD64";
     if(Arch == archs::ppc_  ) return os << "PowerPC";
     if(Arch == archs::arm_  ) return os << "ARM";
+    if(Arch == archs::wasm_ ) return os << "WebAssembly";
     return os << "Undefined Architecture";
   }
 }
@@ -53,6 +54,9 @@ namespace spy
       defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
   using arch_type = detail::arch_info<detail::archs::arm_>;
   #define SPY_ARCH_IS_ARM
+#elif defined(__wasm__)
+  using arch_type = detail::arch_info<detail::archs::wasm_>;
+  #define SPY_ARCH_IS_WASM
 #else
   #define SPY_ARCH_IS_UNKNOWN
   using arch_type = detail::arch_info<detail::archs::undefined_>;
@@ -73,6 +77,7 @@ namespace spy
   constexpr inline auto amd64_  = detail::arch_info<detail::archs::amd64_>{};
   constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
+  constexpr inline auto wasm_   = detail::arch_info<detail::archs::wasm_>{};
 }
 #include <ostream>
 namespace spy::detail
@@ -194,7 +199,7 @@ constexpr bool operator<=( TYPE<C2,M2,N2,P2> const& c2 ) const noexcept \
 
 namespace spy::detail
 {
-  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_ };
+  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_ };
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
     static constexpr compilers          vendor  = Compiler;
@@ -214,12 +219,14 @@ namespace spy::detail
     if(C == compilers::intel_) return os << "Intel icpc "               << c.version;
     if(C == compilers::clang_) return os << "clang "                    << c.version;
     if(C == compilers::gcc_  ) return os << "g++ "                      << c.version;
+    if(C == compilers::emscripten_  ) return os << "Emscripten "        << c.version;
     return os << "Undefined " << c.version;
   }
-  template<int M, int N, int P> using msvc_t  = compilers_info<compilers::msvc_ ,M,N,P>;
-  template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_,M,N,P>;
-  template<int M, int N, int P> using clang_t = compilers_info<compilers::clang_,M,N,P>;
-  template<int M, int N, int P> using gcc_t   = compilers_info<compilers::gcc_  ,M,N,P>;
+  template<int M, int N, int P> using msvc_t        = compilers_info<compilers::msvc_ ,M,N,P>;
+  template<int M, int N, int P> using intel_t       = compilers_info<compilers::intel_,M,N,P>;
+  template<int M, int N, int P> using clang_t       = compilers_info<compilers::clang_,M,N,P>;
+  template<int M, int N, int P> using gcc_t         = compilers_info<compilers::gcc_  ,M,N,P>;
+  template<int M, int N, int P> using emscripten_t  = compilers_info<compilers::emscripten_,M,N,P>;
 }
 namespace spy
 {
@@ -230,6 +237,10 @@ namespace spy
   #define SPY_COMPILER_IS_INTEL
   #define SPY0 __INTEL_COMPILER
   using compiler_type = detail::intel_t<(SPY0 / 100) % 100,SPY0 % 100, __INTEL_COMPILER_UPDATE>;
+  #undef SPY0
+#elif defined(__EMSCRIPTEN__)
+  #define SPY_COMPILER_IS_CLANG
+  using compiler_type = detail::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__ >;
   #undef SPY0
 #elif defined(__clang__)
   #define SPY_COMPILER_IS_CLANG
@@ -253,10 +264,11 @@ namespace spy::detail
 }
 namespace spy
 {
-  constexpr inline auto  msvc_   = detail::msvc_t<-1,0,0>{};
-  constexpr inline auto  intel_  = detail::intel_t<-1,0,0>{};
-  constexpr inline auto  clang_  = detail::clang_t<-1,0,0>{};
-  constexpr inline auto  gcc_    = detail::gcc_t<-1,0,0>{};
+  constexpr inline auto  msvc_        = detail::msvc_t<-1,0,0>{};
+  constexpr inline auto  intel_       = detail::intel_t<-1,0,0>{};
+  constexpr inline auto  clang_       = detail::clang_t<-1,0,0>{};
+  constexpr inline auto  gcc_         = detail::gcc_t<-1,0,0>{};
+  constexpr inline auto  emscripten_  = detail::emscripten_t<-1,0,0>{};
 }
 namespace spy::literal
 {
@@ -275,6 +287,10 @@ namespace spy::literal
   template<char ...c> constexpr auto operator"" _gcc()
   {
     return detail::literal_wrap<detail::gcc_t,c...>();
+  }
+  template<char ...c> constexpr auto operator"" _em()
+  {
+    return detail::literal_wrap<detail::emscripten_t,c...>();
   }
 }
 namespace spy::detail
@@ -494,7 +510,6 @@ namespace spy::literal
   }
 }
 #include <ostream>
--
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX512F__)
 #  define SPY_SIMD_IS_X86_AVX512
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::avx512_
@@ -716,26 +731,57 @@ namespace avx512
 #  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__VSX__)
-#  define SPY_SIMD_IS_PPC_VSX
-#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_
+# define SPY_SIMD_IS_PPC_VSX
+#  if defined(_ARCH_PWR10)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_3_01_
+#  elif defined(_ARCH_PWR9)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_3_00_
+#  elif defined(_ARCH_PWR8)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_2_07_
+#  elif defined(_ARCH_PWR7)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vsx_2_06_
+#  endif
 #endif
 #if !defined(SPY_SIMD_DETECTED) && (defined(__ALTIVEC__) || defined(__VEC__))
 #  define SPY_SIMD_IS_PPC_VMX
+#  if defined(_ARCH_PWR10)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_3_01_
+#  elif defined(_ARCH_PWR9)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_3_00_
+#  elif defined(_ARCH_PWR8)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_2_07_
+#  elif defined(_ARCH_PWR7)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_2_06_
+#  elif defined(_ARCH_PWR6)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_2_05_
+#  elif defined(_ARCH_PWR5)
+#    define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_2_03_
+#  endif
 #  define SPY_SIMD_DETECTED ::spy::detail::simd_version::vmx_
 #endif
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
 #  define SPY_SIMD_IS_PPC
 #  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::ppc_
 #endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__wasm_simd128__)
+#  define SPY_SIMD_DETECTED ::spy::detail::simd_version::simd128_
+#endif
+#if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
+#  define SPY_SIMD_IS_WASM
+#  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::wasm_
+#endif
 namespace spy::detail
 {
-  enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000 };
+  enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000, wasm_ = 4000 };
   enum class simd_version { undefined_ = -1
-                          , sse1_   = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
-                          , sse41_  = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
-                          , avx512_ = 1300
-                          , vmx_    = 2001, vsx_   = 2002
-                          , neon_   = 3001, asimd_ = 3002
+                          , sse1_     = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
+                          , sse41_    = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
+                          , avx512_   = 1300
+                          , vmx_2_03_ = 2203, vmx_2_05_ = 2205, vmx_2_06_ = 2206
+                          , vmx_2_07_ = 2207, vmx_3_00_ = 2300, vmx_3_01_ = 2301
+                          , vsx_2_06_ = 3206, vsx_2_07_ = 3207, vsx_3_00_ = 3300, vsx_3_01_ = 3301
+                          , neon_     = 4001, asimd_    = 4002
+                          , simd128_  = 5000
                           };
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
   struct simd_info
@@ -744,17 +790,26 @@ namespace spy::detail
     static constexpr auto version = Version;
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
-            if constexpr ( Version == simd_version::sse1_   ) os << "X86 SSE";
-      else  if constexpr ( Version == simd_version::sse2_   ) os << "X86 SSE2";
-      else  if constexpr ( Version == simd_version::sse3_   ) os << "X86 SSE3";
-      else  if constexpr ( Version == simd_version::ssse3_  ) os << "X86 SSSE3";
-      else  if constexpr ( Version == simd_version::sse41_  ) os << "X86 SSE4.1";
-      else  if constexpr ( Version == simd_version::sse42_  ) os << "X86 SSE4.2";
-      else  if constexpr ( Version == simd_version::avx_    ) os << "X86 AVX";
-      else  if constexpr ( Version == simd_version::avx2_   ) os << "X86 AVX2";
-      else  if constexpr ( Version == simd_version::avx512_ ) os << "X86 AVX512";
-      else  if constexpr ( Version == simd_version::vmx_    ) os << "PPC VMX";
-      else  if constexpr ( Version == simd_version::vsx_    ) os << "PPC VSX";
+            if constexpr ( Version == simd_version::simd128_  ) os << "WASM SIMD128";
+      else  if constexpr ( Version == simd_version::sse1_     ) os << "X86 SSE";
+      else  if constexpr ( Version == simd_version::sse2_     ) os << "X86 SSE2";
+      else  if constexpr ( Version == simd_version::sse3_     ) os << "X86 SSE3";
+      else  if constexpr ( Version == simd_version::ssse3_    ) os << "X86 SSSE3";
+      else  if constexpr ( Version == simd_version::sse41_    ) os << "X86 SSE4.1";
+      else  if constexpr ( Version == simd_version::sse42_    ) os << "X86 SSE4.2";
+      else  if constexpr ( Version == simd_version::avx_      ) os << "X86 AVX";
+      else  if constexpr ( Version == simd_version::avx2_     ) os << "X86 AVX2";
+      else  if constexpr ( Version == simd_version::avx512_   ) os << "X86 AVX512";
+      else  if constexpr ( Version >= simd_version::vmx_2_03_ && Version <= simd_version::vmx_3_01_)
+      {
+        constexpr auto v = static_cast<int>(Version);
+        os << "PPC VMX with ISA v" << ((v-2000)/100.);
+      }
+      else  if constexpr ( Version >= simd_version::vsx_2_06_ && Version <= simd_version::vsx_3_01_)
+      {
+        constexpr auto v = static_cast<int>(Version);
+        os << "PPC VSX with ISA v" << ((v-3000)/100.);
+      }
       else  if constexpr ( Version == simd_version::neon_   ) os << "ARM NEON";
       else  if constexpr ( Version == simd_version::asimd_  ) os << "ARM ASIMD";
       else return os << "Undefined SIMD instructions set";
@@ -808,6 +863,10 @@ namespace spy
   #endif
   constexpr inline auto undefined_simd_ = detail::simd_info<>{};
   template<detail::simd_version V = detail::simd_version::undefined_>
+  using wasm_simd_info = detail::simd_info<detail::simd_isa::wasm_,V>;
+  constexpr inline auto wasm_simd_ = wasm_simd_info<>{};
+  constexpr inline auto simd128_   = wasm_simd_info<detail::simd_version::simd128_>{};
+  template<detail::simd_version V = detail::simd_version::undefined_>
   using x86_simd_info = detail::simd_info<detail::simd_isa::x86_,V>;
   constexpr inline auto x86_simd_ = x86_simd_info<>{};
   constexpr inline auto sse1_     = x86_simd_info<detail::simd_version::sse1_   >{};
@@ -822,8 +881,16 @@ namespace spy
   template<detail::simd_version V = detail::simd_version::undefined_>
   using ppc_simd_info = detail::simd_info<detail::simd_isa::ppc_,V>;
   constexpr inline auto ppc_simd_ = ppc_simd_info<>{};
-  constexpr inline auto vmx_      = ppc_simd_info<detail::simd_version::vmx_>{};
-  constexpr inline auto vsx_      = ppc_simd_info<detail::simd_version::vsx_>{};
+  constexpr inline auto vmx_2_03_ = ppc_simd_info<detail::simd_version::vmx_2_03_>{};
+  constexpr inline auto vmx_2_05_ = ppc_simd_info<detail::simd_version::vmx_2_05_>{};
+  constexpr inline auto vmx_2_06_ = ppc_simd_info<detail::simd_version::vmx_2_06_>{};
+  constexpr inline auto vmx_2_07_ = ppc_simd_info<detail::simd_version::vmx_2_07_>{};
+  constexpr inline auto vmx_3_00_ = ppc_simd_info<detail::simd_version::vmx_3_00_>{};
+  constexpr inline auto vmx_3_01_ = ppc_simd_info<detail::simd_version::vmx_3_01_>{};
+  constexpr inline auto vsx_2_06_ = ppc_simd_info<detail::simd_version::vsx_2_06_>{};
+  constexpr inline auto vsx_2_07_ = ppc_simd_info<detail::simd_version::vsx_2_07_>{};
+  constexpr inline auto vsx_3_00_ = ppc_simd_info<detail::simd_version::vsx_3_00_>{};
+  constexpr inline auto vsx_3_01_ = ppc_simd_info<detail::simd_version::vsx_3_01_>{};
   template<detail::simd_version V = detail::simd_version::undefined_>
   using arm_simd_info = detail::simd_info<detail::simd_isa::arm_,V>;
   constexpr inline auto arm_simd_ = arm_simd_info<>{};

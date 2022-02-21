@@ -13,6 +13,7 @@ namespace spy::detail
   enum class archs  { undefined_  = -1
                     , x86_ = 10, amd64_ = 11
                     , ppc_ = 20, arm_ = 30
+                    , wasm_ = 40
                     };
 
   template<archs Arch> struct arch_info
@@ -35,6 +36,7 @@ namespace spy::detail
     if(Arch == archs::amd64_) return os << "AMD64";
     if(Arch == archs::ppc_  ) return os << "PowerPC";
     if(Arch == archs::arm_  ) return os << "ARM";
+    if(Arch == archs::wasm_ ) return os << "WebAssembly";
 
     return os << "Undefined Architecture";
   }
@@ -59,6 +61,9 @@ namespace spy
       defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
   using arch_type = detail::arch_info<detail::archs::arm_>;
   #define SPY_ARCH_IS_ARM
+#elif defined(__wasm__)
+  using arch_type = detail::arch_info<detail::archs::wasm_>;
+  #define SPY_ARCH_IS_WASM
 #else
   #define SPY_ARCH_IS_UNKNOWN
   using arch_type = detail::arch_info<detail::archs::undefined_>;
@@ -88,4 +93,5 @@ namespace spy
   constexpr inline auto amd64_  = detail::arch_info<detail::archs::amd64_>{};
   constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
+  constexpr inline auto wasm_   = detail::arch_info<detail::archs::wasm_>{};
 }

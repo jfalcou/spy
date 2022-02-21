@@ -7,7 +7,7 @@ set(CMAKE_C_COMPILER    emcc )
 set(CMAKE_CXX_COMPILER  em++ )
 
 ## We do test exceptions
-set(CMAKE_CXX_FLAGS  "-fexceptions" )
+set(CMAKE_CXX_FLAGS  "-fexceptions -msimd128" )
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

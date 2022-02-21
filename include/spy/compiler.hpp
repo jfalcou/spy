@@ -11,7 +11,7 @@
 
 namespace spy::detail
 {
-  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_ };
+  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_ };
 
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
@@ -36,14 +36,16 @@ namespace spy::detail
     if(C == compilers::intel_) return os << "Intel icpc "               << c.version;
     if(C == compilers::clang_) return os << "clang "                    << c.version;
     if(C == compilers::gcc_  ) return os << "g++ "                      << c.version;
+    if(C == compilers::emscripten_  ) return os << "Emscripten "        << c.version;
 
     return os << "Undefined " << c.version;
   }
 
-  template<int M, int N, int P> using msvc_t  = compilers_info<compilers::msvc_ ,M,N,P>;
-  template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_,M,N,P>;
-  template<int M, int N, int P> using clang_t = compilers_info<compilers::clang_,M,N,P>;
-  template<int M, int N, int P> using gcc_t   = compilers_info<compilers::gcc_  ,M,N,P>;
+  template<int M, int N, int P> using msvc_t        = compilers_info<compilers::msvc_ ,M,N,P>;
+  template<int M, int N, int P> using intel_t       = compilers_info<compilers::intel_,M,N,P>;
+  template<int M, int N, int P> using clang_t       = compilers_info<compilers::clang_,M,N,P>;
+  template<int M, int N, int P> using gcc_t         = compilers_info<compilers::gcc_  ,M,N,P>;
+  template<int M, int N, int P> using emscripten_t  = compilers_info<compilers::emscripten_,M,N,P>;
 }
 
 namespace spy
@@ -58,6 +60,10 @@ namespace spy
   #define SPY_COMPILER_IS_INTEL
   #define SPY0 __INTEL_COMPILER
   using compiler_type = detail::intel_t<(SPY0 / 100) % 100,SPY0 % 100, __INTEL_COMPILER_UPDATE>;
+  #undef SPY0
+#elif defined(__EMSCRIPTEN__)
+  #define SPY_COMPILER_IS_CLANG
+  using compiler_type = detail::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__ >;
   #undef SPY0
 #elif defined(__clang__)
   #define SPY_COMPILER_IS_CLANG
@@ -90,10 +96,11 @@ namespace spy
   //================================================================================================
   // Compilers detector stand-alone instances
   //================================================================================================
-  constexpr inline auto  msvc_   = detail::msvc_t<-1,0,0>{};
-  constexpr inline auto  intel_  = detail::intel_t<-1,0,0>{};
-  constexpr inline auto  clang_  = detail::clang_t<-1,0,0>{};
-  constexpr inline auto  gcc_    = detail::gcc_t<-1,0,0>{};
+  constexpr inline auto  msvc_        = detail::msvc_t<-1,0,0>{};
+  constexpr inline auto  intel_       = detail::intel_t<-1,0,0>{};
+  constexpr inline auto  clang_       = detail::clang_t<-1,0,0>{};
+  constexpr inline auto  gcc_         = detail::gcc_t<-1,0,0>{};
+  constexpr inline auto  emscripten_  = detail::emscripten_t<-1,0,0>{};
 }
 
 namespace spy::literal
@@ -116,5 +123,10 @@ namespace spy::literal
   template<char ...c> constexpr auto operator"" _gcc()
   {
     return detail::literal_wrap<detail::gcc_t,c...>();
+  }
+
+  template<char ...c> constexpr auto operator"" _em()
+  {
+    return detail::literal_wrap<detail::emscripten_t,c...>();
   }
 }

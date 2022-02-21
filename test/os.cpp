@@ -88,4 +88,5 @@ int main()
 #endif
   }
   std::cout << "Done." << std::endl;
+  std::cout << "Detected OS: " << spy::operating_system << std::endl;
 }
