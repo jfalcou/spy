@@ -17,11 +17,13 @@ namespace spy::detail
   enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000 };
 
   enum class simd_version { undefined_ = -1
-                          , sse1_   = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
-                          , sse41_  = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
-                          , avx512_ = 1300
-                          , vmx_    = 2001, vsx_   = 2002
-                          , neon_   = 3001, asimd_ = 3002
+                          , sse1_     = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
+                          , sse41_    = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
+                          , avx512_   = 1300
+                          , vmx_2_03_ = 2203, vmx_2_05_ = 2205, vmx_2_06_ = 2206
+                          , vmx_2_07_ = 2207, vmx_3_00_ = 2300, vmx_3_01_ = 2301
+                          , vsx_2_06_ = 3206, vsx_2_07_ = 3207, vsx_3_00_ = 3300, vsx_3_01_ = 3301
+                          , neon_     = 4001, asimd_    = 4002
                           };
 
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
@@ -41,8 +43,16 @@ namespace spy::detail
       else  if constexpr ( Version == simd_version::avx_    ) os << "X86 AVX";
       else  if constexpr ( Version == simd_version::avx2_   ) os << "X86 AVX2";
       else  if constexpr ( Version == simd_version::avx512_ ) os << "X86 AVX512";
-      else  if constexpr ( Version == simd_version::vmx_    ) os << "PPC VMX";
-      else  if constexpr ( Version == simd_version::vsx_    ) os << "PPC VSX";
+      else  if constexpr ( Version >= simd_version::vmx_2_03_ && Version <= simd_version::vmx_3_01_)
+      {
+        constexpr auto v = static_cast<int>(Version);
+        os << "PPC VMX with ISA v" << ((v-2000)/100.);
+      }
+      else  if constexpr ( Version >= simd_version::vsx_2_06_ && Version <= simd_version::vsx_3_01_)
+      {
+        constexpr auto v = static_cast<int>(Version);
+        os << "PPC VSX with ISA v" << ((v-3000)/100.);
+      }
       else  if constexpr ( Version == simd_version::neon_   ) os << "ARM NEON";
       else  if constexpr ( Version == simd_version::asimd_  ) os << "ARM ASIMD";
       else return os << "Undefined SIMD instructions set";
@@ -132,8 +142,17 @@ namespace spy
   using ppc_simd_info = detail::simd_info<detail::simd_isa::ppc_,V>;
 
   constexpr inline auto ppc_simd_ = ppc_simd_info<>{};
-  constexpr inline auto vmx_      = ppc_simd_info<detail::simd_version::vmx_>{};
-  constexpr inline auto vsx_      = ppc_simd_info<detail::simd_version::vsx_>{};
+  constexpr inline auto vmx_2_03_ = ppc_simd_info<detail::simd_version::vmx_2_03_>{};
+  constexpr inline auto vmx_2_05_ = ppc_simd_info<detail::simd_version::vmx_2_05_>{};
+  constexpr inline auto vmx_2_06_ = ppc_simd_info<detail::simd_version::vmx_2_06_>{};
+  constexpr inline auto vmx_2_07_ = ppc_simd_info<detail::simd_version::vmx_2_07_>{};
+  constexpr inline auto vmx_3_00_ = ppc_simd_info<detail::simd_version::vmx_3_00_>{};
+  constexpr inline auto vmx_3_01_ = ppc_simd_info<detail::simd_version::vmx_3_01_>{};
+
+  constexpr inline auto vsx_2_06_ = ppc_simd_info<detail::simd_version::vsx_2_06_>{};
+  constexpr inline auto vsx_2_07_ = ppc_simd_info<detail::simd_version::vsx_2_07_>{};
+  constexpr inline auto vsx_3_00_ = ppc_simd_info<detail::simd_version::vsx_3_00_>{};
+  constexpr inline auto vsx_3_01_ = ppc_simd_info<detail::simd_version::vsx_3_01_>{};
 
   template<detail::simd_version V = detail::simd_version::undefined_>
   using arm_simd_info = detail::simd_info<detail::simd_isa::arm_,V>;

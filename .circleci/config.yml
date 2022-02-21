@@ -27,7 +27,7 @@ commands:
 jobs:
   x86_clang_debug:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -36,82 +36,16 @@ jobs:
 
   x86_clang_release:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
           desc: Running Release tests
           tool: "../test/toolchain/clang.x86.release.cmake"
 
-  ppc64le_clang_debug:
-    docker:
-      - image: jfalcou/compilers:latest
-    steps:
-      - checkout
-      - run_test:
-          desc: Running Debug tests
-          tool: "../test/toolchain/clang.ppc64le.debug.cmake"
-
-  ppc64le_clang_release:
-    docker:
-      - image: jfalcou/compilers:latest
-    steps:
-      - checkout
-      - run_test:
-          desc: Running Release tests
-          tool: "../test/toolchain/clang.ppc64le.release.cmake"
-
-  arm_clang_debug:
-    docker:
-      - image: jfalcou/compilers:latest
-    steps:
-      - checkout
-      - run:
-          name: Update ARM processor model to emulate
-          command:                                                                |
-            mkdir -p build && cd build                                            &&
-            echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm    &&
-            cd ..
-      - run_test:
-          desc: Running Debug tests
-          tool: "../test/toolchain/clang.arm.debug.cmake"
-
-  arm_clang_release:
-    docker:
-      - image: jfalcou/compilers:latest
-    steps:
-      - checkout
-      - run:
-          name: Update ARM processor model to emulate
-          command:                                                                |
-            mkdir -p build && cd build                                            &&
-            echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm    &&
-            cd ..
-      - run_test:
-          desc: Running Release tests
-          tool: "../test/toolchain/clang.arm.release.cmake"
-
-  aarch64_clang_debug:
-    docker:
-      - image: jfalcou/compilers:latest
-    steps:
-      - checkout
-      - run_test:
-          desc: Running Debug tests
-          tool: "../test/toolchain/clang.aarch64.debug.cmake"
-
-  aarch64_clang_release:
-    docker:
-      - image: jfalcou/compilers:latest
-    steps:
-      - checkout
-      - run_test:
-          desc: Running Release tests
-          tool: "../test/toolchain/clang.aarch64.release.cmake"
-
   x86_gcc_debug:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -120,7 +54,7 @@ jobs:
 
   x86_gcc_release:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -129,7 +63,7 @@ jobs:
 
   ppc64_gcc_debug:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -138,7 +72,7 @@ jobs:
 
   ppc64_gcc_release:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -147,7 +81,7 @@ jobs:
 
   arm_gcc_debug:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run:
@@ -162,7 +96,7 @@ jobs:
 
   arm_gcc_release:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run:
@@ -177,7 +111,7 @@ jobs:
 
   aarch64_gcc_debug:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -186,7 +120,7 @@ jobs:
 
   aarch64_gcc_release:
     docker:
-      - image: jfalcou/compilers:latest
+      - image: jfalcou/compilers:v3
     steps:
       - checkout
       - run_test:
@@ -198,9 +132,6 @@ workflows:
   build_and_test:
     jobs:
       - x86_clang_debug
-      - ppc64le_clang_debug
-      - arm_clang_debug
-      - aarch64_clang_debug
       - x86_gcc_debug
       - ppc64_gcc_debug
       - arm_gcc_debug
@@ -208,15 +139,6 @@ workflows:
       - x86_clang_release:
           requires:
             - x86_clang_debug
-      - ppc64le_clang_release:
-          requires:
-            - ppc64le_clang_debug
-      - arm_clang_release:
-          requires:
-            - arm_clang_debug
-      - aarch64_clang_release:
-          requires:
-            - aarch64_clang_debug
       - x86_gcc_release:
           requires:
             - x86_gcc_debug
