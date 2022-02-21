@@ -52,6 +52,7 @@ int main()
 #endif
   }
   std::cout << "Done." << std::endl;
+  std::cout << "Detected libc: " << spy::libc  << std::endl;
 
   std::cout << "Check that detected constexpr selection on exact libc is correct: " << std::flush;
   {

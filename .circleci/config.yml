@@ -15,19 +15,22 @@ commands:
         type: string
       proc:
         type: integer
-        default: 8
+        default: 4
+      wrapper:
+        type: string
+        default: "cmake"
     steps:
       - run:
           name: << parameters.desc >>
-          command:                                                                  |
-            mkdir -p build && cd build                                              &&
-            cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=<< parameters.tool >>          &&
+          command:                                                                            |
+            mkdir -p build && cd build                                                        &&
+            << parameters.wrapper >> .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=<< parameters.tool >> &&
             ninja unit -j << parameters.proc >> && ctest  -j << parameters.proc >>
 
 jobs:
   x86_clang_debug:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
@@ -36,7 +39,7 @@ jobs:
 
   x86_clang_release:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
@@ -45,7 +48,7 @@ jobs:
 
   x86_gcc_debug:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
@@ -54,7 +57,7 @@ jobs:
 
   x86_gcc_release:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
@@ -63,7 +66,7 @@ jobs:
 
   ppc64_gcc_debug:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
@@ -72,46 +75,16 @@ jobs:
 
   ppc64_gcc_release:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
           desc: Running Release tests
           tool: "../test/toolchain/gcc.ppc64.release.cmake"
 
-  arm_gcc_debug:
-    docker:
-      - image: jfalcou/compilers:v3
-    steps:
-      - checkout
-      - run:
-          name: Update ARM processor model to emulate
-          command:                                                                |
-            mkdir -p build && cd build                                            &&
-            echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm    &&
-            cd ..
-      - run_test:
-          desc: Running Debug tests
-          tool: "../test/toolchain/gcc.arm.debug.cmake"
-
-  arm_gcc_release:
-    docker:
-      - image: jfalcou/compilers:v3
-    steps:
-      - checkout
-      - run:
-          name: Update ARM processor model to emulate
-          command:                                                                |
-            mkdir -p build && cd build                                            &&
-            echo "qemu-arm -cpu cortex-a15 \$@" >> run_arm && chmod +x run_arm    &&
-            cd ..
-      - run_test:
-          desc: Running Release tests
-          tool: "../test/toolchain/gcc.arm.release.cmake"
-
   aarch64_gcc_debug:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
@@ -120,21 +93,31 @@ jobs:
 
   aarch64_gcc_release:
     docker:
-      - image: jfalcou/compilers:v3
+      - image: jfalcou/compilers:v4
     steps:
       - checkout
       - run_test:
           desc: Running Release tests
           tool: "../test/toolchain/gcc.aarch64.release.cmake"
 
+  emscripten:
+    docker:
+      - image: jfalcou/compilers:v4
+    steps:
+      - checkout
+      - run_test:
+          desc: Running Release tests
+          wrapper: "emcmake cmake"
+          tool: "../test/toolchain/emcc.cmake"
+
 workflows:
   version: 2
   build_and_test:
     jobs:
+      - emscripten
       - x86_clang_debug
       - x86_gcc_debug
       - ppc64_gcc_debug
-      - arm_gcc_debug
       - aarch64_gcc_debug
       - x86_clang_release:
           requires:
@@ -145,9 +128,6 @@ workflows:
       - ppc64_gcc_release:
           requires:
             - ppc64_gcc_debug
-      - arm_gcc_release:
-          requires:
-            - arm_gcc_debug
       - aarch64_gcc_release:
           requires:
             - aarch64_gcc_debug

@@ -20,11 +20,13 @@ int main()
     assert( !spy::architecture == spy::amd64_ );
     assert( !spy::architecture == spy::ppc_   );
     assert( !spy::architecture == spy::arm_   );
+    assert( !spy::architecture == spy::wasm_  );
 #elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(__amd64) || defined(_M_X64)
     assert( !spy::architecture == spy::x86_   );
     assert(  spy::architecture == spy::amd64_ );
     assert( !spy::architecture == spy::ppc_   );
     assert( !spy::architecture == spy::arm_   );
+    assert( !spy::architecture == spy::wasm_  );
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) ||     \
       defined(_M_PPC) || defined(_ARCH_PPC) || defined(__PPCGECKO__) || defined(__PPCBROADWAY__) || \
       defined(_XENON)
@@ -32,12 +34,20 @@ int main()
     assert( !spy::architecture == spy::amd64_ );
     assert(  spy::architecture == spy::ppc_   );
     assert( !spy::architecture == spy::arm_   );
+    assert( !spy::architecture == spy::wasm_  );
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
       defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
     assert( !spy::architecture == spy::x86_   );
     assert( !spy::architecture == spy::amd64_ );
     assert( !spy::architecture == spy::ppc_   );
     assert(  spy::architecture == spy::arm_   );
+    assert( !spy::architecture == spy::wasm_  );
+#elif defined(__wasm__)
+    assert( !spy::architecture == spy::x86_   );
+    assert( !spy::architecture == spy::amd64_ );
+    assert( !spy::architecture == spy::ppc_   );
+    assert( !spy::architecture == spy::arm_   );
+    assert(  spy::architecture == spy::wasm_  );
 #else
     assert( !spy::architecture == spy::x86_   );
     assert( !spy::architecture == spy::amd64_ );
@@ -49,6 +59,7 @@ int main()
     std::cout << "AMD64 status: " << std::boolalpha << (spy::architecture == spy::amd64_) << std::endl;
     std::cout << "PPC   status: " << std::boolalpha << (spy::architecture == spy::ppc_  ) << std::endl;
     std::cout << "ARM   status: " << std::boolalpha << (spy::architecture == spy::arm_  ) << std::endl;
+    std::cout << "WASM  status: " << std::boolalpha << (spy::architecture == spy::wasm_ ) << std::endl;
   }
   std::cout << "Done." << std::endl;
 }

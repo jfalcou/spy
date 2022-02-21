@@ -68,4 +68,11 @@ int main()
     std::cout << "VSX (ISA v3.01) status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::vsx_3_01_ ) << std::endl;
   }
   std::cout << std::endl;
+
+  std::cout << "Check that WASM SIMD extension detection is correct: " << std::endl;
+  {
+    std::cout << "WASM     status: " << std::boolalpha << (spy::simd_instruction_set == spy::wasm_simd_ ) << std::endl;
+    std::cout << "SIMD128  status: " << std::boolalpha << (spy::simd_instruction_set >= spy::simd128_   ) << std::endl;
+  }
+  std::cout << std::endl;
 }

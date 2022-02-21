@@ -39,4 +39,5 @@ int main()
     std::cout << "LP64   status: " << std::boolalpha << (spy::data_model == spy::lp64_  ) << std::endl;
   }
   std::cout << "Done." << std::endl;
+  std::cout << "Data model detected: " << spy::data_model << std::endl;
 }
