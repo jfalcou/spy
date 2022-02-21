@@ -15,13 +15,16 @@ commands:
         type: string
       proc:
         type: integer
-        default: 8
+        default: 4
+      wrapper:
+        type: string
+        default: "cmake"
     steps:
       - run:
           name: << parameters.desc >>
-          command:                                                                  |
-            mkdir -p build && cd build                                              &&
-            cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=<< parameters.tool >>          &&
+          command:                                                                            |
+            mkdir -p build && cd build                                                        &&
+            << parameters.wrapper >> .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=<< parameters.tool >> &&
             ninja unit -j << parameters.proc >> && ctest  -j << parameters.proc >>
 
 jobs:
@@ -127,10 +130,21 @@ jobs:
           desc: Running Release tests
           tool: "../test/toolchain/gcc.aarch64.release.cmake"
 
+  emscripten:
+    docker:
+      - image: jfalcou/compilers:v4
+    steps:
+      - checkout
+      - run_test:
+          desc: Running Release tests
+          wrapper: "emcmake cmake"
+          tool: "../cmake/toolchain/emcc.cmake"
+
 workflows:
   version: 2
   build_and_test:
     jobs:
+      - emscripten
       - x86_clang_debug
       - x86_gcc_debug
       - ppc64_gcc_debug
