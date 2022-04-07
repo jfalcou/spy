@@ -70,13 +70,13 @@ int main()
     assert( !(spy::compiler >= 3'9_clang));
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert(  spy::compiler >= 3'1_em    );
-#elif defined(__clang__)
+#elif defined(__clang__) && !defined(__EMSCRIPTEN___)
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel ));
     assert(  spy::compiler >= 3'9_clang );
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert( !(spy::compiler >= 3'1_em   ));
-#elif defined(__GNUC__)
+#elif defined(__GNUC__ )
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel ));
     assert( !(spy::compiler >= 3'9_clang));
