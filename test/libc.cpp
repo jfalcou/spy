@@ -38,10 +38,10 @@ int main()
     assert(  spy::libc == spy::zos_      );
     assert( !spy::libc == spy::gnu_      );
 #elif defined(__GLIBC__) || defined(__GNU_LIBRARY__)
-    assert( !spy::libc == spy::cloudabi_ );
-    assert( !spy::libc == spy::uc_       );
-    assert( !spy::libc == spy::vms_      );
-    assert( !spy::libc == spy::zos_      );
+    assert( !(spy::libc == spy::cloudabi_) );
+    assert( !(spy::libc == spy::uc_      ) );
+    assert( !(spy::libc == spy::vms_     ) );
+    assert( !(spy::libc == spy::zos_     ) );
     assert(  spy::libc == spy::gnu_      );
 #else
     assert( !spy::libc == spy::cloudabi_ );

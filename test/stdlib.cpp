@@ -15,13 +15,13 @@ int main()
   {
 #if defined(_LIBCPP_VERSION)
   {
-    assert(  spy::stdlib == spy::libcpp_ );
-    assert( !spy::stdlib == spy::gnucpp_ );
+    assert(  spy::stdlib == spy::libcpp_  );
+    assert( !(spy::stdlib == spy::gnucpp_));
   }
 #elif defined(__GLIBCXX__)
   {
-    assert( !spy::stdlib == spy::libcpp_ );
-    assert(  spy::stdlib == spy::gnucpp_ );
+    assert( !(spy::stdlib == spy::libcpp_));
+    assert(  spy::stdlib == spy::gnucpp_  );
   }
 #endif
   }

@@ -14,21 +14,21 @@ int main()
   std::cout << "Check that detected data model is correct: " << std::endl;
   {
 #if defined(__LP64__) || defined(_LP64)
-    assert( !spy::data_model == spy::ilp32_ );
-    assert( !spy::data_model == spy::lp32_  );
-    assert( !spy::data_model == spy::silp64_);
-    assert( !spy::data_model == spy::ilp64_ );
-    assert( !spy::data_model == spy::llp64_ );
+    assert( !(spy::data_model == spy::ilp32_));
+    assert( !(spy::data_model == spy::lp32_ ));
+    assert( !(spy::data_model == spy::silp64_ ));
+    assert( !(spy::data_model == spy::ilp64_));
+    assert( !(spy::data_model == spy::llp64_));
     assert(  spy::data_model == spy::lp64_  );
 #endif
 
 #if defined(__ILP32__) || defined(_ILP32)
     assert(  spy::data_model == spy::ilp32_ );
-    assert( !spy::data_model == spy::lp32_  );
-    assert( !spy::data_model == spy::silp64_);
-    assert( !spy::data_model == spy::ilp64_ );
-    assert( !spy::data_model == spy::llp64_ );
-    assert( !spy::data_model == spy::lp64_  );
+    assert( !(spy::data_model == spy::lp32_ ));
+    assert( !(spy::data_model == spy::silp64_ ));
+    assert( !(spy::data_model == spy::ilp64_));
+    assert( !(spy::data_model == spy::llp64_));
+    assert( !(spy::data_model == spy::lp64_ ));
 #endif
 
     std::cout << "ILP32  status: " << std::boolalpha << (spy::data_model == spy::ilp32_ ) << std::endl;
