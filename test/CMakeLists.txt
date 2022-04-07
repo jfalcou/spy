@@ -13,6 +13,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   target_compile_options( spy_test INTERFACE /W3 /EHsc)
 else()
   target_compile_options( spy_test INTERFACE -Wall -Werror)
+  set(SPY_FORCE_STANDALONE 1)
 endif()
 
 ##==================================================================================================
@@ -56,7 +57,10 @@ function(generate_test root file)
                             )
 
   add_dependencies(unit ${test})
-  add_dependencies(${test} spy.standalone)
+
+  if(SPY_FORCE_STANDALONE)
+    add_dependencies(${test} spy.standalone)
+  endif()
 
 endfunction()
 
