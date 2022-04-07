@@ -25,7 +25,7 @@ commands:
           command:                                                                            |
             mkdir -p build && cd build                                                        &&
             << parameters.wrapper >> .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=<< parameters.tool >> &&
-            ninja unit -j << parameters.proc >> && ctest  -j << parameters.proc >>
+            ninja unit -j << parameters.proc >> && ctest --output-on-failure -j << parameters.proc >>
 
 jobs:
   x86_clang_debug:
