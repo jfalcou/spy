@@ -56,6 +56,8 @@ function(generate_test root file)
                             )
 
   add_dependencies(unit ${test})
+  add_dependencies(${test} spy.standalone)
+
 endfunction()
 
 add_custom_target(unit)

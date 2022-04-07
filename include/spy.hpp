@@ -17,7 +17,7 @@ namespace spy::detail
   template<archs Arch> struct arch_info
   {
     static constexpr archs  vendor  = Arch;
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
     template<archs A2>
     constexpr bool operator==(arch_info<A2> const&) const noexcept
     {
@@ -204,7 +204,7 @@ namespace spy::detail
   {
     static constexpr compilers          vendor  = Compiler;
     static constexpr version_id<M,N,P>  version = {};
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
     template<compilers C2>
     constexpr bool operator==(compilers_info<C2,-1,0,0> const&) const noexcept
     {
@@ -298,7 +298,7 @@ namespace spy::detail
   template<int Short, int Integer, int Long, int Pointer>
   struct data_model_info
   {
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
     template<int Short2, int Integer2, int Long2, int Pointer2>
     constexpr bool operator==(data_model_info<Short2, Integer2, Long2, Pointer2> const& ) const noexcept
     {
@@ -349,7 +349,7 @@ namespace spy::detail
   {
     static constexpr libC               vendor  = Lib;
     static constexpr version_id<M,N,P>  version = {};
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
     template<libC C2>
     constexpr bool operator==(libc_info<C2,-1,0,0> const&) const noexcept
     {
@@ -451,7 +451,7 @@ namespace spy::detail
   {
     static constexpr stdlib             vendor  = Lib;
     static constexpr version_id<M,N,P>  version = {};
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
     template<stdlib C2>
     constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
     {
@@ -460,10 +460,10 @@ namespace spy::detail
     SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
   };
   template<stdlib SLib, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const&)
+  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
   {
-    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
-    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
+    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library" << p.version;
     return os << "Undefined Standard C++ Library";
   }
   template<int M, int N, int P> using libcpp_t = stdlib_info<stdlib::libcpp_,M,N,P>;
@@ -908,7 +908,7 @@ namespace spy::detail
   template<systems OpSys> struct os_info
   {
     static constexpr systems            vendor  = OpSys;
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
     template<systems C2>
     constexpr bool operator==(os_info<C2> const&) const noexcept
     {
