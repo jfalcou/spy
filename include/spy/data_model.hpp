@@ -12,7 +12,7 @@ namespace spy::detail
   template<int Short, int Integer, int Long, int Pointer>
   struct data_model_info
   {
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
 
     template<int Short2, int Integer2, int Long2, int Pointer2>
     constexpr bool operator==(data_model_info<Short2, Integer2, Long2, Pointer2> const& ) const noexcept

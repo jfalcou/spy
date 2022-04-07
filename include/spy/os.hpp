@@ -21,7 +21,7 @@ namespace spy::detail
   {
     static constexpr systems            vendor  = OpSys;
 
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
 
     template<systems C2>
     constexpr bool operator==(os_info<C2> const&) const noexcept

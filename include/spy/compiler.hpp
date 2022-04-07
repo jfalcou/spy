@@ -18,7 +18,7 @@ namespace spy::detail
     static constexpr compilers          vendor  = Compiler;
     static constexpr version_id<M,N,P>  version = {};
 
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
 
     template<compilers C2>
     constexpr bool operator==(compilers_info<C2,-1,0,0> const&) const noexcept

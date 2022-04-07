@@ -20,7 +20,7 @@ namespace spy::detail
   {
     static constexpr archs  vendor  = Arch;
 
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
 
     template<archs A2>
     constexpr bool operator==(arch_info<A2> const&) const noexcept

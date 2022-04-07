@@ -20,7 +20,7 @@ namespace spy::detail
     static constexpr stdlib             vendor  = Lib;
     static constexpr version_id<M,N,P>  version = {};
 
-    inline constexpr operator bool() const noexcept;
+    inline constexpr explicit operator bool() const noexcept;
 
     template<stdlib C2>
     constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
@@ -32,10 +32,10 @@ namespace spy::detail
   };
 
   template<stdlib SLib, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const&)
+  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
   {
-    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library";
-    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library";
+    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library" << p.version;
 
     return os << "Undefined Standard C++ Library";
   }
