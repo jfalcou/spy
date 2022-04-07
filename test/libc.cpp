@@ -15,28 +15,28 @@ int main()
   {
 #if defined(__cloudlibc__)
     assert(  spy::libc == spy::cloudabi_ );
-    assert( !spy::libc == spy::uc_       );
-    assert( !spy::libc == spy::vms_      );
-    assert( !spy::libc == spy::zos_      );
-    assert( !spy::libc == spy::gnu_      );
+    assert( !(spy::libc == spy::uc_       ));
+    assert( !(spy::libc == spy::vms_      ));
+    assert( !(spy::libc == spy::zos_      ));
+    assert( !(spy::libc == spy::gnu_      ));
 #elif defined(__UCLIBC__)
-    assert( !spy::libc == spy::cloudabi_ );
+    assert( !(spy::libc == spy::cloudabi_ ));
     assert(  spy::libc == spy::uc_       );
-    assert( !spy::libc == spy::vms_      );
-    assert( !spy::libc == spy::zos_      );
-    assert( !spy::libc == spy::gnu_      );
+    assert( !(spy::libc == spy::vms_      ));
+    assert( !(spy::libc == spy::zos_      ));
+    assert( !(spy::libc == spy::gnu_      ));
 #elif defined(__CRTL_VER)
-    assert( !spy::libc == spy::cloudabi_ );
-    assert( !spy::libc == spy::uc_       );
+    assert( !(spy::libc == spy::cloudabi_ ));
+    assert( !(spy::libc == spy::uc_       ));
     assert(  spy::libc == spy::vms_      );
-    assert( !spy::libc == spy::zos_      );
-    assert( !spy::libc == spy::gnu_      );
+    assert( !(spy::libc == spy::zos_      ));
+    assert( !(spy::libc == spy::gnu_      ));
 #elif defined(__LIBREL__)
-    assert( !spy::libc == spy::cloudabi_ );
-    assert( !spy::libc == spy::uc_       );
-    assert( !spy::libc == spy::vms_      );
+    assert( !(spy::libc == spy::cloudabi_ ));
+    assert( !(spy::libc == spy::uc_       ));
+    assert( !(spy::libc == spy::vms_      ));
     assert(  spy::libc == spy::zos_      );
-    assert( !spy::libc == spy::gnu_      );
+    assert( !(spy::libc == spy::gnu_      ));
 #elif defined(__GLIBC__) || defined(__GNU_LIBRARY__)
     assert( !(spy::libc == spy::cloudabi_) );
     assert( !(spy::libc == spy::uc_      ) );
@@ -44,11 +44,11 @@ int main()
     assert( !(spy::libc == spy::zos_     ) );
     assert(  spy::libc == spy::gnu_      );
 #else
-    assert( !spy::libc == spy::cloudabi_ );
-    assert( !spy::libc == spy::uc_       );
-    assert( !spy::libc == spy::vms_      );
-    assert( !spy::libc == spy::zos_      );
-    assert( !spy::libc == spy::gnu_      );
+    assert( !(spy::libc == spy::cloudabi_) );
+    assert( !(spy::libc == spy::uc_      ) );
+    assert( !(spy::libc == spy::vms_     ) );
+    assert( !(spy::libc == spy::zos_     ) );
+    assert( !(spy::libc == spy::gnu_     ) );
 #endif
   }
   std::cout << "Done." << std::endl;
