@@ -9,8 +9,8 @@
 
      ![**The C++ Information Broker**](https://github.com/jfalcou/spy/raw/main/logo.png)
 
-Purpose
-====================================================================================================
+# Purpose
+
 Detection and versioning of operating systems, compilers, architecture and other element are
 traditionally done using preprocessor macros. Library like
 [Boost.Predef](https://www.boost.org/doc/libs/release/doc/html/predef.html) provides a sanitized
@@ -27,11 +27,10 @@ context possible.
 - [Our CppCon 2019 Lightning talk slides](https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing)
 - [Boost.Predef](https://www.boost.org/doc/libs/release/doc/html/predef.html)
 
-How to install
-====================================================================================================
+# How to install
 
-Using CMake
-----------------------------------------------------------------------------------------------------
+## Using CMake
+
 After cloning the repository, run `CMake` with an install prefix path then run the `install` target
 using `Make` or any other build system.
 
@@ -43,8 +42,8 @@ cmake .. -DCMAKE_INSTALL_PREFIX=path/to/install/folder
 make install
 ~~~~~
 
-Manually
-----------------------------------------------------------------------------------------------------
+## Manually
+
 After cloning the repository, copy the `include` folder into the folder of your choice.
 
 ~~~~~ bash
@@ -75,20 +74,19 @@ int main()
 Just compile this example using a C++17 compliant compiler.
 Don't forget to add the path to the SPY library files to your favorite compiler's options.
 
-Redistribuable include
-----------------------------------------------------------------------------------------------------
+## Redistribuable include
+
 If you want to use SPY in your own project but want to keep a low imprint on your own source code,
 one can copy the standalone `spy.hpp` file provided at the root of the include folder. This file
 contains the whole SPY library ready to be used and shipped.
 
-User manual
-====================================================================================================
+# User manual
 
-Supported detectors
-----------------------------------------------------------------------------------------------------
+## Supported detectors
 SPY can detect:
 
 - Architecture family via the `spy::architecture` object.
+- Supported SIMD extension sets
 - OS vendor via the `spy::operating_system` object.
 - Compiler vendor and version (in the M.N.P format) via the `spy::compiler` object.
 - libc vendor and version (in the M.N.P format) via the `spy::libc` object.
@@ -97,6 +95,8 @@ SPY can detect:
 The simplest usage of those objects is to pass them to an output stream to get
 a readable display of their information.
 
+[**Run it on Compiler Explorer**](https://godbolt.org/z/Efx5nvvsr)
+
 <script type="preformatted">
 ~~~~~ c++
 #include <spy/spy.hpp>
@@ -104,17 +104,20 @@ a readable display of their information.
 
 int main()
 {
-  std::cout << spy::operating_system  << "\n";
-  std::cout << spy::architecture      << "\n";
-  std::cout << spy::compiler          << "\n";
-  std::cout << spy::stdlib            << "\n";
-  std::cout << spy::libc              << "\n";
+  std::cout << spy::operating_system      << "\n";
+  std::cout << spy::simd_instruction_set  << "\n";
+  std::cout << spy::architecture          << "\n";
+  std::cout << spy::compiler              << "\n";
+  std::cout << spy::stdlib                << "\n";
+  std::cout << spy::libc                  << "\n";
 }
 ~~~~~
 </script>
 
-Comparing vendors
-----------------------------------------------------------------------------------------------------
+## Comparing vendors
+
+### Main Information
+
 Knowing is half the battle, we may want to compare the current compiler or OS to a given one
 so you can branch off your code based on this information. Here is the list of each detected
 vendor for each SPY objects.
@@ -123,18 +126,20 @@ vendor for each SPY objects.
 | ----------------------- | ------------------------------------------------------------------------------ |
 | `spy::architecture`     | `x86_`, `amd64_`, `ppc_`, `arm_`                                               |
 | `spy::operating_system` | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
-| `spy::compiler`         | `clang_`, `gcc_`, `intel_`, `msvc_`                                            |
+| `spy::compiler`         | `clang_`, `gcc_`, `intel_`, `msvc_`, `emscripten_`                             |
 | `spy::libc`             | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
 | `spy::stdlib`           | `gnucpp_`, `libcpp_`                                                           |
 
 Here is a sample code comparing some detectors to a specific vendor:
+
+[**Run it on Compiler Explorer**](https://godbolt.org/z/ce949v7hz)
 
 <script type="preformatted">
 ~~~~~ c++
 #include <spy/spy.hpp>
 #include <iostream>
 
-void f()
+int main()
 {
   if constexpr( spy::operating_system == spy::windows_ )
   {
@@ -146,7 +151,7 @@ void f()
     std::cout << "This code has been compiled with g++.\n";
   }
 
-  if constexpr( spy::compiler == spy::amd64_ )
+  if constexpr( spy::architecture == spy::amd64_ )
   {
     std::cout << "This code has been compiled on AMD64 architecture.\n";
   }
@@ -159,12 +164,29 @@ void f()
 ~~~~~
 </script>
 
+### Other Informations
+
 Additional features can be checked using the `spy::supports` namespace:
 
  - Checking for POSIX capability via `spy::supports::posix_`
 
-Comparing versions
-----------------------------------------------------------------------------------------------------
+<script type="preformatted">
+~~~~~ c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+int main()
+{
+  if constexpr( spy::supports::posix_ )
+  {
+    std::cout << "This is a POSIX platform.\n";
+  }
+}
+~~~~~
+</script>
+
+## Comparing versions
+
 Checking for a vendor is sometimes not enough, we need to check which version of a given
 component is used. To do this, you can compare a detector to a given version value using
 any comparison operators.
@@ -174,24 +196,26 @@ and a series of integral values separated by `'`.
 
 | Detector        | Supported version suffixes                                                     |
 | --------------- | ------------------------------------------------------------------------------ |
-| `spy::compiler` | `_clang`, `_gcc`, `_intel`, `_msvc`                                            |
+| `spy::compiler` | `_clang`, `_gcc`, `_intel`, `_msvc`, `_em`                                     |
 | `spy::libc`     | `_cloudabi`, `_gnu` `_uc`, `_vms`, `_zos`                                      |
 | `spy::stdlib`   | `_gnucpp`, `_libcpp`                                                           |
 
 The following code demonstrates such comparisons:
+
+[**Run it on Compiler Explorer**](https://godbolt.org/z/jeovx3Ec5)
 
 <script type="preformatted">
 ~~~~~ c++
 #include <spy/spy.hpp>
 #include <iostream>
 
-void f()
+int main()
 {
   using namespace spy::literal;
 
-  if constexpr( spy::compiler == 7'2_gcc )
+  if constexpr( spy::compiler == 11'2_gcc )
   {
-    std::cout << "This code has been compiled with g++ 7.2 exactly.\n";
+    std::cout << "This code has been compiled with g++ 11.2 exactly.\n";
   }
 
   if constexpr( spy::compiler >= 8_clang )
@@ -199,16 +223,17 @@ void f()
     std::cout << "This code has been compiled with clang++ 8 or above.\n";
   }
 
-  if constexpr( spy::stdlib < 2'0'1_libcpp )
+  if constexpr( spy::stdlib < 4'0'1_libcpp )
   {
-    std::cout << "This code uses libcpp below v2.0.1.\n";
+    std::cout << "This code uses libcpp below v4.0.1.\n";
   }
 }
 ~~~~~
 </script>
 
-Handling SIMD extensions
-----------------------------------------------------------------------------------------------------
+## Handling SIMD extensions
+
+### Instructions sets
 SIMD extensions set detection is made so that one can ask if the current SIMD extension is exactly,
 below or above a given reference instruction set. Detectable instructions sets depends on SIMD
 hardware vendor
@@ -218,17 +243,20 @@ hardware vendor
 | X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_`, `avx512_` |
 | Power PC      | `vmx_`, `vsx_`                                                                      |
 | ARM           | `neon_`,`asimd_`                                                                    |
+| WASM          | `simd128_`                                                                          |
 
 Complete set of comparison operators is provided for those sets. Order of instructions sets
 are built so that if an instructions set supersedes another, it is considered greater than. For
 example, `avx_` is greater than `sse41_` as the former is a super-set of the later.
+
+[**Run it on Compiler Explorer**](https://godbolt.org/z/3ddanKcTx)
 
 <script type="preformatted">
 ~~~~~ c++
 #include <spy/spy.hpp>
 #include <iostream>
 
-void f()
+int main()
 {
   if constexpr( spy::simd_instruction_set == spy::avx_ )
   {
@@ -248,14 +276,17 @@ void f()
 ~~~~~
 </script>
 
+### SIMD Architectures
 One can also simply asks if a given family of instructions set is available.
+
+[**Run it on Compiler Explorer**](https://godbolt.org/z/KrW6n7hhf)
 
 <script type="preformatted">
 ~~~~~ c++
 #include <spy/spy.hpp>
 #include <iostream>
 
-void f()
+int main()
 {
   if constexpr( spy::simd_instruction_set == spy::x86_simd_ )
   {
@@ -271,19 +302,27 @@ void f()
   {
     std::cout << "This code has been compiled with some Power PC SIMD instructions set.\n";
   }
+
+  if constexpr( spy::simd_instruction_set == spy::wasm_simd_ )
+  {
+    std::cout << "This code has been compiled with WASM enabled.\n";
+  }
 }
 ~~~~~
 </script>
 
+### Supplemental Instructions sets
 Some SIMD instructions set provides supplemental instructions on top of existing system.
 Those supplemental instruction set can be checked using the `spy::supports` namespace.
+
+[**Run it on Compiler Explorer**](https://godbolt.org/z/xdqaobWzq)
 
 <script type="preformatted">
 ~~~~~ c++
 #include <spy/spy.hpp>
 #include <iostream>
 
-void f()
+int main()
 {
   if constexpr( spy::supports::fma_ )
   {
@@ -300,9 +339,9 @@ void f()
     std::cout << "This code has been compiled with XOP support.\n";
   }
 
-  if constexpr( spy::supports::avx512::vnni_ )
+  if constexpr( spy::supports::avx512::cd_ )
   {
-    std::cout << "This code has been compiled with AV512-VNNI support.\n";
+    std::cout << "This code has been compiled with AV512-CD support.\n";
   }
 }
 ~~~~~
@@ -315,8 +354,8 @@ The complete list of supplemental instruction sets si given in the following tab
 | X86 AVX       | `xop_`, `fma_`, `fma4_`                                                                                                         |
 | X86 AVX512    | `avx512::bw_`, `avx512::cd_`, `avx512::dq_`, `avx512::er_`, `avx512::ifma_`, `avx512::pf_`, `avx512::vl_`, `avx512::popcntdq_`, `avx512::_4fmaps_`, `avx512::vnniw_`, `avx512::vbmi_`, `avx512::bf16_`, `avx512::bitalg_`, `avx512::vbmi2_`, `avx512::vnni_`, `avx512::vpintersect_`                  |
 
-Caveat with `if constexpr`
-----------------------------------------------------------------------------------------------------
+# Caveat with `if constexpr`
+
 The detection and comparisons of versions using SPY detectors are subject to some
 caveats that stem from the way `if constexpr` behaves. As both branch of the `if constexpr`
 are ODR_checked, all functions and type names must be defined even if not used. This means
@@ -358,8 +397,7 @@ template<typename T> auto f(T t) requires( spy::gcc_ )
 ~~~~~
 </script>
 
-License
-====================================================================================================
+# License
 This library is licensed under the MIT License as specified in the LICENSE.md file.
 If you use SPY in your project or product, feel free to send us an email so we can
 advertise it here.
