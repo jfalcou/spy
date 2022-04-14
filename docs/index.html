@@ -44,11 +44,11 @@ make install
 
 ## Manually
 
-After cloning the repository, copy the `include` folder into the folder of your choice.
+After cloning the repository, copy the `spy.hpp` file into the folder of your choice.
 
 ~~~~~ bash
 git clone https://github.com/jfalcou/spy.git
-cp -r include/* path/to/install/folder
+cp -r include/spy.hpp path/to/install/folder
 ~~~~~
 
 ## Sample usage
@@ -56,7 +56,7 @@ SPY is usable by simply including the `spy.hpp` file as demonstrated here:
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -72,13 +72,12 @@ int main()
 </script>
 
 Just compile this example using a C++17 compliant compiler.
-Don't forget to add the path to the SPY library files to your favorite compiler's options.
+Don't forget to add the path to the SPY library file to your favorite compiler's options.
 
 ## Redistribuable include
 
 If you want to use SPY in your own project but want to keep a low imprint on your own source code,
-one can copy the standalone `spy.hpp` file provided at the root of the include folder. This file
-contains the whole SPY library ready to be used and shipped.
+one can copy the single `spy.hpp` file provided at the root of the include folder.
 
 # User manual
 
@@ -95,11 +94,11 @@ SPY can detect:
 The simplest usage of those objects is to pass them to an output stream to get
 a readable display of their information.
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/Efx5nvvsr)
+[**Run it on Compiler Explorer**](https://godbolt.org/z/Kd6cT9qPz)
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -132,11 +131,11 @@ vendor for each SPY objects.
 
 Here is a sample code comparing some detectors to a specific vendor:
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/ce949v7hz)
+[**Run it on Compiler Explorer**](https://godbolt.org/z/8rz9q84Ez)
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -172,7 +171,7 @@ Additional features can be checked using the `spy::supports` namespace:
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -192,7 +191,7 @@ int main()
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -227,11 +226,11 @@ and a series of integral values separated by `'`.
 
 The following code demonstrates such comparisons:
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/jeovx3Ec5)
+[**Run it on Compiler Explorer**](https://godbolt.org/z/hhxh5r5q9)
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -277,11 +276,11 @@ example, `avx_` is greater than `sse41_` as the former is a super-set of the lat
 Moreover, the `spy::simd_instruction_set` object exposes a constexpr `width` static field that
 contains the size in bits of the current SIMD instructions set registers.
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/ToszTxY3h)
+[**Run it on Compiler Explorer**](https://godbolt.org/z/Wj9PE9ahP)
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -309,11 +308,11 @@ int main()
 ### SIMD Architectures
 One can also simply asks if a given family of instructions set is available.
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/KrW6n7hhf)
+[**Run it on Compiler Explorer**](https://godbolt.org/z/Pn5TrePMo)
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -345,11 +344,11 @@ int main()
 Some SIMD instructions set provides supplemental instructions on top of existing system.
 Those supplemental instruction set can be checked using the `spy::supports` namespace.
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/xdqaobWzq)
+[**Run it on Compiler Explorer**](https://godbolt.org/z/36K8bvrxK)
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 
 int main()
@@ -393,7 +392,7 @@ that this can't compile whatsoever:
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 
 template<typename T> auto f(T t)
 {
@@ -413,7 +412,7 @@ Post C++20, we advice you to use concepts with template functions:
 
 <script type="preformatted">
 ~~~~~ c++
-#include <spy/spy.hpp>
+#include <spy.hpp>
 
 template<typename T> auto f(T t) requires( spy::clang_ )
 {
