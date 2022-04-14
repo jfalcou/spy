@@ -18,14 +18,16 @@ namespace spy::detail
   enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000, wasm_ = 4000 };
 
   enum class simd_version { undefined_ = -1
-                          , sse1_     = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
-                          , sse41_    = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
-                          , avx512_   = 1300
-                          , vmx_2_03_ = 2203, vmx_2_05_ = 2205, vmx_2_06_ = 2206
-                          , vmx_2_07_ = 2207, vmx_3_00_ = 2300, vmx_3_01_ = 2301
-                          , vsx_2_06_ = 3206, vsx_2_07_ = 3207, vsx_3_00_ = 3300, vsx_3_01_ = 3301
-                          , neon_     = 4001, asimd_    = 4002
-                          , simd128_  = 5000
+                          , sse1_       = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
+                          , sse41_      = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
+                          , avx512_     = 1300
+                          , vmx_2_03_   = 2203, vmx_2_05_ = 2205, vmx_2_06_ = 2206
+                          , vmx_2_07_   = 2207, vmx_3_00_ = 2300, vmx_3_01_ = 2301
+                          , vsx_2_06_   = 3206, vsx_2_07_ = 3207, vsx_3_00_ = 3300, vsx_3_01_ = 3301
+                          , neon_       = 4001, asimd_    = 4002, sve_      = 4003
+                          , fixed_sve_  = 5000
+                          , sve128_     = 5007, sve256_ = 5008, sve512_ = 5009, sve1024_  = 5010
+                          , simd128_    = 6000
                           };
 
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
@@ -58,6 +60,11 @@ namespace spy::detail
       }
       else  if constexpr ( Version == simd_version::neon_   ) os << "ARM NEON";
       else  if constexpr ( Version == simd_version::asimd_  ) os << "ARM ASIMD";
+      else  if constexpr ( Version == simd_version::sve_    ) os << "ARM SVE (dyn. bits)";
+      else  if constexpr ( Version == simd_version::sve128_ ) os << "ARM SVE ( 128 bits)";
+      else  if constexpr ( Version == simd_version::sve256_ ) os << "ARM SVE ( 256 bits)";
+      else  if constexpr ( Version == simd_version::sve512_ ) os << "ARM SVE ( 512 bits)";
+      else  if constexpr ( Version == simd_version::sve1024_) os << "ARM SVE (1024 bits)";
       else return os << "Undefined SIMD instructions set";
 
       if constexpr (spy::supports::fma_)     os << " (with FMA3 support)";
@@ -166,7 +173,13 @@ namespace spy
   template<detail::simd_version V = detail::simd_version::undefined_>
   using arm_simd_info = detail::simd_info<detail::simd_isa::arm_,V>;
 
-  constexpr inline auto arm_simd_ = arm_simd_info<>{};
-  constexpr inline auto neon_     = arm_simd_info<detail::simd_version::neon_ >{};
-  constexpr inline auto asimd_    = arm_simd_info<detail::simd_version::asimd_>{};
+  constexpr inline auto arm_simd_   = arm_simd_info<>{};
+  constexpr inline auto neon_       = arm_simd_info<detail::simd_version::neon_ >{};
+  constexpr inline auto asimd_      = arm_simd_info<detail::simd_version::asimd_>{};
+  constexpr inline auto sve_        = arm_simd_info<detail::simd_version::sve_>{};
+  constexpr inline auto fixed_sve_  = arm_simd_info<detail::simd_version::fixed_sve_>{};
+  constexpr inline auto sve128_     = arm_simd_info<detail::simd_version::sve128_>{};
+  constexpr inline auto sve256_     = arm_simd_info<detail::simd_version::sve256_>{};
+  constexpr inline auto sve512_     = arm_simd_info<detail::simd_version::sve512_>{};
+  constexpr inline auto sve1024_    = arm_simd_info<detail::simd_version::sve1024_>{};
 }
