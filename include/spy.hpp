@@ -5,7 +5,8 @@
   SPDX-License-Identifier: MIT
 **/
 //==================================================================================================
-#pragma once
+#ifndef SPY_SPY_HPP_INCLUDED
+#define SPY_SPY_HPP_INCLUDED
 #include <ostream>
 namespace spy::detail
 {
@@ -1084,3 +1085,4 @@ namespace spy::literal
     return detail::literal_wrap<detail::gnucpp_t,c...>();
   }
 }
+#endif

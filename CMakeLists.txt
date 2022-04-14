@@ -38,7 +38,7 @@ install(FILES     ${PROJECT_SOURCE_DIR}/include/spy.hpp DESTINATION .   )
 ## -------------------------------------------------------------------------------------------------
 add_custom_command(OUTPUT spy.hpp
   COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/script/embed.py"
-          ${CMAKE_CURRENT_SOURCE_DIR}/include/spy/spy.hpp
+          ${CMAKE_CURRENT_SOURCE_DIR}/src/spy.hpp
           -I include
           -o ${CMAKE_CURRENT_SOURCE_DIR}/include/spy.hpp
           --include-match spy/*

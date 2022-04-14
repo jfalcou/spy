@@ -5,7 +5,7 @@
   SPDX-License-Identifier: MIT
 **/
 //==================================================================================================
-#include <spy/spy.hpp>
+#include <spy.hpp>
 #include <iostream>
 #include <cassert>
 
