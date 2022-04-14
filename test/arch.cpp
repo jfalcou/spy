@@ -36,12 +36,12 @@ int main()
     assert( !(spy::architecture == spy::arm_   ));
     assert( !(spy::architecture == spy::wasm_  ));
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
-      defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
-    assert( !(spy::architecture == spy::x86_   ));
-    assert( !(spy::architecture == spy::amd64_ ));
-    assert( !(spy::architecture == spy::ppc_   ));
+      defined(__TARGET_ARCH_THUMB) || defined(_M_ARM) || defined(__ARM_ARCH_ISA_A64)
+    assert( !(spy::architecture == spy::x86_)   );
+    assert( !(spy::architecture == spy::amd64_) );
+    assert( !(spy::architecture == spy::ppc_)   );
     assert(  spy::architecture == spy::arm_     );
-    assert( !(spy::architecture == spy::wasm_  ));
+    assert( !(spy::architecture == spy::wasm_)  );
 #elif defined(__wasm__)
     assert( !(spy::architecture == spy::x86_   ));
     assert( !(spy::architecture == spy::amd64_ ));

@@ -58,7 +58,7 @@ namespace spy
   using arch_type = detail::arch_info<detail::archs::ppc_>;
   #define SPY_ARCH_IS_PPC
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
-      defined(__TARGET_ARCH_THUMB) || defined(_M_ARM)
+      defined(__TARGET_ARCH_THUMB) || defined(_M_ARM) || defined(__ARM_ARCH_ISA_A64)
   using arch_type = detail::arch_info<detail::archs::arm_>;
   #define SPY_ARCH_IS_ARM
 #elif defined(__wasm__)
