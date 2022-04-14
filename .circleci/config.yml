@@ -100,6 +100,24 @@ jobs:
           desc: Running Release tests
           tool: "../test/toolchain/gcc.aarch64.release.cmake"
 
+  aarch64_gcc_sve_debug:
+    docker:
+      - image: jfalcou/compilers:v4
+    steps:
+      - checkout
+      - run_test:
+          desc: Running Debug tests
+          tool: "../test/toolchain/gcc.aarch64.sve.debug.cmake"
+
+  aarch64_gcc_sve_release:
+    docker:
+      - image: jfalcou/compilers:v4
+    steps:
+      - checkout
+      - run_test:
+          desc: Running Release tests
+          tool: "../test/toolchain/gcc.aarch64.sve.release.cmake"
+
   emscripten:
     docker:
       - image: jfalcou/compilers:v4

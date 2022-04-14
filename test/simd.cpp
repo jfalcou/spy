@@ -50,6 +50,19 @@ int main()
     std::cout << "ARM SIMD status: "  << std::boolalpha << (spy::simd_instruction_set == spy::arm_simd_ ) << std::endl;
     std::cout << "NEON     status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::neon_ )     << std::endl;
     std::cout << "ASIMD    status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::asimd_)     << std::endl;
+    std::cout << "SVE      status: ";
+    if constexpr(spy::sve_width > 0)
+    {
+      std::cout << "true - fixed size: " << spy::sve_width << " bits" << std::endl;
+    }
+    else if constexpr(spy::sve_width == spy::not_available_)
+    {
+      std::cout << "true - flexible size" << std::endl;
+    }
+    else if constexpr(spy::sve_width == spy::unsupported_)
+    {
+      std::cout << "false" << std::endl;
+    }
   }
   std::cout << std::endl;
 
