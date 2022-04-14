@@ -242,14 +242,17 @@ hardware vendor
 | ------------- | ----------------------------------------------------------------------------------- |
 | X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_`, `avx512_` |
 | Power PC      | `vmx_`, `vsx_`                                                                      |
-| ARM           | `neon_`,`asimd_`                                                                    |
+| ARM           | `neon_`,`asimd_`,`sve_`,`sve128_`,`sve256_`,`sve512_`,`sve1024_`                    |
 | WASM          | `simd128_`                                                                          |
 
 Complete set of comparison operators is provided for those sets. Order of instructions sets
 are built so that if an instructions set supersedes another, it is considered greater than. For
 example, `avx_` is greater than `sse41_` as the former is a super-set of the later.
 
-[**Run it on Compiler Explorer**](https://godbolt.org/z/3ddanKcTx)
+Moreover, the `spy::simd_instruction_set` object exposes a constexpr `width` static field that
+contains the size in bits of the current SIMD instructions set registers.
+
+[**Run it on Compiler Explorer**](https://godbolt.org/z/ToszTxY3h)
 
 <script type="preformatted">
 ~~~~~ c++
@@ -272,6 +275,8 @@ int main()
   {
     std::cout << "This code has been compiled with support for SSE2 at most.\n";
   }
+
+  std::cout << "This code can use " << spy::simd_instruction_set.width << " bits register.\n";
 }
 ~~~~~
 </script>
