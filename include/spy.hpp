@@ -443,72 +443,141 @@ namespace spy::literal
     return detail::literal_wrap<detail::gnu_t,c...>();
   }
 }
-#include <cstddef>
+#if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
+#  include <AvailabilityMacros.h>
+#endif
 namespace spy::detail
 {
-  enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
-  template<stdlib Lib, int M, int N, int P> struct stdlib_info
+  enum class systems  { undefined_  = - 1
+                      , android_, bsd_, cygwin_, ios_, linux_, macos_, unix_, windows_
+                      };
+  template<systems OpSys> struct os_info
   {
-    static constexpr stdlib             vendor  = Lib;
-    static constexpr version_id<M,N,P>  version = {};
+    static constexpr systems            vendor  = OpSys;
     inline constexpr explicit operator bool() const noexcept;
-    template<stdlib C2>
-    constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
+    template<systems C2>
+    constexpr bool operator==(os_info<C2> const&) const noexcept
     {
       return C2 == vendor;
     }
-    SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
   };
-  template<stdlib SLib, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
+  template<systems OpSys>
+  std::ostream& operator<<(std::ostream& os, os_info<OpSys> const&)
   {
-    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
-    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library" << p.version;
-    return os << "Undefined Standard C++ Library";
+    if(OpSys == systems::android_ ) return os << "Android";
+    if(OpSys == systems::bsd_     ) return os << "BSD";
+    if(OpSys == systems::cygwin_  ) return os << "Cygwin";
+    if(OpSys == systems::ios_     ) return os << "iOs";
+    if(OpSys == systems::linux_   ) return os << "Linux";
+    if(OpSys == systems::macos_   ) return os << "MacOs";
+    if(OpSys == systems::unix_    ) return os << "UNIX";
+    if(OpSys == systems::windows_ ) return os << "Windows";
+    return os << "Undefined Operating System";
   }
-  template<int M, int N, int P> using libcpp_t = stdlib_info<stdlib::libcpp_,M,N,P>;
-  template<int M, int N, int P> using gnucpp_t = stdlib_info<stdlib::gnucpp_,M,N,P>;
 }
 namespace spy
 {
-#if defined(_LIBCPP_VERSION)
-  #define SPY_STDLIB_IS_LIBCPP
-  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
-#elif defined(__GLIBCXX__)
-  #define SPY_STDLIB_IS_GLIBCXX
-  #define SPY0 (__GLIBCXX__/100)
-  using stdlib_type = detail::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
-  #undef SPY0
+#if defined(__ANDROID__)
+  #define SPY_OS_IS_ANDROID
+  using os_type = detail::os_info<detail::systems::android_>;
+#elif defined(BSD) || defined(_SYSTYPE_BSD)
+  #define SPY_OS_IS_BSD
+  using os_type = detail::os_info<detail::systems::bsd_>;
+#elif defined(__CYGWIN__)
+  #define SPY_OS_IS_CYGWIN
+  using os_type = detail::os_info<detail::systems::cygwin_>;
+#elif defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+  #define SPY_OS_IS_IOS
+  using os_type = detail::os_info<detail::systems::ios_>;
+#elif defined(linux) || defined(__linux)
+  #define SPY_OS_IS_LINUX
+  using os_type = detail::os_info<detail::systems::linux_>;
+#elif defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
+  #define SPY_OS_IS_MACOS
+  using os_type = detail::os_info<detail::systems::macos_>;
+#elif defined(unix) || defined(__unix) || defined(_XOPEN_SOURCE) || defined(_POSIX_SOURCE)
+  #define SPY_OS_IS_UNIX
+  using os_type = detail::os_info<detail::systems::unix_>;
+#elif defined(_WIN32) || defined(_WIN64) ||  defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+  #define SPY_OS_IS_WINDOWS
+  using os_type = detail::os_info<detail::systems::windows_>;
 #else
-  #define SPY_STDLIB_IS_UNKNOWN
-  using stdlib_type = detail::stdlib_info<detail::stdlib::undefined_,-1,0,0>;
+  #define SPY_OS_IS_UNKNOWN
+  using os_type = detail::os_info<detail::systems::undefined_>;
 #endif
-  constexpr inline stdlib_type stdlib;
+  constexpr inline os_type operating_system;
 }
 namespace spy::detail
 {
-  template<stdlib SLib, int M, int N, int P>
-  inline constexpr stdlib_info<SLib,M,N,P>::operator bool() const noexcept
+  template<systems OS>
+  inline constexpr os_info<OS>::operator bool() const noexcept
   {
-    return *this == spy::stdlib;
+    return *this == spy::operating_system;
   }
 }
 namespace spy
 {
-  constexpr inline auto  libcpp_  = detail::libcpp_t<-1,0,0>{};
-  constexpr inline auto  gnucpp_  = detail::gnucpp_t<-1,0,0>{};
+  constexpr inline auto android_  = detail::os_info<detail::systems::android_>{};
+  constexpr inline auto bsd_      = detail::os_info<detail::systems::bsd_>{};
+  constexpr inline auto cygwin_   = detail::os_info<detail::systems::cygwin_>{};
+  constexpr inline auto ios_      = detail::os_info<detail::systems::ios_>{};
+  constexpr inline auto linux_    = detail::os_info<detail::systems::linux_>{};
+  constexpr inline auto macos_    = detail::os_info<detail::systems::macos_>{};
+  constexpr inline auto unix_     = detail::os_info<detail::systems::unix_>{};
+  constexpr inline auto windows_  = detail::os_info<detail::systems::windows_>{};
 }
-namespace spy::literal
+namespace spy::supports
 {
-  template<char ...c> constexpr auto operator"" _libcpp()
-  {
-    return detail::literal_wrap<detail::libcpp_t,c...>();
-  }
-  template<char ...c> constexpr auto operator"" _gnucpp()
-  {
-    return detail::literal_wrap<detail::gnucpp_t,c...>();
-  }
+#if(MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
+#define SPY_SUPPORTS_POSIX
+  constexpr inline auto posix_ = true;
+#else
+  constexpr inline auto posix_ = false;
+#endif
 }
+#if defined(__has_feature)
+#  if __has_feature(address_sanitizer)
+#     define SPY_ADDRESS_SANITIZERS_ENABLED
+#  endif
+#  if __has_feature(thread_sanitizer)
+#     define SPY_THREAD_SANITIZERS_ENABLED
+#  endif
+#endif
+#if !defined(SPY_ADDRESS_SANITIZERS_ENABLED)
+#  if defined(__SANITIZE_ADDRESS__)
+#     define SPY_ADDRESS_SANITIZERS_ENABLED
+#  endif
+#endif
+#if !defined(SPY_THREAD_SANITIZERS_ENABLED)
+#  if defined(__SANITIZE_THREAD__)
+#     define SPY_THREAD_SANITIZERS_ENABLED
+#  endif
+#endif
+namespace spy::supports
+{
+#if defined(SPY_ADDRESS_SANITIZERS_ENABLED)
+  constexpr bool address_sanitizers_status = true;
+#else
+  constexpr bool address_sanitizers_status = false;
+#endif
+#if defined(SPY_THREAD_SANITIZERS_ENABLED)
+  constexpr bool thread_sanitizers_status = true;
+#else
+  constexpr bool thread_sanitizers_status = false;
+#endif
+  constexpr bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
+}
+#if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC)
+#define SPY_DISABLE_ADDRESS_SANITIZERS  __attribute__((no_sanitize_address))
+#define SPY_DISABLE_THREAD_SANITIZERS   __attribute__((no_sanitize_thread))
+#elif defined(SPY_COMPILER_IS_MSVC)
+#define SPY_DISABLE_ADDRESS_SANITIZERS  __declspec(no_sanitize_address)
+#define SPY_DISABLE_THREAD_SANITIZERS
+#else
+#define SPY_DISABLE_ADDRESS_SANITIZERS
+#define SPY_DISABLE_THREAD_SANITIZERS
+#endif
+#define SPY_DISABLE_SANITIZERS SPY_DISABLE_ADDRESS_SANITIZERS SPY_DISABLE_THREAD_SANITIZERS
 #include <ostream>
 #if !defined(SPY_SIMD_DETECTED) && defined(__AVX512F__)
 #  define SPY_SIMD_IS_X86_AVX512
@@ -949,95 +1018,69 @@ namespace spy
   constexpr inline auto sve512_     = arm_simd_info<detail::simd_version::sve512_>{};
   constexpr inline auto sve1024_    = arm_simd_info<detail::simd_version::sve1024_>{};
 }
-#if defined(__APPLE__) || defined(__APPLE_CC__) || defined(macintosh)
-#  include <AvailabilityMacros.h>
-#endif
+#include <cstddef>
 namespace spy::detail
 {
-  enum class systems  { undefined_  = - 1
-                      , android_, bsd_, cygwin_, ios_, linux_, macos_, unix_, windows_
-                      };
-  template<systems OpSys> struct os_info
+  enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
+  template<stdlib Lib, int M, int N, int P> struct stdlib_info
   {
-    static constexpr systems            vendor  = OpSys;
+    static constexpr stdlib             vendor  = Lib;
+    static constexpr version_id<M,N,P>  version = {};
     inline constexpr explicit operator bool() const noexcept;
-    template<systems C2>
-    constexpr bool operator==(os_info<C2> const&) const noexcept
+    template<stdlib C2>
+    constexpr bool operator==(stdlib_info<C2,-1,0,0> const&) const noexcept
     {
       return C2 == vendor;
     }
+    SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
   };
-  template<systems OpSys>
-  std::ostream& operator<<(std::ostream& os, os_info<OpSys> const&)
+  template<stdlib SLib, int M, int N, int P>
+  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
   {
-    if(OpSys == systems::android_ ) return os << "Android";
-    if(OpSys == systems::bsd_     ) return os << "BSD";
-    if(OpSys == systems::cygwin_  ) return os << "Cygwin";
-    if(OpSys == systems::ios_     ) return os << "iOs";
-    if(OpSys == systems::linux_   ) return os << "Linux";
-    if(OpSys == systems::macos_   ) return os << "MacOs";
-    if(OpSys == systems::unix_    ) return os << "UNIX";
-    if(OpSys == systems::windows_ ) return os << "Windows";
-    return os << "Undefined Operating System";
+    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library" << p.version;
+    return os << "Undefined Standard C++ Library";
   }
+  template<int M, int N, int P> using libcpp_t = stdlib_info<stdlib::libcpp_,M,N,P>;
+  template<int M, int N, int P> using gnucpp_t = stdlib_info<stdlib::gnucpp_,M,N,P>;
 }
 namespace spy
 {
-#if defined(__ANDROID__)
-  #define SPY_OS_IS_ANDROID
-  using os_type = detail::os_info<detail::systems::android_>;
-#elif defined(BSD) || defined(_SYSTYPE_BSD)
-  #define SPY_OS_IS_BSD
-  using os_type = detail::os_info<detail::systems::bsd_>;
-#elif defined(__CYGWIN__)
-  #define SPY_OS_IS_CYGWIN
-  using os_type = detail::os_info<detail::systems::cygwin_>;
-#elif defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
-  #define SPY_OS_IS_IOS
-  using os_type = detail::os_info<detail::systems::ios_>;
-#elif defined(linux) || defined(__linux)
-  #define SPY_OS_IS_LINUX
-  using os_type = detail::os_info<detail::systems::linux_>;
-#elif defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
-  #define SPY_OS_IS_MACOS
-  using os_type = detail::os_info<detail::systems::macos_>;
-#elif defined(unix) || defined(__unix) || defined(_XOPEN_SOURCE) || defined(_POSIX_SOURCE)
-  #define SPY_OS_IS_UNIX
-  using os_type = detail::os_info<detail::systems::unix_>;
-#elif defined(_WIN32) || defined(_WIN64) ||  defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
-  #define SPY_OS_IS_WINDOWS
-  using os_type = detail::os_info<detail::systems::windows_>;
+#if defined(_LIBCPP_VERSION)
+  #define SPY_STDLIB_IS_LIBCPP
+  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
+#elif defined(__GLIBCXX__)
+  #define SPY_STDLIB_IS_GLIBCXX
+  #define SPY0 (__GLIBCXX__/100)
+  using stdlib_type = detail::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
+  #undef SPY0
 #else
-  #define SPY_OS_IS_UNKNOWN
-  using os_type = detail::os_info<detail::systems::undefined_>;
+  #define SPY_STDLIB_IS_UNKNOWN
+  using stdlib_type = detail::stdlib_info<detail::stdlib::undefined_,-1,0,0>;
 #endif
-  constexpr inline os_type operating_system;
+  constexpr inline stdlib_type stdlib;
 }
 namespace spy::detail
 {
-  template<systems OS>
-  inline constexpr os_info<OS>::operator bool() const noexcept
+  template<stdlib SLib, int M, int N, int P>
+  inline constexpr stdlib_info<SLib,M,N,P>::operator bool() const noexcept
   {
-    return *this == spy::operating_system;
+    return *this == spy::stdlib;
   }
 }
 namespace spy
 {
-  constexpr inline auto android_  = detail::os_info<detail::systems::android_>{};
-  constexpr inline auto bsd_      = detail::os_info<detail::systems::bsd_>{};
-  constexpr inline auto cygwin_   = detail::os_info<detail::systems::cygwin_>{};
-  constexpr inline auto ios_      = detail::os_info<detail::systems::ios_>{};
-  constexpr inline auto linux_    = detail::os_info<detail::systems::linux_>{};
-  constexpr inline auto macos_    = detail::os_info<detail::systems::macos_>{};
-  constexpr inline auto unix_     = detail::os_info<detail::systems::unix_>{};
-  constexpr inline auto windows_  = detail::os_info<detail::systems::windows_>{};
+  constexpr inline auto  libcpp_  = detail::libcpp_t<-1,0,0>{};
+  constexpr inline auto  gnucpp_  = detail::gnucpp_t<-1,0,0>{};
 }
-namespace spy::supports
+namespace spy::literal
 {
-#if(MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
-#define SPY_SUPPORTS_POSIX
-  constexpr inline auto posix_ = true;
-#else
-  constexpr inline auto posix_ = false;
-#endif
+  template<char ...c> constexpr auto operator"" _libcpp()
+  {
+    return detail::literal_wrap<detail::libcpp_t,c...>();
+  }
+  template<char ...c> constexpr auto operator"" _gnucpp()
+  {
+    return detail::literal_wrap<detail::gnucpp_t,c...>();
+  }
 }

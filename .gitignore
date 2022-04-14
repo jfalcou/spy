@@ -40,3 +40,5 @@
 *build*/
 Testing/
 .vscode/
+.cache
+compile_commands.json

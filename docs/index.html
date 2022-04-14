@@ -185,6 +185,31 @@ int main()
 ~~~~~
 </script>
 
+ - Checking for status of address and threads sanitizers via `spy::supports::sanitizers_status`,
+   `spy::supports::address_sanitizers_status` and `spy::supports::thread_sanitizers_status`.
+   `spy::supports::sanitizers_status` is set to true if either `spy::supports::address_sanitizers_status`
+   or `spy::supports::thread_sanitizers_status` is true.
+
+<script type="preformatted">
+~~~~~ c++
+#include <spy/spy.hpp>
+#include <iostream>
+
+int main()
+{
+  std::cout << "Address sanitizers status: "
+            << std::boolalpha << spy::supports::address_sanitizers_status
+            << "\n";
+
+  std::cout << "Threads sanitizers status: "
+            << std::boolalpha << spy::supports::thread_sanitizers_status
+            << "\n";
+
+  std::cout << "Any sanitizers status: "
+            << std::boolalpha << spy::supports::sanitizers_status << "\n";
+}
+~~~~~
+</script>
 ## Comparing versions
 
 Checking for a vendor is sometimes not enough, we need to check which version of a given
