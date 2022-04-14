@@ -49,7 +49,7 @@ add_custom_command(OUTPUT spy.hpp
   VERBATIM
 )
 
-add_custom_target(spy.standalone DEPENDS spy.hpp)
+add_custom_target(standalone DEPENDS spy.hpp)
 
 ## -------------------------------------------------------------------------------------------------
 ## Test target
