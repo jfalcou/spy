@@ -726,19 +726,15 @@ namespace avx512
 #   if(__ARM_FEATURE_SVE_BITS == 128)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
 #     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve128_
-namespace spy { inline constexpr auto sve_width = 128; }
 #   elif(__ARM_FEATURE_SVE_BITS == 256)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
 #     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve256_
-namespace spy { inline constexpr auto sve_width = 256; }
 #   elif(__ARM_FEATURE_SVE_BITS == 512)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
 #     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve512_
-namespace spy { inline constexpr auto sve_width = 512; }
 #   elif(__ARM_FEATURE_SVE_BITS == 1024)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
 #     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve1024_
-namespace spy { inline constexpr auto sve_width = 1024; }
 #   endif
 # endif
 #endif
@@ -753,21 +749,6 @@ namespace spy { inline constexpr auto sve_width = 1024; }
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
 #  define SPY_SIMD_IS_ARM
 #  define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_
-#endif
-namespace spy
-{
-  inline constexpr auto not_available_ = 0;
-  inline constexpr auto unsupported_   = -1;
-}
-#if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_IS_ARM_FIXED_SVE)
-namespace spy
-{
-#if defined(SPY_SIMD_IS_ARM_FLEXIBLE_SVE)
-  inline constexpr auto sve_width = not_available_;
-#else
-  inline constexpr auto sve_width = unsupported_;
-#endif
-}
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__VSX__)
 # define SPY_SIMD_IS_PPC_VSX
@@ -814,7 +795,8 @@ namespace spy::detail
   enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000, wasm_ = 4000 };
   enum class simd_version { undefined_ = -1
                           , sse1_       = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
-                          , sse41_      = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
+                          , sse41_      = 1141, sse42_ = 1142
+                          , avx_  = 1201, avx2_  = 1202
                           , avx512_     = 1300
                           , vmx_2_03_   = 2203, vmx_2_05_ = 2205, vmx_2_06_ = 2206
                           , vmx_2_07_   = 2207, vmx_3_00_ = 2300, vmx_3_01_ = 2301
@@ -827,8 +809,26 @@ namespace spy::detail
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
   struct simd_info
   {
-    static constexpr auto isa     = InsSetArch;
-    static constexpr auto version = Version;
+    static constexpr auto           isa     = InsSetArch;
+    static constexpr auto           version = Version;
+    static constexpr std::ptrdiff_t width   = []()
+    {
+      if constexpr(   Version == simd_version::simd128_
+                  ||  (Version >= simd_version::sse1_ && Version <= simd_version::sse42_)
+                  ||  Version == simd_version::neon_ || Version == simd_version::asimd_
+                  ||  Version == simd_version::sve128_
+                  ||  (Version >= simd_version::vmx_2_03_ && Version <= simd_version::vsx_3_01_)
+                  )   return 128;
+      else if constexpr (   Version == simd_version::avx_
+                        ||  Version == simd_version::avx2_
+                        ||  Version == simd_version::sve256_
+                        ) return 256;
+      else  if constexpr  (   Version == simd_version::avx512_
+                          ||  Version == simd_version::sve512_
+                          ) return 512;
+      else  if constexpr  ( Version == simd_version::sve1024_ ) return 1024;
+      else return -1;
+    }();
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
             if constexpr ( Version == simd_version::simd128_  ) os << "WASM SIMD128";

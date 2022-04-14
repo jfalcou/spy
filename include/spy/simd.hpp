@@ -19,7 +19,8 @@ namespace spy::detail
 
   enum class simd_version { undefined_ = -1
                           , sse1_       = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
-                          , sse41_      = 1141, sse42_ = 1142, avx_  = 1201, avx2_  = 1202
+                          , sse41_      = 1141, sse42_ = 1142
+                          , avx_  = 1201, avx2_  = 1202
                           , avx512_     = 1300
                           , vmx_2_03_   = 2203, vmx_2_05_ = 2205, vmx_2_06_ = 2206
                           , vmx_2_07_   = 2207, vmx_3_00_ = 2300, vmx_3_01_ = 2301
@@ -33,8 +34,26 @@ namespace spy::detail
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
   struct simd_info
   {
-    static constexpr auto isa     = InsSetArch;
-    static constexpr auto version = Version;
+    static constexpr auto           isa     = InsSetArch;
+    static constexpr auto           version = Version;
+    static constexpr std::ptrdiff_t width   = []()
+    {
+      if constexpr(   Version == simd_version::simd128_
+                  ||  (Version >= simd_version::sse1_ && Version <= simd_version::sse42_)
+                  ||  Version == simd_version::neon_ || Version == simd_version::asimd_
+                  ||  Version == simd_version::sve128_
+                  ||  (Version >= simd_version::vmx_2_03_ && Version <= simd_version::vsx_3_01_)
+                  )   return 128;
+      else if constexpr (   Version == simd_version::avx_
+                        ||  Version == simd_version::avx2_
+                        ||  Version == simd_version::sve256_
+                        ) return 256;
+      else  if constexpr  (   Version == simd_version::avx512_
+                          ||  Version == simd_version::sve512_
+                          ) return 512;
+      else  if constexpr  ( Version == simd_version::sve1024_ ) return 1024;
+      else return -1;
+    }();
 
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
