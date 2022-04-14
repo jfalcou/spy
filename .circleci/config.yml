@@ -137,6 +137,7 @@ workflows:
       - x86_gcc_debug
       - ppc64_gcc_debug
       - aarch64_gcc_debug
+      - aarch64_gcc_sve_debug
       - x86_clang_release:
           requires:
             - x86_clang_debug
@@ -149,3 +150,6 @@ workflows:
       - aarch64_gcc_release:
           requires:
             - aarch64_gcc_debug
+      - aarch64_gcc_sve_release:
+          requires:
+            - aarch64_gcc_sve_debug
