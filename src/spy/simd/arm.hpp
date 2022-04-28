@@ -16,16 +16,16 @@
 # elif defined(__ARM_FEATURE_SVE_BITS)
 #   if(__ARM_FEATURE_SVE_BITS == 128)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve128_
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
 #   elif(__ARM_FEATURE_SVE_BITS == 256)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve256_
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
 #   elif(__ARM_FEATURE_SVE_BITS == 512)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve512_
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
 #   elif(__ARM_FEATURE_SVE_BITS == 1024)
 #     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve1024_
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
 #   endif
 # endif
 #endif
