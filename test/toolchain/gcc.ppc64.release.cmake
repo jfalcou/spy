@@ -1,7 +1,7 @@
 ##==================================================================================================
 ##  SPY - C++ Informations Broker
-##  Copyright : SPY Contributors & Maintainers
-##  SPDX-License-Identifier: MIT
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
 ##==================================================================================================
 set(CMAKE_SYSTEM_NAME Linux         )
 set(CMAKE_SYSTEM_PROCESSOR powerpc  )
