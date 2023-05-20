@@ -36,7 +36,7 @@ jobs:
           mkdir build && cd build
           cmake .. -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.${{ matrix.cfg.mode }}.cmake
       - name: Compiling Unit Tests
-        run:  cd build && make unit.exe -j 2
+        run:  cd build && make unit -j 2
       - name: Running Unit Tests
         run: cd build && ctest --output-on-failure -j 2
 
@@ -62,11 +62,11 @@ jobs:
       - name: Compiling Unit Tests
         run:  |
           cd build
-          cmake --build . --target unit.exe --config ${{ matrix.cfg.mode }} --parallel 2
+          cmake --build . --target unit --config ${{ matrix.cfg.mode }} --parallel 2
       - name: Running Tests
         run: |
           cd build
-          ctest -C ${{ matrix.cfg.mode }} --output-on-failure -R ^unit.*.exe
+          ctest -C ${{ matrix.cfg.mode }} --output-on-failure
 
   ##################################################################################################
   ## Clang targets
@@ -89,7 +89,7 @@ jobs:
           mkdir build && cd build
           cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.${{ matrix.cfg.mode }}.cmake
       - name: Compiling Unit Tests
-        run:  cd build && ninja unit.exe -j 2
+        run:  cd build && ninja unit -j 2
       - name: Running Unit Tests
         run: cd build && ctest --output-on-failure -j 2
 
@@ -120,6 +120,6 @@ jobs:
           mkdir build && cd build
           cmake ..  -G Ninja -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.${{ matrix.cfg.mode }}.cmake
       - name: Compile Unit Tests
-        run:  cd build && ninja unit.exe -j 2
+        run:  cd build && ninja unit -j 2
       - name: Running Unit Tests
         run:  cd build && ctest --output-on-failure -j 2
