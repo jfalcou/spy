@@ -38,7 +38,8 @@ find_package(Python COMPONENTS Interpreter)
 
 if(Python_FOUND)
   add_custom_command(OUTPUT spy.hpp
-    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/script/embed.py"
+    COMMAND "${Python_EXECUTABLE}"
+            ${CMAKE_CURRENT_SOURCE_DIR}/script/embed.py
             ${CMAKE_CURRENT_SOURCE_DIR}/src/spy.hpp
             -I include
             -o ${CMAKE_CURRENT_SOURCE_DIR}/include/spy.hpp
