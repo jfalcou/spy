@@ -34,20 +34,26 @@ install(FILES     ${PROJECT_SOURCE_DIR}/include/spy.hpp DESTINATION .   )
 ## -------------------------------------------------------------------------------------------------
 ## Standalone command
 ## -------------------------------------------------------------------------------------------------
-add_custom_command(OUTPUT spy.hpp
-  COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/script/embed.py"
-          ${CMAKE_CURRENT_SOURCE_DIR}/src/spy.hpp
-          -I include
-          -o ${CMAKE_CURRENT_SOURCE_DIR}/include/spy.hpp
-          --include-match spy/*
-          --guard-match .*_HPP_INCLUDED
+find_package(Python COMPONENTS Interpreter)
 
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-  COMMENT "Generating standalone headers"
-  VERBATIM
-)
+if(Python_FOUND)
+  add_custom_command(OUTPUT spy.hpp
+    COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/script/embed.py"
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/spy.hpp
+            -I include
+            -o ${CMAKE_CURRENT_SOURCE_DIR}/include/spy.hpp
+            --include-match spy/*
+            --guard-match .*_HPP_INCLUDED
 
-add_custom_target(standalone DEPENDS spy.hpp)
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMENT "Generating standalone headers"
+    VERBATIM
+  )
+
+  add_custom_target(standalone DEPENDS spy.hpp)
+  set(SPY_FORCE_STANDALONE 1)
+
+endif()
 
 ## -------------------------------------------------------------------------------------------------
 ## Test target
