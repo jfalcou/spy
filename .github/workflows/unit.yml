@@ -31,10 +31,11 @@ jobs:
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v3
-      - name: Running CMake for ${{ matrix.cfg.comp }} on ${{ matrix.cfg.arch }}
+      - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
-          cmake .. -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.${{ matrix.cfg.mode }}.cmake
+          cmake .. -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
+                -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compiling Unit Tests
         run:  cd build && make unit -j 2
       - name: Running Unit Tests
@@ -84,10 +85,11 @@ jobs:
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v3
-      - name: Running CMake for ${{ matrix.cfg.comp }} on ${{ matrix.cfg.arch }} in ${{ matrix.cfg.mode }}
+      - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
-          cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.${{ matrix.cfg.mode }}.cmake
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
+                -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compiling Unit Tests
         run:  cd build && ninja unit -j 2
       - name: Running Unit Tests
@@ -97,7 +99,7 @@ jobs:
   ## gcc targets
   ##################################################################################################
   gcc:
-    runs-on: [self-hosted, generic-x86]
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/jfalcou/compilers:v6
     strategy:
@@ -115,10 +117,11 @@ jobs:
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v3
-      - name: Running CMake for ${{ matrix.cfg.comp }} @ ${{ matrix.cfg.arch }} in ${{ matrix.cfg.mode }}
+      - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run:  |
           mkdir build && cd build
-          cmake ..  -G Ninja -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.${{ matrix.cfg.mode }}.cmake
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
+                -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compile Unit Tests
         run:  cd build && ninja unit -j 2
       - name: Running Unit Tests
