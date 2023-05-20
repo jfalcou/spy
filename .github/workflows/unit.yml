@@ -24,10 +24,10 @@ jobs:
       fail-fast: false
       matrix:
         cfg:
-        - { comp: clang , arch: x86_osx, mode: debug    }
-        - { comp: clang , arch: x86_osx, mode: release  }
-        - { comp: gcc   , arch: x86_osx, mode: debug    }
-        - { comp: gcc   , arch: x86_osx, mode: release  }
+        - { comp: clang , arch: x86_osx, mode: Debug    }
+        - { comp: clang , arch: x86_osx, mode: Release  }
+        - { comp: gcc   , arch: x86_osx, mode: Debug    }
+        - { comp: gcc   , arch: x86_osx, mode: Release  }
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v3
@@ -80,8 +80,8 @@ jobs:
       fail-fast: false
       matrix:
         cfg:
-        - { comp: clang , arch: x86, mode: debug    }
-        - { comp: clang , arch: x86, mode: release  }
+        - { comp: clang , arch: x86, mode: Debug    }
+        - { comp: clang , arch: x86, mode: Release  }
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v3
@@ -106,14 +106,14 @@ jobs:
       fail-fast: false
       matrix:
         cfg:
-        - { comp: gcc , arch: x86         , opts:           , mode: debug   }
-        - { comp: gcc , arch: x86         , opts:           , mode: release }
-        - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: debug   }
-        - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: release }
-        - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: debug   }
-        - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: release }
-        - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: debug   }
-        - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: release }
+        - { comp: gcc , arch: x86         , opts:           , mode: Debug   }
+        - { comp: gcc , arch: x86         , opts:           , mode: Release }
+        - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: Debug   }
+        - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: Release }
+        - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: Debug   }
+        - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: Release }
+        - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: Debug   }
+        - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: Release }
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v3
