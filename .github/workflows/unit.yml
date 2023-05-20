@@ -58,7 +58,7 @@ jobs:
       - name: Running CMake for MSVC ${{ matrix.cfg.mode }}
         run: |
           mkdir build && cd build
-          cmake -G "Visual Studio 17 2022" -A x64 .."
+          cmake -G "Visual Studio 17 2022" -A x64 ..
       - name: Compiling Unit Tests
         run:  |
           cd build
