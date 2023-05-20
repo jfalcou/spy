@@ -1,0 +1,123 @@
+##==================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##==================================================================================================
+name: SPY - Unit Tests
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: unit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  ##################################################################################################
+  ## Mac OS X Targets
+  ##################################################################################################
+  macosx:
+    runs-on: [macos-12]
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+        - { comp: clang , arch: x86_osx }
+        - { comp: gcc   , arch: x86_osx }
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v3
+      - name: Running CMake for ${{ matrix.cfg.comp }} on ${{ matrix.cfg.arch }}
+        run: |
+          mkdir build && cd build
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
+      - name: Compiling Unit Tests
+        run:  cd build && make unit.exe -j 2
+      - name: Running Unit Tests
+        run: cd build && ctest --output-on-failure -j 2
+
+  ##################################################################################################
+  ## Windows Targets
+  ##################################################################################################
+  msvc:
+    runs-on: [windows-2022]
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+        - { mode: Debug   }
+        - { mode: Release }
+
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v3
+      - name: Running CMake for MSVC ${{ matrix.cfg.mode }}
+        run: |
+          mkdir build && cd build
+          cmake -G "Visual Studio 17 2022" -A x64 .."
+      - name: Compiling Unit Tests
+        run:  |
+          cd build
+          cmake --build . --target unit.exe --config ${{ matrix.cfg.mode }} --parallel 2
+      - name: Running Tests
+        run: |
+          cd build
+          ctest -C ${{ matrix.cfg.mode }} --output-on-failure -R ^unit.*.exe
+
+  ##################################################################################################
+  ## Clang targets
+  ##################################################################################################
+  clang:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/jfalcou/compilers:v6
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+        - { comp: clang , arch: x86, mode: debug    }
+        - { comp: clang , arch: x86, mode: release  }
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v3
+      - name: Running CMake for ${{ matrix.cfg.comp }} on ${{ matrix.cfg.arch }} in ${{ matrix.cfg.mode }}
+        run: |
+          mkdir build && cd build
+          cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
+      - name: Compiling Unit Tests
+        run:  cd build && ninja unit.exe -j 2
+      - name: Running Unit Tests
+        run: cd build && ctest --output-on-failure -j 2
+
+  ##################################################################################################
+  ## gcc targets
+  ##################################################################################################
+  gcc:
+    runs-on: [self-hosted, generic-x86]
+    container:
+      image: ghcr.io/jfalcou/compilers:v6
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+        - { comp: gcc , arch: x86         , opts:           , mode: debug   }
+        - { comp: gcc , arch: x86         , opts:           , mode: release }
+        - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: debug   }
+        - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: release }
+        - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: debug   }
+        - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: release }
+        - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: debug   }
+        - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: release }
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v3
+      - name: Running CMake for ${{ matrix.cfg.comp }} @ ${{ matrix.cfg.arch }} in ${{ matrix.cfg.mode }}
+        run:  |
+          mkdir build && cd build
+          cmake ..  -G Ninja -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
+      - name: Compile Unit Tests
+        run:  cd build && ninja unit.exe -j 2
+      - name: Running Unit Tests
+        run:  cd build && ctest --output-on-failure -j 2
