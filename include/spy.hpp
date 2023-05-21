@@ -198,6 +198,11 @@ constexpr bool operator<=( TYPE<C2,M2,N2,P2> const& c2 ) const noexcept \
   return C2 == vendor && version <= c2.version;                         \
 }                                                                       \
 
+#if defined __has_include
+#  if __has_include (<emscripten/version.h>)
+#    include <emscripten/version.h>
+#  endif
+#endif
 namespace spy::detail
 {
   enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_ };

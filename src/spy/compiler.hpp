@@ -9,6 +9,12 @@
 
 #include <spy/detail.hpp>
 
+#if defined __has_include
+#  if __has_include (<emscripten/version.h>)
+#    include <emscripten/version.h>
+#  endif
+#endif
+
 namespace spy::detail
 {
   enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_ };
