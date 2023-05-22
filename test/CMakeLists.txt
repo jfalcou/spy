@@ -9,10 +9,17 @@
 ##==================================================================================================
 add_library(spy_test INTERFACE)
 target_compile_features ( spy_test INTERFACE  cxx_std_17 )
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  target_compile_options( spy_test INTERFACE /W3 /EHsc)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  if(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+    target_compile_options( spy_test INTERFACE /W3 /EHsc )
+  else()
+    target_compile_options( spy_test INTERFACE -Werror -Wall -Wextra -Wunused-variable)
+  endif()
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  target_compile_options( spy_test INTERFACE /W3 /EHsc )
 else()
-  target_compile_options( spy_test INTERFACE -Wall -Werror)
+  target_compile_options( spy_test INTERFACE -Werror -Wall -Wextra -Wunused-variable)
 endif()
 
 ##==================================================================================================
