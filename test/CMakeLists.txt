@@ -12,9 +12,7 @@ target_compile_features ( spy_test INTERFACE  cxx_std_17 )
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   target_compile_options( spy_test INTERFACE /W3 /EHsc)
 else()
-  set(SPY_FORCE_STANDALONE 1)
   target_compile_options( spy_test INTERFACE -Wall -Werror)
-  set(SPY_FORCE_STANDALONE 1)
 endif()
 
 ##==================================================================================================
