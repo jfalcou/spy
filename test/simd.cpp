@@ -51,11 +51,11 @@ int main()
     std::cout << "NEON     status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::neon_ )     << std::endl;
     std::cout << "ASIMD    status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::asimd_)     << std::endl;
     std::cout << "SVE      status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::sve_);
-    if constexpr(spy::simd_instruction_set >= spy::fixed_sve_)
+    if constexpr(spy::simd_instruction_set.has_fixed_cardinal())
     {
       std::cout << " - fixed size: " << spy::simd_instruction_set.width << " bits" << std::endl;
     }
-    else if constexpr(spy::simd_instruction_set >= spy::sve_)
+    else
     {
       std::cout << " - flexible size" << std::endl;
     }
