@@ -30,7 +30,7 @@ jobs:
         - { comp: gcc   , arch: x86_osx, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -55,7 +55,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Running CMake for MSVC ${{ matrix.cfg.mode }}
         run: |
           mkdir build && cd build
@@ -80,7 +80,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Running CMake for Clang CL ${{ matrix.cfg.mode }}
         run: |
           mkdir build && cd build
@@ -109,7 +109,7 @@ jobs:
         - { comp: clang , arch: wasm, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -135,7 +135,7 @@ jobs:
         - { comp: clang , arch: x86, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -163,11 +163,13 @@ jobs:
         - { comp: gcc , arch: aarch64     , opts: -Wno-psabi, mode: Release }
         - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: Debug   }
         - { comp: gcc , arch: aarch64.sve , opts: -Wno-psabi, mode: Release }
+        - { comp: gcc , arch: aarch64.sve2, opts: -Wno-psabi, mode: Debug   }
+        - { comp: gcc , arch: aarch64.sve2, opts: -Wno-psabi, mode: Release }
         - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: Debug   }
         - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: Release }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run:  |
           mkdir build && cd build
