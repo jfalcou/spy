@@ -12,6 +12,7 @@
 int main()
 {
   std::cout << "Supported SIMD instructions set: " << spy::simd_instruction_set << std::endl;
+  std::cout << "Supported SIMD instructions set: " << typeid(spy::simd_instruction_set).name() << std::endl;
   std::cout << "Check that X86 SIMD extension detection is correct: " << std::endl;
   {
     std::cout << "X86 SIMD status: " << std::boolalpha << (spy::simd_instruction_set == spy::x86_simd_) << std::endl;
@@ -50,14 +51,19 @@ int main()
     std::cout << "ARM SIMD status: "  << std::boolalpha << (spy::simd_instruction_set == spy::arm_simd_ ) << std::endl;
     std::cout << "NEON     status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::neon_ )     << std::endl;
     std::cout << "ASIMD    status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::asimd_)     << std::endl;
-    std::cout << "SVE      status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::sve_);
-    if constexpr(spy::simd_instruction_set >= spy::fixed_sve_)
+
+    std::cout << "SVE      status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve_ )      << std::endl;
+    std::cout << "SVE2     status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve2_)      << std::endl;
+    if constexpr(spy::simd_instruction_set >= spy::sve_)
     {
-      std::cout << " - fixed size: " << spy::simd_instruction_set.width << " bits" << std::endl;
-    }
-    else if constexpr(spy::simd_instruction_set >= spy::sve_)
-    {
-      std::cout << " - flexible size" << std::endl;
+      if constexpr(spy::simd_instruction_set.has_fixed_cardinal())
+      {
+        std::cout << "SVE uses fixed size: " << spy::simd_instruction_set.width << " bits" << std::endl;
+      }
+      else
+      {
+        std::cout << "SVE uses flexible size" << std::endl;
+      }
     }
   }
   std::cout << std::endl;

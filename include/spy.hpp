@@ -793,25 +793,31 @@ namespace avx512
 #endif
 }
 }
-#if !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE)
+#if defined(__ARM_FEATURE_SVE2) || defined(__ARM_FEATURE_SVE)
 # if !defined(__ARM_FEATURE_SVE_BITS) || (__ARM_FEATURE_SVE_BITS == 0)
-#   define SPY_SIMD_IS_ARM_FLEXIBLE_SVE
-#   define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve_
+#   define SPY_SIMD_IS_ARM_FLEXIBLE_SVE_CARDINAL
 # elif defined(__ARM_FEATURE_SVE_BITS)
 #   if(__ARM_FEATURE_SVE_BITS == 128)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
 #   elif(__ARM_FEATURE_SVE_BITS == 256)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
 #   elif(__ARM_FEATURE_SVE_BITS == 512)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
 #   elif(__ARM_FEATURE_SVE_BITS == 1024)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE
-#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
+#   else
+#   error "[SPY] - No support for non-power of 2 SVE cardinals"
 #   endif
 # endif
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE2)
+# define SPY_SIMD_IS_ARM_SVE2
+# define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve2_
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_sve_
+#elif !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE)
+# define SPY_SIMD_IS_ARM_SVE
+# define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve_
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_sve_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__aarch64__)
 #  define SPY_SIMD_IS_ARM_ASIMD
@@ -867,7 +873,7 @@ namespace avx512
 #endif
 namespace spy::detail
 {
-  enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000, wasm_ = 4000 };
+  enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000, arm_sve_ = 3500, wasm_ = 4000 };
   enum class simd_version { undefined_  = -1
                           , sse1_       = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
                           , sse41_      = 1141, sse42_ = 1142
@@ -879,10 +885,12 @@ namespace spy::detail
                           , vsx_        = 3000
                           , vsx_2_06_   = 3206, vsx_2_07_ = 3207, vsx_3_00_ = 3300, vsx_3_01_ = 3301
                           , neon_       = 4001, asimd_    = 4002
-                          , sve_        = 5000, fixed_sve_  = 5100
+                          , sve_        = 5000, sve2_     = 5500
                           , simd128_    = 6000
                           };
-  template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_>
+  template< simd_isa InsSetArch  = simd_isa::undefined_
+          , simd_version Version = simd_version::undefined_
+          >
   struct simd_info
   {
     static constexpr auto           isa     = InsSetArch;
@@ -896,7 +904,7 @@ namespace spy::detail
                   )                                                                       return 128;
       else  if constexpr(Version == simd_version::avx_ || Version == simd_version::avx2_) return 256;
       else  if constexpr(Version == simd_version::avx512_     )                           return 512;
-      else  if constexpr(Version == simd_version::fixed_sve_  )
+      else  if constexpr(Version >= simd_version::sve_)
       {
 #if defined(__ARM_FEATURE_SVE_BITS)
         return __ARM_FEATURE_SVE_BITS;
@@ -906,6 +914,7 @@ namespace spy::detail
       }
       else return -1;
     }();
+    static constexpr bool has_fixed_cardinal() { return width != -1; }
     friend std::ostream& operator<<(std::ostream& os, simd_info const&)
     {
             if constexpr ( Version == simd_version::simd128_  ) os << "WASM SIMD128";
@@ -930,10 +939,15 @@ namespace spy::detail
       }
       else  if constexpr ( Version == simd_version::neon_     ) os  << "ARM NEON";
       else  if constexpr ( Version == simd_version::asimd_    ) os  << "ARM ASIMD";
-      else  if constexpr ( Version == simd_version::sve_      ) os  << "ARM SVE (dyn. bits)";
-      else  if constexpr ( Version == simd_version::fixed_sve_) os  << "ARM SVE ("
-                                                                    << simd_info::width
-                                                                    << " bits)";
+      else  if constexpr ( Version >= simd_version::sve_      )
+      {
+        if constexpr ( Version == simd_version::sve2_ ) os  << "ARM SVE2 (";
+        else                                            os  << "ARM SVE  (";
+        constexpr auto fc = has_fixed_cardinal();
+        if constexpr(fc)  os << simd_info::width;
+        else              os << "dyn.";
+        os << " bits)";
+      }
       else return os << "Undefined SIMD instructions set";
       if constexpr (spy::supports::fma_)     os << " (with FMA3 support)";
       if constexpr (spy::supports::fma4_)    os << " (with FMA4 support)";
@@ -1017,11 +1031,13 @@ namespace spy
   constexpr inline auto vsx_3_01_ = ppc_simd_info<detail::simd_version::vsx_3_01_>{};
   template<detail::simd_version V = detail::simd_version::undefined_>
   using arm_simd_info = detail::simd_info<detail::simd_isa::arm_,V>;
+  template<detail::simd_version V = detail::simd_version::undefined_>
+  using sve_simd_info = detail::simd_info<detail::simd_isa::arm_sve_,V>;
   constexpr inline auto arm_simd_   = arm_simd_info<>{};
   constexpr inline auto neon_       = arm_simd_info<detail::simd_version::neon_ >{};
   constexpr inline auto asimd_      = arm_simd_info<detail::simd_version::asimd_>{};
-  constexpr inline auto sve_        = arm_simd_info<detail::simd_version::sve_>{};
-  constexpr inline auto fixed_sve_  = arm_simd_info<detail::simd_version::fixed_sve_>{};
+  constexpr inline auto sve_        = sve_simd_info<detail::simd_version::sve_>{};
+  constexpr inline auto sve2_       = sve_simd_info<detail::simd_version::sve2_>{};
 }
 #include <cstddef>
 namespace spy::detail
