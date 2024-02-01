@@ -811,9 +811,13 @@ namespace avx512
 # endif
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE2)
+# define SPY_SIMD_IS_ARM_SVE2
 # define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve2_
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_sve_
 #elif !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE)
+# define SPY_SIMD_IS_ARM_SVE
 # define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve_
+# define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_sve_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__aarch64__)
 #  define SPY_SIMD_IS_ARM_ASIMD

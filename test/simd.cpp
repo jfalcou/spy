@@ -12,6 +12,7 @@
 int main()
 {
   std::cout << "Supported SIMD instructions set: " << spy::simd_instruction_set << std::endl;
+  std::cout << "Supported SIMD instructions set: " << typeid(spy::simd_instruction_set).name() << std::endl;
   std::cout << "Check that X86 SIMD extension detection is correct: " << std::endl;
   {
     std::cout << "X86 SIMD status: " << std::boolalpha << (spy::simd_instruction_set == spy::x86_simd_) << std::endl;
@@ -52,7 +53,7 @@ int main()
     std::cout << "ASIMD    status: "  << std::boolalpha << (spy::simd_instruction_set >= spy::asimd_)     << std::endl;
 
     std::cout << "SVE      status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve_ )      << std::endl;
-    std::cout << "SVE      status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve2_)      << std::endl;
+    std::cout << "SVE2     status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve2_)      << std::endl;
     if constexpr(spy::simd_instruction_set >= spy::sve_)
     {
       if constexpr(spy::simd_instruction_set.has_fixed_cardinal())
