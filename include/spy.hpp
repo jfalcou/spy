@@ -1059,7 +1059,7 @@ namespace spy::detail
   std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
   {
     if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
-    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library" << p.version;
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
     return os << "Undefined Standard C++ Library";
   }
   template<int M, int N, int P> using libcpp_t = stdlib_info<stdlib::libcpp_,M,N,P>;

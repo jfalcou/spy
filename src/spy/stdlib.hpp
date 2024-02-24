@@ -35,7 +35,7 @@ namespace spy::detail
   std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
   {
     if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
-    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library" << p.version;
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
 
     return os << "Undefined Standard C++ Library";
   }
