@@ -38,7 +38,7 @@ namespace spy::detail
   template<compilers C, int M, int N, int P>
   std::ostream& operator<<(std::ostream& os, compilers_info<C, M, N, P> const& c)
   {
-    if(C == compilers::nvcc_ ) return os << "NVIDIA CUDA Compiler"                << c.version;
+    if(C == compilers::nvcc_ ) return os << "NVIDIA CUDA Compiler "               << c.version;
     if(C == compilers::msvc_ ) return os << "Microsoft Visual Studio "            << c.version;
     if(C == compilers::intel_) return os << "Intel(R) C++ Compiler "              << c.version;
     if(C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;

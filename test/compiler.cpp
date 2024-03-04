@@ -21,7 +21,6 @@ int main()
     assert( !(spy::compiler == spy::clang_    ));
     assert( !(spy::compiler == spy::gcc_      ));
     assert( !(spy::compiler == spy::emscripten_));
-  {
 #elif defined(_MSC_VER)
     assert( !(spy::compiler == spy::nvcc_     ));
     assert(  spy::compiler == spy::msvc_      );
@@ -80,7 +79,7 @@ int main()
     using namespace spy::literal;
 
 #if defined(__NVCC__)
-    assert(  spy::compiler >= 6'0_nvvc );
+    assert(  spy::compiler >= 6'0_nvcc );
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel ));
     assert( !(spy::compiler >= 2023'1_dpcpp ));
@@ -88,7 +87,7 @@ int main()
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert( !(spy::compiler >= 3'1_em   ));
 #elif defined(_MSC_VER)
-    assert( !(spy::compiler >= 6'0_nvvc ));
+    assert( !(spy::compiler >= 6'0_nvcc ));
     assert(  spy::compiler >= 19'5_msvc );
     assert( !(spy::compiler >= 19_intel ));
     assert( !(spy::compiler >= 2023'1_dpcpp ));
@@ -96,7 +95,7 @@ int main()
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert( !(spy::compiler >= 3'1_em   ));
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
-    assert( !(spy::compiler >= 6'0_nvvc ));
+    assert( !(spy::compiler >= 6'0_nvcc ));
     assert( !(spy::compiler >= 19'5_msvc));
     assert(  spy::compiler >= 19_intel  );
     assert( !(spy::compiler >= 2023'1_dpcpp ));
@@ -104,7 +103,7 @@ int main()
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert( !(spy::compiler >= 3'1_em   ));
 #elif defined(__INTEL_LLVM_COMPILER)
-    assert( !(spy::compiler >= 6'0_nvvc ));
+    assert( !(spy::compiler >= 6'0_nvcc ));
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel  ));
     assert(  spy::compiler >= 2023'1_dpcpp);
@@ -112,7 +111,7 @@ int main()
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert( !(spy::compiler >= 3'1_em   ));
 #elif defined(__EMSCRIPTEN__)
-    assert( !(spy::compiler >= 6'0_nvvc ));
+    assert( !(spy::compiler >= 6'0_nvcc ));
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel ));
     assert( !(spy::compiler >= 2023'1_dpcpp ));
@@ -120,7 +119,7 @@ int main()
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert(  spy::compiler >= 3'1_em    );
 #elif defined(__clang__)
-    assert( !(spy::compiler >= 6'0_nvvc ));
+    assert( !(spy::compiler >= 6'0_nvcc ));
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel ));
     assert( !(spy::compiler >= 2023'1_dpcpp ));
@@ -128,7 +127,7 @@ int main()
     assert( !(spy::compiler >= 7'2_gcc  ));
     assert( !(spy::compiler >= 3'1_em   ));
 #elif defined(__GNUC__ )
-    assert( !(spy::compiler >= 6'0_nvvc ));
+    assert( !(spy::compiler >= 6'0_nvcc ));
     assert( !(spy::compiler >= 19'5_msvc));
     assert( !(spy::compiler >= 19_intel ));
     assert( !(spy::compiler >= 2023'1_dpcpp ));
