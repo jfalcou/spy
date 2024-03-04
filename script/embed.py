@@ -23,17 +23,17 @@ default_includes_path = ['.']
 # pp tokens regexp
 r_escape_line = re.compile(r'^.*\\\n$')
 r_empty_line = re.compile('^[ \t]*\n$')
-r_pp_include = re.compile('^\s*#\s*include\s+["|<](.*)["|>]$')
-r_pp_ifndef = re.compile('^\s*#\s*ifndef\s+(.*)\s*$')
-r_pp_if_defined = re.compile('^\s*#\s*if\s+defined\(\s*(.*)\s*\)\s*$')
-r_pp_if = re.compile('^\s*#\s*if.*$')
-r_pp_endif = re.compile('^\s*#\s*endif.*$')
-r_pp_define = re.compile('^\s*#\s*define\s+(.*)\s*$')
-r_pp_pragma_once = re.compile('^\s*#\s*pragma\s+once\s*$')
-r_C_one_line_comment = re.compile('^(.*?)\s*//.*$')
-r_C_one_line_block_comment = re.compile('^(.*)/\*.*\*/(.*)$')
-r_C_block_begin_comment = re.compile('(.*)/\*.*')
-r_C_block_end_comment = re.compile('.*\*/(.*)')
+r_pp_include = re.compile('^\\s*#\\s*include\\s+["|<](.*)["|>]$')
+r_pp_ifndef = re.compile('^\\s*#\\s*ifndef\\s+(.*)\\s*$')
+r_pp_if_defined = re.compile('^\\s*#\\s*if\\s+defined\\(\\s*(.*)\\s*\\)\\s*$')
+r_pp_if = re.compile('^\\s*#\\s*if.*$')
+r_pp_endif = re.compile('^\\s*#\\s*endif.*$')
+r_pp_define = re.compile('^\\s*#\\s*define\\s+(.*)\\s*$')
+r_pp_pragma_once = re.compile('^\\s*#\\s*pragma\\s+once\\s*$')
+r_C_one_line_comment = re.compile('^(.*?)\\s*//.*$')
+r_C_one_line_block_comment = re.compile('^(.*)/\\*.*\\*/(.*)$')
+r_C_block_begin_comment = re.compile('(.*)/\\*.*')
+r_C_block_end_comment = re.compile('.*\\*/(.*)')
 
 # globals
 will_escape = False

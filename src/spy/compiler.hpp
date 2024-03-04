@@ -17,7 +17,7 @@
 
 namespace spy::detail
 {
-  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_ };
+  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_, dpcpp_ };
 
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
@@ -38,17 +38,19 @@ namespace spy::detail
   template<compilers C, int M, int N, int P>
   std::ostream& operator<<(std::ostream& os, compilers_info<C, M, N, P> const& c)
   {
-    if(C == compilers::msvc_ ) return os << "Microsoft Visual Studio "  << c.version;
-    if(C == compilers::intel_) return os << "Intel icpc "               << c.version;
-    if(C == compilers::clang_) return os << "clang "                    << c.version;
-    if(C == compilers::gcc_  ) return os << "g++ "                      << c.version;
-    if(C == compilers::emscripten_  ) return os << "Emscripten "        << c.version;
+    if(C == compilers::msvc_ ) return os << "Microsoft Visual Studio "            << c.version;
+    if(C == compilers::intel_) return os << "Intel(R) C++ Compiler "              << c.version;
+    if(C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
+    if(C == compilers::clang_) return os << "clang "                              << c.version;
+    if(C == compilers::gcc_  ) return os << "g++ "                                << c.version;
+    if(C == compilers::emscripten_  ) return os << "Emscripten "                  << c.version;
 
     return os << "Undefined " << c.version;
   }
 
   template<int M, int N, int P> using msvc_t        = compilers_info<compilers::msvc_ ,M,N,P>;
   template<int M, int N, int P> using intel_t       = compilers_info<compilers::intel_,M,N,P>;
+  template<int M, int N, int P> using dpcpp_t       = compilers_info<compilers::dpcpp_,M,N,P>;
   template<int M, int N, int P> using clang_t       = compilers_info<compilers::clang_,M,N,P>;
   template<int M, int N, int P> using gcc_t         = compilers_info<compilers::gcc_  ,M,N,P>;
   template<int M, int N, int P> using emscripten_t  = compilers_info<compilers::emscripten_,M,N,P>;
@@ -62,6 +64,11 @@ namespace spy
 #if defined(_MSC_VER)
   #define SPY_COMPILER_IS_MSVC
   using compiler_type = detail::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
+#elif defined(__INTEL_LLVM_COMPILER)
+  #define SPY_COMPILER_IS_INTEL_DPCPP
+  #define SPY0 __INTEL_LLVM_COMPILER
+  using compiler_type = detail::dpcpp_t<SPY0/10000,(SPY0 / 100) % 100, SPY0 % 100>;
+  #undef SPY0
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
   #define SPY_COMPILER_IS_INTEL
   #define SPY0 __INTEL_COMPILER
@@ -104,6 +111,7 @@ namespace spy
   //================================================================================================
   constexpr inline auto  msvc_        = detail::msvc_t<-1,0,0>{};
   constexpr inline auto  intel_       = detail::intel_t<-1,0,0>{};
+  constexpr inline auto  dpcpp_       = detail::dpcpp_t<-1,0,0>{};
   constexpr inline auto  clang_       = detail::clang_t<-1,0,0>{};
   constexpr inline auto  gcc_         = detail::gcc_t<-1,0,0>{};
   constexpr inline auto  emscripten_  = detail::emscripten_t<-1,0,0>{};
@@ -119,6 +127,11 @@ namespace spy::literal
   template<char ...c> constexpr auto operator"" _intel()
   {
     return detail::literal_wrap<detail::intel_t,c...>();
+  }
+
+  template<char ...c> constexpr auto operator"" _dpcpp()
+  {
+    return detail::literal_wrap<detail::dpcpp_t,c...>();
   }
 
   template<char ...c> constexpr auto operator"" _clang()

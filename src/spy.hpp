@@ -8,6 +8,7 @@
 #ifndef SPY_SPY_HPP_INCLUDED
 #define SPY_SPY_HPP_INCLUDED
 
+#include <spy/accelerator.hpp>
 #include <spy/arch.hpp>
 #include <spy/compiler.hpp>
 #include <spy/data_model.hpp>
