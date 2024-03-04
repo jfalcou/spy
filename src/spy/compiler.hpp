@@ -17,7 +17,7 @@
 
 namespace spy::detail
 {
-  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_, dpcpp_ };
+  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_, dpcpp_, nvcc_ };
 
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
@@ -38,6 +38,7 @@ namespace spy::detail
   template<compilers C, int M, int N, int P>
   std::ostream& operator<<(std::ostream& os, compilers_info<C, M, N, P> const& c)
   {
+    if(C == compilers::nvcc_ ) return os << "NVIDIA CUDA Compiler"                << c.version;
     if(C == compilers::msvc_ ) return os << "Microsoft Visual Studio "            << c.version;
     if(C == compilers::intel_) return os << "Intel(R) C++ Compiler "              << c.version;
     if(C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
@@ -51,6 +52,7 @@ namespace spy::detail
   template<int M, int N, int P> using msvc_t        = compilers_info<compilers::msvc_ ,M,N,P>;
   template<int M, int N, int P> using intel_t       = compilers_info<compilers::intel_,M,N,P>;
   template<int M, int N, int P> using dpcpp_t       = compilers_info<compilers::dpcpp_,M,N,P>;
+  template<int M, int N, int P> using nvcc_t        = compilers_info<compilers::nvcc_ ,M,N,P>;
   template<int M, int N, int P> using clang_t       = compilers_info<compilers::clang_,M,N,P>;
   template<int M, int N, int P> using gcc_t         = compilers_info<compilers::gcc_  ,M,N,P>;
   template<int M, int N, int P> using emscripten_t  = compilers_info<compilers::emscripten_,M,N,P>;
@@ -61,7 +63,10 @@ namespace spy
   //================================================================================================
   // Compiler detection object type
   //================================================================================================
-#if defined(_MSC_VER)
+#if defined(__NVCC__)
+  #define SPY_COMPILER_IS_NVCC
+  using compiler_type = detail::nvcc_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>;
+#elif defined(_MSC_VER)
   #define SPY_COMPILER_IS_MSVC
   using compiler_type = detail::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
 #elif defined(__INTEL_LLVM_COMPILER)
@@ -109,6 +114,7 @@ namespace spy
   //================================================================================================
   // Compilers detector stand-alone instances
   //================================================================================================
+  constexpr inline auto  nvcc_        = detail::nvcc_t<-1,0,0>{};
   constexpr inline auto  msvc_        = detail::msvc_t<-1,0,0>{};
   constexpr inline auto  intel_       = detail::intel_t<-1,0,0>{};
   constexpr inline auto  dpcpp_       = detail::dpcpp_t<-1,0,0>{};
@@ -119,6 +125,11 @@ namespace spy
 
 namespace spy::literal
 {
+  template<char ...c> constexpr auto operator"" _nvcc()
+  {
+    return detail::literal_wrap<detail::nvcc_t,c...>();
+  }
+
   template<char ...c> constexpr auto operator"" _msvc()
   {
     return detail::literal_wrap<detail::msvc_t,c...>();
