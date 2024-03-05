@@ -123,7 +123,7 @@ vendor for each SPY objects.
 | ----------------------- | ------------------------------------------------------------------------------ |
 | `spy::architecture`     | `x86_`, `amd64_`, `ppc_`, `arm_`                                               |
 | `spy::operating_system` | `android_`, `bsd_`, `cygwin_`, `ios_`, `linux_`, `macos_`, `unix_`, `windows_` |
-| `spy::compiler`         | `clang_`, `gcc_`, `intel_`, `msvc_`, `emscripten_`                             |
+| `spy::compiler`         | `clang_`, `gcc_`, `intel_`, `msvc_`, `emscripten_`, `dpcpp_`, `nvcc_`          |
 | `spy::libc`             | `cloudabi_`, `gnu_` `uc_`, `vms_`, `zos_`                                      |
 | `spy::stdlib`           | `gnucpp_`, `libcpp_`                                                           |
 
@@ -207,6 +207,27 @@ int main()
 }
 ~~~~~
 </script>
+
+ - Checking if current translation unit is compiled with some accelerator specific mode via either `spy::supports::sycl`,
+   that is set if the code is compiled with the `-fsycl` option, or `spy::supports::cuda`, that is set if the code is
+   compiled from a `.cu` file.
+
+<script type="preformatted">
+~~~~~ c++
+#include <spy.hpp>
+#include <iostream>
+
+int main()
+{
+  if constexpr(spy::supports::sycl)
+    std::cout << "SYCL version: " << spy::supports::sycl << "\n";
+
+  if constexpr(spy::supports::cuda)
+    std::cout << "CUDA version: " << spy::supports::cuda << "\n";
+}
+~~~~~
+</script>
+
 ## Comparing versions
 
 Checking for a vendor is sometimes not enough, we need to check which version of a given
@@ -260,12 +281,13 @@ SIMD extensions set detection is made so that one can ask if the current SIMD ex
 below or above a given reference instruction set. Detectable instructions sets depends on SIMD
 hardware vendor
 
-| Architecture  | Supported SIMD instructions sets                                                    |
-| ------------- | ----------------------------------------------------------------------------------- |
-| X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_`, `avx512_` |
-| Power PC      | `vmx_`, `vsx_`                                                                      |
-| ARM           | `neon_`,`asimd_`,`sve_`,`sve128_`,`sve256_`,`sve512_`,`sve1024_`                    |
-| WASM          | `simd128_`                                                                          |
+| Architecture  | Supported SIMD instructions sets                                                     |
+| ------------- | ------------------------------------------------------------------------------------ |
+| X86           | `sse1_`, `sse2_`, `sse3_`, `ssse3_`, `sse41_`, `sse42_`, `avx_`, `avx2_`, `avx512_`  |
+| Power PC      | `vmx_`, `vmx_2_03_`, `vmx_2_05_`, `vmx_2_06_`, `vmx_2_07_`, `vmx_3_00_`, `vmx_3_01_` |
+|               | `vsx_`, `vsx_2_06_`, `vsx_2_07_`, `vsx_3_00_`, `vsx_3_01_`                           |
+| ARM           | `neon_`,`asimd_`,`sve_`,`sve128_`,`sve256_`,`sve512_`,`sve1024_`                     |
+| WASM          | `simd128_`                                                                           |
 
 Complete set of comparison operators is provided for those sets. Order of instructions sets
 are built so that if an instructions set supersedes another, it is considered greater than. For
