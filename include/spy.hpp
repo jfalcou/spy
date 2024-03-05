@@ -30,11 +30,37 @@ namespace spy::supports
   {
     return !(a==b);
   }
+  template<int M, int N, int P> struct  cuda_t
+  {
+    explicit constexpr operator bool() const noexcept { return M>0 && N>0; }
+    friend std::ostream& operator<<(std::ostream& os, cuda_t)
+    {
+      os << "NVCC CUDA v" << M << '.' << N;
+      if(P>0) os << '.' << P;
+      return os;
+    }
+  };
+  template<int M0, int N0, int P0, int M1, int N1, int P1>
+  constexpr inline bool operator==(cuda_t<M0,N0,P0> const&, cuda_t<M1,N1,P1> const&) noexcept
+  {
+    return M0==M1 && N0==N1 && P0==P1;
+  }
+  template<int M0, int N0, int P0, int M1, int N1, int P1>
+  constexpr inline bool operator!=(cuda_t<M0,N0,P0> const& a, cuda_t<M1,N1,P1> const& b) noexcept
+  {
+    return !(a==b);
+  }
 #if defined(SYCL_LANGUAGE_VERSION) && defined (__INTEL_LLVM_COMPILER)
 #  define SPY_ACCELERATOR_SUPPORTS_SYCL
   constexpr inline auto  sycl  = sycl_t<SYCL_LANGUAGE_VERSION/100, SYCL_LANGUAGE_VERSION%100, 0>{};
 #else
   constexpr inline auto  sycl  = sycl_t<-1,-1,-1>{};
+#endif
+#if defined(__CUDACC__)
+#  define SPY_ACCELERATOR_SUPPORTS_CUDA
+  constexpr inline auto  cuda  = cuda_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>{};
+#else
+  constexpr inline auto  cuda  = cuda_t<-1,-1,-1>{};
 #endif
 }
 #include <ostream>
@@ -235,7 +261,7 @@ constexpr bool operator<=( TYPE<C2,M2,N2,P2> const& c2 ) const noexcept \
 #endif
 namespace spy::detail
 {
-  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_, dpcpp_ };
+  enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_, dpcpp_, nvcc_ };
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
     static constexpr compilers          vendor  = Compiler;
@@ -251,6 +277,7 @@ namespace spy::detail
   template<compilers C, int M, int N, int P>
   std::ostream& operator<<(std::ostream& os, compilers_info<C, M, N, P> const& c)
   {
+    if(C == compilers::nvcc_ ) return os << "NVIDIA CUDA Compiler "               << c.version;
     if(C == compilers::msvc_ ) return os << "Microsoft Visual Studio "            << c.version;
     if(C == compilers::intel_) return os << "Intel(R) C++ Compiler "              << c.version;
     if(C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
@@ -262,13 +289,17 @@ namespace spy::detail
   template<int M, int N, int P> using msvc_t        = compilers_info<compilers::msvc_ ,M,N,P>;
   template<int M, int N, int P> using intel_t       = compilers_info<compilers::intel_,M,N,P>;
   template<int M, int N, int P> using dpcpp_t       = compilers_info<compilers::dpcpp_,M,N,P>;
+  template<int M, int N, int P> using nvcc_t        = compilers_info<compilers::nvcc_ ,M,N,P>;
   template<int M, int N, int P> using clang_t       = compilers_info<compilers::clang_,M,N,P>;
   template<int M, int N, int P> using gcc_t         = compilers_info<compilers::gcc_  ,M,N,P>;
   template<int M, int N, int P> using emscripten_t  = compilers_info<compilers::emscripten_,M,N,P>;
 }
 namespace spy
 {
-#if defined(_MSC_VER)
+#if defined(__NVCC__)
+  #define SPY_COMPILER_IS_NVCC
+  using compiler_type = detail::nvcc_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>;
+#elif defined(_MSC_VER)
   #define SPY_COMPILER_IS_MSVC
   using compiler_type = detail::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
 #elif defined(__INTEL_LLVM_COMPILER)
@@ -307,6 +338,7 @@ namespace spy::detail
 }
 namespace spy
 {
+  constexpr inline auto  nvcc_        = detail::nvcc_t<-1,0,0>{};
   constexpr inline auto  msvc_        = detail::msvc_t<-1,0,0>{};
   constexpr inline auto  intel_       = detail::intel_t<-1,0,0>{};
   constexpr inline auto  dpcpp_       = detail::dpcpp_t<-1,0,0>{};
@@ -316,6 +348,10 @@ namespace spy
 }
 namespace spy::literal
 {
+  template<char ...c> constexpr auto operator"" _nvcc()
+  {
+    return detail::literal_wrap<detail::nvcc_t,c...>();
+  }
   template<char ...c> constexpr auto operator"" _msvc()
   {
     return detail::literal_wrap<detail::msvc_t,c...>();

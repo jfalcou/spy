@@ -121,6 +121,34 @@ jobs:
         run: cd build && ctest --output-on-failure -j 2
 
   ##################################################################################################
+  ## NVCC targets
+  ##################################################################################################
+  nvcc:
+    runs-on: ubuntu-latest
+    container:
+      image: nvidia/cuda:12.3.2-devel-ubi8
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v4.1.1
+      - name: Compiling Unit Tests
+        run:  |
+              mkdir build && cd build
+              nvcc ../test/accelerator.cu -std=c++17 -I../include -o accelerator.device.exe
+              nvcc ../test/accelerator.cpp -std=c++17 -I../include -o accelerator.host.exe
+              nvcc ../test/arch.cpp -std=c++17 -I../include -o arch.exe
+              nvcc ../test/compiler.cpp -std=c++17 -I../include -o compiler.exe
+              nvcc ../test/data_model.cpp -std=c++17 -I../include -o data_model.exe
+              nvcc ../test/libc.cpp -std=c++17 -I../include -o libc.exe
+              nvcc ../test/os.cpp -std=c++17 -I../include -o os.exe
+              nvcc ../test/simd.cpp -std=c++17 -I../include -o simd.exe
+              nvcc ../test/stdlib.cpp -std=c++17 -I../include -o stdlib.exe
+      - name: Running Unit Tests
+        run:  |
+              cd build
+              ./accelerator.device.exe && ./accelerator.host.exe && ./arch.exe && ./compiler.exe && ./data_model.exe && \
+              ./libc.exe && ./os.exe && ./simd.exe && ./stdlib.exe
+
+  ##################################################################################################
   ## DPC++ Target
   ##################################################################################################
   dpcpp:
