@@ -133,6 +133,8 @@ jobs:
       - name: Compiling Unit Tests
         run:  |
               mkdir build && cd build
+              nvcc ../test/accelerator.cu -std=c++17 -I../include -o accelerator.device.exe
+              nvcc ../test/accelerator.cpp -std=c++17 -I../include -o accelerator.host.exe
               nvcc ../test/arch.cpp -std=c++17 -I../include -o arch.exe
               nvcc ../test/compiler.cpp -std=c++17 -I../include -o compiler.exe
               nvcc ../test/data_model.cpp -std=c++17 -I../include -o data_model.exe
@@ -143,7 +145,8 @@ jobs:
       - name: Running Unit Tests
         run:  |
               cd build
-              ./arch.exe && ./compiler.exe && ./data_model.exe && ./libc.exe && ./os.exe && ./simd.exe && ./stdlib.exe
+              ./accelerator.device.exe && ./accelerator.host.exe && ./arch.exe && ./compiler.exe && ./data_model.exe && \
+              ./libc.exe && ./os.exe && ./simd.exe && ./stdlib.exe
 
   ##################################################################################################
   ## DPC++ Target

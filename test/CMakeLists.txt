@@ -77,6 +77,7 @@ add_dependencies(unit spy.unit)
 ##==================================================================================================
 # All tests
 ##==================================================================================================
+generate_test("spy" "accelerator.cpp")
 generate_test("spy" "arch.cpp")
 generate_test("spy" "compiler.cpp")
 generate_test("spy" "data_model.cpp")
