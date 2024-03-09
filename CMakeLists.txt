@@ -58,7 +58,7 @@ endif()
 ##======================================================================================================================
 ## Standalone generation
 ##======================================================================================================================
-copa_setup_standalone ( #QUIET
+copa_setup_standalone ( QUIET
                         FILE spy.hpp SOURCE include  DESTINATION standalone
                         ROOT spy     TARGET spy-standalone
                       )
