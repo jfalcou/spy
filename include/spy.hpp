@@ -422,7 +422,7 @@ namespace spy
   constexpr inline auto lp32_   = detail::data_model_info<2,2,sizeof(long),4>{};
   constexpr inline auto silp64_ = detail::data_model_info<8,8,8,8>{};
   constexpr inline auto ilp64_  = detail::data_model_info<2,8,8,8>{};
-  constexpr inline auto llp64_  = detail::data_model_info<2,8,4,8>{};
+  constexpr inline auto llp64_  = detail::data_model_info<2,4,4,8>{};
   constexpr inline auto lp64_   = detail::data_model_info<2,4,8,8>{};
 }
 #include <cstddef>
