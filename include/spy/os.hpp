@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 
@@ -78,7 +78,30 @@ namespace spy
 #endif
 
   //================================================================================================
-  // OS detection object
+  //! @ingroup api
+  //! @brief OS reporting value
+  //!
+  //! The `spy::operating_system` object can be compared to any other OS related value to verify
+  //! if the code being compiled is compiled on a given Operating Systems.
+  //!
+  //! Additionally, any of the OS related value are convertible to `bool`. They evaluates to `true` if they
+  //! matches the correct OS currently used.
+  //!
+  //! @groupheader{Supported Value}
+  //!
+  //! Name            | Operating System
+  //! --------------- | -------------
+  //! `spy::android_` | Android
+  //! `spy::bsd`      | BSD
+  //! `spy::cygwin_`  | CYGWIN
+  //! `spy::ios_`     | iOS
+  //! `spy::linux_`   | Linux
+  //! `spy::macos_`   | MacOS
+  //! `spy::unix_`    | UNIX
+  //! `spy::windows_` | Windows
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/os.cpp}
   //================================================================================================
   constexpr inline os_type operating_system;
 }
@@ -88,15 +111,12 @@ namespace spy::detail
   template<systems OS>
   inline constexpr os_info<OS>::operator bool() const noexcept
   {
-    return *this == spy::operating_system;
+    return spy::operating_system == *this;
   }
 }
 
 namespace spy
 {
-  //================================================================================================
-  // OS detector stand-alone instances
-  //================================================================================================
   constexpr inline auto android_  = detail::os_info<detail::systems::android_>{};
   constexpr inline auto bsd_      = detail::os_info<detail::systems::bsd_>{};
   constexpr inline auto cygwin_   = detail::os_info<detail::systems::cygwin_>{};
@@ -109,13 +129,23 @@ namespace spy
 
 namespace spy::supports
 {
+#if defined(SPY_DOXYGEN_INVOKED)
   //================================================================================================
-  // POSIX supports detection
+  //! @ingroup api
+  //! @brief POSIX supports indicator.
+  //!
+  //! Evaluates to `true` if current OS supports POSIX system calls and functions.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/posix.cpp}
   //================================================================================================
-#if(MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
-#define SPY_SUPPORTS_POSIX
+  constexpr inline auto posix_ = **implementation specified**;
+#else
+# if(MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
+# define SPY_SUPPORTS_POSIX
   constexpr inline auto posix_ = true;
 #else
   constexpr inline auto posix_ = false;
+# endif
 #endif
 }

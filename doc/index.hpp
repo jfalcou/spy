@@ -14,11 +14,9 @@
 //!
 //! # Some References
 //!
+//! - [Our CppCon 2019 Lightning talk slides](https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing)
 //! - [Our CppCon 2019 Lightning talk:](https://www.youtube.com/watch?v=t406o2EhG-A)
 //!   @htmlonly <center><iframe width="560" height="315" src="https://www.youtube.com/embed/t406o2EhG-A" title="I SPY with my little eye Boost.Predef in a constexpr world - Joel Falcou - CppCon 2019" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center> @endhtmlonly
-//!
-//! - [Our CppCon 2019 Lightning talk slides](https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing)
-//! - [Boost.Predef](https://www.boost.org/doc/libs/release/doc/html/predef.html)
 //!
 //! # A Short Example
 //!

@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 #include <ostream>
@@ -70,7 +70,27 @@ namespace spy
 #endif
 
   //================================================================================================
-  // Architecture detection object
+  //! @ingroup api
+  //! @brief Architecture reporting value
+  //!
+  //! The `spy::architecture` object can be compared to any other architecture related value to verify
+  //! if the code being compiled is compiled for a given CPU architecture.
+  //!
+  //! Additionally, any of the architecture related value are convertible to `bool`. They evaluates to `true` if they
+  //! matches the correct architecture currently targeted.
+  //!
+  //! @groupheader{Supported Value}
+  //!
+  //! Name            | Architecture
+  //! --------------- | -------------
+  //! `spy::amd64`    | Intel X86-64 and similar architectures.
+  //! `spy::arm`      | ARM.
+  //! `spy::ppc`      | PowerPC.
+  //! `spy::wasm`     | WASM pseudo-architecture.
+  //! `spy::x86`      | Intel X86.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/architecture.cpp}
   //================================================================================================
   constexpr inline arch_type architecture;
 }
@@ -80,7 +100,7 @@ namespace spy::detail
   template<archs Arch>
   inline constexpr arch_info<Arch>::operator bool() const noexcept
   {
-    return *this == spy::architecture;
+    return spy::architecture == *this;
   }
 }
 

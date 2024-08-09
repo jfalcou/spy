@@ -3,8 +3,8 @@ Licence {#licence}
 
 This library is licensed under the [Boost Software License](http://opensource.org/licenses/MIT):
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ none
-Copyright : KUMI Project Contributors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Copyright : SPY Project Contributors
 
 Permission is hereby granted, free of charge, to any person or organization obtaining a copy of the
 software and accompanying documentation covered by this license (the "Software") to use, reproduce,

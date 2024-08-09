@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 
@@ -40,10 +40,31 @@ namespace spy
                                                   , sizeof(long), sizeof(void*)
                                                   >;
 
+//================================================================================================
+  //! @ingroup api
+  //! @brief Data Model reporting value
+  //!
+  //! The `spy::data_model` object can be compared to any other data model related value to verify
+  //! if the code being compiled for a specific data model
+  //!
+  //! Additionally, any of the data model related value are convertible to `bool`. They evaluates to `true` if they
+  //! matches the correct data model currently used.
+  //!
+  //! @groupheader{Supported Value}
+  //!
+  //! Name          | Data Model
+  //! --------------| -------------
+  //! `spy::ilp32`  | ILP32
+  //! `spy::lp32`   | LP32
+  //! `spy::silp64` | SILP64
+  //! `spy::ilp64`  | ILP64
+  //! `spy::llp64`  | LLP64
+  //! `spy::lp64`   | LP64
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/data_model.cpp}
   //================================================================================================
-  // Data model detection object
-  //================================================================================================
-  constexpr inline data_model_type data_model;
+  constexpr inline auto data_model = data_model_type{};
 }
 
 namespace spy::detail
@@ -51,7 +72,7 @@ namespace spy::detail
   template<int Short, int Integer, int Long, int Pointer>
   inline constexpr data_model_info<Short, Integer, Long, Pointer>::operator bool() const noexcept
   {
-    return *this == spy::data_model;
+    return spy::data_model == *this;
   }
 }
 

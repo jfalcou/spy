@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 
@@ -60,9 +60,29 @@ namespace spy
 #endif
 
   //================================================================================================
-  // STDLIB detection object
+  //! @ingroup api
+  //! @brief C++ Standard Library version reporting value
+  //!
+  //! The `spy::stdlib` object can be compared to any other stdlib related value to verify
+  //! if the code being compiled with a specific version of the C++ standard library.
+  //!
+  //! Any stdlib related value can be checked for equality or ordering for a given version. The targeted
+  //! version is then specified using a stdlib-dependent literal.
+  //!
+  //! Additionally, any of the stdlib related value are convertible to `bool`. They evaluates to `true` if they
+  //! matches the correct standard library currently used.
+  //!
+  //! @groupheader{Supported Value}
+  //!
+  //! Name              | Vendor
+  //! ----------------- | -------------
+  //! `spy::libcpp_`    | Clang libcpp
+  //! `spy::gnucpp_`    | GNU C++ standard library
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/stdlib.cpp}
   //================================================================================================
-  constexpr inline stdlib_type stdlib;
+  constexpr inline auto stdlib = stdlib_type{};
 }
 
 namespace spy::detail
@@ -70,7 +90,7 @@ namespace spy::detail
   template<stdlib SLib, int M, int N, int P>
   inline constexpr stdlib_info<SLib,M,N,P>::operator bool() const noexcept
   {
-    return *this == spy::stdlib;
+    return spy::stdlib == *this;
   }
 }
 

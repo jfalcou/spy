@@ -1,6 +1,35 @@
 Change Log {#changelog}
 ==========
 
+## Version 1.1.0 - Julienne Aisner
+
+## Changelog
+
+- Features:
+  - Split PPC VMX/VSX detection to take PPC ISA into account.
+  - Separate ARM and ARM SVE tags and add SVE2 detectors.
+  - Detect and supports sanitizers detection/disabling.
+  - Implements SVE detection.
+  - Add detections for ICPX and SYCL.
+  - Add detections for NVIDIA CUDA usage.
+
+- Bugs:
+  - Fix int width for the LLP64 data model by @jmgorius
+  - Add missing whitespace in stdlib output by @ahoarau
+
+- Infrastructure:
+  - Reorganize standalone header location & process.
+  - Add Emscripten CI targets.
+  - Now tests and supports Clang-CL.
+
+## New Contributors
+* @ahoarau made their first contribution in https://github.com/jfalcou/spy/pull/40
+* @jmgorius made their first contribution in https://github.com/jfalcou/spy/pull/44
+
+## Our SPY:
+
+[Julienne Aisner](https://en.wikipedia.org/wiki/Julienne_Aisner)
+
 ## Version 1.0.0 - Alix d'Unienville
 
 ## Changelog

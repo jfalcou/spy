@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 
@@ -95,7 +95,32 @@ namespace spy
 #endif
 
   //================================================================================================
-  // Compiler detection object
+  //! @ingroup api
+  //! @brief Compiler reporting value
+  //!
+  //! The `spy::compiler` object can be compared to any other compiler related value to verify
+  //! if the code being compiled with a specific compiler.
+  //!
+  //! Any compiler related value can be checked for equality or ordering for a given version. The targeted
+  //! version is then specified using a compiler-dependent literal.
+  //!
+  //! Additionally, any of the compiler related value are convertible to `bool`. They evaluates to `true` if they
+  //! matches the correct compiler currently used.
+  //!
+  //! @groupheader{Supported Value}
+  //!
+  //! Name              | Compiler
+  //! ----------------- | -------------
+  //! `spy::clang`      | Clang
+  //! `spy::dpcpp`      | Intel DPC++/ICPX
+  //! `spy::emscripten` | Emscripten
+  //! `spy::gcc`        | G++
+  //! `spy::intel`      | Intel ICC
+  //! `spy::msvc`       | Microsoft Visual Studio
+  //! `spy::nvcc`       | NVIDIA NVCC
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/compiler.cpp}
   //================================================================================================
   constexpr inline compiler_type compiler;
 }
@@ -105,7 +130,7 @@ namespace spy::detail
   template<compilers C, int M, int N, int P>
   inline constexpr compilers_info<C,M,N,P>::operator bool() const noexcept
   {
-    return *this == spy::compiler;
+    return spy::compiler == *this;
   }
 }
 
@@ -125,36 +150,50 @@ namespace spy
 
 namespace spy::literal
 {
+  //! @ingroup api
+  //! @brief User-defined suffix for NVCC version definition
   template<char ...c> constexpr auto operator"" _nvcc()
   {
     return detail::literal_wrap<detail::nvcc_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for MSVC version definition
   template<char ...c> constexpr auto operator"" _msvc()
   {
     return detail::literal_wrap<detail::msvc_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for Intel ICC version definition
   template<char ...c> constexpr auto operator"" _intel()
   {
     return detail::literal_wrap<detail::intel_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for Intel DCP++/ICPX version definition
   template<char ...c> constexpr auto operator"" _dpcpp()
   {
     return detail::literal_wrap<detail::dpcpp_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for Clang version definition
   template<char ...c> constexpr auto operator"" _clang()
   {
     return detail::literal_wrap<detail::clang_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for G++ version definition
   template<char ...c> constexpr auto operator"" _gcc()
   {
     return detail::literal_wrap<detail::gcc_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for Emscripten version definition
   template<char ...c> constexpr auto operator"" _em()
   {
     return detail::literal_wrap<detail::emscripten_t,c...>();

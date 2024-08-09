@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 
@@ -37,8 +37,8 @@ namespace spy::detail
     if(c.vendor == libC::cloudabi_) return os << "CloudABI Standard C Library " << c.version;
     if(c.vendor == libC::uc_      ) return os << "uClibc Standard C Library "   << c.version;
     if(c.vendor == libC::vms_     ) return os << "VMS Standard C Library "      << c.version;
-    if(c.vendor == libC::zos_     ) return os << "z/OS Standard C Library "    << c.version;
-    if(c.vendor == libC::gnu_     ) return os << "GNU Standard C Library "     << c.version;
+    if(c.vendor == libC::zos_     ) return os << "z/OS Standard C Library "     << c.version;
+    if(c.vendor == libC::gnu_     ) return os << "GNU Standard C Library "      << c.version;
 
     return os << "Undefined Standard C Library";
   }
@@ -84,9 +84,32 @@ namespace spy
 #endif
 
   //================================================================================================
-  // LIBC detection object
+  //! @ingroup api
+  //! @brief LIBC version reporting value
+  //!
+  //! The `spy::libc` object can be compared to any other libc related value to verify
+  //! if the code being compiled with a specific version of the libc.
+  //!
+  //! Any libc related value can be checked for equality or ordering for a given version. The targeted
+  //! version is then specified using a libc-dependent literal.
+  //!
+  //! Additionally, any of the libc related value are convertible to `bool`. They evaluates to `true` if they
+  //! matches the correct libc currently used.
+  //!
+  //! @groupheader{Supported Value}
+  //!
+  //! Name              | Vendor
+  //! ----------------- | -------------
+  //! `spy::cloudabi_`  | CloudABI
+  //! `spy::uc_`        | uClibc
+  //! `spy::vms_`       | VMS
+  //! `spy::zos_`       | zOS
+  //! `spy::gnu_`       | GNU
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/libc.cpp}
   //================================================================================================
-  constexpr inline libc_type libc;
+  constexpr inline auto libc = libc_type{};
 }
 
 namespace spy::detail
@@ -94,7 +117,7 @@ namespace spy::detail
   template<libC C, int M, int N, int P>
   inline constexpr libc_info<C,M,N,P>::operator bool() const noexcept
   {
-    return *this == spy::libc;
+    return spy::libc == *this;
   }
 }
 
@@ -112,26 +135,36 @@ namespace spy
 
 namespace spy::literal
 {
+  //! @ingroup api
+  //! @brief User-defined suffix for the CloudABI libc version definition
   template<char ...c> constexpr auto operator"" _cloud()
   {
     return detail::literal_wrap<detail::cloudabi_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for the uClibc version definition
   template<char ...c> constexpr auto operator"" _uc()
   {
     return detail::literal_wrap<detail::uc_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for the VMS libc version definition
   template<char ...c> constexpr auto operator"" _vms()
   {
     return detail::literal_wrap<detail::vms_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for the zOS libc version definition
   template<char ...c> constexpr auto operator"" _zos()
   {
     return detail::literal_wrap<detail::zos_t,c...>();
   }
 
+  //! @ingroup api
+  //! @brief User-defined suffix for the GNU libc version definition
   template<char ...c> constexpr auto operator"" _gnu()
   {
     return detail::literal_wrap<detail::gnu_t,c...>();

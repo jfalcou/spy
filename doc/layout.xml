@@ -3,20 +3,7 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
-    <tab type="usergroup" visible="yes" title="Reference Documentation">
-      <tab type="usergroup" visible="yes" title="Main API">
-        <tab type="user" url="@ref os"  title="Operating System"/>
-        <tab type="user" url="@ref compiler"  title="Compiler"/>
-        <tab type="user" url="@ref architecture"     title="Architecture"/>
-        <tab type="user" url="@ref data"     title="Data Model"/>
-        <tab type="user" url="@ref libc"     title="Standard C Library"/>
-        <tab type="user" url="@ref libstd"  title="Standard C++ Library"/>
-        <tab type="user" url="@ref simd"     title="SIMD Support"/>
-        <tab type="user" url="@ref accelerator"  title="Accelerator Support"/>
-      </tab>
-      <tab type="user" url="@ref spy"     title="SPY Namespace"/>
-    </tab>
-
+    <tab type="user" url="@ref api"   title="Main API"/>
     <tab type="usergroup" visible="yes" title="About The Library">
       <tab type="user" url="@ref setup"     title="Setup"/>
       <tab type="user" url="@ref changelog" title="Changelog"/>
@@ -98,8 +85,8 @@
       <sequences title=""/>
       <dictionaries title=""/>
       <enums title=""/>
-      <functions title=""/>
       <variables title=""/>
+      <functions title=""/>
       <membergroups visible="yes"/>
     </memberdecl>
     <memberdef>
@@ -108,8 +95,8 @@
       <sequences title=""/>
       <dictionaries title=""/>
       <enums title=""/>
-      <functions title=""/>
       <variables title=""/>
+      <functions title=""/>
     </memberdef>
     <authorsection visible="no"/>
   </namespace>
@@ -173,9 +160,9 @@
       <typedefs title=""/>
       <enums title=""/>
       <enumvalues title=""/>
+      <variables title=""/>
       <functions title=""/>
       <friends title=""/>
-      <variables title=""/>
       <membergroups visible="yes"/>
     </memberdecl>
     <memberdef>
@@ -185,9 +172,9 @@
       <typedefs title=""/>
       <enums title=""/>
       <enumvalues title=""/>
+      <variables title=""/>
       <functions title=""/>
       <friends title=""/>
-      <variables title=""/>
     </memberdef>
     <authorsection visible="no"/>
   </group>

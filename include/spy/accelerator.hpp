@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 #include <ostream>
@@ -61,6 +61,18 @@ namespace spy::supports
 #if defined(SYCL_LANGUAGE_VERSION) && defined (__INTEL_LLVM_COMPILER)
 #  define SPY_ACCELERATOR_SUPPORTS_SYCL
   constexpr inline auto  sycl  = sycl_t<SYCL_LANGUAGE_VERSION/100, SYCL_LANGUAGE_VERSION%100, 0>{};
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup api
+  //! @brief SYCL usage indicator.
+  //!
+  //! Retrieves the information about wether or not current file is compiled with SYCL supports.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/sycl.cpp}
+  //================================================================================================
+  constexpr inline auto  sycl = **implementation-defined**;
+
 #else
   constexpr inline auto  sycl  = sycl_t<-1,-1,-1>{};
 #endif
@@ -68,6 +80,19 @@ namespace spy::supports
 #if defined(__CUDACC__)
 #  define SPY_ACCELERATOR_SUPPORTS_CUDA
   constexpr inline auto  cuda  = cuda_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>{};
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup api
+  //! @brief CUDA usage indicator.
+  //!
+  //! Retrieves the information about wether or not current file is compiled using NVCC.
+  //! Note that this indicator works in both  .cpp and .cu files.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/cuda.cpp}
+  //================================================================================================
+  constexpr inline auto  cuda  = **implementation-defined**;
+
 #else
   constexpr inline auto  cuda  = cuda_t<-1,-1,-1>{};
 #endif

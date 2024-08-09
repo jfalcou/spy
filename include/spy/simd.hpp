@@ -1,9 +1,9 @@
 //==================================================================================================
-/**
+/*
   SPY - C++ Informations Broker
   Copyright : SPY Project Contributors
   SPDX-License-Identifier: BSL-1.0
-**/
+*/
 //==================================================================================================
 #pragma once
 
@@ -153,7 +153,63 @@ namespace spy::detail
 namespace spy
 {
   //================================================================================================
-  // Current SIMD instructions set
+  //! @ingroup api
+  //! @brief SIMD extensions set  reporting value
+  //!
+  //! @groupheader{SIMD Instructions Sets}
+  //! SIMD extensions set detection is made so that one can ask if the current SIMD extension is exactly,
+  //! below or above a given reference instruction set. Detectable instructions sets depends on SIMD
+  //! hardware vendor
+  //!
+  //! | Architecture      | Supported SIMD instructions sets                                                        |
+  //! | ----------------- | --------------------------------------------------------------------------------------- |
+  //! | **X86 SSE**       | `spy::sse1_`, `spy::sse2_`, `spy::sse3_`, `spy::ssse3_`, `spy::sse41_`, `spy::sse42_`   |
+  //! | **X86 AVX**       | `spy::avx_`, `spy::avx2_`, `spy::avx512_`                                               |
+  //! | **Power PC VMX**  | `spy::vmx_`, `spy::vmx_2_03_`, `spy::vmx_2_05_`, `spy::vmx_2_06_`, `spy::vmx_2_07_`, `spy::vmx_3_00_`, `spy::vmx_3_01_` |
+  //! | **Power PC VSX**  | `spy::vsx_`, `spy::vsx_2_06_`, `spy::vsx_2_07_`, `spy::vsx_3_00_`, `spy::vsx_3_01_`     |
+  //! | **ARM NEON**      | `spy::neon_`, `spy::asimd_`                                                             |
+  //! | **ARM SVE**       | `spy::sve_`,`spy::sve128_`, `spy::sve256_`, `spy::sve512_`, `spy::sve1024_`             |
+  //! | **WASM**          | `spy::simd128_`                                                                         |
+  //!
+  //! Complete set of comparison operators is provided for those sets. Order of instructions sets
+  //! are built so that if an instructions set supersedes another, it is considered greater than. For
+  //! example, `spy::avx_` is greater than `spy::sse41_` as the former is a super-set of the later.
+  //! Comparing SIMD descriptors across architecture is undefined behavior.
+  //!
+  //! Moreover, the `spy::simd_instruction_set` object exposes a constexpr `width` static field that
+  //! contains the size in bits of the current SIMD instructions set registers.
+  //!
+  //! @subgroupheader{Example - SIMD Instructions Sets}
+  //! @godbolt{samples/simd.cpp}
+  //!
+  //! @groupheader{SIMD Architectures}
+  //!
+  //! One can also simply asks if a given family of instructions set is available.
+  //!
+  //! | Architecture  | Generic indicator   |
+  //! | ------------- | --------------------|
+  //! | **X86**       | `spy::x86_simd_`    |
+  //! | **Power PC**  | `spy::ppc_simd_`    |
+  //! | **ARM**       | `spy::arm_simd_`    |
+  //! | **WASM**      | `spy::wasm_simd_`   |
+  //!
+  //! @subgroupheader{Example - SIMD Architectures}
+  //! @godbolt{samples/simd-arch.cpp}
+  //!
+  //! @groupheader{Supplemental Instructions sets}
+  //!
+  //! Some SIMD instructions set provides supplemental instructions on top of existing system.
+  //! Those supplemental instruction set can be checked using the `spy::supports` namespace.
+  //!
+  //! | Architecture  | Supported SIMD instructions sets                                                    |
+  //! | ------------- | ------------------------------------------------------------------------------------|
+  //! | X86 AVX       | `xop_`, `fma_`, `fma4_`                                                             |
+  //! | X86 AVX512    | `bw_`, `cd_`, `dq_`, `er_`, `ifma_`, `pf_`, `vl_`, `popcntdq_`                      |
+  //! |               | `_4fmaps_`, `vnniw_`, `vbmi_`, `bf16_`,`bitalg_`, `vbmi2_`, `vnni_`, `vpintersect_` |
+  //!
+  //! @subgroupheader{Example - SIMD Architectures}
+  //! @godbolt{samples/simd-additional.cpp}
+  //!
   //================================================================================================
   #if defined(SPY_SIMD_DETECTED)
   constexpr inline auto simd_instruction_set = detail::simd_info<SPY_SIMD_VENDOR,SPY_SIMD_DETECTED>{};
