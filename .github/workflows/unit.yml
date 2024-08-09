@@ -10,7 +10,7 @@ on:
       - main
 
 concurrency:
-  group: unit-${{ github.ref }}
+  group: spy-unit-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
           cmake .. -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
                 -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compiling Unit Tests
-        run:  cd build && make unit -j 2
+        run:  cd build && make spy-test -j 2
       - name: Running Unit Tests
         run: cd build && ctest --output-on-failure -j 2
 
@@ -63,7 +63,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  |
           cd build
-          cmake --build . --target unit --config ${{ matrix.cfg.mode }} --parallel 2
+          cmake --build . --target spy-test --config ${{ matrix.cfg.mode }} --parallel 2
       - name: Running Tests
         run: |
           cd build
@@ -88,7 +88,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  |
           cd build
-          cmake --build . --target unit --config ${{ matrix.cfg.mode }} --parallel 2
+          cmake --build . --target spy-test --config ${{ matrix.cfg.mode }} --parallel 2
       - name: Running Tests
         run: |
           cd build
@@ -116,7 +116,7 @@ jobs:
           cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
                 -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compiling Unit Tests
-        run:  cd build && ninja unit -j 2
+        run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
         run: cd build && ctest --output-on-failure -j 2
 
@@ -133,15 +133,15 @@ jobs:
       - name: Compiling Unit Tests
         run:  |
               mkdir build && cd build
-              nvcc ../test/accelerator.cu -std=c++17 -I../include -o accelerator.device.exe
-              nvcc ../test/accelerator.cpp -std=c++17 -I../include -o accelerator.host.exe
-              nvcc ../test/arch.cpp -std=c++17 -I../include -o arch.exe
-              nvcc ../test/compiler.cpp -std=c++17 -I../include -o compiler.exe
-              nvcc ../test/data_model.cpp -std=c++17 -I../include -o data_model.exe
-              nvcc ../test/libc.cpp -std=c++17 -I../include -o libc.exe
-              nvcc ../test/os.cpp -std=c++17 -I../include -o os.exe
-              nvcc ../test/simd.cpp -std=c++17 -I../include -o simd.exe
-              nvcc ../test/stdlib.cpp -std=c++17 -I../include -o stdlib.exe
+              nvcc ../test/unit/accelerator.cu -std=c++17 -I../include -o accelerator.device.exe
+              nvcc ../test/unit/accelerator.cpp -std=c++17 -I../include -o accelerator.host.exe
+              nvcc ../test/unit/arch.cpp -std=c++17 -I../include -o arch.exe
+              nvcc ../test/unit/compiler.cpp -std=c++17 -I../include -o compiler.exe
+              nvcc ../test/unit/data_model.cpp -std=c++17 -I../include -o data_model.exe
+              nvcc ../test/unit/libc.cpp -std=c++17 -I../include -o libc.exe
+              nvcc ../test/unit/os.cpp -std=c++17 -I../include -o os.exe
+              nvcc ../test/unit/simd.cpp -std=c++17 -I../include -o simd.exe
+              nvcc ../test/unit/stdlib.cpp -std=c++17 -I../include -o stdlib.exe
       - name: Running Unit Tests
         run:  |
               cd build
@@ -173,7 +173,7 @@ jobs:
           cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
                 -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compiling Unit Tests
-        run:  cd build && ninja unit -j 2
+        run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
         run: cd build && ctest --output-on-failure -j 2
 
@@ -199,7 +199,7 @@ jobs:
           cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
                 -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compiling Unit Tests
-        run:  cd build && ninja unit -j 2
+        run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
         run: cd build && ctest --output-on-failure -j 2
 
@@ -233,6 +233,6 @@ jobs:
           cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
                 -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
       - name: Compile Unit Tests
-        run:  cd build && ninja unit -j 2
+        run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
         run:  cd build && ctest --output-on-failure -j 2
