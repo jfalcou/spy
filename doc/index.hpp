@@ -22,7 +22,7 @@
 //!
 //! @code
 //! #include <iostream>
-//! #include <spy.hpp>
+//! #include <spy/spy.hpp>
 //!
 //! int main()
 //! {
