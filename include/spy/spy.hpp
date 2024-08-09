@@ -28,7 +28,7 @@ namespace spy
   //! @namespace literal
   //! @brief SPY User-defined literal namespace
   //====================================================================================================================
-  inline namespace literal {}
+  namespace literal {}
 }
 
 

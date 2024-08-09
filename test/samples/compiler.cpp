@@ -14,7 +14,7 @@ int main()
   else if constexpr( spy::dpcpp_ ) std::cout << "This code compiled with ICPX.\n";
 
   //Version checks
-  using namespace spy;
+  using namespace spy::literal;
   if constexpr( spy::compiler == 16'0_clang ) std::cout << "This code compiled with clang 16.\n";
   if constexpr( spy::compiler >= 15'0_clang ) std::cout << "This code compiled with clang 15 or ulterior.\n";
 }
