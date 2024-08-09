@@ -10,7 +10,7 @@ on:
       - main
 
 concurrency:
-  group: unit-${{ github.ref }}
+  group: spy-unit-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

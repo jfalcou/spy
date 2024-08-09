@@ -1,0 +1,75 @@
+##======================================================================================================================
+##  SPY - Compact C++20 Tuple Toolbox
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+name: SPY Integration Tests
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: spy-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  install:
+    runs-on: [ubuntu-latest]
+    container:
+      image: ghcr.io/jfalcou/compilers:v6
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v4.1.1
+      - name: Install SPY from checkout
+        run: |
+          mkdir build && cd build
+          cmake -G Ninja .. -DSPY_BUILD_TEST=OFF -DCMAKE_CXX_COMPILER=clang++
+          ninja install
+      - name: Run Sample CMake
+        run: |
+          mkdir install && cd install
+          cmake ../test/integration/install-test -G Ninja
+          ninja && ctest --verbose
+
+  fetch-content:
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    runs-on: [ubuntu-latest]
+    container:
+      image: ghcr.io/jfalcou/compilers:v6
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v4.1.1
+      - name: Compile using FetchContent
+        run: |
+          git config --global --add safe.directory /__w/kumi/kumi
+          mkdir install && cd install
+          cmake ../test/integration/fetch-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME} -DSPY_BUILD_TEST=OFF  -DCMAKE_CXX_COMPILER=clang++
+          ninja && ctest --verbose
+
+  cpm:
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    runs-on: [ubuntu-latest]
+    container:
+      image: ghcr.io/jfalcou/compilers:v6
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v4.1.1
+      - name: Compile using CPM
+        run: |
+          git config --global --add safe.directory /__w/kumi/kumi
+          mkdir install && cd install
+          cmake ../test/integration/cpm-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME}  -DCMAKE_CXX_COMPILER=clang++ -DSPY_BUILD_TEST=OFF
+          ninja && ctest --verbose
