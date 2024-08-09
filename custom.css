@@ -1,0 +1,125 @@
+.github-corner svg {
+    fill: var(--primary-light-color);
+    color: var(--page-background-color);
+    width: 72px;
+    height: 72px;
+}
+
+@media screen and (max-width: 767px) {
+    .github-corner svg {
+        width: 50px;
+        height: 50px;
+    }
+    #projectnumber {
+        margin-right: 22px;
+    }
+}
+
+.alter-theme-button {
+    display: inline-block;
+    cursor: pointer;
+    background: var(--primary-color);
+    color: var(--page-background-color) !important;
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-small) var(--spacing-medium);
+    text-decoration: none;
+}
+
+.next_section_button {
+    display: block;
+    padding: var(--spacing-large) 0 var(--spacing-small) 0;
+    color: var(--page-background-color);
+    user-select: none;
+}
+
+.next_section_button::after {
+    /* clearfix */
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.next_section_button a {
+    overflow: hidden;
+    float: right;
+    border: 1px solid var(--separator-color);
+    padding: var(--spacing-medium) calc(var(--spacing-large) / 2) var(--spacing-medium) var(--spacing-large);
+    border-radius: var(--border-radius-medium);
+    color: var(--page-secondary-foreground-color) !important;
+    text-decoration: none;
+    background-color: var(--page-background-color);
+    transition: color .08s ease-in-out, background-color .1s ease-in-out;
+}
+
+.next_section_button a:hover {
+    color: var(--page-foreground-color) !important;
+    background-color: var(--odd-color);
+}
+
+.next_section_button a::after {
+    content: '〉';
+    color: var(--page-secondary-foreground-color) !important;
+    padding-left: var(--spacing-large);
+    display: inline-block;
+    transition: color .08s ease-in-out, transform .09s ease-in-out;
+}
+
+.next_section_button a:hover::after {
+    color: var(--page-foreground-color) !important;
+    transform: translateX(3px);
+}
+
+.alter-theme-button:hover {
+    background: var(--primary-dark-color);
+}
+
+html.dark-mode #variants_image img {
+    filter: brightness(87%) hue-rotate(180deg) invert();
+}
+
+div.code-output, pre.code-output {
+    margin: var(--spacing-medium) 0;
+    padding: calc(var(--spacing-large) - (var(--spacing-large) / 6)) var(--spacing-large);
+    background: var(--separator-color);
+    color: var(--fragment-foreground);
+    font-family: var(--font-family-monospace);
+    font-size: var(--code-font-size) !important;
+}
+
+code, div.code-output, pre.code-output {
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--separator-color);
+    overflow: hidden;
+}
+
+dl.compiler {
+    background: var(--warning-color);
+    border-left: 8px solid var(--warning-color-dark);
+    border-radius: var(--border-radius-small);
+    color: var(--warning-color-darker);
+    font-family: monospace;
+    margin-left: 0;
+    margin: var(--spacing-medium) 0;
+    overflow: hidden;
+    padding: var(--spacing-medium);
+}
+
+dl.compiler dt{
+    color: var(--warning-color-dark);
+}
+
+dl.success {
+    background: var(--note-color);
+    border-left: 8px solid var(--note-color-dark);
+    border-radius: var(--border-radius-small);
+    color: var(--note-color-darker);
+    font-family: monospace;
+    margin-left: 0;
+    margin: var(--spacing-medium) 0;
+    overflow: hidden;
+    padding: var(--spacing-medium);
+}
+
+dl.success dt{
+    color: var(--note-color-dark);
+}
