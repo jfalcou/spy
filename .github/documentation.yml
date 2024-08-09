@@ -1,0 +1,36 @@
+##======================================================================================================================
+##  SPY - Compact C++20 Tuple Toolbox
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+name: SPY Documentation Generation
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-doc:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/jfalcou/compilers:v6
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v4.1.1
+      - name: Prepare SPY
+        run: |
+          mkdir build && cd build
+          cmake .. -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=ON
+
+      - name: Generate Doxygen
+        run: |
+          cd build
+          ninja spy-doxygen
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/doc
