@@ -100,7 +100,7 @@ jobs:
   wasm:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v7
+      image: ghcr.io/jfalcou/compilers:v8
     strategy:
       fail-fast: false
       matrix:
@@ -183,7 +183,7 @@ jobs:
   clang:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v7
+      image: ghcr.io/jfalcou/compilers:v8
     strategy:
       fail-fast: false
       matrix:
@@ -209,7 +209,7 @@ jobs:
   gcc:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v7
+      image: ghcr.io/jfalcou/compilers:v8
     strategy:
       fail-fast: false
       matrix:
