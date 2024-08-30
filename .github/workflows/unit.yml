@@ -39,7 +39,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  cd build && make spy-test -j 2
       - name: Running Unit Tests
-        run: cd build && ctest --output-on-failure -j 2
+        run: cd build && ctest --verbose --output-on-failure -j 2
 
   ##################################################################################################
   ## Windows Targets
@@ -67,7 +67,7 @@ jobs:
       - name: Running Tests
         run: |
           cd build
-          ctest -C ${{ matrix.cfg.mode }} --output-on-failure
+          ctest --verbose -C ${{ matrix.cfg.mode }} --output-on-failure
 
   clang-cl:
     runs-on: [windows-2022]
@@ -92,7 +92,7 @@ jobs:
       - name: Running Tests
         run: |
           cd build
-          ctest -C ${{ matrix.cfg.mode }} --output-on-failure
+          ctest --verbose -C ${{ matrix.cfg.mode }} --output-on-failure
 
   ##################################################################################################
   ## WASM targets
@@ -118,7 +118,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
-        run: cd build && ctest --output-on-failure -j 2
+        run: cd build && ctest --verbose --output-on-failure -j 2
 
   ##################################################################################################
   ## RISC-V targets
@@ -144,7 +144,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
-        run: cd build && ctest --output-on-failure -j 2
+        run: cd build && ctest --verbose --output-on-failure -j 2
 
   ##################################################################################################
   ## NVCC targets
@@ -201,7 +201,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
-        run: cd build && ctest --output-on-failure -j 2
+        run: cd build && ctest --verbose --output-on-failure -j 2
 
   ##################################################################################################
   ## Clang targets
@@ -227,7 +227,7 @@ jobs:
       - name: Compiling Unit Tests
         run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
-        run: cd build && ctest --output-on-failure -j 2
+        run: cd build && ctest --verbose --output-on-failure -j 2
 
   ##################################################################################################
   ## gcc targets
@@ -261,4 +261,4 @@ jobs:
       - name: Compile Unit Tests
         run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
-        run:  cd build && ctest --output-on-failure -j 2
+        run:  cd build && ctest --verbose --output-on-failure -j 2
