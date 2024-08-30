@@ -154,8 +154,10 @@ $(document).ready(function(){initNavTree('group__api_gaad5f2aa34188a02b894a0d8c7
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>spy::ppc</code>   </td><td class="markdownTableBodyNone">PowerPC.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>spy::wasm</code>   </td><td class="markdownTableBodyNone">WASM pseudo-architecture.    </td></tr>
+<td class="markdownTableBodyNone"><code>spy::riscv</code>   </td><td class="markdownTableBodyNone">RISC-V.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>spy::wasm</code>   </td><td class="markdownTableBodyNone">WASM pseudo-architecture.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>spy::x86</code>   </td><td class="markdownTableBodyNone">Intel X86.   </td></tr>
 </table>
 <h2 class="groupheader">Example </h2>
@@ -169,14 +171,16 @@ $(document).ready(function(){initNavTree('group__api_gaad5f2aa34188a02b894a0d8c7
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a> == spy::amd64_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for X86-64.\n&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a> == spy::ppc_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for PowerPC.\n&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a> == spy::arm_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for ARM.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a> == spy::riscv_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for RISC-V.\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Direct test</span></div>
 <div class="line">  <span class="keywordflow">if</span>      <span class="keyword">constexpr</span>( spy::x86_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for X86.\n&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::amd64_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for X86-64.\n&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::ppc_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for PowerPC.\n&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::arm_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for ARM.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::riscv_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled for RISC-V.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_gaad5f2aa34188a02b894a0d8c7e402d6e_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition:</b> arch.hpp:95</div></div>
+<div class="ttc" id="agroup__api_gaad5f2aa34188a02b894a0d8c7e402d6e_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition:</b> arch.hpp:101</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
