@@ -12,10 +12,17 @@
 #include <spy/simd/arm.hpp>
 #include <spy/simd/ppc.hpp>
 #include <spy/simd/wasm.hpp>
+#include <spy/simd/riscv.hpp>
 
 namespace spy::detail
 {
-  enum class simd_isa { undefined_ = -1, x86_ = 1000, ppc_ = 2000, arm_ = 3000, arm_sve_ = 3500, wasm_ = 4000 };
+  enum class simd_isa { undefined_  = -1
+                      , x86_        = 1000
+                      , ppc_        = 2000
+                      , arm_        = 3000, arm_sve_ = 3500
+                      , wasm_       = 4000
+                      , riscv_      = 5000
+                      };
 
   enum class simd_version { undefined_  = -1
                           , sse1_       = 1110, sse2_  = 1120, sse3_ = 1130, ssse3_ = 1131
@@ -30,6 +37,7 @@ namespace spy::detail
                           , neon_       = 4001, asimd_    = 4002
                           , sve_        = 5000, sve2_     = 5500
                           , simd128_    = 6000
+                          , rvv_        = 7000
                           };
 
   template< simd_isa InsSetArch  = simd_isa::undefined_
@@ -49,7 +57,15 @@ namespace spy::detail
                   )                                                                       return 128;
       else  if constexpr(Version == simd_version::avx_ || Version == simd_version::avx2_) return 256;
       else  if constexpr(Version == simd_version::avx512_     )                           return 512;
-      else  if constexpr(Version >= simd_version::sve_)
+else if constexpr( Version == simd_version::rvv_ )
+      {
+#if defined(__riscv_v_fixed_vlen)
+        return __riscv_v_fixed_vlen;
+#else
+        return -1;
+#endif
+      }
+      else  if constexpr(Version == simd_version::sve_ || Version == simd_version::sve2_)
       {
 #if defined(__ARM_FEATURE_SVE_BITS)
         return __ARM_FEATURE_SVE_BITS;
@@ -57,6 +73,7 @@ namespace spy::detail
         return -1;
 #endif
       }
+
       else return -1;
     }();
 
@@ -86,10 +103,19 @@ namespace spy::detail
       }
       else  if constexpr ( Version == simd_version::neon_     ) os  << "ARM NEON";
       else  if constexpr ( Version == simd_version::asimd_    ) os  << "ARM ASIMD";
-      else  if constexpr ( Version >= simd_version::sve_      )
+      else  if constexpr ( Version == simd_version::sve_ || Version == simd_version::sve2_ )
       {
-        if constexpr ( Version == simd_version::sve2_ ) os  << "ARM SVE2 (";
-        else                                            os  << "ARM SVE  (";
+        os  << "ARM SVE" << (Version == simd_version::sve2_ ? "2" : "") << "(";
+
+        constexpr auto fc = has_fixed_cardinal();
+        if constexpr(fc)  os << simd_info::width;
+        else              os << "dyn.";
+
+        os << " bits)";
+      }
+      else  if constexpr ( Version == simd_version::rvv_ )
+      {
+        os  << "RISC-V RVV(";
 
         constexpr auto fc = has_fixed_cardinal();
         if constexpr(fc)  os << simd_info::width;
@@ -170,6 +196,7 @@ namespace spy
   //! | **ARM NEON**      | `spy::neon_`, `spy::asimd_`                                                             |
   //! | **ARM SVE**       | `spy::sve_`,`spy::sve128_`, `spy::sve256_`, `spy::sve512_`, `spy::sve1024_`             |
   //! | **WASM**          | `spy::simd128_`                                                                         |
+  //! | **RISC-V**        | `spy::rvv_``                                                                            |
   //!
   //! Complete set of comparison operators is provided for those sets. Order of instructions sets
   //! are built so that if an instructions set supersedes another, it is considered greater than. For
@@ -192,6 +219,7 @@ namespace spy
   //! | **Power PC**  | `spy::ppc_simd_`    |
   //! | **ARM**       | `spy::arm_simd_`    |
   //! | **WASM**      | `spy::wasm_simd_`   |
+  //! | **RISC-V**    | `spy::riscv_simd_`  |
   //!
   //! @subgroupheader{Example - SIMD Architectures}
   //! @godbolt{samples/simd-arch.cpp}
@@ -271,4 +299,9 @@ namespace spy
   constexpr inline auto asimd_      = arm_simd_info<detail::simd_version::asimd_>{};
   constexpr inline auto sve_        = sve_simd_info<detail::simd_version::sve_>{};
   constexpr inline auto sve2_       = sve_simd_info<detail::simd_version::sve2_>{};
+
+  template<detail::simd_version V= detail::simd_version::undefined_>
+  using riscv_simd_info             =  detail::simd_info<detail::simd_isa::riscv_, V>;
+  constexpr inline auto riscv_simd_ = riscv_simd_info<> {};
+  constexpr inline auto rvv_        = riscv_simd_info<detail::simd_version::rvv_> {};
 }
