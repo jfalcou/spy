@@ -3,6 +3,8 @@
 
 int main()
 {
+  std::cout << spy::simd_instruction_set << "\n";
+
   if constexpr( spy::simd_instruction_set == spy::avx_ )
   {
     std::cout << "This code has been compiled with AVX instructions set.\n";

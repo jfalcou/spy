@@ -54,7 +54,7 @@ int main()
 
     std::cout << "SVE      status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve_ )      << std::endl;
     std::cout << "SVE2     status: "  << std::boolalpha << (spy::simd_instruction_set == spy::sve2_)      << std::endl;
-    if constexpr(spy::simd_instruction_set >= spy::sve_)
+    if constexpr(spy::simd_instruction_set == spy::sve_ || spy::simd_instruction_set == spy::sve2_)
     {
       if constexpr(spy::simd_instruction_set.has_fixed_cardinal())
       {
@@ -90,6 +90,24 @@ int main()
   {
     std::cout << "WASM     status: " << std::boolalpha << (spy::simd_instruction_set == spy::wasm_simd_ ) << std::endl;
     std::cout << "SIMD128  status: " << std::boolalpha << (spy::simd_instruction_set >= spy::simd128_   ) << std::endl;
+  }
+  std::cout << std::endl;
+
+  std::cout << "Check that RISC-V SIMD extension detection is correct: " << std::endl;
+  {
+    std::cout << "RISC-V     status: " << std::boolalpha << (spy::simd_instruction_set == spy::riscv_simd_ ) << std::endl;
+    std::cout << "RVV        status: " << std::boolalpha << (spy::simd_instruction_set >= spy::rvv_   ) << std::endl;
+    if constexpr(spy::simd_instruction_set == spy::rvv_)
+    {
+      if constexpr(spy::simd_instruction_set.has_fixed_cardinal())
+      {
+        std::cout << "RVV uses fixed size: " << spy::simd_instruction_set.width << " bits" << std::endl;
+      }
+      else
+      {
+        std::cout << "RVV uses flexible size" << std::endl;
+      }
+    }
   }
   std::cout << std::endl;
 }
