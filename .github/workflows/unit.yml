@@ -121,6 +121,32 @@ jobs:
         run: cd build && ctest --output-on-failure -j 2
 
   ##################################################################################################
+  ## RISC-V targets
+  ##################################################################################################
+  riscv:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/jfalcou/compilers:v8
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+        - { comp: clang , arch: rvv128, mode: Debug    }
+        - { comp: clang , arch: rvv128, mode: Release  }
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v4.1.1
+      - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
+        run: |
+          mkdir build && cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE="${{ matrix.cfg.mode }}"  \
+                -DCMAKE_TOOLCHAIN_FILE=../test/toolchain/${{ matrix.cfg.comp }}.${{ matrix.cfg.arch }}.cmake
+      - name: Compiling Unit Tests
+        run:  cd build && ninja spy-test -j 2
+      - name: Running Unit Tests
+        run: cd build && ctest --output-on-failure -j 2
+
+  ##################################################################################################
   ## NVCC targets
   ##################################################################################################
   nvcc:
