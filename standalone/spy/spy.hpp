@@ -94,6 +94,7 @@ namespace spy::detail
                     , x86_ = 10, amd64_ = 11
                     , ppc_ = 20, arm_ = 30
                     , wasm_ = 40
+                    , riscv_ = 50
                     };
   template<archs Arch> struct arch_info
   {
@@ -113,6 +114,7 @@ namespace spy::detail
     if(Arch == archs::ppc_  ) return os << "PowerPC";
     if(Arch == archs::arm_  ) return os << "ARM";
     if(Arch == archs::wasm_ ) return os << "WebAssembly";
+    if(Arch == archs::riscv_) return os << "RISC-V";
     return os << "Undefined Architecture";
   }
 }
@@ -138,6 +140,9 @@ namespace spy
 #elif defined(__wasm__)
   using arch_type = detail::arch_info<detail::archs::wasm_>;
   #define SPY_ARCH_IS_WASM
+#elif defined(__riscv)
+  using arch_type = detail::arch_info<detail::archs::riscv_>;
+  #define SPY_ARCH_IS_RISCV
 #else
   #define SPY_ARCH_IS_UNKNOWN
   using arch_type = detail::arch_info<detail::archs::undefined_>;
@@ -159,6 +164,7 @@ namespace spy
   constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
   constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
   constexpr inline auto wasm_   = detail::arch_info<detail::archs::wasm_>{};
+  constexpr inline auto riscv_  = detail::arch_info<detail::archs::riscv_>{};
 }
 #include <ostream>
 namespace spy::detail
