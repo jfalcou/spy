@@ -909,30 +909,55 @@ namespace avx512
 #endif
 }
 }
-#if defined(__ARM_FEATURE_SVE2) || defined(__ARM_FEATURE_SVE)
+#if defined(__ARM_FEATURE_SVE2)
 # if !defined(__ARM_FEATURE_SVE_BITS) || (__ARM_FEATURE_SVE_BITS == 0)
-#   define SPY_SIMD_IS_ARM_FLEXIBLE_SVE_CARDINAL
+#   define SPY_SIMD_IS_ARM_FLEXIBLE_SVE2
+#   define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve2_
 # elif defined(__ARM_FEATURE_SVE_BITS)
 #   if(__ARM_FEATURE_SVE_BITS == 128)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
+#     define SPY_SIMD_IS_ARM_FIXED_SVE2
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve2_
 #   elif(__ARM_FEATURE_SVE_BITS == 256)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
+#     define SPY_SIMD_IS_ARM_FIXED_SVE2
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve2_
 #   elif(__ARM_FEATURE_SVE_BITS == 512)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
+#     define SPY_SIMD_IS_ARM_FIXED_SVE2
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve2_
 #   elif(__ARM_FEATURE_SVE_BITS == 1024)
-#     define SPY_SIMD_IS_ARM_FIXED_SVE_CARDINAL
+#     define SPY_SIMD_IS_ARM_FIXED_SVE2
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve2_
+#   else
+#   error "[SPY] - No support for non-power of 2 SVE-2 cardinals"
+#   endif
+# endif
+#endif
+#if !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE)
+# if !defined(__ARM_FEATURE_SVE_BITS) || (__ARM_FEATURE_SVE_BITS == 0)
+#   define SPY_SIMD_IS_ARM_FLEXIBLE_SVE
+#   define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve_
+# elif defined(__ARM_FEATURE_SVE_BITS)
+#   if(__ARM_FEATURE_SVE_BITS == 128)
+#     define SPY_SIMD_IS_ARM_FIXED_SVE
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#   elif(__ARM_FEATURE_SVE_BITS == 256)
+#     define SPY_SIMD_IS_ARM_FIXED_SVE
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#   elif(__ARM_FEATURE_SVE_BITS == 512)
+#     define SPY_SIMD_IS_ARM_FIXED_SVE
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
+#   elif(__ARM_FEATURE_SVE_BITS == 1024)
+#     define SPY_SIMD_IS_ARM_FIXED_SVE
+#     define SPY_SIMD_DETECTED ::spy::detail::simd_version::fixed_sve_
 #   else
 #   error "[SPY] - No support for non-power of 2 SVE cardinals"
 #   endif
 # endif
 #endif
-#if !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE2)
+#if defined(__ARM_FEATURE_SVE2)
 # define SPY_SIMD_IS_ARM_SVE2
-# define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve2_
 # define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_sve_
-#elif !defined(SPY_SIMD_DETECTED) && defined(__ARM_FEATURE_SVE)
+#elif defined(__ARM_FEATURE_SVE)
 # define SPY_SIMD_IS_ARM_SVE
-# define SPY_SIMD_DETECTED ::spy::detail::simd_version::sve_
 # define SPY_SIMD_VENDOR ::spy::detail::simd_isa::arm_sve_
 #endif
 #if !defined(SPY_SIMD_DETECTED) && defined(__aarch64__)
@@ -999,15 +1024,16 @@ namespace avx512
 #endif
 #if defined(__riscv_vector)
 # if !defined(__riscv_v_fixed_vlen)
-#   define SPY_SIMD_IS_RISCV_FLEXIBLE_RVV_CARDINAL
+#   define SPY_SIMD_IS_RISCV_FLEXIBLE_RVV
+#   define SPY_SIMD_DETECTED  ::spy::detail::simd_version::rvv_
 #else
-#  define SPY_SIMD_IS_RISCV_FIXED_RVV_CARDINAL
+#  define SPY_SIMD_IS_RISCV_FIXED_RVV
+#  define SPY_SIMD_DETECTED  ::spy::detail::simd_version::fixed_rvv_
 #endif
 #endif
-#if !defined(SPY_SIMD_DETECTED) && defined(__riscv_vector)
+#if defined(__riscv_vector)
 # define SPY_SIMD_IS_RISCV_RVV
 # define SPY_SIMD_VENDOR    ::spy::detail::simd_isa::riscv_
-# define SPY_SIMD_DETECTED  ::spy::detail::simd_version::rvv_
 #endif
 namespace spy::detail
 {
@@ -1029,9 +1055,10 @@ namespace spy::detail
                           , vsx_        = 3000
                           , vsx_2_06_   = 3206, vsx_2_07_ = 3207, vsx_3_00_ = 3300, vsx_3_01_ = 3301
                           , neon_       = 4001, asimd_    = 4002
-                          , sve_        = 5000, sve2_     = 5500
+                          , sve_        = 5000, fixed_sve_  = 5100
+                          , sve2_       = 5500, fixed_sve2_ = 5600
                           , simd128_    = 6000
-                          , rvv_        = 7000
+                          , rvv_        = 7000, fixed_rvv_  = 7500
                           };
   template< simd_isa InsSetArch  = simd_isa::undefined_
           , simd_version Version = simd_version::undefined_
@@ -1049,7 +1076,8 @@ namespace spy::detail
                   )                                                                       return 128;
       else  if constexpr(Version == simd_version::avx_ || Version == simd_version::avx2_) return 256;
       else  if constexpr(Version == simd_version::avx512_     )                           return 512;
-else if constexpr( Version == simd_version::rvv_ )
+      else if constexpr( Version == simd_version::rvv_ )                                  return -1;
+      else if constexpr( Version == simd_version::fixed_rvv_ )
       {
 #if defined(__riscv_v_fixed_vlen)
         return __riscv_v_fixed_vlen;
@@ -1058,6 +1086,10 @@ else if constexpr( Version == simd_version::rvv_ )
 #endif
       }
       else  if constexpr(Version == simd_version::sve_ || Version == simd_version::sve2_)
+      {
+        return -1;
+      }
+      else  if constexpr(Version == simd_version::fixed_sve_ || Version == simd_version::fixed_sve2_)
       {
 #if defined(__ARM_FEATURE_SVE_BITS)
         return __ARM_FEATURE_SVE_BITS;
@@ -1090,24 +1122,14 @@ else if constexpr( Version == simd_version::rvv_ )
         constexpr auto v = static_cast<int>(Version);
         os << "PPC VSX with ISA v" << ((v-3000)/100.);
       }
-      else  if constexpr ( Version == simd_version::neon_     ) os  << "ARM NEON";
-      else  if constexpr ( Version == simd_version::asimd_    ) os  << "ARM ASIMD";
-      else  if constexpr ( Version == simd_version::sve_ || Version == simd_version::sve2_ )
-      {
-        os  << "ARM SVE" << (Version == simd_version::sve2_ ? "2" : "") << "(";
-        constexpr auto fc = has_fixed_cardinal();
-        if constexpr(fc)  os << simd_info::width;
-        else              os << "dyn.";
-        os << " bits)";
-      }
-      else  if constexpr ( Version == simd_version::rvv_ )
-      {
-        os  << "RISC-V RVV(";
-        constexpr auto fc = has_fixed_cardinal();
-        if constexpr(fc)  os << simd_info::width;
-        else              os << "dyn.";
-        os << " bits)";
-      }
+      else  if constexpr ( Version == simd_version::neon_       ) os  << "ARM NEON";
+      else  if constexpr ( Version == simd_version::asimd_      ) os  << "ARM ASIMD";
+      else  if constexpr ( Version == simd_version::sve_        ) os  << "ARM SVE (dyn.)";
+      else  if constexpr ( Version == simd_version::fixed_sve_  ) os  << "ARM SVE (" << simd_info::width << " bits)";
+      else  if constexpr ( Version == simd_version::sve2_       ) os  << "ARM SVE2 (dyn.)";
+      else  if constexpr ( Version == simd_version::fixed_sve2_ ) os  << "ARM SVE2 (" << simd_info::width << " bits)";
+      else  if constexpr ( Version == simd_version::rvv_        ) os  << "RISC-V RVV (dyn.)";
+      else  if constexpr ( Version == simd_version::fixed_rvv_  ) os  << "RISC-V RVV (" << simd_info::width << " bits)";
       else return os << "Undefined SIMD instructions set";
       if constexpr (spy::supports::fma_)     os << " (with FMA3 support)";
       if constexpr (spy::supports::fma4_)    os << " (with FMA4 support)";
@@ -1197,11 +1219,14 @@ namespace spy
   constexpr inline auto neon_       = arm_simd_info<detail::simd_version::neon_ >{};
   constexpr inline auto asimd_      = arm_simd_info<detail::simd_version::asimd_>{};
   constexpr inline auto sve_        = sve_simd_info<detail::simd_version::sve_>{};
+  constexpr inline auto fixed_sve_  = sve_simd_info<detail::simd_version::fixed_sve_>{};
   constexpr inline auto sve2_       = sve_simd_info<detail::simd_version::sve2_>{};
+  constexpr inline auto fixed_sve2_ = sve_simd_info<detail::simd_version::fixed_sve2_>{};
   template<detail::simd_version V= detail::simd_version::undefined_>
   using riscv_simd_info             =  detail::simd_info<detail::simd_isa::riscv_, V>;
   constexpr inline auto riscv_simd_ = riscv_simd_info<> {};
   constexpr inline auto rvv_        = riscv_simd_info<detail::simd_version::rvv_> {};
+  constexpr inline auto fixed_rvv_  = riscv_simd_info<detail::simd_version::fixed_rvv_> {};
 }
 #include <cstddef>
 namespace spy::detail
