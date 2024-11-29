@@ -16,7 +16,7 @@
 <script type="text/javascript">
   DoxygenAwesomeParagraphLink.init()
   DoxygenAwesomeFragmentCopyButton.init()
-  SendToGodbolt.init("spy","clang1600","-O3 -std=c++17 -DNEDBUG")
+  SendToGodbolt.init("spy","clang1600","-O3 -std=c++20 -DNEDBUG")
 </script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="resize.js"></script>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Detection and versioning of operating systems, compilers, architecture and other element are traditionally done using preprocessor macros. Library like <a href="https://www.boost.org/doc/libs/release/doc/html/predef.html">Boost.Predef</a> provides a sanitized interface on top of those but still live in a world where the preprocessor is king.</p>
-<p>SPY is a C++17 (and onward) library that gathers similar information and provides a <code>constexpr</code> compatible interface to access those information, thus making their exploitation within <code>constexpr</code> context possible.</p>
+<p>SPY is a C++20 (and onward) library that gathers similar information and provides a <code>constexpr</code> compatible interface to access those information, thus making their exploitation within <code>constexpr</code> context possible.</p>
 <h1><a class="anchor" id="autotoc_md19"></a>
 Some References</h1>
 <ul>
@@ -148,7 +148,7 @@ A Short Example</h1>
 <div class="ttc" id="agroup__api_ga03dc3f2a9b02b025902f9df3b2db53ab_html_ga03dc3f2a9b02b025902f9df3b2db53ab"><div class="ttname"><a href="group__api_ga03dc3f2a9b02b025902f9df3b2db53ab.html#ga03dc3f2a9b02b025902f9df3b2db53ab">spy::libc</a></div><div class="ttdeci">constexpr auto libc</div><div class="ttdoc">LIBC version reporting value.</div><div class="ttdef"><b>Definition:</b> libc.hpp:112</div></div>
 <div class="ttc" id="agroup__api_ga2d96c18fea5b9a06ac37487ab570599d_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition:</b> compiler.hpp:125</div></div>
 <div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition:</b> simd.hpp:236</div></div>
-<div class="ttc" id="agroup__api_gaad5f2aa34188a02b894a0d8c7e402d6e_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition:</b> arch.hpp:101</div></div>
+<div class="ttc" id="agroup__api_gaad5f2aa34188a02b894a0d8c7e402d6e_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition:</b> arch.hpp:100</div></div>
 <div class="ttc" id="agroup__api_gadb7c5be967e00cff21ae5b98cc12a7dc_html_gadb7c5be967e00cff21ae5b98cc12a7dc"><div class="ttname"><a href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a></div><div class="ttdeci">constexpr os_type operating_system</div><div class="ttdoc">OS reporting value.</div><div class="ttdef"><b>Definition:</b> os.hpp:106</div></div>
 <div class="ttc" id="agroup__api_gafe99b815db524eacf659ba8348ca2e0d_html_gafe99b815db524eacf659ba8348ca2e0d"><div class="ttname"><a href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a></div><div class="ttdeci">constexpr auto stdlib</div><div class="ttdoc">C++ Standard Library version reporting value.</div><div class="ttdef"><b>Definition:</b> stdlib.hpp:85</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
