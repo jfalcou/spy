@@ -6,10 +6,16 @@
 */
 //==================================================================================================
 #pragma once
-#include <ostream>
-
-namespace spy::detail
+namespace spy::_
 {
+  template<typename T>
+  concept stream =  requires(T& os, char c)
+  {
+    { os.copyfmt(os) };
+    { os.flush() };
+    { os.put(c)  };
+  };
+
   template<char... c> constexpr int find(int i0)
   {
     int sz = sizeof...(c);
@@ -91,13 +97,14 @@ namespace spy::detail
     return !(a<b);
   }
 
-  template<int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, version_id<M,N,P> const&)
+  template<_::stream OS, int M, int N, int P>
+  OS& operator<<(OS& os, version_id<M,N,P> const&)
   {
     return os << "v" << M << "." << N << "." << P;
   }
 
-  inline std::ostream& operator<<(std::ostream& os, unspecified_version_t const&)
+  template<_::stream OS>
+  OS& operator<<(OS& os, unspecified_version_t const&)
   {
     return os << "(unspecified)";
   }

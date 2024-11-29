@@ -9,7 +9,7 @@
 ##======================================================================================================================
 add_library(spy_tests INTERFACE)
 
-target_compile_features ( spy_tests INTERFACE  cxx_std_17 )
+target_compile_features ( spy_tests INTERFACE  cxx_std_20 )
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   if(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")

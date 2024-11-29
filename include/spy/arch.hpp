@@ -6,9 +6,8 @@
 */
 //==================================================================================================
 #pragma once
-#include <ostream>
 
-namespace spy::detail
+namespace spy::_
 {
   enum class archs  { undefined_  = -1
                     , x86_ = 10, amd64_ = 11
@@ -28,20 +27,20 @@ namespace spy::detail
     {
       return A2 == vendor;
     }
+
+    template<_::stream OS>
+    friend OS& operator<<(OS& os, arch_info const&)
+    {
+      if(Arch == archs::x86_  ) return os << "X86";
+      if(Arch == archs::amd64_) return os << "AMD64";
+      if(Arch == archs::ppc_  ) return os << "PowerPC";
+      if(Arch == archs::arm_  ) return os << "ARM";
+      if(Arch == archs::wasm_ ) return os << "WebAssembly";
+      if(Arch == archs::riscv_) return os << "RISC-V";
+
+      return os << "Undefined Architecture";
+    }
   };
-
-  template<archs Arch>
-  std::ostream& operator<<(std::ostream& os, arch_info<Arch> const&)
-  {
-    if(Arch == archs::x86_  ) return os << "X86";
-    if(Arch == archs::amd64_) return os << "AMD64";
-    if(Arch == archs::ppc_  ) return os << "PowerPC";
-    if(Arch == archs::arm_  ) return os << "ARM";
-    if(Arch == archs::wasm_ ) return os << "WebAssembly";
-    if(Arch == archs::riscv_) return os << "RISC-V";
-
-    return os << "Undefined Architecture";
-  }
 }
 
 namespace spy
@@ -49,29 +48,29 @@ namespace spy
 #if defined(i386) || defined(__i386__) || defined(__i486__) || defined(__i586__) ||                \
     defined(__i686__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) ||                  \
     defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
-  using arch_type = detail::arch_info<detail::archs::x86_>;
+  using arch_type = _::arch_info<_::archs::x86_>;
   #define SPY_ARCH_IS_X86
 #elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(__amd64) || defined(_M_X64)
   #define SPY_ARCH_IS_AMD64
-  using arch_type = detail::arch_info<detail::archs::amd64_>;
+  using arch_type = _::arch_info<_::archs::amd64_>;
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) ||     \
       defined(_M_PPC) || defined(_ARCH_PPC) || defined(__PPCGECKO__) || defined(__PPCBROADWAY__) || \
       defined(_XENON)
-  using arch_type = detail::arch_info<detail::archs::ppc_>;
+  using arch_type = _::arch_info<_::archs::ppc_>;
   #define SPY_ARCH_IS_PPC
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||   \
       defined(__TARGET_ARCH_THUMB) || defined(_M_ARM) || defined(__ARM_ARCH_ISA_A64)
-  using arch_type = detail::arch_info<detail::archs::arm_>;
+  using arch_type = _::arch_info<_::archs::arm_>;
   #define SPY_ARCH_IS_ARM
 #elif defined(__wasm__)
-  using arch_type = detail::arch_info<detail::archs::wasm_>;
+  using arch_type = _::arch_info<_::archs::wasm_>;
   #define SPY_ARCH_IS_WASM
 #elif defined(__riscv)
-  using arch_type = detail::arch_info<detail::archs::riscv_>;
+  using arch_type = _::arch_info<_::archs::riscv_>;
   #define SPY_ARCH_IS_RISCV
 #else
   #define SPY_ARCH_IS_UNKNOWN
-  using arch_type = detail::arch_info<detail::archs::undefined_>;
+  using arch_type = _::arch_info<_::archs::undefined_>;
 #endif
 
   //================================================================================================
@@ -101,7 +100,7 @@ namespace spy
   constexpr inline arch_type architecture;
 }
 
-namespace spy::detail
+namespace spy::_
 {
   template<archs Arch>
   inline constexpr arch_info<Arch>::operator bool() const noexcept
@@ -115,10 +114,10 @@ namespace spy
   //================================================================================================
   // Architecture detector stand-alone instances
   //================================================================================================
-  constexpr inline auto x86_    = detail::arch_info<detail::archs::x86_>{};
-  constexpr inline auto amd64_  = detail::arch_info<detail::archs::amd64_>{};
-  constexpr inline auto ppc_    = detail::arch_info<detail::archs::ppc_>{};
-  constexpr inline auto arm_    = detail::arch_info<detail::archs::arm_>{};
-  constexpr inline auto wasm_   = detail::arch_info<detail::archs::wasm_>{};
-  constexpr inline auto riscv_  = detail::arch_info<detail::archs::riscv_>{};
+  constexpr inline auto x86_    = _::arch_info<_::archs::x86_>{};
+  constexpr inline auto amd64_  = _::arch_info<_::archs::amd64_>{};
+  constexpr inline auto ppc_    = _::arch_info<_::archs::ppc_>{};
+  constexpr inline auto arm_    = _::arch_info<_::archs::arm_>{};
+  constexpr inline auto wasm_   = _::arch_info<_::archs::wasm_>{};
+  constexpr inline auto riscv_  = _::arch_info<_::archs::riscv_>{};
 }

@@ -31,7 +31,7 @@ namespace spy
   namespace literal {}
 }
 
-
+#include <spy/detail.hpp>
 #include <spy/accelerator.hpp>
 #include <spy/arch.hpp>
 #include <spy/compiler.hpp>
