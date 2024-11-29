@@ -5,7 +5,7 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 add_library(spy_config INTERFACE)
-target_compile_features ( spy_config INTERFACE  cxx_std_17 )
+target_compile_features ( spy_config INTERFACE  cxx_std_20 )
 
 add_executable(example example.cpp)
 target_link_libraries(example ${CONAN_LIBS} PUBLIC spy_config)

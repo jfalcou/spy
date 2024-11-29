@@ -33,7 +33,7 @@ jobs:
       - name: Run Sample CMake
         run: |
           mkdir install && cd install
-          cmake ../test/integration/install-test -G Ninja
+          cmake ../test/integration/install-test -G Ninja  -DCMAKE_CXX_FLAGS="-std=c++20"
           ninja && ctest --verbose
 
   fetch-content:
