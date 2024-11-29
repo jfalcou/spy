@@ -6,7 +6,6 @@
 */
 //==================================================================================================
 #pragma once
-#include <ostream>
 
 namespace spy::supports
 {
@@ -14,7 +13,8 @@ namespace spy::supports
   {
     explicit constexpr operator bool() const noexcept { return M>0 && N>0; }
 
-    friend std::ostream& operator<<(std::ostream& os, sycl_t)
+    template<_::stream OS>
+    friend OS& operator<<(OS& os, sycl_t)
     {
       os << "SYCL v" << M << '.' << N;
       if(P>0) os << '.' << P;
@@ -38,7 +38,8 @@ namespace spy::supports
   {
     explicit constexpr operator bool() const noexcept { return M>0 && N>0; }
 
-    friend std::ostream& operator<<(std::ostream& os, cuda_t)
+    template<_::stream OS>
+    friend OS& operator<<(OS& os, cuda_t)
     {
       os << "NVCC CUDA v" << M << '.' << N;
       if(P>0) os << '.' << P;

@@ -7,14 +7,13 @@
 //==================================================================================================
 #pragma once
 
-#include <ostream>
 #include <spy/simd/x86.hpp>
 #include <spy/simd/arm.hpp>
 #include <spy/simd/ppc.hpp>
 #include <spy/simd/wasm.hpp>
 #include <spy/simd/riscv.hpp>
 
-namespace spy::detail
+namespace spy::_
 {
   enum class simd_isa { undefined_  = -1
                       , x86_        = 1000
@@ -49,7 +48,7 @@ namespace spy::detail
     static constexpr auto           isa     = InsSetArch;
     static constexpr auto           version = Version;
 
-    static constexpr std::ptrdiff_t width   = []()
+    static constexpr int width   = []()
     {
       if constexpr(   Version == simd_version::simd128_
                   ||  (Version >= simd_version::sse1_ && Version <= simd_version::sse42_)
@@ -84,7 +83,8 @@ namespace spy::detail
 
     static constexpr bool has_fixed_cardinal() { return width != -1; }
 
-    friend std::ostream& operator<<(std::ostream& os, simd_info const&)
+    template<_::stream OS>
+    friend OS& operator<<(OS& os, simd_info const&)
     {
             if constexpr ( Version == simd_version::simd128_  ) os << "WASM SIMD128";
       else  if constexpr ( Version == simd_version::sse1_     ) os << "X86 SSE";
@@ -231,71 +231,71 @@ namespace spy
   //!
   //================================================================================================
   #if defined(SPY_SIMD_DETECTED)
-  constexpr inline auto simd_instruction_set = detail::simd_info<SPY_SIMD_VENDOR,SPY_SIMD_DETECTED>{};
+  constexpr inline auto simd_instruction_set = _::simd_info<SPY_SIMD_VENDOR,SPY_SIMD_DETECTED>{};
   #else
-  constexpr inline auto simd_instruction_set = detail::simd_info<>{};
+  constexpr inline auto simd_instruction_set = _::simd_info<>{};
   #endif
 
   //================================================================================================
   // Available SIMD instructions set
   //================================================================================================
-  constexpr inline auto undefined_simd_ = detail::simd_info<>{};
+  constexpr inline auto undefined_simd_ = _::simd_info<>{};
 
-  template<detail::simd_version V = detail::simd_version::undefined_>
-  using wasm_simd_info = detail::simd_info<detail::simd_isa::wasm_,V>;
+  template<_::simd_version V = _::simd_version::undefined_>
+  using wasm_simd_info = _::simd_info<_::simd_isa::wasm_,V>;
 
   constexpr inline auto wasm_simd_ = wasm_simd_info<>{};
-  constexpr inline auto simd128_   = wasm_simd_info<detail::simd_version::simd128_>{};
+  constexpr inline auto simd128_   = wasm_simd_info<_::simd_version::simd128_>{};
 
-  template<detail::simd_version V = detail::simd_version::undefined_>
-  using x86_simd_info = detail::simd_info<detail::simd_isa::x86_,V>;
+  template<_::simd_version V = _::simd_version::undefined_>
+  using x86_simd_info = _::simd_info<_::simd_isa::x86_,V>;
 
   constexpr inline auto x86_simd_ = x86_simd_info<>{};
-  constexpr inline auto sse1_     = x86_simd_info<detail::simd_version::sse1_   >{};
-  constexpr inline auto sse2_     = x86_simd_info<detail::simd_version::sse2_   >{};
-  constexpr inline auto sse3_     = x86_simd_info<detail::simd_version::sse3_   >{};
-  constexpr inline auto ssse3_    = x86_simd_info<detail::simd_version::ssse3_  >{};
-  constexpr inline auto sse41_    = x86_simd_info<detail::simd_version::sse41_  >{};
-  constexpr inline auto sse42_    = x86_simd_info<detail::simd_version::sse42_  >{};
-  constexpr inline auto avx_      = x86_simd_info<detail::simd_version::avx_    >{};
-  constexpr inline auto avx2_     = x86_simd_info<detail::simd_version::avx2_   >{};
-  constexpr inline auto avx512_   = x86_simd_info<detail::simd_version::avx512_ >{};
+  constexpr inline auto sse1_     = x86_simd_info<_::simd_version::sse1_   >{};
+  constexpr inline auto sse2_     = x86_simd_info<_::simd_version::sse2_   >{};
+  constexpr inline auto sse3_     = x86_simd_info<_::simd_version::sse3_   >{};
+  constexpr inline auto ssse3_    = x86_simd_info<_::simd_version::ssse3_  >{};
+  constexpr inline auto sse41_    = x86_simd_info<_::simd_version::sse41_  >{};
+  constexpr inline auto sse42_    = x86_simd_info<_::simd_version::sse42_  >{};
+  constexpr inline auto avx_      = x86_simd_info<_::simd_version::avx_    >{};
+  constexpr inline auto avx2_     = x86_simd_info<_::simd_version::avx2_   >{};
+  constexpr inline auto avx512_   = x86_simd_info<_::simd_version::avx512_ >{};
 
-  template<detail::simd_version V = detail::simd_version::undefined_>
-  using ppc_simd_info = detail::simd_info<detail::simd_isa::ppc_,V>;
+  template<_::simd_version V = _::simd_version::undefined_>
+  using ppc_simd_info = _::simd_info<_::simd_isa::ppc_,V>;
 
   constexpr inline auto ppc_simd_ = ppc_simd_info<>{};
-  constexpr inline auto vmx_      = ppc_simd_info<detail::simd_version::vmx_>{};
-  constexpr inline auto vmx_2_03_ = ppc_simd_info<detail::simd_version::vmx_2_03_>{};
-  constexpr inline auto vmx_2_05_ = ppc_simd_info<detail::simd_version::vmx_2_05_>{};
-  constexpr inline auto vmx_2_06_ = ppc_simd_info<detail::simd_version::vmx_2_06_>{};
-  constexpr inline auto vmx_2_07_ = ppc_simd_info<detail::simd_version::vmx_2_07_>{};
-  constexpr inline auto vmx_3_00_ = ppc_simd_info<detail::simd_version::vmx_3_00_>{};
-  constexpr inline auto vmx_3_01_ = ppc_simd_info<detail::simd_version::vmx_3_01_>{};
+  constexpr inline auto vmx_      = ppc_simd_info<_::simd_version::vmx_>{};
+  constexpr inline auto vmx_2_03_ = ppc_simd_info<_::simd_version::vmx_2_03_>{};
+  constexpr inline auto vmx_2_05_ = ppc_simd_info<_::simd_version::vmx_2_05_>{};
+  constexpr inline auto vmx_2_06_ = ppc_simd_info<_::simd_version::vmx_2_06_>{};
+  constexpr inline auto vmx_2_07_ = ppc_simd_info<_::simd_version::vmx_2_07_>{};
+  constexpr inline auto vmx_3_00_ = ppc_simd_info<_::simd_version::vmx_3_00_>{};
+  constexpr inline auto vmx_3_01_ = ppc_simd_info<_::simd_version::vmx_3_01_>{};
 
-  constexpr inline auto vsx_      = ppc_simd_info<detail::simd_version::vsx_>{};
-  constexpr inline auto vsx_2_06_ = ppc_simd_info<detail::simd_version::vsx_2_06_>{};
-  constexpr inline auto vsx_2_07_ = ppc_simd_info<detail::simd_version::vsx_2_07_>{};
-  constexpr inline auto vsx_3_00_ = ppc_simd_info<detail::simd_version::vsx_3_00_>{};
-  constexpr inline auto vsx_3_01_ = ppc_simd_info<detail::simd_version::vsx_3_01_>{};
+  constexpr inline auto vsx_      = ppc_simd_info<_::simd_version::vsx_>{};
+  constexpr inline auto vsx_2_06_ = ppc_simd_info<_::simd_version::vsx_2_06_>{};
+  constexpr inline auto vsx_2_07_ = ppc_simd_info<_::simd_version::vsx_2_07_>{};
+  constexpr inline auto vsx_3_00_ = ppc_simd_info<_::simd_version::vsx_3_00_>{};
+  constexpr inline auto vsx_3_01_ = ppc_simd_info<_::simd_version::vsx_3_01_>{};
 
-  template<detail::simd_version V = detail::simd_version::undefined_>
-  using arm_simd_info = detail::simd_info<detail::simd_isa::arm_,V>;
+  template<_::simd_version V = _::simd_version::undefined_>
+  using arm_simd_info = _::simd_info<_::simd_isa::arm_,V>;
 
-  template<detail::simd_version V = detail::simd_version::undefined_>
-  using sve_simd_info = detail::simd_info<detail::simd_isa::arm_sve_,V>;
+  template<_::simd_version V = _::simd_version::undefined_>
+  using sve_simd_info = _::simd_info<_::simd_isa::arm_sve_,V>;
 
   constexpr inline auto arm_simd_   = arm_simd_info<>{};
-  constexpr inline auto neon_       = arm_simd_info<detail::simd_version::neon_ >{};
-  constexpr inline auto asimd_      = arm_simd_info<detail::simd_version::asimd_>{};
-  constexpr inline auto sve_        = sve_simd_info<detail::simd_version::sve_>{};
-  constexpr inline auto fixed_sve_  = sve_simd_info<detail::simd_version::fixed_sve_>{};
-  constexpr inline auto sve2_       = sve_simd_info<detail::simd_version::sve2_>{};
-  constexpr inline auto fixed_sve2_ = sve_simd_info<detail::simd_version::fixed_sve2_>{};
+  constexpr inline auto neon_       = arm_simd_info<_::simd_version::neon_ >{};
+  constexpr inline auto asimd_      = arm_simd_info<_::simd_version::asimd_>{};
+  constexpr inline auto sve_        = sve_simd_info<_::simd_version::sve_>{};
+  constexpr inline auto fixed_sve_  = sve_simd_info<_::simd_version::fixed_sve_>{};
+  constexpr inline auto sve2_       = sve_simd_info<_::simd_version::sve2_>{};
+  constexpr inline auto fixed_sve2_ = sve_simd_info<_::simd_version::fixed_sve2_>{};
 
-  template<detail::simd_version V= detail::simd_version::undefined_>
-  using riscv_simd_info             =  detail::simd_info<detail::simd_isa::riscv_, V>;
+  template<_::simd_version V= _::simd_version::undefined_>
+  using riscv_simd_info             =  _::simd_info<_::simd_isa::riscv_, V>;
   constexpr inline auto riscv_simd_ = riscv_simd_info<> {};
-  constexpr inline auto rvv_        = riscv_simd_info<detail::simd_version::rvv_> {};
-  constexpr inline auto fixed_rvv_  = riscv_simd_info<detail::simd_version::fixed_rvv_> {};
+  constexpr inline auto rvv_        = riscv_simd_info<_::simd_version::rvv_> {};
+  constexpr inline auto fixed_rvv_  = riscv_simd_info<_::simd_version::fixed_rvv_> {};
 }

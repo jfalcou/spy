@@ -15,7 +15,7 @@
 #  endif
 #endif
 
-namespace spy::detail
+namespace spy::_
 {
   enum class compilers { undefined_  = - 1, msvc_, intel_, clang_, gcc_, emscripten_, dpcpp_, nvcc_ };
 
@@ -35,8 +35,8 @@ namespace spy::detail
     SPY_VERSION_COMPARISONS_OPERATOR(compilers,compilers_info)
   };
 
-  template<compilers C, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, compilers_info<C, M, N, P> const& c)
+  template<_::stream OS, compilers C, int M, int N, int P>
+  OS& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
   {
     if(C == compilers::nvcc_ ) return os << "NVIDIA CUDA Compiler "               << c.version;
     if(C == compilers::msvc_ ) return os << "Microsoft Visual Studio "            << c.version;
@@ -65,33 +65,33 @@ namespace spy
   //================================================================================================
 #if defined(__NVCC__)
   #define SPY_COMPILER_IS_NVCC
-  using compiler_type = detail::nvcc_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>;
+  using compiler_type = _::nvcc_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>;
 #elif defined(_MSC_VER)
   #define SPY_COMPILER_IS_MSVC
-  using compiler_type = detail::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
+  using compiler_type = _::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
 #elif defined(__INTEL_LLVM_COMPILER)
   #define SPY_COMPILER_IS_INTEL_DPCPP
   #define SPY0 __INTEL_LLVM_COMPILER
-  using compiler_type = detail::dpcpp_t<SPY0/10000,(SPY0 / 100) % 100, SPY0 % 100>;
+  using compiler_type = _::dpcpp_t<SPY0/10000,(SPY0 / 100) % 100, SPY0 % 100>;
   #undef SPY0
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
   #define SPY_COMPILER_IS_INTEL
   #define SPY0 __INTEL_COMPILER
-  using compiler_type = detail::intel_t<(SPY0 / 100) % 100,SPY0 % 100, __INTEL_COMPILER_UPDATE>;
+  using compiler_type = _::intel_t<(SPY0 / 100) % 100,SPY0 % 100, __INTEL_COMPILER_UPDATE>;
   #undef SPY0
 #elif defined(__EMSCRIPTEN__)
   #define SPY_COMPILER_IS_CLANG
-  using compiler_type = detail::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__ >;
+  using compiler_type = _::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__ >;
   #undef SPY0
 #elif defined(__clang__)
   #define SPY_COMPILER_IS_CLANG
-  using compiler_type = detail::clang_t<__clang_major__, __clang_minor__, __clang_patchlevel__>;
+  using compiler_type = _::clang_t<__clang_major__, __clang_minor__, __clang_patchlevel__>;
 #elif defined(__GNUC__)
   #define SPY_COMPILER_IS_GCC
-  using compiler_type = detail::gcc_t<__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__>;
+  using compiler_type = _::gcc_t<__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__>;
 #else
   #define SPY_COMPILER_IS_UNKNOWN
-  using compiler_type = detail::compilers_info<compilers::undefined_,-1,0,0>;
+  using compiler_type = _::compilers_info<compilers::undefined_,-1,0,0>;
 #endif
 
   //================================================================================================
@@ -125,7 +125,7 @@ namespace spy
   constexpr inline compiler_type compiler;
 }
 
-namespace spy::detail
+namespace spy::_
 {
   template<compilers C, int M, int N, int P>
   inline constexpr compilers_info<C,M,N,P>::operator bool() const noexcept
@@ -139,13 +139,13 @@ namespace spy
   //================================================================================================
   // Compilers detector stand-alone instances
   //================================================================================================
-  constexpr inline auto  nvcc_        = detail::nvcc_t<-1,0,0>{};
-  constexpr inline auto  msvc_        = detail::msvc_t<-1,0,0>{};
-  constexpr inline auto  intel_       = detail::intel_t<-1,0,0>{};
-  constexpr inline auto  dpcpp_       = detail::dpcpp_t<-1,0,0>{};
-  constexpr inline auto  clang_       = detail::clang_t<-1,0,0>{};
-  constexpr inline auto  gcc_         = detail::gcc_t<-1,0,0>{};
-  constexpr inline auto  emscripten_  = detail::emscripten_t<-1,0,0>{};
+  constexpr inline auto  nvcc_        = _::nvcc_t<-1,0,0>{};
+  constexpr inline auto  msvc_        = _::msvc_t<-1,0,0>{};
+  constexpr inline auto  intel_       = _::intel_t<-1,0,0>{};
+  constexpr inline auto  dpcpp_       = _::dpcpp_t<-1,0,0>{};
+  constexpr inline auto  clang_       = _::clang_t<-1,0,0>{};
+  constexpr inline auto  gcc_         = _::gcc_t<-1,0,0>{};
+  constexpr inline auto  emscripten_  = _::emscripten_t<-1,0,0>{};
 }
 
 namespace spy::literal
@@ -154,48 +154,48 @@ namespace spy::literal
   //! @brief User-defined suffix for NVCC version definition
   template<char ...c> constexpr auto operator"" _nvcc()
   {
-    return detail::literal_wrap<detail::nvcc_t,c...>();
+    return _::literal_wrap<_::nvcc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for MSVC version definition
   template<char ...c> constexpr auto operator"" _msvc()
   {
-    return detail::literal_wrap<detail::msvc_t,c...>();
+    return _::literal_wrap<_::msvc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Intel ICC version definition
   template<char ...c> constexpr auto operator"" _intel()
   {
-    return detail::literal_wrap<detail::intel_t,c...>();
+    return _::literal_wrap<_::intel_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Intel DCP++/ICPX version definition
   template<char ...c> constexpr auto operator"" _dpcpp()
   {
-    return detail::literal_wrap<detail::dpcpp_t,c...>();
+    return _::literal_wrap<_::dpcpp_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Clang version definition
   template<char ...c> constexpr auto operator"" _clang()
   {
-    return detail::literal_wrap<detail::clang_t,c...>();
+    return _::literal_wrap<_::clang_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for G++ version definition
   template<char ...c> constexpr auto operator"" _gcc()
   {
-    return detail::literal_wrap<detail::gcc_t,c...>();
+    return _::literal_wrap<_::gcc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Emscripten version definition
   template<char ...c> constexpr auto operator"" _em()
   {
-    return detail::literal_wrap<detail::emscripten_t,c...>();
+    return _::literal_wrap<_::emscripten_t,c...>();
   }
 }

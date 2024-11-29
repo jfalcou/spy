@@ -11,7 +11,7 @@
 #include <cstddef>
 #include <spy/detail.hpp>
 
-namespace spy::detail
+namespace spy::_
 {
   enum class stdlib { undefined_  = - 1, libcpp_, gnucpp_ };
 
@@ -31,8 +31,8 @@ namespace spy::detail
     SPY_VERSION_COMPARISONS_OPERATOR(stdlib,stdlib_info)
   };
 
-  template<stdlib SLib, int M, int N, int P>
-  std::ostream& operator<<(std::ostream& os, stdlib_info<SLib, M, N, P> const& p)
+  template<_::stream OS, stdlib SLib, int M, int N, int P>
+  OS& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
   {
     if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version ;
     if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
@@ -48,15 +48,15 @@ namespace spy
 {
 #if defined(_LIBCPP_VERSION)
   #define SPY_STDLIB_IS_LIBCPP
-  using stdlib_type = detail::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
+  using stdlib_type = _::libcpp_t<(_LIBCPP_VERSION/1000)%10,0,_LIBCPP_VERSION%1000>;
 #elif defined(__GLIBCXX__)
   #define SPY_STDLIB_IS_GLIBCXX
   #define SPY0 (__GLIBCXX__/100)
-  using stdlib_type = detail::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
+  using stdlib_type = _::gnucpp_t<(SPY0/100)%10000, SPY0%100, __GLIBCXX__%100>;
   #undef SPY0
 #else
   #define SPY_STDLIB_IS_UNKNOWN
-  using stdlib_type = detail::stdlib_info<detail::stdlib::undefined_,-1,0,0>;
+  using stdlib_type = _::stdlib_info<_::stdlib::undefined_,-1,0,0>;
 #endif
 
   //================================================================================================
@@ -85,7 +85,7 @@ namespace spy
   constexpr inline auto stdlib = stdlib_type{};
 }
 
-namespace spy::detail
+namespace spy::_
 {
   template<stdlib SLib, int M, int N, int P>
   inline constexpr stdlib_info<SLib,M,N,P>::operator bool() const noexcept
@@ -99,19 +99,19 @@ namespace spy
   //================================================================================================
   // STDLIBs detector stand-alone instances
   //================================================================================================
-  constexpr inline auto  libcpp_  = detail::libcpp_t<-1,0,0>{};
-  constexpr inline auto  gnucpp_  = detail::gnucpp_t<-1,0,0>{};
+  constexpr inline auto  libcpp_  = _::libcpp_t<-1,0,0>{};
+  constexpr inline auto  gnucpp_  = _::gnucpp_t<-1,0,0>{};
 }
 
 namespace spy::literal
 {
   template<char ...c> constexpr auto operator"" _libcpp()
   {
-    return detail::literal_wrap<detail::libcpp_t,c...>();
+    return _::literal_wrap<_::libcpp_t,c...>();
   }
 
   template<char ...c> constexpr auto operator"" _gnucpp()
   {
-    return detail::literal_wrap<detail::gnucpp_t,c...>();
+    return _::literal_wrap<_::gnucpp_t,c...>();
   }
 }

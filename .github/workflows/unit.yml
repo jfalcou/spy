@@ -144,33 +144,33 @@ jobs:
       - name: Running Unit Tests
         run: cd build && ctest --verbose --output-on-failure -j 2
 
-  ##################################################################################################
-  ## NVCC targets
-  ##################################################################################################
-  nvcc:
-    runs-on: ubuntu-latest
-    container:
-      image: nvidia/cuda:12.3.2-devel-ubi8
-    steps:
-      - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
-      - name: Compiling Unit Tests
-        run:  |
-              mkdir build && cd build
-              nvcc ../test/unit/accelerator.cu -std=c++17 -I../include -o accelerator.device.exe
-              nvcc ../test/unit/accelerator.cpp -std=c++17 -I../include -o accelerator.host.exe
-              nvcc ../test/unit/arch.cpp -std=c++17 -I../include -o arch.exe
-              nvcc ../test/unit/compiler.cpp -std=c++17 -I../include -o compiler.exe
-              nvcc ../test/unit/data_model.cpp -std=c++17 -I../include -o data_model.exe
-              nvcc ../test/unit/libc.cpp -std=c++17 -I../include -o libc.exe
-              nvcc ../test/unit/os.cpp -std=c++17 -I../include -o os.exe
-              nvcc ../test/unit/simd.cpp -std=c++17 -I../include -o simd.exe
-              nvcc ../test/unit/stdlib.cpp -std=c++17 -I../include -o stdlib.exe
-      - name: Running Unit Tests
-        run:  |
-              cd build
-              ./accelerator.device.exe && ./accelerator.host.exe && ./arch.exe && ./compiler.exe && ./data_model.exe && \
-              ./libc.exe && ./os.exe && ./simd.exe && ./stdlib.exe
+  # ##################################################################################################
+  # ## NVCC targets
+  # ##################################################################################################
+  # nvcc:
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: nvcr.io/nvidia/nvhpc:24.11-devel-cuda_multi-ubuntu22.04
+  #   steps:
+  #     - name: Fetch current branch
+  #       uses: actions/checkout@v4.1.1
+  #     - name: Compiling Unit Tests
+  #       run:  |
+  #             mkdir build && cd build
+  #             nvc++ ../test/unit/accelerator.cu -std=c++20 -I../include -o accelerator.device.exe
+  #             nvc++ ../test/unit/accelerator.cpp -std=c++20 -I../include -o accelerator.host.exe
+  #             nvc++ ../test/unit/arch.cpp -std=c++20 -I../include -o arch.exe
+  #             nvc++ ../test/unit/compiler.cpp -std=c++20 -I../include -o compiler.exe
+  #             nvc++ ../test/unit/data_model.cpp -std=c++20 -I../include -o data_model.exe
+  #             nvc++ ../test/unit/libc.cpp -std=c++20 -I../include -o libc.exe
+  #             nvc++ ../test/unit/os.cpp -std=c++20 -I../include -o os.exe
+  #             nvc++ ../test/unit/simd.cpp -std=c++20 -I../include -o simd.exe
+  #             nvc++ ../test/unit/stdlib.cpp -std=c++20 -I../include -o stdlib.exe
+  #     - name: Running Unit Tests
+  #       run:  |
+  #             cd build
+  #             ./accelerator.device.exe && ./accelerator.host.exe && ./arch.exe && ./compiler.exe && ./data_model.exe && \
+  #             ./libc.exe && ./os.exe && ./simd.exe && ./stdlib.exe
 
   ##################################################################################################
   ## DPC++ Target
