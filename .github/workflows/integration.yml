@@ -28,7 +28,7 @@ jobs:
       - name: Install SPY from checkout
         run: |
           mkdir build && cd build
-          cmake -G Ninja .. -DSPY_BUILD_TEST=OFF -DCMAKE_CXX_COMPILER=clang++
+          cmake -G Ninja .. -DSPY_BUILD_TEST=OFF -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_FLAGS="-std=c++20"
           ninja install
       - name: Run Sample CMake
         run: |
@@ -52,7 +52,7 @@ jobs:
         run: |
           git config --global --add safe.directory /__w/kumi/kumi
           mkdir install && cd install
-          cmake ../test/integration/fetch-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME} -DSPY_BUILD_TEST=OFF  -DCMAKE_CXX_COMPILER=clang++
+          cmake ../test/integration/fetch-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME} -DSPY_BUILD_TEST=OFF -DCMAKE_CXX_COMPILER=clang++  -DCMAKE_CXX_FLAGS="-std=c++20"
           ninja && ctest --verbose
 
   cpm:
@@ -71,5 +71,5 @@ jobs:
         run: |
           git config --global --add safe.directory /__w/kumi/kumi
           mkdir install && cd install
-          cmake ../test/integration/cpm-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME}  -DCMAKE_CXX_COMPILER=clang++ -DSPY_BUILD_TEST=OFF
+          cmake ../test/integration/cpm-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME}  -DCMAKE_CXX_FLAGS="-std=c++20"  -DCMAKE_CXX_COMPILER=clang++ -DSPY_BUILD_TEST=OFF
           ninja && ctest --verbose
