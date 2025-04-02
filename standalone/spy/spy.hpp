@@ -385,31 +385,31 @@ namespace spy
 }
 namespace spy::literal
 {
-  template<char ...c> constexpr auto operator"" _nvcc()
+  template<char ...c> constexpr auto operator""_nvcc()
   {
     return _::literal_wrap<_::nvcc_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _msvc()
+  template<char ...c> constexpr auto operator""_msvc()
   {
     return _::literal_wrap<_::msvc_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _intel()
+  template<char ...c> constexpr auto operator""_intel()
   {
     return _::literal_wrap<_::intel_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _dpcpp()
+  template<char ...c> constexpr auto operator""_dpcpp()
   {
     return _::literal_wrap<_::dpcpp_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _clang()
+  template<char ...c> constexpr auto operator""_clang()
   {
     return _::literal_wrap<_::clang_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _gcc()
+  template<char ...c> constexpr auto operator""_gcc()
   {
     return _::literal_wrap<_::gcc_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _em()
+  template<char ...c> constexpr auto operator""_em()
   {
     return _::literal_wrap<_::emscripten_t,c...>();
   }
@@ -543,23 +543,23 @@ namespace spy
 }
 namespace spy::literal
 {
-  template<char ...c> constexpr auto operator"" _cloud()
+  template<char ...c> constexpr auto operator""_cloud()
   {
     return _::literal_wrap<_::cloudabi_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _uc()
+  template<char ...c> constexpr auto operator""_uc()
   {
     return _::literal_wrap<_::uc_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _vms()
+  template<char ...c> constexpr auto operator""_vms()
   {
     return _::literal_wrap<_::vms_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _zos()
+  template<char ...c> constexpr auto operator""_zos()
   {
     return _::literal_wrap<_::zos_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _gnu()
+  template<char ...c> constexpr auto operator""_gnu()
   {
     return _::literal_wrap<_::gnu_t,c...>();
   }
@@ -1293,11 +1293,11 @@ namespace spy
 }
 namespace spy::literal
 {
-  template<char ...c> constexpr auto operator"" _libcpp()
+  template<char ...c> constexpr auto operator""_libcpp()
   {
     return _::literal_wrap<_::libcpp_t,c...>();
   }
-  template<char ...c> constexpr auto operator"" _gnucpp()
+  template<char ...c> constexpr auto operator""_gnucpp()
   {
     return _::literal_wrap<_::gnucpp_t,c...>();
   }

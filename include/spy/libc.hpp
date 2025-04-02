@@ -137,35 +137,35 @@ namespace spy::literal
 {
   //! @ingroup api
   //! @brief User-defined suffix for the CloudABI libc version definition
-  template<char ...c> constexpr auto operator"" _cloud()
+  template<char ...c> constexpr auto operator""_cloud()
   {
     return _::literal_wrap<_::cloudabi_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for the uClibc version definition
-  template<char ...c> constexpr auto operator"" _uc()
+  template<char ...c> constexpr auto operator""_uc()
   {
     return _::literal_wrap<_::uc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for the VMS libc version definition
-  template<char ...c> constexpr auto operator"" _vms()
+  template<char ...c> constexpr auto operator""_vms()
   {
     return _::literal_wrap<_::vms_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for the zOS libc version definition
-  template<char ...c> constexpr auto operator"" _zos()
+  template<char ...c> constexpr auto operator""_zos()
   {
     return _::literal_wrap<_::zos_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for the GNU libc version definition
-  template<char ...c> constexpr auto operator"" _gnu()
+  template<char ...c> constexpr auto operator""_gnu()
   {
     return _::literal_wrap<_::gnu_t,c...>();
   }

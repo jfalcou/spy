@@ -152,49 +152,49 @@ namespace spy::literal
 {
   //! @ingroup api
   //! @brief User-defined suffix for NVCC version definition
-  template<char ...c> constexpr auto operator"" _nvcc()
+  template<char ...c> constexpr auto operator""_nvcc()
   {
     return _::literal_wrap<_::nvcc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for MSVC version definition
-  template<char ...c> constexpr auto operator"" _msvc()
+  template<char ...c> constexpr auto operator""_msvc()
   {
     return _::literal_wrap<_::msvc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Intel ICC version definition
-  template<char ...c> constexpr auto operator"" _intel()
+  template<char ...c> constexpr auto operator""_intel()
   {
     return _::literal_wrap<_::intel_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Intel DCP++/ICPX version definition
-  template<char ...c> constexpr auto operator"" _dpcpp()
+  template<char ...c> constexpr auto operator""_dpcpp()
   {
     return _::literal_wrap<_::dpcpp_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Clang version definition
-  template<char ...c> constexpr auto operator"" _clang()
+  template<char ...c> constexpr auto operator""_clang()
   {
     return _::literal_wrap<_::clang_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for G++ version definition
-  template<char ...c> constexpr auto operator"" _gcc()
+  template<char ...c> constexpr auto operator""_gcc()
   {
     return _::literal_wrap<_::gcc_t,c...>();
   }
 
   //! @ingroup api
   //! @brief User-defined suffix for Emscripten version definition
-  template<char ...c> constexpr auto operator"" _em()
+  template<char ...c> constexpr auto operator""_em()
   {
     return _::literal_wrap<_::emscripten_t,c...>();
   }
