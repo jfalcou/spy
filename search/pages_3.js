@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['the_20c_2b_2b_20information_20broker_0',['The C++ Information Broker',['../index.html',1,'']]]
+  ['licence_0',['Licence',['../licence.html',1,'']]],
+  ['log_1',['Change Log',['../changelog.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['data_5fmodel_0',['data_model',['../group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d',1,'spy']]]
+  ['2_20blanche_20charlet_0',['Version 0.0.2 - Blanche Charlet',['../changelog.html#autotoc_md13',1,'']]]
 ];

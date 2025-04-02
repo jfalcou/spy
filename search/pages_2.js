@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_0',['Setup',['../setup.html',1,'']]]
+  ['information_20broker_0',['The C++ Information Broker',['../index.html',1,'']]]
 ];

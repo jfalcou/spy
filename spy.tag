@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.9.6" doxygen_gitid="4586b5cfaa3d46d51f6a51882951d15644c49edf">
+<tagfile doxygen_version="1.9.8">
   <compound kind="namespace">
     <name>literal</name>
     <filename>namespaceliteral.html</filename>
@@ -245,13 +245,11 @@
     <name>changelog</name>
     <title>Change Log</title>
     <filename>changelog.html</filename>
-    <docanchor file="changelog.html">md____w_spy_spy_doc_changelog</docanchor>
   </compound>
   <compound kind="page">
     <name>licence</name>
     <title>Licence</title>
     <filename>licence.html</filename>
-    <docanchor file="licence.html">md____w_spy_spy_doc_licence</docanchor>
   </compound>
   <compound kind="page">
     <name>setup</name>

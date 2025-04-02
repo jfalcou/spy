@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_20api_0',['Main API',['../group__api.html',1,'']]]
+  ['4_20eileen_20nearne_0',['Version 0.0.4 - Eileen Nearne',['../changelog.html#autotoc_md7',1,'']]]
 ];
