@@ -105,12 +105,12 @@ namespace spy
 
 namespace spy::literal
 {
-  template<char ...c> constexpr auto operator"" _libcpp()
+  template<char ...c> constexpr auto operator""_libcpp()
   {
     return _::literal_wrap<_::libcpp_t,c...>();
   }
 
-  template<char ...c> constexpr auto operator"" _gnucpp()
+  template<char ...c> constexpr auto operator""_gnucpp()
   {
     return _::literal_wrap<_::gnucpp_t,c...>();
   }

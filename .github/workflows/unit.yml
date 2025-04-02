@@ -24,8 +24,8 @@ jobs:
       fail-fast: false
       matrix:
         cfg:
-        - { comp: clang , arch: x86_osx, mode: Debug    }
-        - { comp: clang , arch: x86_osx, mode: Release  }
+        - { comp: clang , arch: aarch64, mode: Debug    }
+        - { comp: clang , arch: aarch64, mode: Release  }
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v4.1.1
@@ -98,7 +98,7 @@ jobs:
   wasm:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
       matrix:
@@ -124,7 +124,7 @@ jobs:
   riscv:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
       matrix:
@@ -207,7 +207,7 @@ jobs:
   clang:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
       matrix:
@@ -233,7 +233,7 @@ jobs:
   gcc:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
       matrix:

@@ -18,7 +18,7 @@ jobs:
   install:
     runs-on: [ubuntu-latest]
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
 
@@ -41,7 +41,7 @@ jobs:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     runs-on: [ubuntu-latest]
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
 
@@ -60,7 +60,7 @@ jobs:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     runs-on: [ubuntu-latest]
     container:
-      image: ghcr.io/jfalcou/compilers:v8
+      image: ghcr.io/jfalcou/compilers:v9
     strategy:
       fail-fast: false
 
