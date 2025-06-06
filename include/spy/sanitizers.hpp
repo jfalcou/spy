@@ -10,25 +10,25 @@
 
 // Clang detection
 #if defined(__has_feature)
-#  if __has_feature(address_sanitizer)
-#     define SPY_ADDRESS_SANITIZERS_ENABLED
-#  endif
-#  if __has_feature(thread_sanitizer)
-#     define SPY_THREAD_SANITIZERS_ENABLED
-#  endif
+#if __has_feature(address_sanitizer)
+#define SPY_ADDRESS_SANITIZERS_ENABLED
+#endif
+#if __has_feature(thread_sanitizer)
+#define SPY_THREAD_SANITIZERS_ENABLED
+#endif
 #endif
 
 // g++/MSVC detection
 #if !defined(SPY_ADDRESS_SANITIZERS_ENABLED)
-#  if defined(__SANITIZE_ADDRESS__)
-#     define SPY_ADDRESS_SANITIZERS_ENABLED
-#  endif
+#if defined(__SANITIZE_ADDRESS__)
+#define SPY_ADDRESS_SANITIZERS_ENABLED
+#endif
 #endif
 
 #if !defined(SPY_THREAD_SANITIZERS_ENABLED)
-#  if defined(__SANITIZE_THREAD__)
-#     define SPY_THREAD_SANITIZERS_ENABLED
-#  endif
+#if defined(__SANITIZE_THREAD__)
+#define SPY_THREAD_SANITIZERS_ENABLED
+#endif
 #endif
 
 namespace spy::supports
@@ -45,7 +45,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool address_sanitizers_status = **implementation-specified**;
+  constexpr bool address_sanitizers_status = **implementation - specified * *;
 #else
   constexpr bool address_sanitizers_status = false;
 #endif
@@ -62,7 +62,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool thread_sanitizers_status = **implementation-specified**;
+  constexpr bool thread_sanitizers_status = **implementation - specified * *;
 #else
   constexpr bool thread_sanitizers_status = false;
 #endif
@@ -80,10 +80,10 @@ namespace spy::supports
 }
 
 #if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC)
-#define SPY_DISABLE_ADDRESS_SANITIZERS  __attribute__((no_sanitize_address))
-#define SPY_DISABLE_THREAD_SANITIZERS   __attribute__((no_sanitize_thread))
+#define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
+#define SPY_DISABLE_THREAD_SANITIZERS __attribute__((no_sanitize_thread))
 #elif defined(SPY_COMPILER_IS_MSVC)
-#define SPY_DISABLE_ADDRESS_SANITIZERS  __declspec(no_sanitize_address)
+#define SPY_DISABLE_ADDRESS_SANITIZERS __declspec(no_sanitize_address)
 #define SPY_DISABLE_THREAD_SANITIZERS
 #else
 #define SPY_DISABLE_ADDRESS_SANITIZERS

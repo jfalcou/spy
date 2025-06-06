@@ -22,16 +22,21 @@ namespace spy
   //! @namespace supports
   //! @brief Support detection SPY namespace
   //====================================================================================================================
-  namespace supports {}
+  namespace supports
+  {
+  }
 
   //====================================================================================================================
   //! @namespace literal
   //! @brief SPY User-defined literal namespace
   //====================================================================================================================
-  namespace literal {}
+  namespace literal
+  {
+  }
 }
 
 #include <spy/detail.hpp>
+
 #include <spy/accelerator.hpp>
 #include <spy/arch.hpp>
 #include <spy/compiler.hpp>
