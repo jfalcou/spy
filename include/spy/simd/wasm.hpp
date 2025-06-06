@@ -8,10 +8,10 @@
 #pragma once
 
 #if !defined(SPY_SIMD_DETECTED) && defined(__wasm_simd128__)
-#  define SPY_SIMD_DETECTED ::spy::_::simd_version::simd128_
+#define SPY_SIMD_DETECTED ::spy::_::simd_version::simd128_
 #endif
 
 #if defined(SPY_SIMD_DETECTED) && !defined(SPY_SIMD_VENDOR)
-#  define SPY_SIMD_IS_WASM
-#  define SPY_SIMD_VENDOR ::spy::_::simd_isa::wasm_
+#define SPY_SIMD_IS_WASM
+#define SPY_SIMD_VENDOR ::spy::_::simd_isa::wasm_
 #endif
