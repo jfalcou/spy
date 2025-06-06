@@ -151,18 +151,9 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>X86 AVX</b>   </td><td class="markdownTableBodyNone"><code>spy::avx_</code>, <code>spy::avx2_</code>, <code>spy::avx512_</code>    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>Power PC VMX</b>   </td><td class="markdownTableBodyNone"><code>spy::vmx_</code>, <code>spy::vmx_2_03_</code>, <code>spy::vmx_2_05_</code>, <code>spy::vmx_2_06_</code>, <code>spy::vmx_2_07_</code>, <code>spy::vmx_3_00_</code>, <code>spy::vmx_3_01_</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>Power PC VSX</b>   </td><td class="markdownTableBodyNone"><code>spy::vsx_</code>, <code>spy::vsx_2_06_</code>, <code>spy::vsx_2_07_</code>, <code>spy::vsx_3_00_</code>, <code>spy::vsx_3_01_</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ARM NEON</b>   </td><td class="markdownTableBodyNone"><code>spy::neon_</code>, <code>spy::asimd_</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ARM SVE</b>   </td><td class="markdownTableBodyNone"><code>spy::sve_</code>,<code>spy::sve128_</code>, <code>spy::sve256_</code>, <code>spy::sve512_</code>, <code>spy::sve1024_</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>WASM</b>   </td><td class="markdownTableBodyNone"><code>spy::simd128_</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>RISC-V</b>   </td><td class="markdownTableBodyNone"><code>spy::rvv_</code>`   </td></tr>
+<td class="markdownTableBodyNone"><b>Power PC VMX</b>   </td><td class="markdownTableBodyNone"><code>spy::vmx_</code>, <code>spy::vmx_2_03_</code>, <code>spy::vmx_2_05_</code>, <code>spy::vmx_2_06_</code>, <code>spy::vmx_2_07_</code>,   </td></tr>
 </table>
+<p><code>spy::vmx_3_00_</code>, <code>spy::vmx_3_01_</code> | | <b>Power PC VSX</b> | <code>spy::vsx_</code>, <code>spy::vsx_2_06_</code>, <code>spy::vsx_2_07_</code>, <code>spy::vsx_3_00_</code>, <code>spy::vsx_3_01_</code> | | <b>ARM NEON</b> | <code>spy::neon_</code>, <code>spy::asimd_</code> | | <b>ARM SVE</b> | <code>spy::sve_</code>,<code>spy::sve128_</code>, <code>spy::sve256_</code>, <code>spy::sve512_</code>, <code>spy::sve1024_</code> | | <b>WASM</b> | <code>spy::simd128_</code> | | <b>RISC-V</b> | <code>spy::rvv_</code>` |</p>
 <p>Complete set of comparison operators is provided for those sets. Order of instructions sets are built so that if an instructions set supersedes another, it is considered greater than. For example, <code>spy::avx_</code> is greater than <code>spy::sse41_</code> as the former is a super-set of the later. Comparing SIMD descriptors across architecture is undefined behavior.</p>
 <p>Moreover, the <code><a class="el" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde" title="SIMD extensions set reporting value.">spy::simd_instruction_set</a></code> object exposes a constexpr <code>width</code> static field that contains the size in bits of the current SIMD instructions set registers.</p>
 <h3 class="groupheader">Example - SIMD Instructions Sets </h3>
@@ -190,7 +181,7 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <div class="line"> </div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;This code can use &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a>.width &lt;&lt; <span class="stringliteral">&quot; bits register.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:236</div></div>
+<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:253</div></div>
 </div><!-- fragment --><h2 class="groupheader">SIMD Architectures </h2>
 <p>One can also simply asks if a given family of instructions set is available.</p>
 <table class="markdownTable">
