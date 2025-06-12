@@ -21,7 +21,7 @@ int main()
     #endif
   }
   {
-    #if defined(__NVCC__) && defined (__CUDACC__)
+    #if defined (__CUDACC__)
     static_assert( spy::supports::cuda );
     std::cout << "Currently compiling with " << spy::supports::cuda << " enabled\n";
     #else
