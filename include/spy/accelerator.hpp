@@ -39,7 +39,13 @@ namespace spy::supports
 
     template<_::stream OS> friend OS& operator<<(OS& os, cuda_t)
     {
-      os << "NVCC CUDA v" << M << '.' << N;
+      #if defined(__NVCC__)
+      os << "NVCC ";
+      #elif defined(__clang__)
+      os << "Clang ";
+      #endif
+
+      os << "CUDA v" << M << '.' << N;
       if (P > 0) os << '.' << P;
       return os;
     }
@@ -77,8 +83,13 @@ namespace spy::supports
 #endif
 
 #if defined(__CUDACC__)
-#define SPY_ACCELERATOR_SUPPORTS_CUDA
+# if defined(__CUDACC_VER_MAJOR__)
+# define SPY_ACCELERATOR_SUPPORTS_CUDA
   constexpr inline auto cuda = cuda_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>{};
+# elif defined(CUDA_VERSION)
+# define SPY_ACCELERATOR_SUPPORTS_CUDA
+  constexpr inline auto cuda = cuda_t<CUDA_VERSION/1000, (CUDA_VERSION%1000) / 10, CUDA_VERSION % 10>{};
+# endif
 #elif defined(SPY_DOXYGEN_INVOKED)
   //================================================================================================
   //! @ingroup api
@@ -91,7 +102,6 @@ namespace spy::supports
   //! @godbolt{samples/cuda.cpp}
   //================================================================================================
   constexpr inline auto cuda = **implementation - defined * *;
-
 #else
   constexpr inline auto cuda = cuda_t<-1, -1, -1>{};
 #endif
