@@ -57,7 +57,7 @@ namespace spy::_
     }
   };
 
-  template<_::stream OS, compilers C, int M, int N, int P> OS& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
+  template<_::stream OS, compilers C, int M, int N, int P> auto& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
   {
     if (C == compilers::nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
     if (C == compilers::msvc_) return os << "Microsoft Visual Studio " << c.version;

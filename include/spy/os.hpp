@@ -35,7 +35,7 @@ namespace spy::_
     template<systems C2> constexpr bool operator==(os_info<C2> const&) const noexcept { return C2 == vendor; }
   };
 
-  template<_::stream OS, systems OpSys> OS& operator<<(OS& os, os_info<OpSys> const&)
+  template<_::stream OS, systems OpSys> auto& operator<<(OS& os, os_info<OpSys> const&)
   {
     if (OpSys == systems::android_) return os << "Android";
     if (OpSys == systems::bsd_) return os << "BSD";

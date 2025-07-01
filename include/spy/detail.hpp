@@ -69,12 +69,12 @@ namespace spy::_
   using unspecified_version_t = version_id<-1, 0, 0>;
   constexpr inline unspecified_version_t unspecified_version = {};
 
-  template<_::stream OS, int M, int N, int P> OS& operator<<(OS& os, version_id<M, N, P> const&)
+  template<_::stream OS, int M, int N, int P> auto& operator<<(OS& os, version_id<M, N, P> const&)
   {
     return os << "v" << M << "." << N << "." << P;
   }
 
-  template<_::stream OS> OS& operator<<(OS& os, unspecified_version_t const&)
+  template<_::stream OS> auto& operator<<(OS& os, unspecified_version_t const&)
   {
     return os << "(unspecified)";
   }

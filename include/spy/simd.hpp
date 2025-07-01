@@ -97,7 +97,7 @@ namespace spy::_
 
     static constexpr bool has_fixed_cardinal() { return width != -1; }
 
-    template<_::stream OS> friend OS& operator<<(OS& os, simd_info const&)
+    template<_::stream OS> friend auto& operator<<(OS& os, simd_info const&)
     {
       if constexpr (Version == simd_version::simd128_) os << "WASM SIMD128";
       else if constexpr (Version == simd_version::sse1_) os << "X86 SSE";

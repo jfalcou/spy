@@ -21,7 +21,7 @@ namespace spy::_
   };
 
   template<_::stream OS, int Short, int Integer, int Long, int Pointer>
-  OS& operator<<(OS& os, data_model_info<Short, Integer, Long, Pointer> const&)
+  auto& operator<<(OS& os, data_model_info<Short, Integer, Long, Pointer> const&)
   {
     if constexpr (Pointer == 4 && Integer == 4) return os << "ILP32";
     else if constexpr (Pointer == 4 && Integer == 2) return os << "LP32";

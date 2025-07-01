@@ -47,7 +47,7 @@ namespace spy::_
     }
   };
 
-  template<_::stream OS, stdlib SLib, int M, int N, int P> OS& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
+  template<_::stream OS, stdlib SLib, int M, int N, int P> auto& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
   {
     if (SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
     if (SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;

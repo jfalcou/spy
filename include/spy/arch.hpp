@@ -28,7 +28,7 @@ namespace spy::_
 
     template<archs A2> constexpr bool operator==(arch_info<A2> const&) const noexcept { return A2 == vendor; }
 
-    template<_::stream OS> friend OS& operator<<(OS& os, arch_info const&)
+    template<_::stream OS> friend auto& operator<<(OS& os, arch_info const&)
     {
       if (Arch == archs::x86_) return os << "X86";
       if (Arch == archs::amd64_) return os << "AMD64";
