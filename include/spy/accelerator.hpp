@@ -19,49 +19,35 @@ namespace spy::supports
       if (P > 0) os << '.' << P;
       return os;
     }
+
+    template<int M1, int N1, int P1> constexpr inline bool operator==(sycl_t<M1, N1, P1> const&) const noexcept
+    {
+      return M == M1 && N == N1 && P == P1;
+    }
   };
-
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator==(sycl_t<M0, N0, P0> const&, sycl_t<M1, N1, P1> const&) noexcept
-  {
-    return M0 == M1 && N0 == N1 && P0 == P1;
-  }
-
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator!=(sycl_t<M0, N0, P0> const& a, sycl_t<M1, N1, P1> const& b) noexcept
-  {
-    return !(a == b);
-  }
 
   template<int M, int N, int P> struct cuda_t
   {
     explicit constexpr operator bool() const noexcept { return M > 0 && N > 0; }
 
+    template<int M1, int N1, int P1> constexpr inline bool operator==(cuda_t<M1, N1, P1> const&) const noexcept
+    {
+      return M == M1 && N == N1 && P == P1;
+    }
+
     template<_::stream OS> friend OS& operator<<(OS& os, cuda_t)
     {
-      #if defined(__NVCC__)
+#if defined(__NVCC__)
       os << "NVCC ";
-      #elif defined(__clang__)
+#elif defined(__clang__)
       os << "Clang ";
-      #endif
+#endif
 
       os << "CUDA v" << M << '.' << N;
       if (P > 0) os << '.' << P;
       return os;
     }
   };
-
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator==(cuda_t<M0, N0, P0> const&, cuda_t<M1, N1, P1> const&) noexcept
-  {
-    return M0 == M1 && N0 == N1 && P0 == P1;
-  }
-
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator!=(cuda_t<M0, N0, P0> const& a, cuda_t<M1, N1, P1> const& b) noexcept
-  {
-    return !(a == b);
-  }
 
 #if defined(SYCL_LANGUAGE_VERSION) && defined(__INTEL_LLVM_COMPILER)
 #define SPY_ACCELERATOR_SUPPORTS_SYCL
@@ -83,13 +69,13 @@ namespace spy::supports
 #endif
 
 #if defined(__CUDACC__)
-# if defined(__CUDACC_VER_MAJOR__)
-# define SPY_ACCELERATOR_SUPPORTS_CUDA
+#if defined(__CUDACC_VER_MAJOR__)
+#define SPY_ACCELERATOR_SUPPORTS_CUDA
   constexpr inline auto cuda = cuda_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>{};
-# elif defined(CUDA_VERSION)
-# define SPY_ACCELERATOR_SUPPORTS_CUDA
-  constexpr inline auto cuda = cuda_t<CUDA_VERSION/1000, (CUDA_VERSION%1000) / 10, CUDA_VERSION % 10>{};
-# endif
+#elif defined(CUDA_VERSION)
+#define SPY_ACCELERATOR_SUPPORTS_CUDA
+  constexpr inline auto cuda = cuda_t<CUDA_VERSION / 1000, (CUDA_VERSION % 1000) / 10, CUDA_VERSION % 10>{};
+#endif
 #elif defined(SPY_DOXYGEN_INVOKED)
   //================================================================================================
   //! @ingroup api

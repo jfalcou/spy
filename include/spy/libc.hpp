@@ -10,6 +10,7 @@
 // Make sure the proper header is included to detect GNU libc
 #include <spy/detail.hpp>
 
+#include <compare>
 #include <cstddef>
 
 namespace spy::_
@@ -33,7 +34,18 @@ namespace spy::_
 
     template<libC C2> constexpr bool operator==(libc_info<C2, -1, 0, 0> const&) const noexcept { return C2 == vendor; }
 
-    SPY_VERSION_COMPARISONS_OPERATOR(libC, libc_info)
+    template<libC C2, int M2, int N2, int P2>
+    constexpr bool operator==(libc_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      return C2 == vendor && version == c2.version;
+    }
+
+    template<libC C2, int M2, int N2, int P2>
+    constexpr auto operator<=>(libc_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      if constexpr (vendor == C2) return version <=> c2.version;
+      else return vendor <=> C2;
+    }
   };
 
   template<_::stream OS, libC C, int M, int N, int P> OS& operator<<(OS& os, libc_info<C, M, N, P> const& c)

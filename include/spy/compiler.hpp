@@ -9,6 +9,8 @@
 
 #include <spy/detail.hpp>
 
+#include <compare>
+
 #if defined __has_include
 #if __has_include(<emscripten/version.h>)
 #include <emscripten/version.h>
@@ -41,7 +43,18 @@ namespace spy::_
       return C2 == vendor;
     }
 
-    SPY_VERSION_COMPARISONS_OPERATOR(compilers, compilers_info)
+    template<compilers C2, int M2, int N2, int P2>
+    constexpr bool operator==(compilers_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      return C2 == vendor && version == c2.version;
+    }
+
+    template<compilers C2, int M2, int N2, int P2>
+    constexpr std::partial_ordering operator<=>(compilers_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      if constexpr (vendor == C2) return version <=> c2.version;
+      else return std::partial_ordering::unordered;
+    }
   };
 
   template<_::stream OS, compilers C, int M, int N, int P> OS& operator<<(OS& os, compilers_info<C, M, N, P> const& c)

@@ -135,53 +135,21 @@ namespace spy::_
 
       return os;
     }
-
-    template<simd_isa OInsSetArch> constexpr bool operator==(simd_info<OInsSetArch> const&) const noexcept
-    {
-      return OInsSetArch == InsSetArch;
-    }
-
-    template<simd_isa OInsSetArch> constexpr bool operator!=(simd_info<OInsSetArch> const&) const noexcept
-    {
-      return OInsSetArch != InsSetArch;
-    }
-
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator==(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version == OVersion) && (OInsSetArch == InsSetArch);
-    }
-
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator!=(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version != OVersion) || (OInsSetArch != InsSetArch);
-    }
-
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator<(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version < OVersion) && (OInsSetArch == InsSetArch);
-    }
-
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator>(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version > OVersion) && (OInsSetArch == InsSetArch);
-    }
-
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator<=(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version <= OVersion) && (OInsSetArch == InsSetArch);
-    }
-
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator>=(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version >= OVersion) && (OInsSetArch == InsSetArch);
-    }
   };
+
+  template<simd_isa I1, simd_version V1, simd_isa I2, simd_version V2>
+  constexpr bool operator==(simd_info<I1, V1>, simd_info<I2, V2>) noexcept
+  {
+    if constexpr (V1 != simd_version::undefined_ && V2 != simd_version::undefined_) return (I1 == I2) && (V1 == V2);
+    else return I1 == I2;
+  }
+
+  template<simd_isa I1, simd_version V1, simd_isa I2, simd_version V2>
+  constexpr std::partial_ordering operator<=>(simd_info<I1, V1>, simd_info<I2, V2>) noexcept
+  {
+    if constexpr (I1 != I2) return std::partial_ordering::unordered;
+    else return static_cast<int>(V1) <=> static_cast<int>(V2);
+  }
 }
 
 namespace spy

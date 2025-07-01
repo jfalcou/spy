@@ -33,7 +33,18 @@ namespace spy::_
       return C2 == vendor;
     }
 
-    SPY_VERSION_COMPARISONS_OPERATOR(stdlib, stdlib_info)
+    template<stdlib C2, int M2, int N2, int P2>
+    constexpr bool operator==(stdlib_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      return C2 == vendor && version == c2.version;
+    }
+
+    template<stdlib C2, int M2, int N2, int P2>
+    constexpr std::partial_ordering operator<=>(stdlib_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      if constexpr (vendor == C2) return version <=> c2.version;
+      else return std::partial_ordering::unordered;
+    }
   };
 
   template<_::stream OS, stdlib SLib, int M, int N, int P> OS& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
