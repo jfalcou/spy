@@ -13,7 +13,7 @@ namespace spy::supports
   {
     explicit constexpr operator bool() const noexcept { return M > 0 && N > 0; }
 
-    template<_::stream OS> friend OS& operator<<(OS& os, sycl_t)
+    template<_::stream OS> friend auto& operator<<(OS& os, sycl_t)
     {
       os << "SYCL v" << M << '.' << N;
       if (P > 0) os << '.' << P;
@@ -35,7 +35,7 @@ namespace spy::supports
       return M == M1 && N == N1 && P == P1;
     }
 
-    template<_::stream OS> friend OS& operator<<(OS& os, cuda_t)
+    template<_::stream OS> friend auto& operator<<(OS& os, cuda_t)
     {
 #if defined(__NVCC__)
       os << "NVCC ";

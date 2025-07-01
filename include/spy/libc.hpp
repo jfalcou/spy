@@ -48,7 +48,7 @@ namespace spy::_
     }
   };
 
-  template<_::stream OS, libC C, int M, int N, int P> OS& operator<<(OS& os, libc_info<C, M, N, P> const& c)
+  template<_::stream OS, libC C, int M, int N, int P> auto& operator<<(OS& os, libc_info<C, M, N, P> const& c)
   {
     if (c.vendor == libC::cloudabi_) return os << "CloudABI Standard C Library " << c.version;
     if (c.vendor == libC::uc_) return os << "uClibc Standard C Library " << c.version;
