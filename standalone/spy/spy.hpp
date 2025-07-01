@@ -7,6 +7,7 @@
 //======================================================================================================================
 #ifndef SPY_SPY_HPP_INCLUDED
 #define SPY_SPY_HPP_INCLUDED
+
 //======================================================================================================================
 //! @namespace spy
 //! @brief Main SPY namespace
@@ -23,6 +24,7 @@ namespace spy
   namespace supports
   {
   }
+
   //====================================================================================================================
   //! @namespace literal
   //! @brief SPY User-defined literal namespace
@@ -31,6 +33,9 @@ namespace spy
   {
   }
 }
+
+#include <compare>
+
 namespace spy::_
 {
   template<typename T>
@@ -39,6 +44,7 @@ namespace spy::_
     { os.flush() };
     { os.put(c) };
   };
+
   template<char... c> constexpr int find(int i0)
   {
     int sz = sizeof...(c);
@@ -46,6 +52,7 @@ namespace spy::_
     while (i0 < sz && arr[i0] != '\'') ++i0;
     return i0;
   }
+
   template<char... c> constexpr int parse(int i0, int i1)
   {
     char arr[] = {c...};
@@ -53,6 +60,7 @@ namespace spy::_
     while (i0 < i1 && arr[i0] != '\'') value = value * 10 + (arr[i0++] - 48);
     return value;
   }
+
   template<template<int, int, int> class Wrapper, char... c> constexpr auto literal_wrap()
   {
     constexpr int b0 = 0, e0 = find<c...>(0);
@@ -60,140 +68,83 @@ namespace spy::_
     constexpr int b2 = e1 + 1, e2 = sizeof...(c);
     return Wrapper<parse<c...>(b0, e0), parse<c...>(b1, e1), parse<c...>(b2, e2)>{};
   }
+
   template<int M, int N, int P> struct version_id
   {
     static constexpr int major = M;
     static constexpr int minor = N;
     static constexpr int patch = P;
   };
-  template<int M = 1, int N = 0, int P = 0> constexpr inline version_id<M, N, P> version = {};
-  using unspecified_version_t = version_id<-1, 0, 0>;
-  constexpr inline unspecified_version_t unspecified_version = {};
+
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator==(version_id<M1, N1, P1> const&, version_id<M2, N2, P2> const&) noexcept
+  constexpr bool operator==(version_id<M1, N1, P1>, version_id<M2, N2, P2>) noexcept
   {
     return (M1 == M2) && (N1 == N2) && (P1 == P2);
   }
+
   template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator!=(version_id<M1, N1, P1> const& v1, version_id<M2, N2, P2> const& v2) noexcept
+  constexpr std::strong_ordering operator<=>(version_id<M1, N1, P1>, version_id<M2, N2, P2>) noexcept
   {
-    return !(v1 == v2);
+    if constexpr (constexpr auto cmp = M1 <=> M2; cmp != 0) return cmp;
+    else if constexpr (constexpr auto cmp = N1 <=> N2; cmp != 0) return cmp;
+    else return P1 <=> P2;
   }
-  template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator<(version_id<M1, N1, P1> const&, version_id<M2, N2, P2> const&) noexcept
-  {
-    if constexpr (M1 < M2) return true;
-    if constexpr (M1 > M2) return false;
-    if constexpr (N1 < N2) return true;
-    if constexpr (N1 > N2) return false;
-    return P1 < P2;
-  }
-  template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator>(version_id<M1, N1, P1> const&, version_id<M2, N2, P2> const&) noexcept
-  {
-    if constexpr (M1 > M2) return true;
-    if constexpr (M1 < M2) return false;
-    if constexpr (N1 > N2) return true;
-    if constexpr (N1 < N2) return false;
-    return P1 > P2;
-  }
-  template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator<=(version_id<M1, N1, P1> const& a, version_id<M2, N2, P2> const& b) noexcept
-  {
-    return !(a > b);
-  }
-  template<int M1, int N1, int P1, int M2, int N2, int P2>
-  constexpr bool operator>=(version_id<M1, N1, P1> const& a, version_id<M2, N2, P2> const& b) noexcept
-  {
-    return !(a < b);
-  }
+
+  template<int M = 1, int N = 0, int P = 0> constexpr inline version_id<M, N, P> version = {};
+  using unspecified_version_t = version_id<-1, 0, 0>;
+  constexpr inline unspecified_version_t unspecified_version = {};
+
   template<_::stream OS, int M, int N, int P> OS& operator<<(OS& os, version_id<M, N, P> const&)
   {
     return os << "v" << M << "." << N << "." << P;
   }
+
   template<_::stream OS> OS& operator<<(OS& os, unspecified_version_t const&)
   {
     return os << "(unspecified)";
   }
 }
-#define SPY_VERSION_COMPARISONS_OPERATOR(ID, TYPE)                                                                     \
-  template<ID C2, int M2, int N2, int P2> constexpr bool operator==(TYPE<C2, M2, N2, P2> const& c2) const noexcept     \
-  {                                                                                                                    \
-    return C2 == vendor && version == c2.version;                                                                      \
-  }                                                                                                                    \
-                                                                                                                       \
-  template<ID C2, int M2, int N2, int P2> constexpr bool operator!=(TYPE<C2, M2, N2, P2> const& c2) const noexcept     \
-  {                                                                                                                    \
-    return C2 == vendor && version != c2.version;                                                                      \
-  }                                                                                                                    \
-                                                                                                                       \
-  template<ID C2, int M2, int N2, int P2> constexpr bool operator<(TYPE<C2, M2, N2, P2> const& c2) const noexcept      \
-  {                                                                                                                    \
-    return C2 == vendor && version < c2.version;                                                                       \
-  }                                                                                                                    \
-                                                                                                                       \
-  template<ID C2, int M2, int N2, int P2> constexpr bool operator>(TYPE<C2, M2, N2, P2> const& c2) const noexcept      \
-  {                                                                                                                    \
-    return C2 == vendor && version > c2.version;                                                                       \
-  }                                                                                                                    \
-                                                                                                                       \
-  template<ID C2, int M2, int N2, int P2> constexpr bool operator>=(TYPE<C2, M2, N2, P2> const& c2) const noexcept     \
-  {                                                                                                                    \
-    return C2 == vendor && version >= c2.version;                                                                      \
-  }                                                                                                                    \
-                                                                                                                       \
-  template<ID C2, int M2, int N2, int P2> constexpr bool operator<=(TYPE<C2, M2, N2, P2> const& c2) const noexcept     \
-  {                                                                                                                    \
-    return C2 == vendor && version <= c2.version;                                                                      \
-  }                                                                                                                    \
 
 namespace spy::supports
 {
   template<int M, int N, int P> struct sycl_t
   {
     explicit constexpr operator bool() const noexcept { return M > 0 && N > 0; }
+
     template<_::stream OS> friend OS& operator<<(OS& os, sycl_t)
     {
       os << "SYCL v" << M << '.' << N;
       if (P > 0) os << '.' << P;
       return os;
     }
+
+    template<int M1, int N1, int P1> constexpr inline bool operator==(sycl_t<M1, N1, P1> const&) const noexcept
+    {
+      return M == M1 && N == N1 && P == P1;
+    }
   };
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator==(sycl_t<M0, N0, P0> const&, sycl_t<M1, N1, P1> const&) noexcept
-  {
-    return M0 == M1 && N0 == N1 && P0 == P1;
-  }
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator!=(sycl_t<M0, N0, P0> const& a, sycl_t<M1, N1, P1> const& b) noexcept
-  {
-    return !(a == b);
-  }
+
   template<int M, int N, int P> struct cuda_t
   {
     explicit constexpr operator bool() const noexcept { return M > 0 && N > 0; }
+
+    template<int M1, int N1, int P1> constexpr inline bool operator==(cuda_t<M1, N1, P1> const&) const noexcept
+    {
+      return M == M1 && N == N1 && P == P1;
+    }
+
     template<_::stream OS> friend OS& operator<<(OS& os, cuda_t)
     {
-      #if defined(__NVCC__)
+#if defined(__NVCC__)
       os << "NVCC ";
-      #elif defined(__clang__)
+#elif defined(__clang__)
       os << "Clang ";
-      #endif
+#endif
       os << "CUDA v" << M << '.' << N;
       if (P > 0) os << '.' << P;
       return os;
     }
   };
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator==(cuda_t<M0, N0, P0> const&, cuda_t<M1, N1, P1> const&) noexcept
-  {
-    return M0 == M1 && N0 == N1 && P0 == P1;
-  }
-  template<int M0, int N0, int P0, int M1, int N1, int P1>
-  constexpr inline bool operator!=(cuda_t<M0, N0, P0> const& a, cuda_t<M1, N1, P1> const& b) noexcept
-  {
-    return !(a == b);
-  }
 #if defined(SYCL_LANGUAGE_VERSION) && defined(__INTEL_LLVM_COMPILER)
 #define SPY_ACCELERATOR_SUPPORTS_SYCL
   constexpr inline auto sycl = sycl_t<SYCL_LANGUAGE_VERSION / 100, SYCL_LANGUAGE_VERSION % 100, 0>{};
@@ -203,19 +154,20 @@ namespace spy::supports
   constexpr inline auto sycl = sycl_t<-1, -1, -1>{};
 #endif
 #if defined(__CUDACC__)
-# if defined(__CUDACC_VER_MAJOR__)
-# define SPY_ACCELERATOR_SUPPORTS_CUDA
+#if defined(__CUDACC_VER_MAJOR__)
+#define SPY_ACCELERATOR_SUPPORTS_CUDA
   constexpr inline auto cuda = cuda_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>{};
-# elif defined(CUDA_VERSION)
-# define SPY_ACCELERATOR_SUPPORTS_CUDA
-  constexpr inline auto cuda = cuda_t<CUDA_VERSION/1000, (CUDA_VERSION%1000) / 10, CUDA_VERSION % 10>{};
-# endif
+#elif defined(CUDA_VERSION)
+#define SPY_ACCELERATOR_SUPPORTS_CUDA
+  constexpr inline auto cuda = cuda_t<CUDA_VERSION / 1000, (CUDA_VERSION % 1000) / 10, CUDA_VERSION % 10>{};
+#endif
 #elif defined(SPY_DOXYGEN_INVOKED)
   constexpr inline auto cuda = **implementation - defined * *;
 #else
   constexpr inline auto cuda = cuda_t<-1, -1, -1>{};
 #endif
 }
+
 namespace spy::_
 {
   enum class archs
@@ -228,11 +180,14 @@ namespace spy::_
     wasm_ = 40,
     riscv_ = 50
   };
+
   template<archs Arch> struct arch_info
   {
     static constexpr archs vendor = Arch;
     inline constexpr explicit operator bool() const noexcept;
+
     template<archs A2> constexpr bool operator==(arch_info<A2> const&) const noexcept { return A2 == vendor; }
+
     template<_::stream OS> friend OS& operator<<(OS& os, arch_info const&)
     {
       if (Arch == archs::x86_) return os << "X86";
@@ -245,6 +200,7 @@ namespace spy::_
     }
   };
 }
+
 namespace spy
 {
 #if defined(i386) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) ||               \
@@ -275,6 +231,7 @@ namespace spy
 #endif
   constexpr inline arch_type architecture;
 }
+
 namespace spy::_
 {
   template<archs Arch> inline constexpr arch_info<Arch>::operator bool() const noexcept
@@ -282,6 +239,7 @@ namespace spy::_
     return spy::architecture == *this;
   }
 }
+
 namespace spy
 {
   constexpr inline auto x86_ = _::arch_info<_::archs::x86_>{};
@@ -291,6 +249,8 @@ namespace spy
   constexpr inline auto wasm_ = _::arch_info<_::archs::wasm_>{};
   constexpr inline auto riscv_ = _::arch_info<_::archs::riscv_>{};
 }
+
+#include <compare>
 #if defined __has_include
 #if __has_include(<emscripten/version.h>)
 #include <emscripten/version.h>
@@ -309,17 +269,32 @@ namespace spy::_
     dpcpp_,
     nvcc_
   };
+
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
     static constexpr compilers vendor = Compiler;
     static constexpr version_id<M, N, P> version = {};
     inline constexpr explicit operator bool() const noexcept;
+
     template<compilers C2> constexpr bool operator==(compilers_info<C2, -1, 0, 0> const&) const noexcept
     {
       return C2 == vendor;
     }
-    SPY_VERSION_COMPARISONS_OPERATOR(compilers, compilers_info)
+
+    template<compilers C2, int M2, int N2, int P2>
+    constexpr bool operator==(compilers_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      return C2 == vendor && version == c2.version;
+    }
+
+    template<compilers C2, int M2, int N2, int P2>
+    constexpr std::partial_ordering operator<=>(compilers_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      if constexpr (vendor == C2) return version <=> c2.version;
+      else return std::partial_ordering::unordered;
+    }
   };
+
   template<_::stream OS, compilers C, int M, int N, int P> OS& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
   {
     if (C == compilers::nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
@@ -331,6 +306,7 @@ namespace spy::_
     if (C == compilers::emscripten_) return os << "Emscripten " << c.version;
     return os << "Undefined " << c.version;
   }
+
   template<int M, int N, int P> using msvc_t = compilers_info<compilers::msvc_, M, N, P>;
   template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_, M, N, P>;
   template<int M, int N, int P> using dpcpp_t = compilers_info<compilers::dpcpp_, M, N, P>;
@@ -339,6 +315,7 @@ namespace spy::_
   template<int M, int N, int P> using gcc_t = compilers_info<compilers::gcc_, M, N, P>;
   template<int M, int N, int P> using emscripten_t = compilers_info<compilers::emscripten_, M, N, P>;
 }
+
 namespace spy
 {
 #if defined(__NVCC__)
@@ -373,6 +350,7 @@ namespace spy
 #endif
   constexpr inline compiler_type compiler;
 }
+
 namespace spy::_
 {
   template<compilers C, int M, int N, int P> inline constexpr compilers_info<C, M, N, P>::operator bool() const noexcept
@@ -380,6 +358,7 @@ namespace spy::_
     return spy::compiler == *this;
   }
 }
+
 namespace spy
 {
   constexpr inline auto nvcc_ = _::nvcc_t<-1, 0, 0>{};
@@ -390,48 +369,58 @@ namespace spy
   constexpr inline auto gcc_ = _::gcc_t<-1, 0, 0>{};
   constexpr inline auto emscripten_ = _::emscripten_t<-1, 0, 0>{};
 }
+
 namespace spy::literal
 {
   template<char... c> constexpr auto operator""_nvcc()
   {
     return _::literal_wrap<_::nvcc_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_msvc()
   {
     return _::literal_wrap<_::msvc_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_intel()
   {
     return _::literal_wrap<_::intel_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_dpcpp()
   {
     return _::literal_wrap<_::dpcpp_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_clang()
   {
     return _::literal_wrap<_::clang_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_gcc()
   {
     return _::literal_wrap<_::gcc_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_em()
   {
     return _::literal_wrap<_::emscripten_t, c...>();
   }
 }
+
 namespace spy::_
 {
   template<int Short, int Integer, int Long, int Pointer> struct data_model_info
   {
     inline constexpr explicit operator bool() const noexcept;
+
     template<int Short2, int Integer2, int Long2, int Pointer2>
     constexpr bool operator==(data_model_info<Short2, Integer2, Long2, Pointer2> const&) const noexcept
     {
       return (Short == Short2) && (Integer == Integer2) && (Long == Long2) && (Pointer == Pointer2);
     }
   };
+
   template<_::stream OS, int Short, int Integer, int Long, int Pointer>
   OS& operator<<(OS& os, data_model_info<Short, Integer, Long, Pointer> const&)
   {
@@ -444,11 +433,13 @@ namespace spy::_
     else return os << "Unknown data model";
   }
 }
+
 namespace spy
 {
   using data_model_type = _::data_model_info<sizeof(short), sizeof(int), sizeof(long), sizeof(void*)>;
   constexpr inline auto data_model = data_model_type{};
 }
+
 namespace spy::_
 {
   template<int Short, int Integer, int Long, int Pointer>
@@ -457,6 +448,7 @@ namespace spy::_
     return spy::data_model == *this;
   }
 }
+
 namespace spy
 {
   constexpr inline auto ilp32_ = _::data_model_info<2, 4, sizeof(long), 4>{};
@@ -466,7 +458,10 @@ namespace spy
   constexpr inline auto llp64_ = _::data_model_info<2, 8, 4, 8>{};
   constexpr inline auto lp64_ = _::data_model_info<2, 4, 8, 8>{};
 }
+
+#include <compare>
 #include <cstddef>
+
 namespace spy::_
 {
   enum class libC
@@ -478,14 +473,29 @@ namespace spy::_
     zos_,
     gnu_
   };
+
   template<libC Lib, int M, int N, int P> struct libc_info
   {
     static constexpr libC vendor = Lib;
     static constexpr version_id<M, N, P> version = {};
     inline constexpr explicit operator bool() const noexcept;
+
     template<libC C2> constexpr bool operator==(libc_info<C2, -1, 0, 0> const&) const noexcept { return C2 == vendor; }
-    SPY_VERSION_COMPARISONS_OPERATOR(libC, libc_info)
+
+    template<libC C2, int M2, int N2, int P2>
+    constexpr bool operator==(libc_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      return C2 == vendor && version == c2.version;
+    }
+
+    template<libC C2, int M2, int N2, int P2>
+    constexpr auto operator<=>(libc_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      if constexpr (vendor == C2) return version <=> c2.version;
+      else return vendor <=> C2;
+    }
   };
+
   template<_::stream OS, libC C, int M, int N, int P> OS& operator<<(OS& os, libc_info<C, M, N, P> const& c)
   {
     if (c.vendor == libC::cloudabi_) return os << "CloudABI Standard C Library " << c.version;
@@ -495,12 +505,14 @@ namespace spy::_
     if (c.vendor == libC::gnu_) return os << "GNU Standard C Library " << c.version;
     return os << "Undefined Standard C Library";
   }
+
   template<int M, int N, int P> using cloudabi_t = libc_info<libC::cloudabi_, M, N, P>;
   template<int M, int N, int P> using uc_t = libc_info<libC::uc_, M, N, P>;
   template<int M, int N, int P> using vms_t = libc_info<libC::vms_, M, N, P>;
   template<int M, int N, int P> using zos_t = libc_info<libC::zos_, M, N, P>;
   template<int M, int N, int P> using gnu_t = libc_info<libC::gnu_, M, N, P>;
 }
+
 namespace spy
 {
 #if defined(__cloudlibc__)
@@ -529,6 +541,7 @@ namespace spy
 #endif
   constexpr inline auto libc = libc_type{};
 }
+
 namespace spy::_
 {
   template<libC C, int M, int N, int P> inline constexpr libc_info<C, M, N, P>::operator bool() const noexcept
@@ -536,6 +549,7 @@ namespace spy::_
     return spy::libc == *this;
   }
 }
+
 namespace spy
 {
   constexpr inline auto cloudabi_ = _::cloudabi_t<-1, 0, 0>{};
@@ -544,24 +558,29 @@ namespace spy
   constexpr inline auto zos_ = _::zos_t<-1, 0, 0>{};
   constexpr inline auto gnu_ = _::gnu_t<-1, 0, 0>{};
 }
+
 namespace spy::literal
 {
   template<char... c> constexpr auto operator""_cloud()
   {
     return _::literal_wrap<_::cloudabi_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_uc()
   {
     return _::literal_wrap<_::uc_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_vms()
   {
     return _::literal_wrap<_::vms_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_zos()
   {
     return _::literal_wrap<_::zos_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_gnu()
   {
     return _::literal_wrap<_::gnu_t, c...>();
@@ -584,12 +603,15 @@ namespace spy::_
     unix_,
     windows_
   };
+
   template<systems OpSys> struct os_info
   {
     static constexpr systems vendor = OpSys;
     inline constexpr explicit operator bool() const noexcept;
+
     template<systems C2> constexpr bool operator==(os_info<C2> const&) const noexcept { return C2 == vendor; }
   };
+
   template<_::stream OS, systems OpSys> OS& operator<<(OS& os, os_info<OpSys> const&)
   {
     if (OpSys == systems::android_) return os << "Android";
@@ -603,6 +625,7 @@ namespace spy::_
     return os << "Undefined Operating System";
   }
 }
+
 namespace spy
 {
 #if defined(__ANDROID__)
@@ -635,6 +658,7 @@ namespace spy
 #endif
   constexpr inline os_type operating_system;
 }
+
 namespace spy::_
 {
   template<systems OS> inline constexpr os_info<OS>::operator bool() const noexcept
@@ -642,6 +666,7 @@ namespace spy::_
     return spy::operating_system == *this;
   }
 }
+
 namespace spy
 {
   constexpr inline auto android_ = _::os_info<_::systems::android_>{};
@@ -653,6 +678,7 @@ namespace spy
   constexpr inline auto unix_ = _::os_info<_::systems::unix_>{};
   constexpr inline auto windows_ = _::os_info<_::systems::windows_>{};
 }
+
 namespace spy::supports
 {
 #if defined(SPY_DOXYGEN_INVOKED)
@@ -1047,6 +1073,7 @@ namespace spy::supports
 #endif
   }
 }
+
 namespace spy::_
 {
   enum class simd_isa
@@ -1093,6 +1120,7 @@ namespace spy::_
     rvv_ = 7000,
     fixed_rvv_ = 7500
   };
+
   template<simd_isa InsSetArch = simd_isa::undefined_, simd_version Version = simd_version::undefined_> struct simd_info
   {
     static constexpr auto isa = InsSetArch;
@@ -1126,6 +1154,7 @@ namespace spy::_
       else return -1;
     }();
     static constexpr bool has_fixed_cardinal() { return width != -1; }
+
     template<_::stream OS> friend OS& operator<<(OS& os, simd_info const&)
     {
       if constexpr (Version == simd_version::simd128_) os << "WASM SIMD128";
@@ -1162,46 +1191,23 @@ namespace spy::_
       if constexpr (spy::supports::xop_) os << " (with XOP support)";
       return os;
     }
-    template<simd_isa OInsSetArch> constexpr bool operator==(simd_info<OInsSetArch> const&) const noexcept
-    {
-      return OInsSetArch == InsSetArch;
-    }
-    template<simd_isa OInsSetArch> constexpr bool operator!=(simd_info<OInsSetArch> const&) const noexcept
-    {
-      return OInsSetArch != InsSetArch;
-    }
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator==(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version == OVersion) && (OInsSetArch == InsSetArch);
-    }
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator!=(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version != OVersion) || (OInsSetArch != InsSetArch);
-    }
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator<(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version < OVersion) && (OInsSetArch == InsSetArch);
-    }
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator>(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version > OVersion) && (OInsSetArch == InsSetArch);
-    }
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator<=(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version <= OVersion) && (OInsSetArch == InsSetArch);
-    }
-    template<simd_isa OInsSetArch, simd_version OVersion>
-    constexpr bool operator>=(simd_info<OInsSetArch, OVersion> const&) const noexcept
-    {
-      return (Version >= OVersion) && (OInsSetArch == InsSetArch);
-    }
   };
+
+  template<simd_isa I1, simd_version V1, simd_isa I2, simd_version V2>
+  constexpr bool operator==(simd_info<I1, V1>, simd_info<I2, V2>) noexcept
+  {
+    if constexpr (V1 != simd_version::undefined_ && V2 != simd_version::undefined_) return (I1 == I2) && (V1 == V2);
+    else return I1 == I2;
+  }
+
+  template<simd_isa I1, simd_version V1, simd_isa I2, simd_version V2>
+  constexpr std::partial_ordering operator<=>(simd_info<I1, V1>, simd_info<I2, V2>) noexcept
+  {
+    if constexpr (I1 != I2) return std::partial_ordering::unordered;
+    else return static_cast<int>(V1) <=> static_cast<int>(V2);
+  }
 }
+
 namespace spy
 {
 #if defined(SPY_SIMD_DETECTED)
@@ -1254,7 +1260,9 @@ namespace spy
   constexpr inline auto rvv_ = riscv_simd_info<_::simd_version::rvv_>{};
   constexpr inline auto fixed_rvv_ = riscv_simd_info<_::simd_version::fixed_rvv_>{};
 }
+
 #include <cstddef>
+
 namespace spy::_
 {
   enum class stdlib
@@ -1263,26 +1271,43 @@ namespace spy::_
     libcpp_,
     gnucpp_
   };
+
   template<stdlib Lib, int M, int N, int P> struct stdlib_info
   {
     static constexpr stdlib vendor = Lib;
     static constexpr version_id<M, N, P> version = {};
     inline constexpr explicit operator bool() const noexcept;
+
     template<stdlib C2> constexpr bool operator==(stdlib_info<C2, -1, 0, 0> const&) const noexcept
     {
       return C2 == vendor;
     }
-    SPY_VERSION_COMPARISONS_OPERATOR(stdlib, stdlib_info)
+
+    template<stdlib C2, int M2, int N2, int P2>
+    constexpr bool operator==(stdlib_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      return C2 == vendor && version == c2.version;
+    }
+
+    template<stdlib C2, int M2, int N2, int P2>
+    constexpr std::partial_ordering operator<=>(stdlib_info<C2, M2, N2, P2> const& c2) const noexcept
+    {
+      if constexpr (vendor == C2) return version <=> c2.version;
+      else return std::partial_ordering::unordered;
+    }
   };
+
   template<_::stream OS, stdlib SLib, int M, int N, int P> OS& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
   {
     if (SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
     if (SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
     return os << "Undefined Standard C++ Library";
   }
+
   template<int M, int N, int P> using libcpp_t = stdlib_info<stdlib::libcpp_, M, N, P>;
   template<int M, int N, int P> using gnucpp_t = stdlib_info<stdlib::gnucpp_, M, N, P>;
 }
+
 namespace spy
 {
 #if defined(_LIBCPP_VERSION)
@@ -1299,6 +1324,7 @@ namespace spy
 #endif
   constexpr inline auto stdlib = stdlib_type{};
 }
+
 namespace spy::_
 {
   template<stdlib SLib, int M, int N, int P> inline constexpr stdlib_info<SLib, M, N, P>::operator bool() const noexcept
@@ -1306,17 +1332,20 @@ namespace spy::_
     return spy::stdlib == *this;
   }
 }
+
 namespace spy
 {
   constexpr inline auto libcpp_ = _::libcpp_t<-1, 0, 0>{};
   constexpr inline auto gnucpp_ = _::gnucpp_t<-1, 0, 0>{};
 }
+
 namespace spy::literal
 {
   template<char... c> constexpr auto operator""_libcpp()
   {
     return _::literal_wrap<_::libcpp_t, c...>();
   }
+
   template<char... c> constexpr auto operator""_gnucpp()
   {
     return _::literal_wrap<_::gnucpp_t, c...>();
