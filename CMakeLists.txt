@@ -22,7 +22,7 @@ endif()
 ##======================================================================================================================
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake ${COPACABANA_SOURCE_DIR}/copacabana/cmake)
 include(${COPACABANA_SOURCE_DIR}/copacabana/cmake/copacabana.cmake)
-copa_project_version(MAJOR 1 MINOR 1 PATCH 0)
+copa_project_version(MAJOR 2 MINOR 0 PATCH 0)
 
 
 ##======================================================================================================================
