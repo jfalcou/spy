@@ -124,9 +124,36 @@ $(document).ready(function(){initNavTree('changelog.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
+Version 2.0.0 - Denise Bloch</h1>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Changelog</h2>
+<ul>
+<li>Features:<ul>
+<li><b>[BREAKING CHANGE]</b> Move to C++20 to improve compile times.</li>
+<li>Detect RISC-V and RISC-V SIMD instructions sets.</li>
+<li>Update SIMD detection by upstreaming EVE recent changes.</li>
+</ul>
+</li>
+<li>Bugs:<ul>
+<li>Fix #55 - Properly detect version for Clang CUDA.</li>
+<li>Use &lt;=&gt; instead of macros for comparisons.</li>
+<li>Fix streaming issues of SPY objects.</li>
+</ul>
+</li>
+<li>Infrastructure:<ul>
+<li>Update CI to g++ 13 and clang 18.</li>
+<li>Make doxygen generate a spy.tag in the doc files.</li>
+<li>Added a proper clang format settings.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Our SPY:</h2>
+<p><a href="https://en.wikipedia.org/wiki/Denise_Bloch">Denise Bloch</a></p>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Version 1.1.0 - Julienne Aisner</h1>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Changelog</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Changelog</h2>
 <ul>
 <li>Features:<ul>
 <li>Split PPC VMX/VSX detection to take PPC ISA into account.</li>
@@ -149,19 +176,19 @@ Changelog</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
-New Contributors</h1>
+<h2><a class="anchor" id="autotoc_md5"></a>
+New Contributors</h2>
 <ul>
 <li>@ahoarau made their first contribution in <a href="https://github.com/jfalcou/spy/pull/40">https://github.com/jfalcou/spy/pull/40</a></li>
 <li>@jmgorius made their first contribution in <a href="https://github.com/jfalcou/spy/pull/44">https://github.com/jfalcou/spy/pull/44</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Our SPY:</h1>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Julienne_Aisner">Julienne Aisner</a></p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Version 1.0.0 - Alix d'Unienville</h1>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Changelog</h1>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Changelog</h2>
 <ul>
 <li><b>BREAKING CHANGES</b><ul>
 <li>ARM Neon and ASIMD discrimination are in line with SSE-like extensions. <code>spy::asimd_</code> is now a descendant of <code>spy::neon_</code>. This leads to the removal of <code>spy::supports_aarch64</code></li>
@@ -176,12 +203,12 @@ Changelog</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Our SPY:</h1>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Alix_d%27Unienville">Alix d'Unienville</a></p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Version 0.0.4 - Eileen Nearne</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Changelog</h2>
 <ul>
 <li>Infrastructure:<ul>
@@ -195,12 +222,12 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Eileen_Nearne">Eileen Nearne</a></p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Version 0.0.3 - Virginia Hall</h1>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Changelog</h2>
 <ul>
 <li>Infrastructure:<ul>
@@ -216,12 +243,12 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Virginia_Hall">Virginia Hall</a></p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Version 0.0.2 - Blanche Charlet</h1>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Changelog</h2>
 <ul>
 <li>Support for Continuous Integration</li>
@@ -229,12 +256,12 @@ Changelog</h2>
 <li>Added detectors for data model (LP64, LP32, and all that jazz)</li>
 <li>Added detectors for architecture brand</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Blanche_Charlet">Blanche Charlet</a></p>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 Version 0.0.1 - Peggy Knight</h1>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 First public release.</h2>
 <p>Support for:</p><ul>
 <li>OS vendor</li>
@@ -242,7 +269,7 @@ First public release.</h2>
 <li>libc version &amp; vendor</li>
 <li>stdlib version &amp; vendor</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Peggy_Knight">Peggy Knight</a> </p>
 </div></div><!-- contents -->

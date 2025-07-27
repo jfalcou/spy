@@ -125,13 +125,13 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p>Detection and versioning of operating systems, compilers, architecture and other element are traditionally done using preprocessor macros. Library like <a href="https://www.boost.org/doc/libs/release/doc/html/predef.html">Boost.Predef</a> provides a sanitized interface on top of those but still live in a world where the preprocessor is king.</p>
 <p>SPY is a C++20 (and onward) library that gathers similar information and provides a <code>constexpr</code> compatible interface to access those information, thus making their exploitation within <code>constexpr</code> context possible.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 Some References</h1>
 <ul>
 <li><a href="https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing">Our CppCon 2019 Lightning talk slides</a></li>
 <li><a href="https://www.youtube.com/watch?v=t406o2EhG-A">Our CppCon 2019 Lightning talk:</a>  <center><iframe width="560" height="315" src="https://www.youtube.com/embed/t406o2EhG-A" title="I SPY with my little eye Boost.Predef in a constexpr world - Joel Falcou - CppCon 2019" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center> </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 A Short Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
@@ -151,7 +151,7 @@ A Short Example</h1>
 <div class="ttc" id="agroup__api_gaad5f2aa34188a02b894a0d8c7e402d6e_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition</b> arch.hpp:98</div></div>
 <div class="ttc" id="agroup__api_gadb7c5be967e00cff21ae5b98cc12a7dc_html_gadb7c5be967e00cff21ae5b98cc12a7dc"><div class="ttname"><a href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a></div><div class="ttdeci">constexpr os_type operating_system</div><div class="ttdoc">OS reporting value.</div><div class="ttdef"><b>Definition</b> os.hpp:110</div></div>
 <div class="ttc" id="agroup__api_gafe99b815db524eacf659ba8348ca2e0d_html_gafe99b815db524eacf659ba8348ca2e0d"><div class="ttname"><a href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a></div><div class="ttdeci">constexpr auto stdlib</div><div class="ttdoc">C++ Standard Library version reporting value.</div><div class="ttdef"><b>Definition</b> stdlib.hpp:100</div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 Licence</h1>
 <p>This library is licensed under the <a href="https://opensource.org/licenses/BSL-1.0">Boost Software License</a>:</p>
 <div class="fragment"><div class="line">Copyright : SPY Project Contributors</div>

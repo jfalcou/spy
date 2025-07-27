@@ -13,5 +13,5 @@ var searchData=
   ['operator_22_22_5fuc_10',['operator&quot;&quot;_uc',['../group__api.html#ga0c3666ca0bb5f551cc0103e355a28569',1,'spy::literal']]],
   ['operator_22_22_5fvms_11',['operator&quot;&quot;_vms',['../group__api.html#ga772746f665f6dd13b9a6c8bd19564dab',1,'spy::literal']]],
   ['operator_22_22_5fzos_12',['operator&quot;&quot;_zos',['../group__api.html#ga3c0e24636d16a543f4bf2ed64875eaeb',1,'spy::literal']]],
-  ['our_20spy_3a_13',['our spy:',['../changelog.html#autotoc_md3',1,'Our SPY:'],['../changelog.html#autotoc_md6',1,'Our SPY:'],['../changelog.html#autotoc_md9',1,'Our SPY:'],['../changelog.html#autotoc_md12',1,'Our SPY:'],['../changelog.html#autotoc_md15',1,'Our SPY:'],['../changelog.html#autotoc_md18',1,'Our SPY:']]]
+  ['our_20spy_3a_13',['our spy:',['../changelog.html#autotoc_md2',1,'Our SPY:'],['../changelog.html#autotoc_md6',1,'Our SPY:'],['../changelog.html#autotoc_md9',1,'Our SPY:'],['../changelog.html#autotoc_md12',1,'Our SPY:'],['../changelog.html#autotoc_md15',1,'Our SPY:'],['../changelog.html#autotoc_md18',1,'Our SPY:'],['../changelog.html#autotoc_md21',1,'Our SPY:']]]
 ];
