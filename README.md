@@ -2,7 +2,6 @@
 
 # C++ Informations Broker
 
-[![CircleCI](https://circleci.com/gh/jfalcou/spy.svg?style=svg&circle-token=91ebbf06adfe257ebdff3a5ed17ea512fe02771c)](https://circleci.com/gh/jfalcou/spy) [![Build status](https://ci.appveyor.com/api/projects/status/3us8906c0lvdl8ld/branch/main?svg=true)](https://ci.appveyor.com/project/jfalcou/spy/branch/main)
 [![Licence](https://img.shields.io/github/license/jfalcou/spy?style=plastic)](https://img.shields.io/github/license/jfalcou/spy?style=plastic)
 [![Discord](https://img.shields.io/discord/692734675726237696?style=plastic)](https://discord.gg/a9qVaEMeXd8)
 
