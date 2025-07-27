@@ -8,13 +8,13 @@
 
 
 # Purpose
-Detection and versioning of operating systems, compilers, architecture and other element are
+Detection and versioning of operating systems, compilers, architecture and other elements are
 traditionally done using preprocessor macros. Library like
 [Boost.Predef](https://www.boost.org/doc/libs/release/doc/html/predef.html) provides a sanitized
-interface on top of those but still live in a world where the preprocessor is king.
+interface on top of those, but still lives in a world where the preprocessor is king.
 
-SPY is a C++17 (and onward) library that gathers similar informations and provides a `constexpr`
-compatible interface to access those information, thus making their exploitation within `constexpr`
+SPY is a C++20 (and onward) library that gathers similar information and provides a `constexpr`
+compatible interface to access that information, thus making their exploitation within `constexpr`
 context possible.
 
 The complete [documentation can be found here](https://jfalcou.github.io/spy).
