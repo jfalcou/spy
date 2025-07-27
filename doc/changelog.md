@@ -1,7 +1,30 @@
 Change Log {#changelog}
 ==========
 
-## Version 1.1.0 - Julienne Aisner
+# Version 2.0.0 - Denise Bloch
+
+## Changelog
+
+- Features:
+  - **[BREAKING CHANGE]** Move to C++20 to improve compile times.
+  - Detect RISC-V and RISC-V SIMD instructions sets.
+  - Update SIMD detection by upstreaming EVE recent changes.
+
+- Bugs:
+  - Fix #55 - Properly detect version for Clang CUDA.
+  - Use <=> instead of macros for comparisons.
+  - Fix streaming issues of SPY objects.
+
+- Infrastructure:
+  - Update CI to g++ 13 and clang 18.
+  - Make doxygen generate a spy.tag in the doc files.
+  - Added a proper clang format settings.
+
+## Our SPY:
+
+[Denise Bloch](https://en.wikipedia.org/wiki/Denise_Bloch)
+
+# Version 1.1.0 - Julienne Aisner
 
 ## Changelog
 
@@ -30,7 +53,7 @@ Change Log {#changelog}
 
 [Julienne Aisner](https://en.wikipedia.org/wiki/Julienne_Aisner)
 
-## Version 1.0.0 - Alix d'Unienville
+# Version 1.0.0 - Alix d'Unienville
 
 ## Changelog
 - **BREAKING CHANGES**
