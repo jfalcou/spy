@@ -46,5 +46,6 @@ namespace spy
 #include <spy/sanitizers.hpp>
 #include <spy/simd.hpp>
 #include <spy/stdlib.hpp>
+#include <spy/types.hpp>
 
 #endif
