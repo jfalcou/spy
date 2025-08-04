@@ -27,7 +27,7 @@ jobs:
 
       - name: Generate standalone SPY header
         run: |
-          ninja spy-standalone
+          cd build && ninja spy-standalone
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4.6.2
