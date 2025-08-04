@@ -36,6 +36,8 @@ jobs:
       - name: Update standalone branch
         run: |
           git fetch origin
+          git config --global user.email "spy@nowhere.com"
+          git config --global user.name "SPY Standalone Generator"
           git checkout standalone
           cp build/spy.hpp spy.hpp
           git add spy.hpp
