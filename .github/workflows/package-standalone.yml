@@ -35,6 +35,7 @@ jobs:
 
       - name: Update standalone branch
         run: |
+          git fetch origin
           git checkout standalone
           cp build/spy.hpp spy.hpp
           git add spy.hpp
