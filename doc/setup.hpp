@@ -52,7 +52,7 @@
   Simply use `wget` to fetch the latest version and place it where you want:
 
   @code
-  wget https://raw.githubusercontent.com/jfalcou/spy/main/standalone/spy/spy.hpp
+  wget https://raw.githubusercontent.com/jfalcou/spy/refs/heads/standalone/spy.hpp
   @endcode
 
   Use **SPY** by just compiling your code with the include path pointing to the location of this single file.
