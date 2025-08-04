@@ -12,6 +12,9 @@ on:
 jobs:
   package-standalone:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     container:
       image: ghcr.io/jfalcou/compilers:v9
     strategy:
@@ -29,8 +32,15 @@ jobs:
         run: |
           cd build && ninja spy-standalone
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4.6.2
+      - name: Update standalone branch
+        run: |
+          git checkout standalone
+          cp build/spy.hpp spy.hpp
+          git add spy.hpp
+          git commit -m "Latest SPY standalone"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          name: spy-standalone-header
-          path: build/spy.hpp
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: standalone
