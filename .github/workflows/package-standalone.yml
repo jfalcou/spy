@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: spy-standalone-header
-          path: build/spy-standalone.hpp
+          path: build/spy.hpp

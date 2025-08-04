@@ -59,8 +59,8 @@ endif()
 ## Standalone generation
 ##======================================================================================================================
 copa_setup_standalone ( QUIET
-                        FILE spy.hpp SOURCE include  DESTINATION standalone
-                        ROOT spy     TARGET spy-standalone
+                        FILE spy.hpp SOURCE include ROOT spy TARGET spy-standalone
+                        OUTPUT "${PROJECT_BINARY_DIR}"
                       )
 
 ##======================================================================================================================
