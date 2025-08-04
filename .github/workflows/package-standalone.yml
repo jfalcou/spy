@@ -25,6 +25,7 @@ jobs:
 
       - name: Configure SPY
         run: |
+          git config --global --add safe.directory /__w/spy/spy
           mkdir build && cd build
           cmake .. -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=OFF
 
@@ -43,4 +44,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: standalone
+          branch: ${{ github.ref }}
