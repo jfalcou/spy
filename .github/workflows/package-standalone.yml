@@ -39,10 +39,9 @@ jobs:
           git config --global user.email "spy@nowhere.com"
           git config --global user.name "SPY Standalone Generator"
           git checkout standalone
-          rm spy.hpp
           cp build/spy.hpp spy.hpp
           git add spy.hpp
-          git commit -m "Latest SPY standalone"
+          git commit --allow-empty -m "Latest SPY standalone"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
