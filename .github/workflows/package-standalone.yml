@@ -30,7 +30,7 @@ jobs:
           ninja spy-standalone
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4.1.1
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: spy-standalone-header
           path: build/spy-standalone.hpp
