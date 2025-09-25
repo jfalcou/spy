@@ -45,7 +45,7 @@
     #if defined(__riscv_zvfh)
         #define SPY_SUPPORTS_FP16_VECTOR_OPS
         #define SPY_SUPPORTS_FP16_VECTOR_CONVERSION
-    #elif defined(__riscv_zfhmin)
+    #elif defined(__riscv_zvfhmin)
         #define SPY_SUPPORTS_FP16_VECTOR_CONVERSION
     #endif
 #endif
