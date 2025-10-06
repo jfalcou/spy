@@ -147,6 +147,13 @@ namespace spy::supports
   constexpr inline auto xop_ = false;
 #endif
 
+#if defined(__F16C__)
+#define SPY_SIMD_SUPPORTS_F16C
+  constexpr inline auto f16c_ = true;
+#else
+  constexpr inline auto f16c_ = false;
+#endif
+
   namespace avx512
   {
 #if defined(__AVX512BW__)
