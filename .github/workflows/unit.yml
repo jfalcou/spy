@@ -43,7 +43,7 @@ jobs:
   ## Windows Targets
   ##################################################################################################
   msvc:
-    runs-on: [windows-2022]
+    runs-on: [self-hosted, msvc]
     strategy:
       fail-fast: false
       matrix:
