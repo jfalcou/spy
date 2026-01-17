@@ -1,4 +1,16 @@
+exclude: |
+    (?x)^(
+        ^test_package/.*|
+        ^doc/.*
+    )
+
 repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
 - repo: https://github.com/pre-commit/mirrors-clang-format
   rev: v19.1.7
   hooks:

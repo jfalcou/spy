@@ -6,27 +6,28 @@
 **/
 //==================================================================================================
 #include <spy/spy.hpp>
-#include <iostream>
+
 #include <cassert>
+#include <iostream>
 
 int main()
 {
   std::cout << "Check that detected stdlib is correct: " << std::flush;
   {
 #if defined(_LIBCPP_VERSION)
-  {
-    assert(  spy::stdlib == spy::libcpp_  );
-    assert( !(spy::stdlib == spy::gnucpp_));
-  }
+    {
+      assert(spy::stdlib == spy::libcpp_);
+      assert(!(spy::stdlib == spy::gnucpp_));
+    }
 #elif defined(__GLIBCXX__)
-  {
-    assert( !(spy::stdlib == spy::libcpp_));
-    assert(  spy::stdlib == spy::gnucpp_  );
-  }
+    {
+      assert(!(spy::stdlib == spy::libcpp_));
+      assert(spy::stdlib == spy::gnucpp_);
+    }
 #endif
   }
   std::cout << "Done." << std::endl;
-  std::cout << "Detected stdlib: " << spy::stdlib  << std::endl;
+  std::cout << "Detected stdlib: " << spy::stdlib << std::endl;
 
   std::cout << "Check that detected constexpr selection on exact stdlib is correct: " << std::flush;
   {
@@ -40,14 +41,8 @@ int main()
     [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
-    if constexpr(spy::stdlib)
-    {
-      assert( !bool(wrong_constexpr_behavior) );
-    }
-    else
-    {
-      assert( bool(wrong_constexpr_behavior) );
-    }
+    if constexpr (spy::stdlib) { assert(!bool(wrong_constexpr_behavior)); }
+    else { assert(bool(wrong_constexpr_behavior)); }
   }
   std::cout << "Done." << std::endl;
 }
