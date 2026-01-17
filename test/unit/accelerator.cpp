@@ -9,9 +9,11 @@
 
 #include <iostream>
 
-int main()
+int main(
+
+)
 {
-  std::cout << "Check that specified accelerator is supported: " << std::endl;
+  std::cout <<                                                         "Check that specified accelerator is supported: " << std::endl;
   {
 #if defined(SYCL_LANGUAGE_VERSION) && defined(__INTEL_LLVM_COMPILER)
     static_assert(spy::supports::sycl);
