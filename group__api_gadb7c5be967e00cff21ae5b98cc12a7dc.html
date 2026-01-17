@@ -166,19 +166,20 @@ $(document).ready(function(){initNavTree('group__api_gadb7c5be967e00cff21ae5b98c
 </table>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">  <span class="comment">// Comparisons</span></div>
-<div class="line">  <span class="keywordflow">if</span>      <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a> == spy::bsd_     ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on BSD.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a> == spy::linux_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Linux.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a> == spy::windows_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Windows.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a> == spy::bsd_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on BSD.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a> == spy::linux_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Linux.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a> == spy::windows_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Windows.\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Direct test</span></div>
-<div class="line">  <span class="keywordflow">if</span>      <span class="keyword">constexpr</span>( spy::bsd_     ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on BSD.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::linux_   ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Linux.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::windows_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Windows.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::bsd_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on BSD.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::linux_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Linux.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::windows_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code runs on Windows.\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__api_gadb7c5be967e00cff21ae5b98cc12a7dc_html_gadb7c5be967e00cff21ae5b98cc12a7dc"><div class="ttname"><a href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a></div><div class="ttdeci">constexpr os_type operating_system</div><div class="ttdoc">OS reporting value.</div><div class="ttdef"><b>Definition</b> os.hpp:110</div></div>
 </div><!-- fragment --> 

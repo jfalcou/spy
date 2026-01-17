@@ -155,17 +155,18 @@ $(document).ready(function(){initNavTree('group__api_gafe99b815db524eacf659ba834
 </table>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">  <span class="comment">// Comparisons</span></div>
-<div class="line">  <span class="keywordflow">if</span>      <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a> == spy::gnucpp_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the GNU stdlib.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a> == spy::libcpp_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the Clang stdlib.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a> == spy::gnucpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the GNU stdlib.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a> == spy::libcpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the Clang stdlib.\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Direct test</span></div>
-<div class="line">  <span class="keywordflow">if</span>      <span class="keyword">constexpr</span>( spy::gnucpp_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the GNU stdlib.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::libcpp_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the Clang stdlib.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::gnucpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the GNU stdlib.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::libcpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled with the Clang stdlib.\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__api_gafe99b815db524eacf659ba8348ca2e0d_html_gafe99b815db524eacf659ba8348ca2e0d"><div class="ttname"><a href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a></div><div class="ttdeci">constexpr auto stdlib</div><div class="ttdoc">C++ Standard Library version reporting value.</div><div class="ttdef"><b>Definition</b> stdlib.hpp:100</div></div>
 </div><!-- fragment --> 

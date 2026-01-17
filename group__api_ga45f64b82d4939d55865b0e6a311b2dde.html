@@ -158,23 +158,24 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <p>Moreover, the <code><a class="el" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde" title="SIMD extensions set reporting value.">spy::simd_instruction_set</a></code> object exposes a constexpr <code>width</code> static field that contains the size in bits of the current SIMD instructions set registers.</p>
 <h3 class="groupheader">Example - SIMD Instructions Sets </h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">  std::cout &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::avx_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::avx_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with AVX instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &gt;= spy::sse41_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &gt;= spy::sse41_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with at least support for SSE 4.1\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;= spy::sse2_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;= spy::sse2_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with support for SSE2 at most.\n&quot;</span>;</div>
 <div class="line">  }</div>
@@ -200,26 +201,27 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 </table>
 <h3 class="groupheader">Example - SIMD Architectures </h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::x86_simd_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::x86_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with some Intel SIMD instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::arm_simd_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::arm_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with some ARM SIMD instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::ppc_simd_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::ppc_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with some Power PC SIMD instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::wasm_simd_ )</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::wasm_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with WASM enabled.\n&quot;</span>;</div>
 <div class="line">  }</div>
@@ -238,14 +240,15 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 </table>
 <h3 class="groupheader">Example - SIMD Architectures </h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">if</span>      <span class="keyword">constexpr</span>( spy::supports::fma_        ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA3 support.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::supports::fma4_       ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA4 support.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::supports::xop_        ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with XOP support.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( spy::supports::avx512::cd_ ) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with AV512-CD support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::fma_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA3 support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::fma4_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA4 support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::xop_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with XOP support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::avx512::cd_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with AV512-CD support.\n&quot;</span>;</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
 </div>
