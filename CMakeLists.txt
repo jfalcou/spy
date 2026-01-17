@@ -24,6 +24,53 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake ${COPACAB
 include(${COPACABANA_SOURCE_DIR}/copacabana/cmake/copacabana.cmake)
 copa_project_version(MAJOR 2 MINOR 0 PATCH 0)
 
+##======================================================================================================================
+## Pre-commit hooks setup targets
+##======================================================================================================================
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  find_program(PRE_COMMIT_CMD NAMES pre-commit)
+
+  if(PRE_COMMIT_CMD)
+    add_custom_target ( setup-hooks
+                        COMMAND ${PRE_COMMIT_CMD} install
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                        COMMENT "Installing pre-commit git hooks to ${CMAKE_SOURCE_DIR}/.git/hooks"
+                        VERBATIM
+                      )
+  endif()
+
+  if(EXISTS "${CMAKE_SOURCE_DIR}/.git/hooks/pre-commit")
+    set(PRE_COMMIT_HOOKS_INSTALLED TRUE)
+  else()
+    set(PRE_COMMIT_HOOKS_INSTALLED FALSE)
+  endif()
+
+  if(NOT PRE_COMMIT_CMD OR NOT PRE_COMMIT_HOOKS_INSTALLED)
+    message(STATUS "")
+    message(STATUS "==================================================================")
+    message(STATUS "             ATTENTION: DEVELOPMENT ENVIRONMENT SETUP             ")
+    message(STATUS "==================================================================")
+
+    if(NOT PRE_COMMIT_CMD)
+      message(STATUS "  1. 'pre-commit' tool is NOT found on your system.")
+      message(STATUS "     Please install it: 'pip install pre-commit' or 'brew install pre-commit'")
+    else()
+      message(STATUS "  1. 'pre-commit' tool is found.")
+    endif()
+
+    if(NOT PRE_COMMIT_HOOKS_INSTALLED)
+      message(STATUS "  2. Git hooks are NOT active for this repo.")
+      message(STATUS "     Run this command to fix it:")
+      message(STATUS "     --------------------------------------------------")
+      message(STATUS "     cmake --build . --target setup-hooks")
+      message(STATUS "     --------------------------------------------------")
+    endif()
+
+    message(STATUS "==================================================================")
+    message(STATUS "")
+  endif()
+
+endif()
 
 ##======================================================================================================================
 ## Summary Display

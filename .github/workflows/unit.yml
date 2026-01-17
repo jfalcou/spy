@@ -60,7 +60,7 @@ jobs:
   ## Windows Targets
   ##################################################################################################
   msvc:
-    runs-on: [self-hosted, msvc]
+    runs-on: [windows-2022]
     needs: precommit
     strategy:
       fail-fast: false
