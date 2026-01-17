@@ -6,69 +6,70 @@
 **/
 //==================================================================================================
 #include <spy/spy.hpp>
-#include <iostream>
+
 #include <cassert>
+#include <iostream>
 
 int main()
 {
   std::cout << "Check that detected compiler is correct: " << std::flush;
   {
 #if defined(__NVCC__)
-    assert(   spy::compiler == spy::nvcc_      );
-    assert( !(spy::compiler == spy::msvc_     ));
-    assert( !(spy::compiler == spy::intel_    ));
-    assert( !(spy::compiler == spy::dpcpp_    ));
-    assert( !(spy::compiler == spy::clang_    ));
-    assert( !(spy::compiler == spy::gcc_      ));
-    assert( !(spy::compiler == spy::emscripten_));
+    assert(spy::compiler == spy::nvcc_);
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
 #elif defined(_MSC_VER)
-    assert( !(spy::compiler == spy::nvcc_     ));
-    assert(  spy::compiler == spy::msvc_      );
-    assert( !(spy::compiler == spy::intel_    ));
-    assert( !(spy::compiler == spy::dpcpp_    ));
-    assert( !(spy::compiler == spy::clang_    ));
-    assert( !(spy::compiler == spy::gcc_      ));
-    assert( !(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(spy::compiler == spy::msvc_);
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
-    assert( !(spy::compiler == spy::nvcc_     ));
-    assert( !(spy::compiler == spy::msvc_     ));
-    assert(  spy::compiler == spy::intel_     );
-    assert( !(spy::compiler == spy::dpcpp_    ));
-    assert( !(spy::compiler == spy::clang_    ));
-    assert( !(spy::compiler == spy::gcc_      ));
-    assert( !(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(spy::compiler == spy::intel_);
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
 #elif defined(__INTEL_LLVM_COMPILER)
-    assert( !(spy::compiler == spy::nvcc_     ));
-    assert( !(spy::compiler == spy::msvc_     ));
-    assert( !(spy::compiler == spy::intel_    ));
-    assert(  spy::compiler  == spy::dpcpp_    );
-    assert( !(spy::compiler == spy::clang_    ));
-    assert( !(spy::compiler == spy::gcc_      ));
-    assert( !(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(spy::compiler == spy::dpcpp_);
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
 #elif defined(__EMSCRIPTEN__)
-    assert( !(spy::compiler == spy::nvcc_     ));
-    assert( !(spy::compiler == spy::msvc_     ));
-    assert( !(spy::compiler == spy::intel_    ));
-    assert( !(spy::compiler == spy::dpcpp_    ));
-    assert( !(spy::compiler == spy::clang_    ));
-    assert( !(spy::compiler == spy::gcc_      ));
-    assert(  spy::compiler == spy::emscripten_);
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(spy::compiler == spy::emscripten_);
 #elif defined(__clang__)
-    assert( !(spy::compiler == spy::nvcc_     ));
-    assert( !(spy::compiler == spy::msvc_     ));
-    assert( !(spy::compiler == spy::intel_    ));
-    assert( !(spy::compiler == spy::dpcpp_    ));
-    assert(  spy::compiler == spy::clang_     );
-    assert( !(spy::compiler == spy::gcc_      ));
-    assert( !(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(spy::compiler == spy::clang_);
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
 #elif defined(__GNUC__)
-    assert( !(spy::compiler == spy::nvcc_     ));
-    assert( !(spy::compiler == spy::msvc_     ));
-    assert( !(spy::compiler == spy::intel_    ));
-    assert( !(spy::compiler == spy::dpcpp_    ));
-    assert( !(spy::compiler == spy::clang_    ));
-    assert(  spy::compiler == spy::gcc_       );
-    assert( !(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(spy::compiler == spy::gcc_);
+    assert(!(spy::compiler == spy::emscripten_));
 #endif
   }
   std::cout << "Done." << std::endl;
@@ -79,61 +80,61 @@ int main()
     using namespace spy::literal;
 
 #if defined(__NVCC__)
-    assert(  spy::compiler >= 6'0_nvcc );
-    assert( !(spy::compiler >= 19'5_msvc));
-    assert( !(spy::compiler >= 19_intel ));
-    assert( !(spy::compiler >= 2023'1_dpcpp ));
-    assert( !(spy::compiler >= 3'9_clang));
-    assert( !(spy::compiler >= 7'2_gcc  ));
-    assert( !(spy::compiler >= 3'1_em   ));
+    assert(spy::compiler >= 6'0_nvcc);
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(!(spy::compiler >= 3'1_em));
 #elif defined(_MSC_VER)
-    assert( !(spy::compiler >= 6'0_nvcc ));
-    assert(  spy::compiler >= 19'5_msvc );
-    assert( !(spy::compiler >= 19_intel ));
-    assert( !(spy::compiler >= 2023'1_dpcpp ));
-    assert( !(spy::compiler >= 3'9_clang));
-    assert( !(spy::compiler >= 7'2_gcc  ));
-    assert( !(spy::compiler >= 3'1_em   ));
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(spy::compiler >= 19'5_msvc);
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(!(spy::compiler >= 3'1_em));
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
-    assert( !(spy::compiler >= 6'0_nvcc ));
-    assert( !(spy::compiler >= 19'5_msvc));
-    assert(  spy::compiler >= 19_intel  );
-    assert( !(spy::compiler >= 2023'1_dpcpp ));
-    assert( !(spy::compiler >= 3'9_clang));
-    assert( !(spy::compiler >= 7'2_gcc  ));
-    assert( !(spy::compiler >= 3'1_em   ));
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(spy::compiler >= 19_intel);
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(!(spy::compiler >= 3'1_em));
 #elif defined(__INTEL_LLVM_COMPILER)
-    assert( !(spy::compiler >= 6'0_nvcc ));
-    assert( !(spy::compiler >= 19'5_msvc));
-    assert( !(spy::compiler >= 19_intel  ));
-    assert(  spy::compiler >= 2023'1_dpcpp);
-    assert( !(spy::compiler >= 3'9_clang));
-    assert( !(spy::compiler >= 7'2_gcc  ));
-    assert( !(spy::compiler >= 3'1_em   ));
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 19_intel));
+    assert(spy::compiler >= 2023'1_dpcpp);
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(!(spy::compiler >= 3'1_em));
 #elif defined(__EMSCRIPTEN__)
-    assert( !(spy::compiler >= 6'0_nvcc ));
-    assert( !(spy::compiler >= 19'5_msvc));
-    assert( !(spy::compiler >= 19_intel ));
-    assert( !(spy::compiler >= 2023'1_dpcpp ));
-    assert( !(spy::compiler >= 3'9_clang));
-    assert( !(spy::compiler >= 7'2_gcc  ));
-    assert(  spy::compiler >= 3'1_em    );
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(spy::compiler >= 3'1_em);
 #elif defined(__clang__)
-    assert( !(spy::compiler >= 6'0_nvcc ));
-    assert( !(spy::compiler >= 19'5_msvc));
-    assert( !(spy::compiler >= 19_intel ));
-    assert( !(spy::compiler >= 2023'1_dpcpp ));
-    assert(  spy::compiler >= 3'9_clang );
-    assert( !(spy::compiler >= 7'2_gcc  ));
-    assert( !(spy::compiler >= 3'1_em   ));
-#elif defined(__GNUC__ )
-    assert( !(spy::compiler >= 6'0_nvcc ));
-    assert( !(spy::compiler >= 19'5_msvc));
-    assert( !(spy::compiler >= 19_intel ));
-    assert( !(spy::compiler >= 2023'1_dpcpp ));
-    assert( !(spy::compiler >= 3'9_clang));
-    assert(  spy::compiler >= 7'2_gcc   );
-    assert( !(spy::compiler >= 3'1_em   ));
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(spy::compiler >= 3'9_clang);
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(!(spy::compiler >= 3'1_em));
+#elif defined(__GNUC__)
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(spy::compiler >= 7'2_gcc);
+    assert(!(spy::compiler >= 3'1_em));
 #endif
   }
   std::cout << "Done." << std::endl;
@@ -160,14 +161,8 @@ int main()
     [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
-    if constexpr(spy::compiler)
-    {
-      assert( !bool(wrong_constexpr_behavior) );
-    }
-    else
-    {
-      assert( bool(wrong_constexpr_behavior) );
-    }
+    if constexpr (spy::compiler) { assert(!bool(wrong_constexpr_behavior)); }
+    else { assert(bool(wrong_constexpr_behavior)); }
   }
   std::cout << "Done." << std::endl;
 }

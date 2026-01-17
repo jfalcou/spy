@@ -14,12 +14,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  ##################################################################################################
+  ## Preserve pre-commit checks
+  ##################################################################################################
+  precommit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run pre-commit checks
+        run: pre-commit run --all-files
 
   ##################################################################################################
   ## Mac OS X Targets
   ##################################################################################################
   macosx:
     runs-on: [macos-14]
+    needs: precommit
     strategy:
       fail-fast: false
       matrix:
@@ -44,6 +61,7 @@ jobs:
   ##################################################################################################
   msvc:
     runs-on: [self-hosted, msvc]
+    needs: precommit
     strategy:
       fail-fast: false
       matrix:
@@ -70,6 +88,7 @@ jobs:
 
   clang-cl:
     runs-on: [windows-2022]
+    needs: precommit
     strategy:
       fail-fast: false
       matrix:
@@ -98,6 +117,7 @@ jobs:
   ##################################################################################################
   wasm:
     runs-on: ubuntu-latest
+    needs: precommit
     container:
       image: ghcr.io/jfalcou/compilers:v9
     strategy:
@@ -124,6 +144,7 @@ jobs:
   ##################################################################################################
   riscv:
     runs-on: ubuntu-latest
+    needs: precommit
     container:
       image: ghcr.io/jfalcou/compilers:v9
     strategy:
@@ -150,6 +171,7 @@ jobs:
   ##################################################################################################
   nvcc:
     runs-on: self-hosted
+    needs: precommit
     strategy:
       fail-fast: false
       matrix:
@@ -182,6 +204,7 @@ jobs:
   ##################################################################################################
   dpcpp:
     runs-on: ubuntu-latest
+    needs: precommit
     container:
       image: ghcr.io/jfalcou/compilers:sycl-v1
     strategy:
@@ -211,8 +234,9 @@ jobs:
   ##################################################################################################
   clang:
     runs-on: ubuntu-latest
+    needs: precommit
     container:
-      image: ghcr.io/jfalcou/compilers:v9
+      image: ghcr.io/jfalcou/compilers:v10
     strategy:
       fail-fast: false
       matrix:
@@ -237,8 +261,9 @@ jobs:
   ##################################################################################################
   gcc:
     runs-on: ubuntu-latest
+    needs: precommit
     container:
-      image: ghcr.io/jfalcou/compilers:v9
+      image: ghcr.io/jfalcou/compilers:v10
     strategy:
       fail-fast: false
       matrix:
