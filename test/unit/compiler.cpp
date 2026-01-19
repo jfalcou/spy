@@ -5,10 +5,9 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <spy/spy.hpp>
-
 #include <cassert>
 #include <iostream>
+#include <spy/spy.hpp>
 
 int main()
 {
@@ -139,7 +138,8 @@ int main()
   }
   std::cout << "Done." << std::endl;
 
-  std::cout << "Check that detected constexpr selection on exact compiler is correct: " << std::flush;
+  std::cout << "Check that detected constexpr selection on exact compiler is correct: "
+            << std::flush;
   {
     using namespace spy::literal;
 
@@ -161,7 +161,7 @@ int main()
     [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
-    if constexpr (spy::compiler) { assert(!bool(wrong_constexpr_behavior)); }
+    if constexpr(spy::compiler) { assert(!bool(wrong_constexpr_behavior)); }
     else { assert(bool(wrong_constexpr_behavior)); }
   }
   std::cout << "Done." << std::endl;

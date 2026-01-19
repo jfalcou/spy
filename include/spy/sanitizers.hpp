@@ -81,7 +81,7 @@ namespace spy::supports
 
 #if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
-#define SPY_DISABLE_THREAD_SANITIZERS __attribute__((no_sanitize_thread))
+#define SPY_DISABLE_THREAD_SANITIZERS  __attribute__((no_sanitize_thread))
 #elif defined(SPY_COMPILER_IS_MSVC)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __declspec(no_sanitize_address)
 #define SPY_DISABLE_THREAD_SANITIZERS

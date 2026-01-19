@@ -1,6 +1,5 @@
-#include <spy/spy.hpp>
-
 #include <iostream>
+#include <spy/spy.hpp>
 
 int main()
 {

@@ -106,7 +106,8 @@
 #define SPY_SIMD_DETECTED ::spy::_::simd_version::sse3_
 #endif
 
-#if !defined(SPY_SIMD_DETECTED) && (defined(__SSE2__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2))
+#if !defined(SPY_SIMD_DETECTED) &&                                                                 \
+    (defined(__SSE2__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 2))
 #define SPY_SIMD_IS_X86_SSE2
 #define SPY_SIMD_DETECTED ::spy::_::simd_version::sse2_
 #endif

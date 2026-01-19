@@ -5,10 +5,9 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <spy/spy.hpp>
-
 #include <cassert>
 #include <iostream>
+#include <spy/spy.hpp>
 
 int main()
 {
@@ -41,7 +40,8 @@ int main()
     assert(!(spy::operating_system == spy::macos_));
     assert(!(spy::operating_system == spy::unix_));
     assert(!(spy::operating_system == spy::windows_));
-#elif defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+#elif defined(__APPLE__) && defined(__MACH__) &&                                                   \
+    defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
     assert(!(spy::operating_system == spy::android_));
     assert(!(spy::operating_system == spy::bsd_));
     assert(!(spy::operating_system == spy::cygwin_));
@@ -77,7 +77,8 @@ int main()
     assert(!(spy::operating_system == spy::macos_));
     assert(spy::operating_system == spy::unix_);
     assert(!(spy::operating_system == spy::windows_));
-#elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+#elif defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__TOS_WIN__) ||          \
+    defined(__WINDOWS__)
     assert(!(spy::operating_system == spy::android_));
     assert(!(spy::operating_system == spy::bsd_));
     assert(!(spy::operating_system == spy::cygwin_));

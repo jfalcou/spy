@@ -25,19 +25,19 @@ SPY turns compile-time detection into simple boolean checks:
 int main()
 {
   // Check Compiler
-  if constexpr( spy::compiler == spy::clang_ ) 
+  if constexpr( spy::compiler == spy::clang_ )
   {
     std::cout << "Optimizing with Clang version " << spy::compiler.version << "\n";
   }
 
   // Check Architecture
-  if constexpr( spy::architecture == spy::amd64_ ) 
+  if constexpr( spy::architecture == spy::amd64_ )
   {
     std::cout << "Running on x86-64\n";
   }
 
   // Check SIMD capabilities (hierarchical)
-  if constexpr( spy::simd_instruction_set >= spy::avx2_ ) 
+  if constexpr( spy::simd_instruction_set >= spy::avx2_ )
   {
     std::cout << "AVX2 or better is available\n";
   }
