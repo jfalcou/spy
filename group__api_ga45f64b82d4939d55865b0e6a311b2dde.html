@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr auto spy::simd_instruction_set = _::simd_info&lt;&gt;{}</td>
+          <td class="memname">constexpr auto spy::simd_instruction_set = _::simd_info&lt;&gt; {}</td>
         </tr>
       </table>
   </td>
@@ -143,46 +143,35 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <p>SIMD extensions set reporting value. </p>
 <h2 class="groupheader">SIMD Instructions Sets </h2>
 <p>SIMD extensions set detection is made so that one can ask if the current SIMD extension is exactly, below or above a given reference instruction set. Detectable instructions sets depends on SIMD hardware vendor</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Architecture   </th><th class="markdownTableHeadNone">Supported SIMD instructions sets    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>X86 SSE</b>   </td><td class="markdownTableBodyNone"><code>spy::sse1_</code>, <code>spy::sse2_</code>, <code>spy::sse3_</code>, <code>spy::ssse3_</code>, <code>spy::sse41_</code>, <code>spy::sse42_</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>X86 AVX</b>   </td><td class="markdownTableBodyNone"><code>spy::avx_</code>, <code>spy::avx2_</code>, <code>spy::avx512_</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>Power PC VMX</b>   </td><td class="markdownTableBodyNone"><code>spy::vmx_</code>, <code>spy::vmx_2_03_</code>, <code>spy::vmx_2_05_</code>, <code>spy::vmx_2_06_</code>, <code>spy::vmx_2_07_</code>,   </td></tr>
-</table>
-<p><code>spy::vmx_3_00_</code>, <code>spy::vmx_3_01_</code> | | <b>Power PC VSX</b> | <code>spy::vsx_</code>, <code>spy::vsx_2_06_</code>, <code>spy::vsx_2_07_</code>, <code>spy::vsx_3_00_</code>, <code>spy::vsx_3_01_</code> | | <b>ARM NEON</b> | <code>spy::neon_</code>, <code>spy::asimd_</code> | | <b>ARM SVE</b> | <code>spy::sve_</code>,<code>spy::sve128_</code>, <code>spy::sve256_</code>, <code>spy::sve512_</code>, <code>spy::sve1024_</code> | | <b>WASM</b> | <code>spy::simd128_</code> | | <b>RISC-V</b> | <code>spy::rvv_</code>` |</p>
+<p>| Architecture | Supported SIMD instructions sets | | --------------&mdash; | ------------------------------------------------------------------------------------&mdash; | | <b>X86 SSE</b> | <code>spy::sse1_</code>, <code>spy::sse2_</code>, <code>spy::sse3_</code>, <code>spy::ssse3_</code>, <code>spy::sse41_</code>, <code>spy::sse42_</code> | | <b>X86 AVX</b> | <code>spy::avx_</code>, <code>spy::avx2_</code>, <code>spy::avx512_</code> | | <b>Power PC VMX</b> | <code>spy::vmx_</code>, <code>spy::vmx_2_03_</code>, <code>spy::vmx_2_05_</code>, <code>spy::vmx_2_06_</code>, <code>spy::vmx_2_07_</code>, <code>spy::vmx_3_00_</code>, <code>spy::vmx_3_01_</code> | | <b>Power PC VSX</b> | <code>spy::vsx_</code>, <code>spy::vsx_2_06_</code>, <code>spy::vsx_2_07_</code>, <code>spy::vsx_3_00_</code>, <code>spy::vsx_3_01_</code> | | <b>ARM NEON</b> | <code>spy::neon_</code>, <code>spy::asimd_</code> | | <b>ARM SVE</b> | <code>spy::sve_</code>,<code>spy::sve128_</code>, <code>spy::sve256_</code>, <code>spy::sve512_</code>, <code>spy::sve1024_</code> | | <b>WASM</b> | <code>spy::simd128_</code> | | <b>RISC-V</b> | <code>spy::rvv_</code>` |</p>
 <p>Complete set of comparison operators is provided for those sets. Order of instructions sets are built so that if an instructions set supersedes another, it is considered greater than. For example, <code>spy::avx_</code> is greater than <code>spy::sse41_</code> as the former is a super-set of the later. Comparing SIMD descriptors across architecture is undefined behavior.</p>
 <p>Moreover, the <code><a class="el" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde" title="SIMD extensions set reporting value.">spy::simd_instruction_set</a></code> object exposes a constexpr <code>width</code> static field that contains the size in bits of the current SIMD instructions set registers.</p>
 <h3 class="groupheader">Example - SIMD Instructions Sets </h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">  std::cout &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::avx_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::avx_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with AVX instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &gt;= spy::sse41_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &gt;= spy::sse41_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with at least support for SSE 4.1\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;= spy::sse2_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;= spy::sse2_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with support for SSE2 at most.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;This code can use &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a>.width &lt;&lt; <span class="stringliteral">&quot; bits register.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:221</div></div>
+<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:231</div></div>
 </div><!-- fragment --><h2 class="groupheader">SIMD Architectures </h2>
 <p>One can also simply asks if a given family of instructions set is available.</p>
 <table class="markdownTable">
@@ -200,55 +189,47 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <td class="markdownTableBodyNone"><b>RISC-V</b>   </td><td class="markdownTableBodyNone"><code>spy::riscv_simd_</code>   </td></tr>
 </table>
 <h3 class="groupheader">Example - SIMD Architectures </h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::x86_simd_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::x86_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with some Intel SIMD instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::arm_simd_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::arm_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with some ARM SIMD instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::ppc_simd_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::ppc_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with some Power PC SIMD instructions set.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::wasm_simd_)</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> == spy::wasm_simd_)</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with WASM enabled.\n&quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line">}</div>
 </div><!-- fragment --><h2 class="groupheader">Supplemental Instructions sets </h2>
 <p>Some SIMD instructions set provides supplemental instructions on top of existing system. Those supplemental instruction set can be checked using the <code>spy::supports</code> namespace.</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Architecture   </th><th class="markdownTableHeadNone">Supported SIMD instructions sets    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">X86 AVX   </td><td class="markdownTableBodyNone"><code>xop_</code>, <code>fma_</code>, <code>fma4_</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">X86 AVX512   </td><td class="markdownTableBodyNone"><code>bw_</code>, <code>cd_</code>, <code>dq_</code>, <code>er_</code>, <code>ifma_</code>, <code>pf_</code>, <code>vl_</code>, <code>popcntdq_</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><code>_4fmaps_</code>, <code>vnniw_</code>, <code>vbmi_</code>, <code>bf16_</code>,<code>bitalg_</code>, <code>vbmi2_</code>, <code>vnni_</code>, <code>vpintersect_</code>   </td></tr>
-</table>
+<p>| Architecture | Supported SIMD instructions sets | | ----------&mdash; | ---------------------------------------------------------------------------------&mdash;| | X86 AVX | <code>xop_</code>, <code>fma_</code>, <code>fma4_</code> | | X86 AVX512 | <code>bw_</code>, <code>cd_</code>, <code>dq_</code>, <code>er_</code>, <code>ifma_</code>, <code>pf_</code>, <code>vl_</code>, <code>popcntdq_</code> | | | <code>_4fmaps_</code>, <code>vnniw_</code>, <code>vbmi_</code>, <code>bf16_</code>,<code>bitalg_</code>, <code>vbmi2_</code>, <code>vnni_</code>, <code>vpintersect_</code> |</p>
 <h3 class="groupheader">Example - SIMD Architectures </h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::fma_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA3 support.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::fma4_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA4 support.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::xop_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with XOP support.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::supports::avx512::cd_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with AV512-CD support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::supports::fma_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA3 support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::supports::fma4_)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with FMA4 support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::supports::xop_)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with XOP support.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::supports::avx512::cd_)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code has been compiled with AV512-CD support.\n&quot;</span>;</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
 </div>

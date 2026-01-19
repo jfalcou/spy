@@ -164,28 +164,28 @@ $(document).ready(function(){initNavTree('group__api_ga2d96c18fea5b9a06ac37487ab
 <td class="markdownTableBodyNone"><code>spy::nvcc</code>   </td><td class="markdownTableBodyNone">NVIDIA NVCC   </td></tr>
 </table>
 <h2 class="groupheader">Example </h2>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">  <span class="comment">// Comparisons</span></div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == spy::gcc_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with g++.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == spy::clang_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == spy::dpcpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with ICPX.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == spy::gcc_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with g++.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == spy::clang_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == spy::dpcpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with ICPX.\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Direct test</span></div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::gcc_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with g++.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::clang_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::dpcpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with ICPX.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::gcc_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with g++.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::clang_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::dpcpp_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with ICPX.\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Version checks</span></div>
 <div class="line">  <span class="keyword">using namespace </span>spy::literal;</div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == 16&#39;0_clang) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang 16.\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> &gt;= 15&#39;0_clang) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang 15 or ulterior.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> == 16&#39;0_clang) std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang 16.\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> &gt;= 15&#39;0_clang)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang 15 or ulterior.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_ga2d96c18fea5b9a06ac37487ab570599d_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:146</div></div>
+<div class="ttc" id="agroup__api_ga2d96c18fea5b9a06ac37487ab570599d_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:151</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

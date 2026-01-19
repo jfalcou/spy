@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('group__api_gaa091fe192a7f9d0d164cf7546
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr auto spy::data_model = data_model_type{}</td>
+          <td class="memname">constexpr auto spy::data_model = data_model_type {}</td>
         </tr>
       </table>
   </td>
@@ -161,23 +161,25 @@ $(document).ready(function(){initNavTree('group__api_gaa091fe192a7f9d0d164cf7546
 <td class="markdownTableBodyNone"><code>spy::lp64</code>   </td><td class="markdownTableBodyNone">LP64   </td></tr>
 </table>
 <h2 class="groupheader">Example </h2>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
 <div class="line">  <span class="comment">// Comparisons</span></div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a> == spy::ilp32_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP32 system\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a> == spy::ilp64_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP64 system\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a> == spy::lp64_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a LP64 system\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a> == spy::ilp32_)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP32 system\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a> == spy::ilp64_)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP64 system\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a> == spy::lp64_)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a LP64 system\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Direct test</span></div>
-<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::ilp32_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP32 system\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::ilp64_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP64 system\n&quot;</span>;</div>
-<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (spy::lp64_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a LP64 system\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::ilp32_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP32 system\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::ilp64_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a ILP64 system\n&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(spy::lp64_) std::cout &lt;&lt; <span class="stringliteral">&quot;This code is compiled on a LP64 system\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_gaa091fe192a7f9d0d164cf7546083200d_html_gaa091fe192a7f9d0d164cf7546083200d"><div class="ttname"><a href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a></div><div class="ttdeci">constexpr auto data_model</div><div class="ttdoc">Data Model reporting value.</div><div class="ttdef"><b>Definition</b> data_model.hpp:64</div></div>
+<div class="ttc" id="agroup__api_gaa091fe192a7f9d0d164cf7546083200d_html_gaa091fe192a7f9d0d164cf7546083200d"><div class="ttname"><a href="group__api_gaa091fe192a7f9d0d164cf7546083200d.html#gaa091fe192a7f9d0d164cf7546083200d">spy::data_model</a></div><div class="ttdeci">constexpr auto data_model</div><div class="ttdoc">Data Model reporting value.</div><div class="ttdef"><b>Definition</b> data_model.hpp:68</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

@@ -145,17 +145,19 @@ $(document).ready(function(){initNavTree('group__api_ga37e2c07363dadf1eb40e89a9a
 <p>Thread sanitizer status indicator. </p>
 <p>Indicate if current code is compile using <code>-fsanitize=address</code>.</p>
 <h2 class="groupheader">Example </h2>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Address sanitizers status: &quot;</span> &lt;&lt; std::boolalpha &lt;&lt; <a class="code hl_variable" href="group__api_ga37e2c07363dadf1eb40e89a9a91f8121.html#ga37e2c07363dadf1eb40e89a9a91f8121">spy::supports::address_sanitizers_status</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Address sanitizers status: &quot;</span> &lt;&lt; std::boolalpha</div>
+<div class="line">            &lt;&lt; <a class="code hl_variable" href="group__api_ga37e2c07363dadf1eb40e89a9a91f8121.html#ga37e2c07363dadf1eb40e89a9a91f8121">spy::supports::address_sanitizers_status</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Threads sanitizers status: &quot;</span> &lt;&lt; std::boolalpha &lt;&lt; <a class="code hl_variable" href="group__api_ga16591d3ea9aaa049682bfbedd519dc43.html#ga16591d3ea9aaa049682bfbedd519dc43">spy::supports::thread_sanitizers_status</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Threads sanitizers status: &quot;</span> &lt;&lt; std::boolalpha</div>
+<div class="line">            &lt;&lt; <a class="code hl_variable" href="group__api_ga16591d3ea9aaa049682bfbedd519dc43.html#ga16591d3ea9aaa049682bfbedd519dc43">spy::supports::thread_sanitizers_status</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Any sanitizers status: &quot;</span> &lt;&lt; std::boolalpha &lt;&lt; <a class="code hl_variable" href="group__api_ga28313e4f9673ea0f5d0ca44ffd1a967a.html#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a> &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Any sanitizers status: &quot;</span> &lt;&lt; std::boolalpha &lt;&lt; <a class="code hl_variable" href="group__api_ga28313e4f9673ea0f5d0ca44ffd1a967a.html#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a></div>
+<div class="line">            &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__api_ga16591d3ea9aaa049682bfbedd519dc43_html_ga16591d3ea9aaa049682bfbedd519dc43"><div class="ttname"><a href="group__api_ga16591d3ea9aaa049682bfbedd519dc43.html#ga16591d3ea9aaa049682bfbedd519dc43">spy::supports::thread_sanitizers_status</a></div><div class="ttdeci">constexpr bool thread_sanitizers_status</div><div class="ttdoc">Thread sanitizer status indicator.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:65</div></div>
 <div class="ttc" id="agroup__api_ga28313e4f9673ea0f5d0ca44ffd1a967a_html_ga28313e4f9673ea0f5d0ca44ffd1a967a"><div class="ttname"><a href="group__api_ga28313e4f9673ea0f5d0ca44ffd1a967a.html#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a></div><div class="ttdeci">constexpr bool sanitizers_status</div><div class="ttdoc">Sanitizers status indicator.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:79</div></div>
