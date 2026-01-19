@@ -5,10 +5,9 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <spy/spy.hpp>
-
 #include <cassert>
 #include <iostream>
+#include <spy/spy.hpp>
 
 int main()
 {
@@ -32,12 +31,18 @@ int main()
     assert(!(spy::data_model == spy::lp64_));
 #endif
 
-    std::cout << "ILP32  status: " << std::boolalpha << (spy::data_model == spy::ilp32_) << std::endl;
-    std::cout << "LP32   status: " << std::boolalpha << (spy::data_model == spy::lp32_) << std::endl;
-    std::cout << "SILP64 status: " << std::boolalpha << (spy::data_model == spy::silp64_) << std::endl;
-    std::cout << "ILP64  status: " << std::boolalpha << (spy::data_model == spy::ilp64_) << std::endl;
-    std::cout << "LLP64  status: " << std::boolalpha << (spy::data_model == spy::llp64_) << std::endl;
-    std::cout << "LP64   status: " << std::boolalpha << (spy::data_model == spy::lp64_) << std::endl;
+    std::cout << "ILP32  status: " << std::boolalpha << (spy::data_model == spy::ilp32_)
+              << std::endl;
+    std::cout << "LP32   status: " << std::boolalpha << (spy::data_model == spy::lp32_)
+              << std::endl;
+    std::cout << "SILP64 status: " << std::boolalpha << (spy::data_model == spy::silp64_)
+              << std::endl;
+    std::cout << "ILP64  status: " << std::boolalpha << (spy::data_model == spy::ilp64_)
+              << std::endl;
+    std::cout << "LLP64  status: " << std::boolalpha << (spy::data_model == spy::llp64_)
+              << std::endl;
+    std::cout << "LP64   status: " << std::boolalpha << (spy::data_model == spy::lp64_)
+              << std::endl;
   }
   std::cout << "Done." << std::endl;
   std::cout << "Data model detected: " << spy::data_model << std::endl;

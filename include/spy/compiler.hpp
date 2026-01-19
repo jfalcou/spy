@@ -33,12 +33,13 @@ namespace spy::_
 
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
-    static constexpr compilers vendor = Compiler;
+    static constexpr compilers           vendor  = Compiler;
     static constexpr version_id<M, N, P> version = {};
 
-    inline constexpr explicit operator bool() const noexcept;
+    inline constexpr explicit            operator bool() const noexcept;
 
-    template<compilers C2> constexpr bool operator==(compilers_info<C2, -1, 0, 0> const&) const noexcept
+    template<compilers C2>
+    constexpr bool operator==(compilers_info<C2, -1, 0, 0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -50,33 +51,36 @@ namespace spy::_
     }
 
     template<compilers C2, int M2, int N2, int P2>
-    constexpr std::partial_ordering operator<=>(compilers_info<C2, M2, N2, P2> const& c2) const noexcept
+    constexpr std::partial_ordering
+    operator<=>(compilers_info<C2, M2, N2, P2> const& c2) const noexcept
     {
-      if constexpr (vendor == C2) return version <=> c2.version;
+      if constexpr(vendor == C2) return version <=> c2.version;
       else return std::partial_ordering::unordered;
     }
   };
 
-  template<_::stream OS, compilers C, int M, int N, int P> auto& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
+  template<_::stream OS, compilers C, int M, int N, int P>
+  auto& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
   {
-    if (C == compilers::nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
-    if (C == compilers::msvc_) return os << "Microsoft Visual Studio " << c.version;
-    if (C == compilers::intel_) return os << "Intel(R) C++ Compiler " << c.version;
-    if (C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
-    if (C == compilers::clang_) return os << "clang " << c.version;
-    if (C == compilers::gcc_) return os << "g++ " << c.version;
-    if (C == compilers::emscripten_) return os << "Emscripten " << c.version;
+    if(C == compilers::nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
+    if(C == compilers::msvc_) return os << "Microsoft Visual Studio " << c.version;
+    if(C == compilers::intel_) return os << "Intel(R) C++ Compiler " << c.version;
+    if(C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
+    if(C == compilers::clang_) return os << "clang " << c.version;
+    if(C == compilers::gcc_) return os << "g++ " << c.version;
+    if(C == compilers::emscripten_) return os << "Emscripten " << c.version;
 
     return os << "Undefined " << c.version;
   }
 
-  template<int M, int N, int P> using msvc_t = compilers_info<compilers::msvc_, M, N, P>;
+  template<int M, int N, int P> using msvc_t  = compilers_info<compilers::msvc_, M, N, P>;
   template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_, M, N, P>;
   template<int M, int N, int P> using dpcpp_t = compilers_info<compilers::dpcpp_, M, N, P>;
-  template<int M, int N, int P> using nvcc_t = compilers_info<compilers::nvcc_, M, N, P>;
+  template<int M, int N, int P> using nvcc_t  = compilers_info<compilers::nvcc_, M, N, P>;
   template<int M, int N, int P> using clang_t = compilers_info<compilers::clang_, M, N, P>;
-  template<int M, int N, int P> using gcc_t = compilers_info<compilers::gcc_, M, N, P>;
-  template<int M, int N, int P> using emscripten_t = compilers_info<compilers::emscripten_, M, N, P>;
+  template<int M, int N, int P> using gcc_t   = compilers_info<compilers::gcc_, M, N, P>;
+  template<int M, int N, int P>
+  using emscripten_t = compilers_info<compilers::emscripten_, M, N, P>;
 }
 
 namespace spy
@@ -102,7 +106,8 @@ namespace spy
 #undef SPY0
 #elif defined(__EMSCRIPTEN__)
 #define SPY_COMPILER_IS_CLANG
-  using compiler_type = _::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__>;
+  using compiler_type =
+      _::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__>;
 #undef SPY0
 #elif defined(__clang__)
 #define SPY_COMPILER_IS_CLANG
@@ -122,11 +127,11 @@ namespace spy
   //! The `spy::compiler` object can be compared to any other compiler related value to verify
   //! if the code being compiled with a specific compiler.
   //!
-  //! Any compiler related value can be checked for equality or ordering for a given version. The targeted
-  //! version is then specified using a compiler-dependent literal.
+  //! Any compiler related value can be checked for equality or ordering for a given version. The
+  //! targeted version is then specified using a compiler-dependent literal.
   //!
-  //! Additionally, any of the compiler related value are convertible to `bool`. They evaluates to `true` if they
-  //! matches the correct compiler currently used.
+  //! Additionally, any of the compiler related value are convertible to `bool`. They evaluates to
+  //! `true` if they matches the correct compiler currently used.
   //!
   //! @groupheader{Supported Value}
   //!
@@ -148,7 +153,8 @@ namespace spy
 
 namespace spy::_
 {
-  template<compilers C, int M, int N, int P> inline constexpr compilers_info<C, M, N, P>::operator bool() const noexcept
+  template<compilers C, int M, int N, int P>
+  inline constexpr compilers_info<C, M, N, P>::operator bool() const noexcept
   {
     return spy::compiler == *this;
   }
@@ -159,13 +165,13 @@ namespace spy
   //================================================================================================
   // Compilers detector stand-alone instances
   //================================================================================================
-  constexpr inline auto nvcc_ = _::nvcc_t<-1, 0, 0>{};
-  constexpr inline auto msvc_ = _::msvc_t<-1, 0, 0>{};
-  constexpr inline auto intel_ = _::intel_t<-1, 0, 0>{};
-  constexpr inline auto dpcpp_ = _::dpcpp_t<-1, 0, 0>{};
-  constexpr inline auto clang_ = _::clang_t<-1, 0, 0>{};
-  constexpr inline auto gcc_ = _::gcc_t<-1, 0, 0>{};
-  constexpr inline auto emscripten_ = _::emscripten_t<-1, 0, 0>{};
+  constexpr inline auto nvcc_       = _::nvcc_t<-1, 0, 0> {};
+  constexpr inline auto msvc_       = _::msvc_t<-1, 0, 0> {};
+  constexpr inline auto intel_      = _::intel_t<-1, 0, 0> {};
+  constexpr inline auto dpcpp_      = _::dpcpp_t<-1, 0, 0> {};
+  constexpr inline auto clang_      = _::clang_t<-1, 0, 0> {};
+  constexpr inline auto gcc_        = _::gcc_t<-1, 0, 0> {};
+  constexpr inline auto emscripten_ = _::emscripten_t<-1, 0, 0> {};
 }
 
 namespace spy::literal
@@ -207,10 +213,7 @@ namespace spy::literal
 
   //! @ingroup api
   //! @brief User-defined suffix for G++ version definition
-  template<char... c> constexpr auto operator""_gcc()
-  {
-    return _::literal_wrap<_::gcc_t, c...>();
-  }
+  template<char... c> constexpr auto operator""_gcc() { return _::literal_wrap<_::gcc_t, c...>(); }
 
   //! @ingroup api
   //! @brief User-defined suffix for Emscripten version definition

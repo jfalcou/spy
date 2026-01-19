@@ -23,12 +23,12 @@ namespace spy::_
 
   template<stdlib Lib, int M, int N, int P> struct stdlib_info
   {
-    static constexpr stdlib vendor = Lib;
+    static constexpr stdlib              vendor  = Lib;
     static constexpr version_id<M, N, P> version = {};
 
-    inline constexpr explicit operator bool() const noexcept;
+    inline constexpr explicit            operator bool() const noexcept;
 
-    template<stdlib C2> constexpr bool operator==(stdlib_info<C2, -1, 0, 0> const&) const noexcept
+    template<stdlib C2> constexpr bool   operator==(stdlib_info<C2, -1, 0, 0> const&) const noexcept
     {
       return C2 == vendor;
     }
@@ -40,17 +40,19 @@ namespace spy::_
     }
 
     template<stdlib C2, int M2, int N2, int P2>
-    constexpr std::partial_ordering operator<=>(stdlib_info<C2, M2, N2, P2> const& c2) const noexcept
+    constexpr std::partial_ordering
+    operator<=>(stdlib_info<C2, M2, N2, P2> const& c2) const noexcept
     {
-      if constexpr (vendor == C2) return version <=> c2.version;
+      if constexpr(vendor == C2) return version <=> c2.version;
       else return std::partial_ordering::unordered;
     }
   };
 
-  template<_::stream OS, stdlib SLib, int M, int N, int P> auto& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
+  template<_::stream OS, stdlib SLib, int M, int N, int P>
+  auto& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
   {
-    if (SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
-    if (SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
+    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
+    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
 
     return os << "Undefined Standard C++ Library";
   }
@@ -81,11 +83,11 @@ namespace spy
   //! The `spy::stdlib` object can be compared to any other stdlib related value to verify
   //! if the code being compiled with a specific version of the C++ standard library.
   //!
-  //! Any stdlib related value can be checked for equality or ordering for a given version. The targeted
-  //! version is then specified using a stdlib-dependent literal.
+  //! Any stdlib related value can be checked for equality or ordering for a given version. The
+  //! targeted version is then specified using a stdlib-dependent literal.
   //!
-  //! Additionally, any of the stdlib related value are convertible to `bool`. They evaluates to `true` if they
-  //! matches the correct standard library currently used.
+  //! Additionally, any of the stdlib related value are convertible to `bool`. They evaluates to
+  //! `true` if they matches the correct standard library currently used.
   //!
   //! @groupheader{Supported Value}
   //!
@@ -97,12 +99,13 @@ namespace spy
   //! @groupheader{Example}
   //! @godbolt{samples/stdlib.cpp}
   //================================================================================================
-  constexpr inline auto stdlib = stdlib_type{};
+  constexpr inline auto stdlib = stdlib_type {};
 }
 
 namespace spy::_
 {
-  template<stdlib SLib, int M, int N, int P> inline constexpr stdlib_info<SLib, M, N, P>::operator bool() const noexcept
+  template<stdlib SLib, int M, int N, int P>
+  inline constexpr stdlib_info<SLib, M, N, P>::operator bool() const noexcept
   {
     return spy::stdlib == *this;
   }
@@ -113,8 +116,8 @@ namespace spy
   //================================================================================================
   // STDLIBs detector stand-alone instances
   //================================================================================================
-  constexpr inline auto libcpp_ = _::libcpp_t<-1, 0, 0>{};
-  constexpr inline auto gnucpp_ = _::gnucpp_t<-1, 0, 0>{};
+  constexpr inline auto libcpp_ = _::libcpp_t<-1, 0, 0> {};
+  constexpr inline auto gnucpp_ = _::gnucpp_t<-1, 0, 0> {};
 }
 
 namespace spy::literal
