@@ -47,7 +47,7 @@ copa_setup_precommit_hooks(${QUIET_OPTION})
 ## Install Process setup
 ##======================================================================================================================
 copa_setup_install( LIBRARY spy
-                    FEATURES cxx_std_17
+                    FEATURES cxx_std_20
                     DOC     ${PROJECT_SOURCE_DIR}/LICENSE.md
                     INCLUDE ${PROJECT_SOURCE_DIR}/include/spy
                   )

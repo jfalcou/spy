@@ -2,7 +2,7 @@
 
 # SPY: C++ Information Broker
 
-[![Licence](https://img.shields.io/github/license/jfalcou/spy?style=plastic)](https://img.shields.io/github/license/jfalcou/spy?style=plastic)
+[![License](https://img.shields.io/badge/license-BSL-green?style=plastic)](./LICENSE.md)
 [![Discord](https://img.shields.io/discord/692734675726237696?style=plastic)](https://discord.gg/a9qVaEMeXd8)
 [![CI Status](https://github.com/jfalcou/spy/actions/workflows/unit.yml/badge.svg)](https://github.com/jfalcou/spy/actions/workflows/unit.yml)
 
