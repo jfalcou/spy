@@ -165,6 +165,13 @@
     </member>
     <member kind="function">
       <type>constexpr auto</type>
+      <name>spy::literal::operator&quot;&quot;_clangcl</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga4de7991e386c7271b2c5263af9668054</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>constexpr auto</type>
       <name>spy::literal::operator&quot;&quot;_cloud</name>
       <anchorfile>group__api.html</anchorfile>
       <anchor>ga1dc236e3cae2ef3c7ec23d45659b7b30</anchor>
