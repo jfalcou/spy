@@ -79,7 +79,8 @@ namespace spy::supports
   constexpr bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
 }
 
-#if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC)
+#if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC) ||                              \
+    defined(SPY_COMPILER_IS_CLANGCL)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
 #define SPY_DISABLE_THREAD_SANITIZERS  __attribute__((no_sanitize_thread))
 #elif defined(SPY_COMPILER_IS_MSVC)
