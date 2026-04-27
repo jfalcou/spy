@@ -261,7 +261,8 @@ namespace spy::_
     gcc_,
     emscripten_,
     dpcpp_,
-    nvcc_
+    nvcc_,
+    clangcl_
   };
   template<compilers Compiler, int M, int N, int P> struct compilers_info
   {
@@ -296,14 +297,16 @@ namespace spy::_
     if(C == compilers::clang_) return os << "clang " << c.version;
     if(C == compilers::gcc_) return os << "g++ " << c.version;
     if(C == compilers::emscripten_) return os << "Emscripten " << c.version;
+    if(C == compilers::clangcl_) return os << "Clang with MSVC-like command-line" << c.version;
     return os << "Undefined " << c.version;
   }
-  template<int M, int N, int P> using msvc_t  = compilers_info<compilers::msvc_, M, N, P>;
-  template<int M, int N, int P> using intel_t = compilers_info<compilers::intel_, M, N, P>;
-  template<int M, int N, int P> using dpcpp_t = compilers_info<compilers::dpcpp_, M, N, P>;
-  template<int M, int N, int P> using nvcc_t  = compilers_info<compilers::nvcc_, M, N, P>;
-  template<int M, int N, int P> using clang_t = compilers_info<compilers::clang_, M, N, P>;
-  template<int M, int N, int P> using gcc_t   = compilers_info<compilers::gcc_, M, N, P>;
+  template<int M, int N, int P> using msvc_t    = compilers_info<compilers::msvc_, M, N, P>;
+  template<int M, int N, int P> using intel_t   = compilers_info<compilers::intel_, M, N, P>;
+  template<int M, int N, int P> using dpcpp_t   = compilers_info<compilers::dpcpp_, M, N, P>;
+  template<int M, int N, int P> using nvcc_t    = compilers_info<compilers::nvcc_, M, N, P>;
+  template<int M, int N, int P> using clang_t   = compilers_info<compilers::clang_, M, N, P>;
+  template<int M, int N, int P> using gcc_t     = compilers_info<compilers::gcc_, M, N, P>;
+  template<int M, int N, int P> using clangcl_t = compilers_info<compilers::clangcl_, M, N, P>;
   template<int M, int N, int P>
   using emscripten_t = compilers_info<compilers::emscripten_, M, N, P>;
 }
@@ -312,9 +315,12 @@ namespace spy
 #if defined(__NVCC__)
 #define SPY_COMPILER_IS_NVCC
   using compiler_type = _::nvcc_t<__CUDACC_VER_MAJOR__, __CUDACC_VER_MINOR__, 0>;
-#elif defined(_MSC_VER)
+#elif defined(_MSC_VER) && !defined(__clang__)
 #define SPY_COMPILER_IS_MSVC
   using compiler_type = _::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
+#elif defined(_MSC_VER) && defined(__clang__)
+#define SPY_COMPILER_IS_CLANGCL
+  using compiler_type = _::clangcl_t<__clang_major__, __clang_minor__, __clang_patchlevel__>;
 #elif defined(__INTEL_LLVM_COMPILER)
 #define SPY_COMPILER_IS_INTEL_DPCPP
 #define SPY0 __INTEL_LLVM_COMPILER
@@ -359,6 +365,7 @@ namespace spy
   constexpr inline auto clang_      = _::clang_t<-1, 0, 0> {};
   constexpr inline auto gcc_        = _::gcc_t<-1, 0, 0> {};
   constexpr inline auto emscripten_ = _::emscripten_t<-1, 0, 0> {};
+  constexpr inline auto clangcl_    = _::clangcl_t<-1, 0, 0> {};
 }
 namespace spy::literal
 {
@@ -386,6 +393,10 @@ namespace spy::literal
   template<char... c> constexpr auto operator""_em()
   {
     return _::literal_wrap<_::emscripten_t, c...>();
+  }
+  template<char... c> constexpr auto operator""_clangcl()
+  {
+    return _::literal_wrap<_::clangcl_t, c...>();
   }
 }
 namespace spy::_
@@ -684,7 +695,8 @@ namespace spy::supports
 #endif
   constexpr bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
 }
-#if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC)
+#if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC) ||                              \
+    defined(SPY_COMPILER_IS_CLANGCL)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
 #define SPY_DISABLE_THREAD_SANITIZERS  __attribute__((no_sanitize_thread))
 #elif defined(SPY_COMPILER_IS_MSVC)
