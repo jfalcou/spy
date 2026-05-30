@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -45,7 +45,7 @@ jobs:
         - { comp: clang , arch: aarch64, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -71,7 +71,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for MSVC ${{ matrix.cfg.mode }}
         run: |
           mkdir build
@@ -98,7 +98,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for Clang CL ${{ matrix.cfg.mode }}
         run: |
           mkdir build && cd build
@@ -128,7 +128,7 @@ jobs:
         - { comp: clang , arch: wasm, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -155,7 +155,7 @@ jobs:
         - { comp: clang , arch: rvv128, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -180,7 +180,7 @@ jobs:
         - { comp: clang++ , opt: "--cuda-gpu-arch=sm_75 -lcudart_static -L/opt/cuda/lib64/ -ldl -lrt -pthread"  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Compiling Unit Tests with ${{ matrix.cfg.comp }}
         run:  |
               mkdir build && cd build
@@ -217,7 +217,7 @@ jobs:
         - { comp: dpcpp , arch: sycl, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           source /opt/intel/oneapi/setvars.sh
@@ -245,7 +245,7 @@ jobs:
         - { comp: clang , arch: x86, mode: Release  }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run: |
           mkdir build && cd build
@@ -280,7 +280,7 @@ jobs:
         - { comp: gcc , arch: ppc64       , opts: -Wno-psabi, mode: Release }
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Running CMake for ${{ matrix.cfg.comp }} in ${{ matrix.cfg.mode }} mode
         run:  |
           mkdir build && cd build
