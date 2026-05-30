@@ -8,5 +8,6 @@ var searchData=
   ['compiler_5',['compiler',['../group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d',1,'spy']]],
   ['contributors_6',['New Contributors',['../changelog.html#autotoc_md5',1,'']]],
   ['cpm_7',['Setup with CPM',['../setup.html#setup-cpm',1,'']]],
-  ['cuda_8',['cuda',['../group__api_gaad706954aedb6aaf6ff1a9858a971e00.html#gaad706954aedb6aaf6ff1a9858a971e00',1,'spy::supports']]]
+  ['cpp_5fstandard_8',['cpp_standard',['../group__api_gaed9a94996ad095314bc4f6c0f0aba213.html#gaed9a94996ad095314bc4f6c0f0aba213',1,'spy']]],
+  ['cuda_9',['cuda',['../group__api_gaad706954aedb6aaf6ff1a9858a971e00.html#gaad706954aedb6aaf6ff1a9858a971e00',1,'spy::supports']]]
 ];

@@ -22,6 +22,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr _::cpp_standard_t&lt; 0 &gt;</type>
+      <name>cpp_standard</name>
+      <anchorfile>group__api_gaed9a94996ad095314bc4f6c0f0aba213.html</anchorfile>
+      <anchor>gaed9a94996ad095314bc4f6c0f0aba213</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr auto</type>
       <name>data_model</name>
       <anchorfile>group__api_gaa091fe192a7f9d0d164cf7546083200d.html</anchorfile>
@@ -84,6 +91,13 @@
       <name>spy::compiler</name>
       <anchorfile>group__api_ga2d96c18fea5b9a06ac37487ab570599d.html</anchorfile>
       <anchor>ga2d96c18fea5b9a06ac37487ab570599d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr _::cpp_standard_t&lt; 0 &gt;</type>
+      <name>spy::cpp_standard</name>
+      <anchorfile>group__api_gaed9a94996ad095314bc4f6c0f0aba213.html</anchorfile>
+      <anchor>gaed9a94996ad095314bc4f6c0f0aba213</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -175,6 +189,13 @@
       <name>spy::literal::operator&quot;&quot;_cloud</name>
       <anchorfile>group__api.html</anchorfile>
       <anchor>ga1dc236e3cae2ef3c7ec23d45659b7b30</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>constexpr auto</type>
+      <name>spy::literal::operator&quot;&quot;_cpp</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga6d36ff3ac6c5f9d5fc75e86bd8134584</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
