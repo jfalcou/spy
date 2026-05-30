@@ -57,6 +57,7 @@ namespace spy
 #include <spy/os.hpp>
 #include <spy/sanitizers.hpp>
 #include <spy/simd.hpp>
+#include <spy/standard.hpp>
 #include <spy/stdlib.hpp>
 #include <spy/types.hpp>
 
