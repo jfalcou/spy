@@ -9,4 +9,5 @@ int main()
   std::cout << "Compiler          : " << spy::compiler << std::endl;
   std::cout << "libc version      : " << spy::libc << std::endl;
   std::cout << "libstd            : " << spy::stdlib << std::endl;
+  std::cout << "C++ version       : " << spy::cpp_standard << std::endl;
 }

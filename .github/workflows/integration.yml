@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Install SPY from checkout
         run: |
           mkdir build && cd build
@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Compile using FetchContent
         run: |
           git config --global --add safe.directory /__w/kumi/kumi
@@ -66,7 +66,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v6.0.2
       - name: Compile using CPM
         run: |
           git config --global --add safe.directory /__w/kumi/kumi
