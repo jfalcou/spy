@@ -290,3 +290,26 @@ jobs:
         run:  cd build && ninja spy-test -j 2
       - name: Running Unit Tests
         run:  cd build && ctest --verbose --output-on-failure -j 2
+
+  ##======================================================================================================================
+  ## Ensure Standalone is viable
+  ##======================================================================================================================
+  standalone-generation:
+    name: Standalone Generation
+    needs: [precommit]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/jfalcou/compilers:v10
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v6
+
+      - name: Generate standalone header
+        run: |
+          cmake -S . -B build -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=OFF
+          cmake --build build --target spy-standalone
+
+      - name: Test standalone header
+        run: |
+          cd build
+          g++ -std=c++20 -S -I. ../test/integration/main.cpp -DSPY_STANDALONE

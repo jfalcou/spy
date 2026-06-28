@@ -26,12 +26,11 @@ jobs:
       - name: Configure SPY
         run: |
           git config --global --add safe.directory /__w/spy/spy
-          mkdir build && cd build
-          cmake .. -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=OFF
+          cmake -S . -B build -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=OFF
 
       - name: Generate standalone SPY header
         run: |
-          cd build && ninja spy-standalone
+          cmake --build build --target spy-standalone
 
       - name: Update standalone branch
         run: |

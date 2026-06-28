@@ -1,5 +1,10 @@
 #include <iostream>
+
+#if defined SPY_STANDALONE
+#include "spy.hpp"
+#else
 #include <spy/spy.hpp>
+#endif
 
 int main()
 {
