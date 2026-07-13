@@ -1191,7 +1191,7 @@ namespace spy
 {
 #if defined(SPY_SIMD_DETECTED)
   constexpr inline auto simd_instruction_set = _::simd_info<SPY_SIMD_VENDOR, SPY_SIMD_DETECTED> {};
-#else
+  #else
   constexpr inline auto simd_instruction_set = _::simd_info<> {};
 #endif
   constexpr inline auto undefined_simd_ = _::simd_info<> {};
