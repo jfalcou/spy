@@ -11,10 +11,12 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="godbolt.js"></script>
-<script type="text/javascript" src="fragment.js"></script>
-<script type="text/javascript" src="paragraph.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
 <script type="text/javascript">
   DoxygenAwesomeParagraphLink.init()
+  DoxygenAwesomeTabs.init()
   DoxygenAwesomeFragmentCopyButton.init()
   SendToGodbolt.init("spy","clang1600","-O3 -std=c++20 -DNEDBUG")
 </script>
@@ -38,10 +40,10 @@ MathJax.Hub.Config({
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="custom.css" rel="stylesheet" type="text/css"/>
-<link href="color.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="color.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <a href="https://github.com/jfalcou/spy" class="github-corner" title="View source on GitHub" target="_blank">
@@ -123,14 +125,20 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">The C++ Information Broker </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Detection and versioning of operating systems, compilers, architecture and other element are traditionally done using preprocessor macros. Library like <a href="https://www.boost.org/doc/libs/release/doc/html/predef.html">Boost.Predef</a> provides a sanitized interface on top of those but still live in a world where the preprocessor is king.</p>
-<p>SPY is a C++20 (and onward) library that gathers similar information and provides a <code>constexpr</code> compatible interface to access those information, thus making their exploitation within <code>constexpr</code> context possible.</p>
+<div class="textblock"><p>Detection and versioning of operating systems, compilers, architecture, and other elements are traditionally done using preprocessor macros. Libraries like <a href="https://www.boost.org/doc/libs/release/doc/html/predef.html">Boost.Predef</a> provide a sanitized interface on top of those but still exist in a world where the preprocessor is king.</p>
+<p>SPY is a C++20 (and onward) library that gathers similar information and provides a <code>constexpr</code> compatible interface to access this information, making its exploitation within <code>constexpr</code> contexts possible.</p>
 <h1><a class="anchor" id="autotoc_md22"></a>
 Some References</h1>
 <ul>
 <li><a href="https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing">Our CppCon 2019 Lightning talk slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=t406o2EhG-A">Our CppCon 2019 Lightning talk:</a>  <center><iframe width="560" height="315" src="https://www.youtube.com/embed/t406o2EhG-A" title="I SPY with my little eye Boost.Predef in a constexpr world - Joel Falcou - CppCon 2019" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></center> </li>
+<li><a href="https://www.youtube.com/watch?v=t406o2EhG-A">Our CppCon 2019 Lightning talk</a></li>
 </ul>
+<p> 
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t406o2EhG-A&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+</iframe>
+</center>
+</p>
 <h1><a class="anchor" id="autotoc_md23"></a>
 A Short Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
@@ -138,16 +146,16 @@ A Short Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main()</div>
 <div class="line">{</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;OS                : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a>      &lt;&lt; std::endl;</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;CPU Architecture  : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a>          &lt;&lt; std::endl;</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;SIMD Instructions : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a>  &lt;&lt; std::endl;</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Compiler          : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a>              &lt;&lt; std::endl;</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;libc version      : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga03dc3f2a9b02b025902f9df3b2db53ab.html#ga03dc3f2a9b02b025902f9df3b2db53ab">spy::libc</a>                  &lt;&lt; std::endl;</div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;libstd            : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a>                &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;OS                : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a>     &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;CPU Architecture  : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a>         &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;SIMD Instructions : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Compiler          : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a>             &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;libc version      : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga03dc3f2a9b02b025902f9df3b2db53ab.html#ga03dc3f2a9b02b025902f9df3b2db53ab">spy::libc</a>                 &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;libstd            : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a>               &lt;&lt; std::endl;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__api_ga03dc3f2a9b02b025902f9df3b2db53ab_html_ga03dc3f2a9b02b025902f9df3b2db53ab"><div class="ttname"><a href="group__api_ga03dc3f2a9b02b025902f9df3b2db53ab.html#ga03dc3f2a9b02b025902f9df3b2db53ab">spy::libc</a></div><div class="ttdeci">constexpr auto libc</div><div class="ttdoc">LIBC version reporting value.</div><div class="ttdef"><b>Definition</b> libc.hpp:130</div></div>
 <div class="ttc" id="agroup__api_ga2d96c18fea5b9a06ac37487ab570599d_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:157</div></div>
-<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:231</div></div>
+<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:233</div></div>
 <div class="ttc" id="agroup__api_gaad5f2aa34188a02b894a0d8c7e402d6e_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition</b> arch.hpp:103</div></div>
 <div class="ttc" id="agroup__api_gadb7c5be967e00cff21ae5b98cc12a7dc_html_gadb7c5be967e00cff21ae5b98cc12a7dc"><div class="ttname"><a href="group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a></div><div class="ttdeci">constexpr os_type operating_system</div><div class="ttdoc">OS reporting value.</div><div class="ttdef"><b>Definition</b> os.hpp:115</div></div>
 <div class="ttc" id="agroup__api_gafe99b815db524eacf659ba8348ca2e0d_html_gafe99b815db524eacf659ba8348ca2e0d"><div class="ttname"><a href="group__api_gafe99b815db524eacf659ba8348ca2e0d.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a></div><div class="ttdeci">constexpr auto stdlib</div><div class="ttdoc">C++ Standard Library version reporting value.</div><div class="ttdef"><b>Definition</b> stdlib.hpp:102</div></div>
@@ -157,17 +165,17 @@ Licence</h1>
 <div class="fragment"><div class="line">Copyright : SPY Project Contributors</div>
 <div class="line"> </div>
 <div class="line">Permission is hereby granted, free of charge, to any person or organization obtaining a copy of the</div>
-<div class="line">software and accompanying documentation covered by <span class="keyword">this</span> license (the <span class="stringliteral">&quot;Software&quot;</span>) to use, reproduce,</div>
+<div class="line">software and accompanying documentation covered by this license (the &quot;Software&quot;) to use, reproduce,</div>
 <div class="line">display, distribute, execute, and transmit the Software, and to prepare derivative works of the</div>
-<div class="line">Software, and to permit third-parties to whom the Software is furnished to <span class="keywordflow">do</span> so, all subject to the</div>
+<div class="line">Software, and to permit third-parties to whom the Software is furnished to do so, all subject to the</div>
 <div class="line">following:</div>
 <div class="line"> </div>
-<div class="line">The copyright notices in the Software and <span class="keyword">this</span> entire statement, including the above license grant,</div>
-<div class="line"><span class="keyword">this</span> restriction and the following disclaimer, must be included in all copies of the Software, in</div>
+<div class="line">The copyright notices in the Software and this entire statement, including the above license grant,</div>
+<div class="line">this restriction and the following disclaimer, must be included in all copies of the Software, in</div>
 <div class="line">whole or in part, and all derivative works of the Software, unless such copies or derivative works</div>
-<div class="line">are solely in the form of machine-executable <span class="keywordtype">object</span> code generated by a source language processor.</div>
+<div class="line">are solely in the form of machine-executable object code generated by a source language processor.</div>
 <div class="line"> </div>
-<div class="line">THE SOFTWARE IS PROVIDED <span class="stringliteral">&quot;AS IS&quot;</span>, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT</div>
+<div class="line">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT</div>
 <div class="line">NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND</div>
 <div class="line">NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE</div>
 <div class="line">BE LIABLE FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE, ARISING</div>

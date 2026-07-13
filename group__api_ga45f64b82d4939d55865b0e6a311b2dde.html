@@ -11,10 +11,12 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="godbolt.js"></script>
-<script type="text/javascript" src="fragment.js"></script>
-<script type="text/javascript" src="paragraph.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
 <script type="text/javascript">
   DoxygenAwesomeParagraphLink.init()
+  DoxygenAwesomeTabs.init()
   DoxygenAwesomeFragmentCopyButton.init()
   SendToGodbolt.init("spy","clang1600","-O3 -std=c++20 -DNEDBUG")
 </script>
@@ -38,10 +40,10 @@ MathJax.Hub.Config({
 </script>
 <script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-<link href="custom.css" rel="stylesheet" type="text/css"/>
-<link href="color.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="color.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <a href="https://github.com/jfalcou/spy" class="github-corner" title="View source on GitHub" target="_blank">
@@ -143,7 +145,26 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <p>SIMD extensions set reporting value. </p>
 <h2 class="groupheader">SIMD Instructions Sets </h2>
 <p>SIMD extensions set detection is made so that one can ask if the current SIMD extension is exactly, below or above a given reference instruction set. Detectable instructions sets depends on SIMD hardware vendor</p>
-<p>| Architecture | Supported SIMD instructions sets | | --------------&mdash; | ------------------------------------------------------------------------------------&mdash; | | <b>X86 SSE</b> | <code>spy::sse1_</code>, <code>spy::sse2_</code>, <code>spy::sse3_</code>, <code>spy::ssse3_</code>, <code>spy::sse41_</code>, <code>spy::sse42_</code> | | <b>X86 AVX</b> | <code>spy::avx_</code>, <code>spy::avx2_</code>, <code>spy::avx512_</code> | | <b>Power PC VMX</b> | <code>spy::vmx_</code>, <code>spy::vmx_2_03_</code>, <code>spy::vmx_2_05_</code>, <code>spy::vmx_2_06_</code>, <code>spy::vmx_2_07_</code>, <code>spy::vmx_3_00_</code>, <code>spy::vmx_3_01_</code> | | <b>Power PC VSX</b> | <code>spy::vsx_</code>, <code>spy::vsx_2_06_</code>, <code>spy::vsx_2_07_</code>, <code>spy::vsx_3_00_</code>, <code>spy::vsx_3_01_</code> | | <b>ARM NEON</b> | <code>spy::neon_</code>, <code>spy::asimd_</code> | | <b>ARM SVE</b> | <code>spy::sve_</code>,<code>spy::sve128_</code>, <code>spy::sve256_</code>, <code>spy::sve512_</code>, <code>spy::sve1024_</code> | | <b>WASM</b> | <code>spy::simd128_</code> | | <b>RISC-V</b> | <code>spy::rvv_</code>` |</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Architecture   </th><th class="markdownTableHeadNone">Supported SIMD instructions sets    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>X86 SSE</b>   </td><td class="markdownTableBodyNone"><code>spy::sse1_</code>, <code>spy::sse2_</code>, <code>spy::sse3_</code>, <code>spy::ssse3_</code>, <code>spy::sse41_</code>, <code>spy::sse42_</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>X86 AVX</b>   </td><td class="markdownTableBodyNone"><code>spy::avx_</code>, <code>spy::avx2_</code>, <code>spy::avx512_</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Power PC VMX</b>   </td><td class="markdownTableBodyNone"><code>spy::vmx_</code>, <code>spy::vmx_2_03_</code>, <code>spy::vmx_2_05_</code>, <code>spy::vmx_2_06_</code>, <code>spy::vmx_2_07_</code>, <code>spy::vmx_3_00_</code>, <code>spy::vmx_3_01_</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>Power PC VSX</b>   </td><td class="markdownTableBodyNone"><code>spy::vsx_</code>, <code>spy::vsx_2_06_</code>, <code>spy::vsx_2_07_</code>, <code>spy::vsx_3_00_</code>, <code>spy::vsx_3_01_</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ARM NEON</b>   </td><td class="markdownTableBodyNone"><code>spy::neon_</code>, <code>spy::asimd_</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ARM SVE</b>   </td><td class="markdownTableBodyNone"><code>spy::sve_</code>, <code>spy::sve128_</code>, <code>spy::sve256_</code>, <code>spy::sve512_</code>, <code>spy::sve1024_</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>WASM</b>   </td><td class="markdownTableBodyNone"><code>spy::simd128_</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RISC-V</b>   </td><td class="markdownTableBodyNone"><code>spy::rvv_</code>   </td></tr>
+</table>
 <p>Complete set of comparison operators is provided for those sets. Order of instructions sets are built so that if an instructions set supersedes another, it is considered greater than. For example, <code>spy::avx_</code> is greater than <code>spy::sse41_</code> as the former is a super-set of the later. Comparing SIMD descriptors across architecture is undefined behavior.</p>
 <p>Moreover, the <code><a class="el" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde" title="SIMD extensions set reporting value.">spy::simd_instruction_set</a></code> object exposes a constexpr <code>width</code> static field that contains the size in bits of the current SIMD instructions set registers.</p>
 <h3 class="groupheader">Example - SIMD Instructions Sets </h3>
@@ -171,7 +192,7 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <div class="line"> </div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;This code can use &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a>.width &lt;&lt; <span class="stringliteral">&quot; bits register.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:231</div></div>
+<div class="ttc" id="agroup__api_ga45f64b82d4939d55865b0e6a311b2dde_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api_ga45f64b82d4939d55865b0e6a311b2dde.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:233</div></div>
 </div><!-- fragment --><h2 class="groupheader">SIMD Architectures </h2>
 <p>One can also simply asks if a given family of instructions set is available.</p>
 <table class="markdownTable">
@@ -216,7 +237,16 @@ $(document).ready(function(){initNavTree('group__api_ga45f64b82d4939d55865b0e6a3
 <div class="line">}</div>
 </div><!-- fragment --><h2 class="groupheader">Supplemental Instructions sets </h2>
 <p>Some SIMD instructions set provides supplemental instructions on top of existing system. Those supplemental instruction set can be checked using the <code>spy::supports</code> namespace.</p>
-<p>| Architecture | Supported SIMD instructions sets | | ----------&mdash; | ---------------------------------------------------------------------------------&mdash;| | X86 AVX | <code>xop_</code>, <code>fma_</code>, <code>fma4_</code> | | X86 AVX512 | <code>bw_</code>, <code>cd_</code>, <code>dq_</code>, <code>er_</code>, <code>ifma_</code>, <code>pf_</code>, <code>vl_</code>, <code>popcntdq_</code> | | | <code>_4fmaps_</code>, <code>vnniw_</code>, <code>vbmi_</code>, <code>bf16_</code>,<code>bitalg_</code>, <code>vbmi2_</code>, <code>vnni_</code>, <code>vpintersect_</code> |</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Architecture   </th><th class="markdownTableHeadNone">Supported SIMD instructions sets    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>X86 AVX</b>   </td><td class="markdownTableBodyNone"><code>xop_</code>, <code>fma_</code>, <code>fma4_</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>X86 AVX512</b>   </td><td class="markdownTableBodyNone"><code>bw_</code>, <code>cd_</code>, <code>dq_</code>, <code>er_</code>, <code>ifma_</code>, <code>pf_</code>, <code>vl_</code>, <code>popcntdq_</code>, <code>_4fmaps_</code>, <code>vnniw_</code>, <code>vbmi_</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><code>bf16_</code>, <code>bitalg_</code>, <code>vbmi2_</code>, <code>vnni_</code>, <code>vpintersect_</code>   </td></tr>
+</table>
 <h3 class="groupheader">Example - SIMD Architectures </h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
