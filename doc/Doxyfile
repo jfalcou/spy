@@ -1382,38 +1382,14 @@ HTML_FOOTER            = $(DOXYGEN_ASSETS)/footer.html
 
 HTML_STYLESHEET        =
 
-# The HTML_EXTRA_STYLESHEET tag can be used to specify additional user-defined
-# cascading style sheets that are included after the standard style sheets
-# created by doxygen. Using this option one can overrule certain style aspects.
-# This is preferred over using HTML_STYLESHEET since it does not replace the
-# standard style sheet and is therefore more robust against future updates.
-# Doxygen will copy the style sheet files to the output directory.
-# Note: The order of the extra style sheet files is of importance (e.g. the last
-# style sheet in the list overrules the setting of the previous ones in the
-# list).
-# Note: Since the styling of scrollbars can currently not be overruled in
-# Webkit/Chromium, the styling will be left out of the default doxygen.css if
-# one or more extra stylesheets have been specified. So if scrollbar
-# customization is desired it has to be added explicitly. For an example see the
-# documentation.
-# This tag requires that the tag GENERATE_HTML is set to YES.
-
-HTML_EXTRA_STYLESHEET  = $(DOXYGEN_ASSETS)/custom.css \
-                         color.css \
-                         $(DOXYGEN_ASSETS)/doxygen-awesome.css \
-                         $(DOXYGEN_ASSETS)/doxygen-awesome-sidebar-only.css
-
-# The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
-# other source files which should be copied to the HTML output directory. Note
-# that these files will be copied to the base HTML output directory. Use the
-# $relpath^ marker in the HTML_HEADER and/or HTML_FOOTER files to load these
-# files. In the HTML_STYLESHEET file, use the file name only. Also note that the
-# files will be copied as-is; there are no commands or markers available.
-# This tag requires that the tag GENERATE_HTML is set to YES.
-
-HTML_EXTRA_FILES       = $(DOXYGEN_ASSETS)/godbolt.js \
-                         $(DOXYGEN_ASSETS)/fragment.js \
-                         $(DOXYGEN_ASSETS)/paragraph.js
+HTML_EXTRA_STYLESHEET  = $(AWESOME_ASSETS)/doxygen-awesome-sidebar-only.css
+HTML_EXTRA_STYLESHEET += $(AWESOME_ASSETS)/doxygen-awesome.css
+HTML_EXTRA_STYLESHEET += $(DOXYGEN_ASSETS)/custom.css
+HTML_EXTRA_STYLESHEET += color.css
+HTML_EXTRA_FILES       = $(DOXYGEN_ASSETS)/godbolt.js
+HTML_EXTRA_FILES      += $(AWESOME_ASSETS)/doxygen-awesome-fragment-copy-button.js
+HTML_EXTRA_FILES      += $(AWESOME_ASSETS)/doxygen-awesome-paragraph-link.js
+HTML_EXTRA_FILES      += $(AWESOME_ASSETS)/doxygen-awesome-tabs.js
 
 # The HTML_COLORSTYLE tag can be used to specify if the generated HTML output
 # should be rendered with a dark or light theme.
@@ -1718,6 +1694,7 @@ ECLIPSE_DOC_ID         = org.doxygen.Project
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
 DISABLE_INDEX          = YES
+PAGE_OUTLINE_PANEL      = NO
 
 # The GENERATE_TREEVIEW tag is used to specify whether a tree-like index
 # structure should be generated to display hierarchical information. If the tag
