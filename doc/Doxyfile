@@ -1382,8 +1382,8 @@ HTML_FOOTER            = $(DOXYGEN_ASSETS)/footer.html
 
 HTML_STYLESHEET        =
 
-HTML_EXTRA_STYLESHEET  = $(AWESOME_ASSETS)/doxygen-awesome-sidebar-only.css
-HTML_EXTRA_STYLESHEET += $(AWESOME_ASSETS)/doxygen-awesome.css
+HTML_EXTRA_STYLESHEET  = $(AWESOME_ASSETS)/doxygen-awesome.css
+HTML_EXTRA_STYLESHEET += $(AWESOME_ASSETS)/doxygen-awesome-sidebar-only.css
 HTML_EXTRA_STYLESHEET += $(DOXYGEN_ASSETS)/custom.css
 HTML_EXTRA_STYLESHEET += color.css
 HTML_EXTRA_FILES       = $(DOXYGEN_ASSETS)/godbolt.js
