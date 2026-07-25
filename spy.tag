@@ -235,6 +235,20 @@
     </member>
     <member kind="function">
       <type>constexpr auto</type>
+      <name>spy::literal::operator&quot;&quot;_mingw32</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga0b1362faae4cda836aa5f0bb3ca90272</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>constexpr auto</type>
+      <name>spy::literal::operator&quot;&quot;_mingw64</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>gabd0874beb5d93fdc4aec65ab782f6da5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>constexpr auto</type>
       <name>spy::literal::operator&quot;&quot;_msvc</name>
       <anchorfile>group__api.html</anchorfile>
       <anchor>gaafdbca6599d9792e579da8041b5addcd</anchor>

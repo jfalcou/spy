@@ -3,6 +3,18 @@
 //  Copyright : Copacabana Project Contributors
 //  SPDX-License-Identifier: BSL-1.0
 //==================================================================================================
+const godboltTabFix = document.createElement("style");
+godboltTabFix.innerHTML = `
+  .tabbed,
+  .tabbed > ul,
+  .tabbed > ul > li {
+    height: auto !important;
+    max-height: none !important;
+    transition: none !important;
+  }
+`;
+document.head.appendChild(godboltTabFix);
+
 function escapeHtml(str) {
     const escapeMap = {
         '&': '&amp;',

@@ -10,10 +10,12 @@ var searchData=
   ['operator_22_22_5fgcc_7',['operator&quot;&quot;_gcc',['../group__api.html#ga542b6a98ac5e95f906da14325a2064be',1,'spy::literal']]],
   ['operator_22_22_5fgnu_8',['operator&quot;&quot;_gnu',['../group__api.html#ga01fac6d9d1025344d16c3ab4fee137c8',1,'spy::literal']]],
   ['operator_22_22_5fintel_9',['operator&quot;&quot;_intel',['../group__api.html#ga17b7828b022e763e749aebf056d24195',1,'spy::literal']]],
-  ['operator_22_22_5fmsvc_10',['operator&quot;&quot;_msvc',['../group__api.html#gaafdbca6599d9792e579da8041b5addcd',1,'spy::literal']]],
-  ['operator_22_22_5fnvcc_11',['operator&quot;&quot;_nvcc',['../group__api.html#ga39f9d138ef1adb4b5c12f4279878f1fc',1,'spy::literal']]],
-  ['operator_22_22_5fuc_12',['operator&quot;&quot;_uc',['../group__api.html#ga0c3666ca0bb5f551cc0103e355a28569',1,'spy::literal']]],
-  ['operator_22_22_5fvms_13',['operator&quot;&quot;_vms',['../group__api.html#ga772746f665f6dd13b9a6c8bd19564dab',1,'spy::literal']]],
-  ['operator_22_22_5fzos_14',['operator&quot;&quot;_zos',['../group__api.html#ga3c0e24636d16a543f4bf2ed64875eaeb',1,'spy::literal']]],
-  ['our_20spy_3a_15',['our spy:',['../changelog.html#autotoc_md2',1,'Our SPY:'],['../changelog.html#autotoc_md6',1,'Our SPY:'],['../changelog.html#autotoc_md9',1,'Our SPY:'],['../changelog.html#autotoc_md12',1,'Our SPY:'],['../changelog.html#autotoc_md15',1,'Our SPY:'],['../changelog.html#autotoc_md18',1,'Our SPY:'],['../changelog.html#autotoc_md21',1,'Our SPY:']]]
+  ['operator_22_22_5fmingw32_10',['operator&quot;&quot;_mingw32',['../group__api.html#ga0b1362faae4cda836aa5f0bb3ca90272',1,'spy::literal']]],
+  ['operator_22_22_5fmingw64_11',['operator&quot;&quot;_mingw64',['../group__api.html#gabd0874beb5d93fdc4aec65ab782f6da5',1,'spy::literal']]],
+  ['operator_22_22_5fmsvc_12',['operator&quot;&quot;_msvc',['../group__api.html#gaafdbca6599d9792e579da8041b5addcd',1,'spy::literal']]],
+  ['operator_22_22_5fnvcc_13',['operator&quot;&quot;_nvcc',['../group__api.html#ga39f9d138ef1adb4b5c12f4279878f1fc',1,'spy::literal']]],
+  ['operator_22_22_5fuc_14',['operator&quot;&quot;_uc',['../group__api.html#ga0c3666ca0bb5f551cc0103e355a28569',1,'spy::literal']]],
+  ['operator_22_22_5fvms_15',['operator&quot;&quot;_vms',['../group__api.html#ga772746f665f6dd13b9a6c8bd19564dab',1,'spy::literal']]],
+  ['operator_22_22_5fzos_16',['operator&quot;&quot;_zos',['../group__api.html#ga3c0e24636d16a543f4bf2ed64875eaeb',1,'spy::literal']]],
+  ['our_20spy_3a_17',['our spy:',['../changelog.html#autotoc_md2',1,'Our SPY:'],['../changelog.html#autotoc_md6',1,'Our SPY:'],['../changelog.html#autotoc_md9',1,'Our SPY:'],['../changelog.html#autotoc_md12',1,'Our SPY:'],['../changelog.html#autotoc_md15',1,'Our SPY:'],['../changelog.html#autotoc_md18',1,'Our SPY:'],['../changelog.html#autotoc_md21',1,'Our SPY:']]]
 ];
