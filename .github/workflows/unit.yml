@@ -68,7 +68,6 @@ jobs:
         cfg:
         - { mode: Debug   }
         - { mode: Release }
-
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v6.0.2
@@ -95,7 +94,6 @@ jobs:
         cfg:
         - { mode: Debug   }
         - { mode: Release }
-
     steps:
       - name: Fetch current branch
         uses: actions/checkout@v6.0.2
@@ -111,6 +109,31 @@ jobs:
         run: |
           cd build
           ctest --verbose -C ${{ matrix.cfg.mode }} --output-on-failure
+
+  mingw-64:
+    runs-on: [windows-2022]
+    needs: precommit
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+        - { mode: Debug   }
+        - { mode: Release }
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v6.0.2
+      - name: Set up MinGW 64
+        uses: egor-tensin/setup-mingw@v3
+        with:
+          platform: x64
+      - name: Running CMake for MingW ${{ matrix.cfg.mode }}
+        run: |
+          mkdir build && cd build
+          cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=${{ matrix.cfg.mode }} ..
+      - name: Compiling Unit Tests
+        run:  cd build && make spy-test -j 2
+      - name: Running Unit Tests
+        run: cd build && ctest --verbose --output-on-failure -j 2
 
   ##################################################################################################
   ## WASM targets

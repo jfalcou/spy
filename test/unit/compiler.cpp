@@ -22,6 +22,30 @@ int main()
     assert(!(spy::compiler == spy::clang_));
     assert(!(spy::compiler == spy::gcc_));
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
+#elif defined(__MINGW32__) && !defined(__MINGW64__)
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::clangcl_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
+    assert(spy::compiler == spy::mingw32_);
+    assert(!(spy::compiler == spy::mingw64_));
+#elif defined(__MINGW32__) && defined(__MINGW64__)
+    assert(!(spy::compiler == spy::nvcc_));
+    assert(!(spy::compiler == spy::msvc_));
+    assert(!(spy::compiler == spy::clangcl_));
+    assert(!(spy::compiler == spy::intel_));
+    assert(!(spy::compiler == spy::dpcpp_));
+    assert(!(spy::compiler == spy::clang_));
+    assert(!(spy::compiler == spy::gcc_));
+    assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(spy::compiler == spy::mingw64_);
 #elif defined(_MSC_VER) && !defined(__clang__)
     assert(!(spy::compiler == spy::nvcc_));
     assert(spy::compiler == spy::msvc_);
@@ -31,6 +55,8 @@ int main()
     assert(!(spy::compiler == spy::clang_));
     assert(!(spy::compiler == spy::gcc_));
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
 #elif defined(_MSC_VER) && defined(__clang__)
     assert(!(spy::compiler == spy::nvcc_));
     assert(!(spy::compiler == spy::msvc_));
@@ -40,6 +66,8 @@ int main()
     assert(!(spy::compiler == spy::clang_));
     assert(!(spy::compiler == spy::gcc_));
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
     assert(!(spy::compiler == spy::nvcc_));
     assert(!(spy::compiler == spy::msvc_));
@@ -49,6 +77,8 @@ int main()
     assert(!(spy::compiler == spy::clang_));
     assert(!(spy::compiler == spy::gcc_));
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
 #elif defined(__INTEL_LLVM_COMPILER)
     assert(!(spy::compiler == spy::nvcc_));
     assert(!(spy::compiler == spy::msvc_));
@@ -58,6 +88,8 @@ int main()
     assert(!(spy::compiler == spy::clang_));
     assert(!(spy::compiler == spy::gcc_));
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
 #elif defined(__EMSCRIPTEN__)
     assert(!(spy::compiler == spy::nvcc_));
     assert(!(spy::compiler == spy::msvc_));
@@ -76,6 +108,8 @@ int main()
     assert(spy::compiler == spy::clang_);
     assert(!(spy::compiler == spy::gcc_));
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
 #elif defined(__GNUC__)
     assert(!(spy::compiler == spy::nvcc_));
     assert(!(spy::compiler == spy::msvc_));
@@ -85,6 +119,8 @@ int main()
     assert(!(spy::compiler == spy::clang_));
     assert(spy::compiler == spy::gcc_);
     assert(!(spy::compiler == spy::emscripten_));
+    assert(!(spy::compiler == spy::mingw32_));
+    assert(!(spy::compiler == spy::mingw64_));
 #endif
   }
   std::cout << "Done." << std::endl;
@@ -103,6 +139,8 @@ int main()
     assert(!(spy::compiler >= 3'9_clang));
     assert(!(spy::compiler >= 7'2_gcc));
     assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(!(spy::compiler >= 15'2_mingw64));
 #elif defined(_MSC_VER) && !defined(__clang__)
     assert(!(spy::compiler >= 6'0_nvcc));
     assert(spy::compiler >= 19'5_msvc);
@@ -112,6 +150,8 @@ int main()
     assert(!(spy::compiler >= 3'9_clang));
     assert(!(spy::compiler >= 7'2_gcc));
     assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(!(spy::compiler >= 15'2_mingw64));
 #elif defined(_MSC_VER) && !defined(__clang__)
     assert(!(spy::compiler >= 6'0_nvcc));
     assert(!(spy::compiler >= 19'5_msvc));
@@ -121,6 +161,8 @@ int main()
     assert(!(spy::compiler >= 3'9_clang));
     assert(!(spy::compiler >= 7'2_gcc));
     assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(!(spy::compiler >= 15'2_mingw64));
 #elif defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
     assert(!(spy::compiler >= 6'0_nvcc));
     assert(!(spy::compiler >= 19'5_msvc));
@@ -130,6 +172,8 @@ int main()
     assert(!(spy::compiler >= 3'9_clang));
     assert(!(spy::compiler >= 7'2_gcc));
     assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(!(spy::compiler >= 15'2_mingw64));
 #elif defined(__INTEL_LLVM_COMPILER)
     assert(!(spy::compiler >= 6'0_nvcc));
     assert(!(spy::compiler >= 19'5_msvc));
@@ -139,6 +183,8 @@ int main()
     assert(!(spy::compiler >= 3'9_clang));
     assert(!(spy::compiler >= 7'2_gcc));
     assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(!(spy::compiler >= 15'2_mingw64));
 #elif defined(__EMSCRIPTEN__)
     assert(!(spy::compiler >= 6'0_nvcc));
     assert(!(spy::compiler >= 19'5_msvc));
@@ -157,6 +203,29 @@ int main()
     assert(spy::compiler >= 3'9_clang);
     assert(!(spy::compiler >= 7'2_gcc));
     assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(!(spy::compiler >= 15'2_mingw64));
+#elif defined(__MINGW32__) && !defined(__MINGW64__)
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 3'9_clangcl));
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 3'1_em));
+    assert(spy::compiler >= 15'2_mingw32);
+    assert(!(spy::compiler >= 15'2_mingw64));
+#elif defined(__MINGW32__) && defined(__MINGW64__)
+    assert(!(spy::compiler >= 6'0_nvcc));
+    assert(!(spy::compiler >= 19'5_msvc));
+    assert(!(spy::compiler >= 3'9_clangcl));
+    assert(!(spy::compiler >= 19_intel));
+    assert(!(spy::compiler >= 2023'1_dpcpp));
+    assert(!(spy::compiler >= 3'9_clang));
+    assert(!(spy::compiler >= 7'2_gcc));
+    assert(!(spy::compiler >= 3'1_em));
+    assert(!(spy::compiler >= 15'2_mingw32));
+    assert(spy::compiler >= 15'2_mingw64);
 #elif defined(__GNUC__)
     assert(!(spy::compiler >= 6'0_nvcc));
     assert(!(spy::compiler >= 19'5_msvc));

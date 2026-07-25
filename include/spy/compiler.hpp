@@ -29,7 +29,9 @@ namespace spy::_
     emscripten_,
     dpcpp_,
     nvcc_,
-    clangcl_
+    clangcl_,
+    mingw32_,
+    mingw64_
   };
 
   template<compilers Compiler, int M, int N, int P> struct compilers_info
@@ -71,6 +73,8 @@ namespace spy::_
     if(C == compilers::gcc_) return os << "g++ " << c.version;
     if(C == compilers::emscripten_) return os << "Emscripten " << c.version;
     if(C == compilers::clangcl_) return os << "Clang with MSVC-like command-line" << c.version;
+    if(C == compilers::mingw32_) return os << "MINGW32 g++ " << c.version;
+    if(C == compilers::mingw64_) return os << "MINGW64 g++ " << c.version;
 
     return os << "Undefined " << c.version;
   }
@@ -82,6 +86,8 @@ namespace spy::_
   template<int M, int N, int P> using clang_t   = compilers_info<compilers::clang_, M, N, P>;
   template<int M, int N, int P> using gcc_t     = compilers_info<compilers::gcc_, M, N, P>;
   template<int M, int N, int P> using clangcl_t = compilers_info<compilers::clangcl_, M, N, P>;
+  template<int M, int N, int P> using mingw32_t = compilers_info<compilers::mingw32_, M, N, P>;
+  template<int M, int N, int P> using mingw64_t = compilers_info<compilers::mingw64_, M, N, P>;
   template<int M, int N, int P>
   using emscripten_t = compilers_info<compilers::emscripten_, M, N, P>;
 }
@@ -97,6 +103,12 @@ namespace spy
 #elif defined(_MSC_VER) && !defined(__clang__)
 #define SPY_COMPILER_IS_MSVC
   using compiler_type = _::msvc_t<_MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000>;
+#elif defined(__MINGW32__) && !defined(__MINGW64__)
+#define SPY_COMPILER_IS_MINGW32
+  using compiler_type = _::mingw32_t<__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__>;
+#elif defined(__MINGW32__) && defined(__MINGW64__)
+#define SPY_COMPILER_IS_MINGW64
+  using compiler_type = _::mingw64_t<__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__>;
 #elif defined(_MSC_VER) && defined(__clang__)
 #define SPY_COMPILER_IS_CLANGCL
   using compiler_type = _::clangcl_t<__clang_major__, __clang_minor__, __clang_patchlevel__>;
@@ -150,6 +162,8 @@ namespace spy
   //! `spy::intel`      | Intel ICC
   //! `spy::msvc`       | Microsoft Visual Studio
   //! `spy::nvcc`       | NVIDIA NVCC
+  //! `spy::mingw32`    | MINGW32
+  //! `spy::mingw64`    | MINGW64
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/compiler.cpp}
@@ -179,6 +193,8 @@ namespace spy
   constexpr inline auto gcc_        = _::gcc_t<-1, 0, 0> {};
   constexpr inline auto emscripten_ = _::emscripten_t<-1, 0, 0> {};
   constexpr inline auto clangcl_    = _::clangcl_t<-1, 0, 0> {};
+  constexpr inline auto mingw32_    = _::mingw32_t<-1, 0, 0> {};
+  constexpr inline auto mingw64_    = _::mingw64_t<-1, 0, 0> {};
 }
 
 namespace spy::literal
@@ -195,6 +211,20 @@ namespace spy::literal
   template<char... c> constexpr auto operator""_msvc()
   {
     return _::literal_wrap<_::msvc_t, c...>();
+  }
+
+  //! @ingroup api
+  //! @brief User-defined suffix for MINGW32 version definition
+  template<char... c> constexpr auto operator""_mingw32()
+  {
+    return _::literal_wrap<_::mingw32_t, c...>();
+  }
+
+  //! @ingroup api
+  //! @brief User-defined suffix for MINGW64 version definition
+  template<char... c> constexpr auto operator""_mingw64()
+  {
+    return _::literal_wrap<_::mingw64_t, c...>();
   }
 
   //! @ingroup api
