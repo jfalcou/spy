@@ -1,0 +1,78 @@
+##======================================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+name: Unit Tests
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: spy-unit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ##################################################################################################
+  ## Fast gate: pre-commit checks and standalone generation start together with no interdependency -
+  ## only once both pass does the (much heavier) compiler matrix start below.
+  ##################################################################################################
+  precommit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run pre-commit checks
+        run: pre-commit run --all-files --show-diff-on-failure --color=always
+
+  ##======================================================================================================================
+  ## Ensure Standalone is viable
+  ##======================================================================================================================
+  standalone-generation:
+    name: Standalone Generation
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/jfalcou/compilers:v10
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v6
+
+      - name: Generate standalone header
+        run: |
+          cmake -S . -B build -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=OFF
+          cmake --build build --target spy-standalone
+
+      - name: Test standalone header
+        run: |
+          cd build
+          g++ -std=c++20 -S -I. ../test/integration/main.cpp -DSPY_STANDALONE
+
+  ##################################################################################################
+  ## Unit Tests - the full compiler matrix, gated behind the fast checks above all passing
+  ##################################################################################################
+  linux-tests:
+    name: Linux
+    needs: [precommit, standalone-generation]
+    uses: ./.github/workflows/linux.yml
+
+  macos-tests:
+    name: MacOS
+    needs: [precommit, standalone-generation]
+    uses: ./.github/workflows/macos.yml
+
+  windows-tests:
+    name: Windows
+    needs: [precommit, standalone-generation]
+    uses: ./.github/workflows/windows.yml
+
+  nvidia-tests:
+    name: Nvidia
+    needs: [precommit, standalone-generation]
+    uses: ./.github/workflows/nvidia.yml
