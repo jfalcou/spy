@@ -1,0 +1,53 @@
+##======================================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+name: 'SPY Build & Test'
+description: 'Configure and build using CMake presets'
+
+inputs:
+  preset:
+    description: 'Preset name (must exist in both configure and build presets)'
+    required: true
+
+  config:
+    description: 'Build configuration'
+    default: ''
+    required: true
+
+  wrapper:
+    description: 'Compiler wrapper (e.g., emcmake)'
+    default: ''
+
+  setup-script:
+    description: 'Path to environment setup script (e.g., oneAPI setvars.sh)'
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure
+      shell: bash
+      env:
+        PRESET: ${{ inputs.preset }}
+        EXTRA_CXX_FLAGS: ${{ inputs.flags }}
+        WRAP: ${{ inputs.wrapper }}
+        CONFIG: ${{ inputs.config }}
+        SETUP_SCRIPT: ${{ inputs.setup-script }}
+      run: |
+        if [ -n "$SETUP_SCRIPT" ]; then
+          if [ ! -f "$SETUP_SCRIPT" ]; then
+            echo "Setup script not found: $SETUP_SCRIPT"
+            exit 1
+          fi
+          source "$SETUP_SCRIPT"
+        fi
+
+        if [ -n "$WRAP" ]; then
+          "$WRAP" cmake --preset "$PRESET"
+        else
+          cmake --preset "$PRESET"
+        fi
+
+        cmake --build --preset "$PRESET" --config "$CONFIG" -j 2

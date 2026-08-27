@@ -1,0 +1,41 @@
+##======================================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+name: 'SPY Test'
+description: 'Runs CTest for a specific preset'
+
+inputs:
+  preset:
+    description: 'Preset name (must exist in both configure and build presets)'
+    required: true
+
+  config:
+    description: 'Build configuration'
+    required: true
+    default: ''
+
+  memcheck:
+    description: 'Run MemCheck (valgrind)'
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Unit Tests
+      shell: bash
+      env:
+        PRESET: ${{ inputs.preset }}
+        CONFIG: ${{ inputs.config }}
+      run: ctest --preset "$PRESET" --build-config "$CONFIG" -j 2 --output-on-failure
+
+    # MemCheck puts ctest in a mode that is not compatible with how presets are
+    # currently made. This is a workaround
+    - name: Run MemCheck
+      if: inputs.memcheck == 'true'
+      shell: bash
+      env:
+        PRESET: ${{ inputs.preset }}
+        CONFIG: ${{ inputs.config }}
+      run: ctest --test-dir "build/$PRESET" --preset "$PRESET" --build-config "$CONFIG" -T MemCheck -j 2 --output-on-failure

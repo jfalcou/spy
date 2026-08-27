@@ -1,0 +1,33 @@
+##======================================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+name: SPY MacOS Tests
+on:
+  workflow_call:
+
+jobs:
+  macos:
+    name: clang (${{ matrix.options }})
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        options: [Debug, Release]
+
+    steps:
+      - name: Fetch current branch
+        uses: actions/checkout@v6
+
+      - name: Configure CMake and Build
+        uses: ./.github/actions/config
+        with:
+          config: ${{ matrix.options }}
+          preset: clang-macos
+
+      - name: Run Unit Tests
+        uses: ./.github/actions/test
+        with:
+          config: ${{ matrix.options }}
+          preset: clang-macos

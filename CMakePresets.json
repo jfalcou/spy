@@ -1,0 +1,83 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": { "major": 3, "minor": 22, "patch": 0 },
+  "vendor": {
+    "copyright": "SPY - C++ Informations Broker: SPY Project Contributors",
+    "license": "BSL-1.0",
+    "url": "https://github.com/jfalcou/spy"
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "SPY_BUILD_TEST": "ON",
+        "CMAKE_CXX_SCAN_FOR_MODULES": "OFF",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release"
+      }
+    },
+    {
+      "name": "unix-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": { "CMAKE_DEFAULT_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64"
+    },
+
+    { "name": "gcc"             , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.x86.cmake"          },
+    { "name": "clang"           , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/clang.x86.cmake"        },
+    { "name": "gcc-aarch64"     , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.aarch64.cmake"      },
+    { "name": "gcc-aarch64-sve" , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.aarch64.sve.cmake"  },
+    { "name": "gcc-aarch64-sve2", "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.aarch64.sve2.cmake" },
+    { "name": "gcc-ppc64"       , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.ppc64.cmake"        },
+    { "name": "wasm"            , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/clang.wasm.cmake"       },
+    { "name": "rvv128"          , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/clang.rvv128.cmake"     },
+    { "name": "icpx"            , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/dpcpp.x86.cmake"        },
+    { "name": "icpx-sycl"       , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/dpcpp.sycl.cmake"       },
+    { "name": "clang-macos"     , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/clang.aarch64.cmake"    },
+
+    { "name": "msvc"    , "inherits": ["windows-base"]                      },
+    { "name": "clangcl" , "inherits": ["windows-base"], "toolset": "ClangCL" }
+  ],
+  "buildPresets": [
+    { "name": "base-build", "hidden": true, "targets": ["spy-test"] },
+    { "name": "gcc"             , "inherits": "base-build", "configurePreset": "gcc"              },
+    { "name": "clang"           , "inherits": "base-build", "configurePreset": "clang"            },
+    { "name": "gcc-aarch64"     , "inherits": "base-build", "configurePreset": "gcc-aarch64"      },
+    { "name": "gcc-aarch64-sve" , "inherits": "base-build", "configurePreset": "gcc-aarch64-sve"  },
+    { "name": "gcc-aarch64-sve2", "inherits": "base-build", "configurePreset": "gcc-aarch64-sve2" },
+    { "name": "gcc-ppc64"       , "inherits": "base-build", "configurePreset": "gcc-ppc64"        },
+    { "name": "wasm"            , "inherits": "base-build", "configurePreset": "wasm"             },
+    { "name": "rvv128"          , "inherits": "base-build", "configurePreset": "rvv128"           },
+    { "name": "icpx"            , "inherits": "base-build", "configurePreset": "icpx"             },
+    { "name": "icpx-sycl"       , "inherits": "base-build", "configurePreset": "icpx-sycl"        },
+    { "name": "clang-macos"     , "inherits": "base-build", "configurePreset": "clang-macos"      },
+    { "name": "msvc"            , "inherits": "base-build", "configurePreset": "msvc"             },
+    { "name": "clangcl"         , "inherits": "base-build", "configurePreset": "clangcl"          }
+  ],
+  "testPresets": [
+    { "name": "base-test", "hidden": true, "output": { "outputOnFailure": true }, "configuration": "Debug" },
+    { "name": "gcc"             , "inherits": "base-test", "configurePreset": "gcc"              },
+    { "name": "clang"           , "inherits": "base-test", "configurePreset": "clang"            },
+    { "name": "gcc-aarch64"     , "inherits": "base-test", "configurePreset": "gcc-aarch64"      },
+    { "name": "gcc-aarch64-sve" , "inherits": "base-test", "configurePreset": "gcc-aarch64-sve"  },
+    { "name": "gcc-aarch64-sve2", "inherits": "base-test", "configurePreset": "gcc-aarch64-sve2" },
+    { "name": "gcc-ppc64"       , "inherits": "base-test", "configurePreset": "gcc-ppc64"        },
+    { "name": "wasm"            , "inherits": "base-test", "configurePreset": "wasm"             },
+    { "name": "rvv128"          , "inherits": "base-test", "configurePreset": "rvv128"           },
+    { "name": "icpx"            , "inherits": "base-test", "configurePreset": "icpx"             },
+    { "name": "icpx-sycl"       , "inherits": "base-test", "configurePreset": "icpx-sycl"        },
+    { "name": "clang-macos"     , "inherits": "base-test", "configurePreset": "clang-macos"      },
+    { "name": "msvc"            , "inherits": "base-test", "configurePreset": "msvc"             },
+    { "name": "clangcl"         , "inherits": "base-test", "configurePreset": "clangcl"          }
+  ]
+}
