@@ -124,8 +124,15 @@ namespace spy
 #undef SPY0
 #elif defined(__EMSCRIPTEN__)
 #define SPY_COMPILER_IS_CLANG
+// Emscripten 5 renamed these and marked the lower-case spelling deprecated, which -Werror turns
+// into a build failure. 4.x knows only the lower-case one, so both spellings stay supported.
+#if defined(__EMSCRIPTEN_MAJOR__)
+  using compiler_type =
+      _::emscripten_t<__EMSCRIPTEN_MAJOR__, __EMSCRIPTEN_MINOR__, __EMSCRIPTEN_TINY__>;
+#else
   using compiler_type =
       _::emscripten_t<__EMSCRIPTEN_major__, __EMSCRIPTEN_minor__, __EMSCRIPTEN_tiny__>;
+#endif
 #undef SPY0
 #elif defined(__clang__)
 #define SPY_COMPILER_IS_CLANG
