@@ -28,7 +28,8 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install pre-commit
-        run: pip install pre-commit
+        # Pinned, and binary-only so no dependency gets to run a setup script during install
+        run: pip install --only-binary ":all:" pre-commit==4.6.2
       - name: Run pre-commit checks
         run: pre-commit run --all-files --show-diff-on-failure --color=always
 
