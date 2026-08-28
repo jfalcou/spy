@@ -6,6 +6,10 @@
 cmake_minimum_required(VERSION 3.22)
 project(spy LANGUAGES CXX)
 
+if(DEFINED CMAKE_CUDA_COMPILER)
+  enable_language(CUDA)
+endif()
+
 ##======================================================================================================================
 option( SPY_BUILD_TEST          "Build tests   for SPY"                                        ON  )
 option( SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY"                                        OFF )
