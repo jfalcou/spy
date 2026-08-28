@@ -1,4 +1,4 @@
-<img src="https://github.com/jfalcou/spy/raw/main/logo.png" alt="SPY Library logo" data-canonical-src="https://github.com/jfalcou/spy/raw/main/logo.png" align="left" width="20%" height="20%" />
+<img src="https://raw.githubusercontent.com/jfalcou/spy/refs/heads/main/doc/logo.svg" alt="SPY logo: a hat and glasses reading an open book, in a green disc" data-canonical-src="https://jfalcou.github.io/spy/doc/logo.svg" width="8%" align="left"/>
 
 # SPY: C++ Information Broker
 
