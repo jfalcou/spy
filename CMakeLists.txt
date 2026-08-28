@@ -7,8 +7,10 @@ cmake_minimum_required(VERSION 3.22)
 project(spy LANGUAGES CXX)
 
 ##======================================================================================================================
-option( SPY_BUILD_TEST          "Build tests   for SPY"   ON  )
-option( SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY"   OFF )
+option( SPY_BUILD_TEST          "Build tests   for SPY"                                        ON  )
+option( SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY"                                        OFF )
+option( SPY_ENABLE_SANITIZERS   "Build tests with AddressSanitizer + UndefinedBehaviorSanitizer" OFF )
+option( SPY_ENABLE_COVERAGE     "Build tests with code coverage instrumentation"                 OFF )
 
 ##======================================================================================================================
 include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
@@ -33,6 +35,8 @@ if(NOT SPY_QUIET)
   endif()
   message(STATUS "[${PROJECT_NAME}] - Unit tests : ${SPY_BUILD_TEST} (via SPY_BUILD_TEST)")
   message(STATUS "[${PROJECT_NAME}] - Doxygen    : ${SPY_BUILD_DOCUMENTATION} (via SPY_BUILD_DOCUMENTATION)")
+  message(STATUS "[${PROJECT_NAME}] - Sanitizers : ${SPY_ENABLE_SANITIZERS} (via SPY_ENABLE_SANITIZERS)")
+  message(STATUS "[${PROJECT_NAME}] - Coverage   : ${SPY_ENABLE_COVERAGE} (via SPY_ENABLE_COVERAGE)")
   set(QUIET_OPTION "")
 else()
   set(QUIET_OPTION "QUIET")
@@ -71,7 +75,16 @@ copa_setup_standalone ( QUIET
 ## Tests setup
 ##======================================================================================================================
 if(SPY_BUILD_TEST)
+  if(SPY_ENABLE_SANITIZERS)
+    copa_setup_sanitizers(spy_tests ENABLE_ASAN ENABLE_UBSAN)
+  endif()
+
   enable_testing()
   add_custom_target(spy-unit)
   add_subdirectory(test)
+
+  # After the test targets exist, so the coverage targets can depend on them
+  if(SPY_ENABLE_COVERAGE)
+    copa_setup_coverage(spy_tests)
+  endif()
 endif()

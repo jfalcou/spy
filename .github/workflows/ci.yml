@@ -15,8 +15,8 @@ concurrency:
 
 jobs:
   ##################################################################################################
-  ## Fast gate: pre-commit checks and standalone generation start together with no interdependency -
-  ## only once both pass does the (much heavier) compiler matrix start below.
+  ## Fast gate: pre-commit checks, standalone generation and sanitizers all start together with no
+  ## interdependency - only once all three pass does the (much heavier) compiler matrix start below.
   ##################################################################################################
   precommit:
     runs-on: ubuntu-latest
@@ -56,24 +56,38 @@ jobs:
           g++ -std=c++20 -S -I. ../test/integration/main.cpp -DSPY_STANDALONE
 
   ##################################################################################################
+  ## Sanitizers (ASan+UBSan)
+  ##################################################################################################
+  sanitizer-tests:
+    name: Sanitizers
+    uses: ./.github/workflows/sanitizers.yml
+
+  ##################################################################################################
+  ## Coverage report - informational, runs alongside the gate without blocking the matrix
+  ##################################################################################################
+  coverage-report:
+    name: Coverage
+    uses: ./.github/workflows/coverage.yml
+
+  ##################################################################################################
   ## Unit Tests - the full compiler matrix, gated behind the fast checks above all passing
   ##################################################################################################
   linux-tests:
     name: Linux
-    needs: [precommit, standalone-generation]
+    needs: [precommit, standalone-generation, sanitizer-tests]
     uses: ./.github/workflows/linux.yml
 
   macos-tests:
     name: MacOS
-    needs: [precommit, standalone-generation]
+    needs: [precommit, standalone-generation, sanitizer-tests]
     uses: ./.github/workflows/macos.yml
 
   windows-tests:
     name: Windows
-    needs: [precommit, standalone-generation]
+    needs: [precommit, standalone-generation, sanitizer-tests]
     uses: ./.github/workflows/windows.yml
 
   nvidia-tests:
     name: Nvidia
-    needs: [precommit, standalone-generation]
+    needs: [precommit, standalone-generation, sanitizer-tests]
     uses: ./.github/workflows/nvidia.yml
