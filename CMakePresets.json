@@ -34,6 +34,13 @@
     },
 
     {
+      "name": "nvidia-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "generator": "Ninja Multi-Config",
+      "cacheVariables": { "CMAKE_CUDA_COMPILER": "nvcc", "CMAKE_DEFAULT_BUILD_TYPE": "Debug" }
+    },
+    {
       "name": "sanitize",
       "hidden": true,
       "cacheVariables": { "SPY_ENABLE_SANITIZERS": "ON" }
@@ -61,6 +68,17 @@
     { "name": "clang-sanitize"  , "inherits": ["clang", "sanitize"] },
     { "name": "clang-coverage"  , "inherits": ["clang", "coverage"] },
 
+    { "name": "nvcc"            , "inherits": ["nvidia-base"] },
+    {
+      "name": "clang-cuda",
+      "inherits": ["unix-base"],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_CUDA_COMPILER": "clang++",
+        "CMAKE_CUDA_ARCHITECTURES": "75"
+      }
+    },
+
     { "name": "msvc"    , "inherits": ["windows-base"]                      },
     { "name": "clangcl" , "inherits": ["windows-base"], "toolset": "ClangCL" }
   ],
@@ -72,6 +90,8 @@
     { "name": "gcc-coverage"    , "inherits": "base-build", "configurePreset": "gcc-coverage"     },
     { "name": "clang-sanitize"  , "inherits": "base-build", "configurePreset": "clang-sanitize"   },
     { "name": "clang-coverage"  , "inherits": "base-build", "configurePreset": "clang-coverage"   },
+    { "name": "nvcc"            , "inherits": "base-build", "configurePreset": "nvcc"             },
+    { "name": "clang-cuda"      , "inherits": "base-build", "configurePreset": "clang-cuda"       },
     { "name": "gcc-aarch64"     , "inherits": "base-build", "configurePreset": "gcc-aarch64"      },
     { "name": "gcc-aarch64-sve" , "inherits": "base-build", "configurePreset": "gcc-aarch64-sve"  },
     { "name": "gcc-aarch64-sve2", "inherits": "base-build", "configurePreset": "gcc-aarch64-sve2" },
@@ -92,6 +112,8 @@
     { "name": "gcc-coverage"    , "inherits": "base-test", "configurePreset": "gcc-coverage"     },
     { "name": "clang-sanitize"  , "inherits": "base-test", "configurePreset": "clang-sanitize"   },
     { "name": "clang-coverage"  , "inherits": "base-test", "configurePreset": "clang-coverage"   },
+    { "name": "nvcc"            , "inherits": "base-test", "configurePreset": "nvcc"             },
+    { "name": "clang-cuda"      , "inherits": "base-test", "configurePreset": "clang-cuda"       },
     { "name": "gcc-aarch64"     , "inherits": "base-test", "configurePreset": "gcc-aarch64"      },
     { "name": "gcc-aarch64-sve" , "inherits": "base-test", "configurePreset": "gcc-aarch64-sve"  },
     { "name": "gcc-aarch64-sve2", "inherits": "base-test", "configurePreset": "gcc-aarch64-sve2" },
