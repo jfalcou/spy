@@ -14,6 +14,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: jfalcou/copacabana/.github/workflows/package-standalone.yml@17df3f26736d3a0ecc231a3b951f548dcbc09c45 # v2
+    uses: jfalcou/copacabana/.github/workflows/package-standalone.yml@3337f916bb581d0829909976773f7a2ee827a25c # v4
     with:
       project: spy
