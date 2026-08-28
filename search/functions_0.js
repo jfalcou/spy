@@ -3,7 +3,7 @@ var searchData=
   ['operator_22_22_5fclang_0',['operator&quot;&quot;_clang',['../group__api.html#gab3e0f11a5ec1b2963564755b84630970',1,'spy::literal']]],
   ['operator_22_22_5fclangcl_1',['operator&quot;&quot;_clangcl',['../group__api.html#ga4de7991e386c7271b2c5263af9668054',1,'spy::literal']]],
   ['operator_22_22_5fcloud_2',['operator&quot;&quot;_cloud',['../group__api.html#ga1dc236e3cae2ef3c7ec23d45659b7b30',1,'spy::literal']]],
-  ['operator_22_22_5fcpp_3',['operator&quot;&quot;_cpp',['../group__api.html#ga6d36ff3ac6c5f9d5fc75e86bd8134584',1,'spy::literal']]],
+  ['operator_22_22_5fcpp_3',['operator&quot;&quot;_cpp',['../group__api.html#ga1707aa93f7df0e6d9b57f8d79ff1688c',1,'spy::literal']]],
   ['operator_22_22_5fdpcpp_4',['operator&quot;&quot;_dpcpp',['../group__api.html#gab38166c11c2a99b2257e00630db206ec',1,'spy::literal']]],
   ['operator_22_22_5fem_5',['operator&quot;&quot;_em',['../group__api.html#ga8b0155c33f6f54c0d1d2dd498417c536',1,'spy::literal']]],
   ['operator_22_22_5fgcc_6',['operator&quot;&quot;_gcc',['../group__api.html#ga542b6a98ac5e95f906da14325a2064be',1,'spy::literal']]],

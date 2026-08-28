@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['licence_0',['Licence',['../licence.html',1,'']]],
-  ['log_1',['Change Log',['../changelog.html',1,'']]]
+  ['3_20virginia_20hall_0',['Version 0.0.3 - Virginia Hall',['../changelog.html#autotoc_md13',1,'']]]
 ];

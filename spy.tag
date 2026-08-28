@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.9.8">
+<tagfile doxygen_version="1.16.1" doxygen_gitid="669aeeefca743c148e2d935b3d3c69535c7491e6">
   <compound kind="namespace">
     <name>literal</name>
     <filename>namespaceliteral.html</filename>
@@ -195,7 +195,7 @@
       <type>constexpr auto</type>
       <name>spy::literal::operator&quot;&quot;_cpp</name>
       <anchorfile>group__api.html</anchorfile>
-      <anchor>ga6d36ff3ac6c5f9d5fc75e86bd8134584</anchor>
+      <anchor>ga1707aa93f7df0e6d9b57f8d79ff1688c</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -287,11 +287,13 @@
     <name>changelog</name>
     <title>Change Log</title>
     <filename>changelog.html</filename>
+    <docanchor file="changelog.html" title="/__w/spy/spy/doc/changelog.md">md__2____w_2spy_2spy_2doc_2changelog</docanchor>
   </compound>
   <compound kind="page">
     <name>licence</name>
     <title>Licence</title>
     <filename>licence.html</filename>
+    <docanchor file="licence.html" title="/__w/spy/spy/doc/licence.md">md__2____w_2spy_2spy_2doc_2licence</docanchor>
   </compound>
   <compound kind="page">
     <name>setup</name>

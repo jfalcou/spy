@@ -1,0 +1,123 @@
+{
+    "branch_covered": 0,
+    "branch_percent": 0.0,
+    "branch_total": 0,
+    "files": [
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/arch.hpp",
+            "function_covered": 0,
+            "function_percent": null,
+            "function_total": 0,
+            "line_covered": 2,
+            "line_percent": 100.0,
+            "line_total": 2
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/compiler.hpp",
+            "function_covered": 29,
+            "function_percent": 100.0,
+            "function_total": 29,
+            "line_covered": 26,
+            "line_percent": 100.0,
+            "line_total": 26
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/data_model.hpp",
+            "function_covered": 7,
+            "function_percent": 100.0,
+            "function_total": 7,
+            "line_covered": 4,
+            "line_percent": 100.0,
+            "line_total": 4
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/detail.hpp",
+            "function_covered": 15,
+            "function_percent": 100.0,
+            "function_total": 15,
+            "line_covered": 11,
+            "line_percent": 100.0,
+            "line_total": 11
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/libc.hpp",
+            "function_covered": 8,
+            "function_percent": 100.0,
+            "function_total": 8,
+            "line_covered": 8,
+            "line_percent": 100.0,
+            "line_total": 8
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/os.hpp",
+            "function_covered": 9,
+            "function_percent": 100.0,
+            "function_total": 9,
+            "line_covered": 4,
+            "line_percent": 100.0,
+            "line_total": 4
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/simd.hpp",
+            "function_covered": 10,
+            "function_percent": 100.0,
+            "function_total": 10,
+            "line_covered": 9,
+            "line_percent": 100.0,
+            "line_total": 9
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/standard.hpp",
+            "function_covered": 1,
+            "function_percent": 100.0,
+            "function_total": 1,
+            "line_covered": 2,
+            "line_percent": 100.0,
+            "line_total": 2
+        },
+        {
+            "branch_covered": 0,
+            "branch_percent": null,
+            "branch_total": 0,
+            "filename": "include/spy/stdlib.hpp",
+            "function_covered": 5,
+            "function_percent": 100.0,
+            "function_total": 5,
+            "line_covered": 8,
+            "line_percent": 100.0,
+            "line_total": 8
+        }
+    ],
+    "function_covered": 84,
+    "function_percent": 100.0,
+    "function_total": 84,
+    "gcovr/summary_format_version": "0.6",
+    "line_covered": 74,
+    "line_percent": 100.0,
+    "line_total": 74,
+    "root": "../../.."
+}
