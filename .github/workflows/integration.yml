@@ -14,62 +14,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
-  install:
-    runs-on: [ubuntu-latest]
-    container:
-      image: ghcr.io/jfalcou/compilers:v9
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Fetch current branch
-        uses: actions/checkout@v6.0.2
-      - name: Install SPY from checkout
-        run: |
-          mkdir build && cd build
-          cmake -G Ninja .. -DSPY_BUILD_TEST=OFF -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_FLAGS="-std=c++20"
-          ninja install
-      - name: Run Sample CMake
-        run: |
-          mkdir install && cd install
-          cmake ../test/integration/install-test -G Ninja  -DCMAKE_CXX_FLAGS="-std=c++20"
-          ninja && ctest --verbose
-
-  fetch-content:
-    env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-    runs-on: [ubuntu-latest]
-    container:
-      image: ghcr.io/jfalcou/compilers:v9
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Fetch current branch
-        uses: actions/checkout@v6.0.2
-      - name: Compile using FetchContent
-        run: |
-          git config --global --add safe.directory /__w/kumi/kumi
-          mkdir install && cd install
-          cmake ../test/integration/fetch-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME} -DSPY_BUILD_TEST=OFF -DCMAKE_CXX_COMPILER=clang++  -DCMAKE_CXX_FLAGS="-std=c++20"
-          ninja && ctest --verbose
-
-  cpm:
-    env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-    runs-on: [ubuntu-latest]
-    container:
-      image: ghcr.io/jfalcou/compilers:v9
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Fetch current branch
-        uses: actions/checkout@v6.0.2
-      - name: Compile using CPM
-        run: |
-          git config --global --add safe.directory /__w/kumi/kumi
-          mkdir install && cd install
-          cmake ../test/integration/cpm-test -G Ninja -DGIT_BRANCH=${BRANCH_NAME}  -DCMAKE_CXX_FLAGS="-std=c++20"  -DCMAKE_CXX_COMPILER=clang++ -DSPY_BUILD_TEST=OFF
-          ninja && ctest --verbose
+  integration:
+    uses: jfalcou/copacabana/.github/workflows/integration.yml@17df3f26736d3a0ecc231a3b951f548dcbc09c45 # v2
+    with:
+      project: spy
+      cxx-compiler: clang++
+      cxx-flags: -std=c++20

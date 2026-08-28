@@ -1,5 +1,5 @@
 ##======================================================================================================================
-##  SPY - Informations Broker
+##  SPY - C++ Informations Broker
 ##  Copyright : SPY Project Contributors
 ##  SPDX-License-Identifier: BSL-1.0
 ##======================================================================================================================
@@ -10,27 +10,10 @@ on:
       - main
 
 jobs:
-  generate-doc:
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/jfalcou/compilers:v9
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Fetch current branch
-        uses: actions/checkout@v6.0.2
-      - name: Prepare SPY
-        run: |
-          mkdir build && cd build
-          cmake .. -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=ON
-
-      - name: Generate Doxygen
-        run: |
-          cd build
-          ninja spy-doxygen
-
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/doc
+  documentation:
+    permissions:
+      contents: write
+    uses: jfalcou/copacabana/.github/workflows/documentation.yml@17df3f26736d3a0ecc231a3b951f548dcbc09c45 # v2
+    with:
+      project: spy
+      coverage: true

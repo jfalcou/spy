@@ -3,7 +3,7 @@
 ##  Copyright : SPY Project Contributors
 ##  SPDX-License-Identifier: BSL-1.0
 ##======================================================================================================================
-name: SPY Documentation Generation
+name: SPY Standalone Generation
 on:
   push:
     branches:
@@ -11,39 +11,9 @@ on:
 
 jobs:
   package-standalone:
-    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    container:
-      image: ghcr.io/jfalcou/compilers:v9
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Fetch current branch
-        uses: actions/checkout@v6.0.2
-
-      - name: Configure SPY
-        run: |
-          git config --global --add safe.directory /__w/spy/spy
-          cmake -S . -B build -G Ninja -DSPY_BUILD_TEST=OFF -DSPY_BUILD_DOCUMENTATION=OFF
-
-      - name: Generate standalone SPY header
-        run: |
-          cmake --build build --target spy-standalone
-
-      - name: Update standalone branch
-        run: |
-          git fetch origin
-          git config --global user.email "spy@nowhere.com"
-          git config --global user.name "SPY Standalone Generator"
-          git checkout standalone
-          cp build/spy.hpp spy.hpp
-          git add spy.hpp
-          git commit --allow-empty -m "Latest SPY standalone"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "standalone"
+    uses: jfalcou/copacabana/.github/workflows/package-standalone.yml@17df3f26736d3a0ecc231a3b951f548dcbc09c45 # v2
+    with:
+      project: spy
