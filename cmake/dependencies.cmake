@@ -5,8 +5,7 @@
 ##======================================================================================================================
 
 ##======================================================================================================================
-## CPM is vendored rather than fetched: file(DOWNLOAD) reports nothing on a failure, so a network
-## hiccup leaves an empty file and CMake only complains later that CPMAddPackage does not exist.
+## CPM is vendored: the download bootstrap reports nothing on a failure and leaves an empty file.
 ##======================================================================================================================
 include(${CMAKE_CURRENT_LIST_DIR}/CPM.cmake)
 

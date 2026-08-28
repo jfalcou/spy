@@ -18,6 +18,9 @@ FetchContent_Declare(spy
   GIT_TAG ${GIT_BRANCH}
 )
 
+## FetchContent has no per-package OPTIONS: what spy reads is pinned here.
+set(SPY_BUILD_TEST OFF CACHE BOOL "" FORCE)
+
 # make available
 FetchContent_MakeAvailable(spy)
 
