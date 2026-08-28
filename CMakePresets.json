@@ -33,6 +33,17 @@
       "architecture": "x64"
     },
 
+    {
+      "name": "sanitize",
+      "hidden": true,
+      "cacheVariables": { "SPY_ENABLE_SANITIZERS": "ON" }
+    },
+    {
+      "name": "coverage",
+      "hidden": true,
+      "cacheVariables": { "SPY_ENABLE_COVERAGE": "ON", "CMAKE_DEFAULT_BUILD_TYPE": "Debug" }
+    },
+
     { "name": "gcc"             , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.x86.cmake"          },
     { "name": "clang"           , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/clang.x86.cmake"        },
     { "name": "gcc-aarch64"     , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/gcc.aarch64.cmake"      },
@@ -45,6 +56,11 @@
     { "name": "icpx-sycl"       , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/dpcpp.sycl.cmake"       },
     { "name": "clang-macos"     , "inherits": ["unix-base"], "toolchainFile": "${sourceDir}/test/toolchain/clang.aarch64.cmake"    },
 
+    { "name": "gcc-sanitize"    , "inherits": ["gcc"  , "sanitize"] },
+    { "name": "gcc-coverage"    , "inherits": ["gcc"  , "coverage"] },
+    { "name": "clang-sanitize"  , "inherits": ["clang", "sanitize"] },
+    { "name": "clang-coverage"  , "inherits": ["clang", "coverage"] },
+
     { "name": "msvc"    , "inherits": ["windows-base"]                      },
     { "name": "clangcl" , "inherits": ["windows-base"], "toolset": "ClangCL" }
   ],
@@ -52,6 +68,10 @@
     { "name": "base-build", "hidden": true, "targets": ["spy-test"] },
     { "name": "gcc"             , "inherits": "base-build", "configurePreset": "gcc"              },
     { "name": "clang"           , "inherits": "base-build", "configurePreset": "clang"            },
+    { "name": "gcc-sanitize"    , "inherits": "base-build", "configurePreset": "gcc-sanitize"     },
+    { "name": "gcc-coverage"    , "inherits": "base-build", "configurePreset": "gcc-coverage"     },
+    { "name": "clang-sanitize"  , "inherits": "base-build", "configurePreset": "clang-sanitize"   },
+    { "name": "clang-coverage"  , "inherits": "base-build", "configurePreset": "clang-coverage"   },
     { "name": "gcc-aarch64"     , "inherits": "base-build", "configurePreset": "gcc-aarch64"      },
     { "name": "gcc-aarch64-sve" , "inherits": "base-build", "configurePreset": "gcc-aarch64-sve"  },
     { "name": "gcc-aarch64-sve2", "inherits": "base-build", "configurePreset": "gcc-aarch64-sve2" },
@@ -68,6 +88,10 @@
     { "name": "base-test", "hidden": true, "output": { "outputOnFailure": true }, "configuration": "Debug" },
     { "name": "gcc"             , "inherits": "base-test", "configurePreset": "gcc"              },
     { "name": "clang"           , "inherits": "base-test", "configurePreset": "clang"            },
+    { "name": "gcc-sanitize"    , "inherits": "base-test", "configurePreset": "gcc-sanitize"     },
+    { "name": "gcc-coverage"    , "inherits": "base-test", "configurePreset": "gcc-coverage"     },
+    { "name": "clang-sanitize"  , "inherits": "base-test", "configurePreset": "clang-sanitize"   },
+    { "name": "clang-coverage"  , "inherits": "base-test", "configurePreset": "clang-coverage"   },
     { "name": "gcc-aarch64"     , "inherits": "base-test", "configurePreset": "gcc-aarch64"      },
     { "name": "gcc-aarch64-sve" , "inherits": "base-test", "configurePreset": "gcc-aarch64-sve"  },
     { "name": "gcc-aarch64-sve2", "inherits": "base-test", "configurePreset": "gcc-aarch64-sve2" },
