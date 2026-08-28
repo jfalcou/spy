@@ -60,14 +60,16 @@ jobs:
   ##################################################################################################
   sanitizer-tests:
     name: Sanitizers
-    uses: ./.github/workflows/sanitizers.yml
+    uses: jfalcou/copacabana/.github/workflows/sanitizers.yml@3337f916bb581d0829909976773f7a2ee827a25c # v4
 
   ##################################################################################################
   ## Coverage report - informational, runs alongside the gate without blocking the matrix
   ##################################################################################################
   coverage-report:
     name: Coverage
-    uses: ./.github/workflows/coverage.yml
+    uses: jfalcou/copacabana/.github/workflows/coverage.yml@3337f916bb581d0829909976773f7a2ee827a25c # v4
+    with:
+      project: spy
 
   ##################################################################################################
   ## Unit Tests - the full compiler matrix, gated behind the fast checks above all passing
