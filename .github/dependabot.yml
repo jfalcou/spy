@@ -1,0 +1,19 @@
+##======================================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+## Keeps the action references in .github/workflows current. Everything lands in one grouped pull
+## request a week rather than one per action, and a SHA pin is rewritten along with the version
+## comment that documents it - which is what makes pinning by commit sustainable by hand.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 3
