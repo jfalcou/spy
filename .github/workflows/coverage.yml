@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Fetch current branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Configure CMake and Build
         uses: ./.github/actions/config
