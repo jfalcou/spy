@@ -4,7 +4,8 @@
 
 [![License](https://img.shields.io/badge/license-BSL-green?style=plastic)](./LICENSE.md)
 [![Discord](https://img.shields.io/discord/692734675726237696?style=plastic)](https://discord.gg/a9qVaEMeXd8)
-[![CI Status](https://github.com/jfalcou/spy/actions/workflows/unit.yml/badge.svg)](https://github.com/jfalcou/spy/actions/workflows/unit.yml)
+[![CI Status](https://github.com/jfalcou/spy/actions/workflows/integration.yml/badge.svg)](https://github.com/jfalcou/spy/actions/workflows/integration.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https://jfalcou.github.io/spy/coverage/badge.json&style=plastic&cacheSeconds=1800)](https://jfalcou.github.io/spy/coverage/)
 
 <br clear="left"/>
 
