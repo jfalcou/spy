@@ -17,3 +17,13 @@ updates:
         patterns:
           - "*"
     open-pull-requests-limit: 3
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      pre-commit:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 3
