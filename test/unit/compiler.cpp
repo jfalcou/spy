@@ -264,8 +264,14 @@ int main()
     [[maybe_unused]] auto constexpr wrong_constexpr_behavior = false;
 #endif
 
-    if constexpr(spy::compiler) { assert(!bool(wrong_constexpr_behavior)); }
-    else { assert(bool(wrong_constexpr_behavior)); }
+    if constexpr(spy::compiler)
+    {
+      assert(!bool(wrong_constexpr_behavior));
+    }
+    else
+    {
+      assert(bool(wrong_constexpr_behavior));
+    }
   }
   std::cout << "Done." << std::endl;
 }
