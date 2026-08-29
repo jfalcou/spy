@@ -20,7 +20,7 @@ AlignConsecutiveDeclarations:
 AlignEscapedNewlines: Right
 AlignTrailingComments: true
 AlignAfterOpenBracket: Align
-AllowShortBlocksOnASingleLine: Always
+AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
