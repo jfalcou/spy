@@ -45,7 +45,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool address_sanitizers_status = **implementation - specified * *;
+  constexpr bool address_sanitizers_status = _::implementation_defined {};
 #else
   constexpr bool address_sanitizers_status = false;
 #endif
@@ -62,7 +62,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool thread_sanitizers_status = **implementation - specified * *;
+  constexpr bool thread_sanitizers_status = _::implementation_defined {};
 #else
   constexpr bool thread_sanitizers_status = false;
 #endif

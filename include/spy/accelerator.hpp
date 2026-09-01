@@ -65,7 +65,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/sycl.cpp}
   //================================================================================================
-  constexpr inline auto sycl = **implementation - defined * *;
+  constexpr inline auto sycl = _::implementation_defined {};
 
 #else
   constexpr inline auto sycl = sycl_t<-1, -1, -1> {};
@@ -91,7 +91,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/cuda.cpp}
   //================================================================================================
-  constexpr inline auto cuda = **implementation - defined * *;
+  constexpr inline auto cuda = _::implementation_defined {};
 #else
   constexpr inline auto cuda = cuda_t<-1, -1, -1> {};
 #endif

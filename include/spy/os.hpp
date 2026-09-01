@@ -147,7 +147,7 @@ namespace spy::supports
   //! @groupheader{Example}
   //! @godbolt{samples/posix.cpp}
   //================================================================================================
-  constexpr inline auto posix_ = **implementation specified * *;
+  constexpr inline auto posix_ = _::implementation_defined {};
 #else
 #if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) ||                     \
     (_XOPEN_SOURCE >= 600)
