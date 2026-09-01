@@ -152,7 +152,7 @@ let codefold = {
       'margin-right':'2px',
       'display':'inline-block',
       'width':'54px',
-      'background':'linear-gradient(var(--fold-line-color),var(--fold-line-color)) no-repeat 46px/2px 100%'
+      'background':'linear-gradient(#808080,#808080) no-repeat 46px/2px 100%'
     });
     // add global toggle to first line
     $('span[class=lineno]:first').append('<span class="fold minus" id="fold_all" '+

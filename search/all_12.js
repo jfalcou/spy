@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['operating_5fsystem_0',['operating_system',['../group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html#gadb7c5be967e00cff21ae5b98cc12a7dc',1,'spy']]],
+  ['operating_5fsystem_0',['operating_system',['../group__api.html#gadb7c5be967e00cff21ae5b98cc12a7dc',1,'spy']]],
   ['operator_22_22_5fclang_1',['operator&quot;&quot;_clang',['../group__api.html#gab3e0f11a5ec1b2963564755b84630970',1,'spy::literal']]],
   ['operator_22_22_5fclangcl_2',['operator&quot;&quot;_clangcl',['../group__api.html#ga4de7991e386c7271b2c5263af9668054',1,'spy::literal']]],
   ['operator_22_22_5fcloud_3',['operator&quot;&quot;_cloud',['../group__api.html#ga1dc236e3cae2ef3c7ec23d45659b7b30',1,'spy::literal']]],

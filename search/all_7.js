@@ -5,9 +5,9 @@ var searchData=
   ['changelog_2',['Changelog',['../changelog.html#autotoc_md1',1,'Changelog'],['../changelog.html#autotoc_md4',1,'Changelog'],['../changelog.html#autotoc_md8',1,'Changelog'],['../changelog.html#autotoc_md11',1,'Changelog'],['../changelog.html#autotoc_md14',1,'Changelog'],['../changelog.html#autotoc_md17',1,'Changelog']]],
   ['charlet_3',['Version 0.0.2 - Blanche Charlet',['../changelog.html#autotoc_md16',1,'']]],
   ['cmake_20fetchcontent_4',['CMake FetchContent',['../setup.html#setup-fetchcontent',1,'']]],
-  ['compiler_5',['compiler',['../group__api_ga2d96c18fea5b9a06ac37487ab570599d.html#ga2d96c18fea5b9a06ac37487ab570599d',1,'spy']]],
+  ['compiler_5',['compiler',['../group__api.html#ga2d96c18fea5b9a06ac37487ab570599d',1,'spy']]],
   ['contributors_6',['New Contributors',['../changelog.html#autotoc_md5',1,'']]],
   ['cpm_7',['Setup with CPM',['../setup.html#setup-cpm',1,'']]],
-  ['cpp_5fstandard_8',['cpp_standard',['../group__api_gaed9a94996ad095314bc4f6c0f0aba213.html#gaed9a94996ad095314bc4f6c0f0aba213',1,'spy']]],
-  ['cuda_9',['cuda',['../group__api_gaad706954aedb6aaf6ff1a9858a971e00.html#gaad706954aedb6aaf6ff1a9858a971e00',1,'spy::supports']]]
+  ['cpp_5fstandard_8',['cpp_standard',['../group__api.html#ga2c2e1cf01b09e160c5aff3a529f47c15',1,'spy']]],
+  ['cuda_9',['cuda',['../group__api.html#gaad706954aedb6aaf6ff1a9858a971e00',1,'spy::supports']]]
 ];

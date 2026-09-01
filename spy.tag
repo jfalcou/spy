@@ -10,56 +10,56 @@
     <member kind="variable">
       <type>constexpr arch_type</type>
       <name>architecture</name>
-      <anchorfile>group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gaad5f2aa34188a02b894a0d8c7e402d6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr compiler_type</type>
       <name>compiler</name>
-      <anchorfile>group__api_ga2d96c18fea5b9a06ac37487ab570599d.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga2d96c18fea5b9a06ac37487ab570599d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr _::cpp_standard_t&lt; 0 &gt;</type>
+      <type>constexpr spy_implementation_defined</type>
       <name>cpp_standard</name>
-      <anchorfile>group__api_gaed9a94996ad095314bc4f6c0f0aba213.html</anchorfile>
-      <anchor>gaed9a94996ad095314bc4f6c0f0aba213</anchor>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga2c2e1cf01b09e160c5aff3a529f47c15</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>data_model</name>
-      <anchorfile>group__api_gaa091fe192a7f9d0d164cf7546083200d.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gaa091fe192a7f9d0d164cf7546083200d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>libc</name>
-      <anchorfile>group__api_ga03dc3f2a9b02b025902f9df3b2db53ab.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga03dc3f2a9b02b025902f9df3b2db53ab</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr os_type</type>
       <name>operating_system</name>
-      <anchorfile>group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gadb7c5be967e00cff21ae5b98cc12a7dc</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>simd_instruction_set</name>
-      <anchorfile>group__api_ga45f64b82d4939d55865b0e6a311b2dde.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga45f64b82d4939d55865b0e6a311b2dde</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>stdlib</name>
-      <anchorfile>group__api_gafe99b815db524eacf659ba8348ca2e0d.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gafe99b815db524eacf659ba8348ca2e0d</anchor>
       <arglist></arglist>
     </member>
@@ -75,98 +75,98 @@
     <member kind="variable">
       <type>constexpr bool</type>
       <name>spy::supports::address_sanitizers_status</name>
-      <anchorfile>group__api_ga37e2c07363dadf1eb40e89a9a91f8121.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga37e2c07363dadf1eb40e89a9a91f8121</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr arch_type</type>
       <name>spy::architecture</name>
-      <anchorfile>group__api_gaad5f2aa34188a02b894a0d8c7e402d6e.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gaad5f2aa34188a02b894a0d8c7e402d6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr compiler_type</type>
       <name>spy::compiler</name>
-      <anchorfile>group__api_ga2d96c18fea5b9a06ac37487ab570599d.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga2d96c18fea5b9a06ac37487ab570599d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr _::cpp_standard_t&lt; 0 &gt;</type>
+      <type>constexpr spy_implementation_defined</type>
       <name>spy::cpp_standard</name>
-      <anchorfile>group__api_gaed9a94996ad095314bc4f6c0f0aba213.html</anchorfile>
-      <anchor>gaed9a94996ad095314bc4f6c0f0aba213</anchor>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga2c2e1cf01b09e160c5aff3a529f47c15</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::supports::cuda</name>
-      <anchorfile>group__api_gaad706954aedb6aaf6ff1a9858a971e00.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gaad706954aedb6aaf6ff1a9858a971e00</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::data_model</name>
-      <anchorfile>group__api_gaa091fe192a7f9d0d164cf7546083200d.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gaa091fe192a7f9d0d164cf7546083200d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::libc</name>
-      <anchorfile>group__api_ga03dc3f2a9b02b025902f9df3b2db53ab.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga03dc3f2a9b02b025902f9df3b2db53ab</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr os_type</type>
       <name>spy::operating_system</name>
-      <anchorfile>group__api_gadb7c5be967e00cff21ae5b98cc12a7dc.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gadb7c5be967e00cff21ae5b98cc12a7dc</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::supports::posix_</name>
-      <anchorfile>group__api_ga63eef44bc05ea6f77f278ba5b394ada8.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga63eef44bc05ea6f77f278ba5b394ada8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr bool</type>
       <name>spy::supports::sanitizers_status</name>
-      <anchorfile>group__api_ga28313e4f9673ea0f5d0ca44ffd1a967a.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga28313e4f9673ea0f5d0ca44ffd1a967a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::simd_instruction_set</name>
-      <anchorfile>group__api_ga45f64b82d4939d55865b0e6a311b2dde.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga45f64b82d4939d55865b0e6a311b2dde</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::stdlib</name>
-      <anchorfile>group__api_gafe99b815db524eacf659ba8348ca2e0d.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>gafe99b815db524eacf659ba8348ca2e0d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::supports::sycl</name>
-      <anchorfile>group__api_ga03e4a3ae6533a43cdf9bcbf1317707cd.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga03e4a3ae6533a43cdf9bcbf1317707cd</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>constexpr bool</type>
       <name>spy::supports::thread_sanitizers_status</name>
-      <anchorfile>group__api_ga16591d3ea9aaa049682bfbedd519dc43.html</anchorfile>
+      <anchorfile>group__api.html</anchorfile>
       <anchor>ga16591d3ea9aaa049682bfbedd519dc43</anchor>
       <arglist></arglist>
     </member>
