@@ -37,8 +37,8 @@ Change Log {#changelog}
   - Add detections for NVIDIA CUDA usage.
 
 - Bugs:
-  - Fix int width for the LLP64 data model by @jmgorius
-  - Add missing whitespace in stdlib output by @ahoarau
+  - Fix int width for the LLP64 data model by [\@jmgorius](https://github.com/jmgorius)
+  - Add missing whitespace in stdlib output by [\@ahoarau](https://github.com/ahoarau)
 
 - Infrastructure:
   - Reorganize standalone header location & process.
@@ -46,8 +46,8 @@ Change Log {#changelog}
   - Now tests and supports Clang-CL.
 
 ## New Contributors
-* @ahoarau made their first contribution in https://github.com/jfalcou/spy/pull/40
-* @jmgorius made their first contribution in https://github.com/jfalcou/spy/pull/44
+* [\@ahoarau](https://github.com/ahoarau) made their first contribution in https://github.com/jfalcou/spy/pull/40
+* [\@jmgorius](https://github.com/jmgorius) made their first contribution in https://github.com/jfalcou/spy/pull/44
 
 ## Our SPY:
 
