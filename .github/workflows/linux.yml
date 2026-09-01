@@ -35,14 +35,14 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Configure CMake and Build
-        uses: jfalcou/copacabana/.github/actions/config@3337f916bb581d0829909976773f7a2ee827a25c # v4
+        uses: jfalcou/copacabana/.github/actions/config@bdd4698a6b7653510904e7e408298c574591af69 # v5
         with:
           config: ${{ matrix.options }}
           preset: ${{ matrix.compiler.preset }}
           setup-script: ${{ matrix.compiler.setup }}
 
       - name: Run Unit Tests
-        uses: jfalcou/copacabana/.github/actions/test@3337f916bb581d0829909976773f7a2ee827a25c # v4
+        uses: jfalcou/copacabana/.github/actions/test@bdd4698a6b7653510904e7e408298c574591af69 # v5
         with:
           config: ${{ matrix.options }}
           preset: ${{ matrix.compiler.preset }}
