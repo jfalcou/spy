@@ -145,7 +145,7 @@ namespace spy::supports
   constexpr inline auto sycl =
       sycl_t<SYCL_LANGUAGE_VERSION / 100, SYCL_LANGUAGE_VERSION % 100, 0> {};
 #elif defined(SPY_DOXYGEN_INVOKED)
-  constexpr inline auto sycl = **implementation - defined * *;
+  constexpr inline auto sycl = _::implementation_defined {};
 #else
   constexpr inline auto sycl = sycl_t<-1, -1, -1> {};
 #endif
@@ -159,7 +159,7 @@ namespace spy::supports
       cuda_t<CUDA_VERSION / 1000, (CUDA_VERSION % 1000) / 10, CUDA_VERSION % 10> {};
 #endif
 #elif defined(SPY_DOXYGEN_INVOKED)
-  constexpr inline auto cuda = **implementation - defined * *;
+  constexpr inline auto cuda = _::implementation_defined {};
 #else
   constexpr inline auto cuda = cuda_t<-1, -1, -1> {};
 #endif
@@ -675,7 +675,7 @@ namespace spy
 namespace spy::supports
 {
 #if defined(SPY_DOXYGEN_INVOKED)
-  constexpr inline auto posix_ = **implementation specified * *;
+  constexpr inline auto posix_ = _::implementation_defined {};
 #else
 #if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || (_POSIX_C_SOURCE >= 200112L) ||                     \
     (_XOPEN_SOURCE >= 600)
@@ -709,14 +709,14 @@ namespace spy::supports
 #if defined(SPY_ADDRESS_SANITIZERS_ENABLED)
   constexpr bool address_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
-  constexpr bool address_sanitizers_status = **implementation - specified * *;
+  constexpr bool address_sanitizers_status = _::implementation_defined {};
 #else
   constexpr bool address_sanitizers_status = false;
 #endif
 #if defined(SPY_THREAD_SANITIZERS_ENABLED)
   constexpr bool thread_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
-  constexpr bool thread_sanitizers_status = **implementation - specified * *;
+  constexpr bool thread_sanitizers_status = _::implementation_defined {};
 #else
   constexpr bool thread_sanitizers_status = false;
 #endif
