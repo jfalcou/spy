@@ -70,7 +70,7 @@ if(SPY_BUILD_DOCUMENTATION)
                      URL "https://github.com/jfalcou/spy"
                      GODBOLT_LIBRARIES spy
                      GODBOLT_COMPILER clang1600
-                     GODBOLT_OPTIONS "-O3 -std=c++20 -DNEDBUG"
+                     GODBOLT_OPTIONS "-O3 -std=c++20 -DNDEBUG"
                      COLOR_HUE 165
                      COLOR_SATURATION 95
                      COLOR_LIGHTNESS 30)
