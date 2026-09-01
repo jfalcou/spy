@@ -64,7 +64,16 @@ copa_setup_install( LIBRARY spy
 ## Setup doxygen
 ##======================================================================================================================
 if(SPY_BUILD_DOCUMENTATION)
-  copa_setup_doxygen(${QUIET_OPTION} TARGET spy-doxygen DESTINATION "${PROJECT_BINARY_DIR}/doc")
+  copa_setup_doxygen(${QUIET_OPTION}
+                     TARGET spy-doxygen
+                     DESTINATION "${PROJECT_BINARY_DIR}/doc"
+                     URL "https://github.com/jfalcou/spy"
+                     GODBOLT_LIBRARIES spy
+                     GODBOLT_COMPILER clang1600
+                     GODBOLT_OPTIONS "-O3 -std=c++20 -DNDEBUG"
+                     COLOR_HUE 165
+                     COLOR_SATURATION 95
+                     COLOR_LIGHTNESS 30)
 endif()
 
 ##======================================================================================================================

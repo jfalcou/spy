@@ -19,19 +19,8 @@ jobs:
   ## interdependency - only once all three pass does the (much heavier) compiler matrix start below.
   ##################################################################################################
   precommit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.x'
-      - name: Install pre-commit
-        # Pinned, and binary-only so no dependency gets to run a setup script during install
-        run: pip install --only-binary ":all:" pre-commit==4.6.2
-      - name: Run pre-commit checks
-        run: pre-commit run --all-files --show-diff-on-failure --color=always
+    name: Meta Checks
+    uses: jfalcou/copacabana/.github/workflows/precommit.yml@bdd4698a6b7653510904e7e408298c574591af69 # v5
 
   ##======================================================================================================================
   ## Ensure Standalone is viable
@@ -60,14 +49,14 @@ jobs:
   ##################################################################################################
   sanitizer-tests:
     name: Sanitizers
-    uses: jfalcou/copacabana/.github/workflows/sanitizers.yml@3337f916bb581d0829909976773f7a2ee827a25c # v4
+    uses: jfalcou/copacabana/.github/workflows/sanitizers.yml@bdd4698a6b7653510904e7e408298c574591af69 # v5
 
   ##################################################################################################
   ## Coverage report - informational, runs alongside the gate without blocking the matrix
   ##################################################################################################
   coverage-report:
     name: Coverage
-    uses: jfalcou/copacabana/.github/workflows/coverage.yml@3337f916bb581d0829909976773f7a2ee827a25c # v4
+    uses: jfalcou/copacabana/.github/workflows/coverage.yml@bdd4698a6b7653510904e7e408298c574591af69 # v5
     with:
       project: spy
 

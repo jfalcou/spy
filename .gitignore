@@ -42,3 +42,6 @@ Testing/
 .vscode/
 .cache
 compile_commands.json
+
+## Doxygen writes the tagfile into the build output; a copy in the source tree only goes stale.
+doc/*.tag

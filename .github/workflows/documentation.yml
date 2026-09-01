@@ -8,12 +8,16 @@ on:
   push:
     branches:
       - main
+  ## Builds nothing to deploy here: it reports what Doxygen said while generating the pages.
+  pull_request:
+    branches:
+      - main
 
 jobs:
   documentation:
     permissions:
       contents: write
-    uses: jfalcou/copacabana/.github/workflows/documentation.yml@3337f916bb581d0829909976773f7a2ee827a25c # v4
+    uses: jfalcou/copacabana/.github/workflows/documentation.yml@bdd4698a6b7653510904e7e408298c574591af69 # v5
     with:
       project: spy
       coverage: true
