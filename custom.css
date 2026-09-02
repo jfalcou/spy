@@ -123,3 +123,16 @@ dl.success {
 dl.success dt{
     color: var(--note-color-dark);
 }
+
+/* doxygen-awesome styles dl.warning and dl.attention together, so @attention comes out amber like a warning.
+   A missing example is not a warning about what the function does, and the two commands doxygen colours red or
+   purple - @bug and @todo - render nothing at all here, GENERATE_BUGLIST and GENERATE_TODOLIST both being NO.
+   So @attention is taken over, in the theme's own red rather than a colour invented for it: those variables carry
+   a light and a dark value, which a literal would not. */
+dl.section.attention {
+    background: var(--bug-color);
+    border-left: 8px solid var(--bug-color-dark);
+    color: var(--bug-color-darker);
+}
+
+dl.section.attention dt { color: var(--bug-color-dark); }

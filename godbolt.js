@@ -42,7 +42,7 @@ function fragmentSource(fragment) {
 }
 
 // btoa() only accepts Latin-1, so the UTF-8 bytes have to be handed to it one by one: a source
-// using a character like eve::π would otherwise throw InvalidCharacterError and the Godbolt
+// using a character like lib::π would otherwise throw InvalidCharacterError and the Godbolt
 // button would silently do nothing.
 function base64utf8(str) {
     let binary = "";
@@ -112,13 +112,14 @@ class SendToGodbolt extends HTMLElement {
             border-radius: var(--border-radius-small, 4px);
 
             position: absolute;
-            top: calc(var(--fragment-padding-y, .4rem) + 4px);
-            /* Offset adjusted for the wider 30px native button + 6px gap */
-            right: calc(var(--fragment-padding-x, .4rem) + 36px);
+            /* doxygen-awesome places its copy button from --spacing-large, and --fragment-padding-x and -y are
+               defined in none of the stylesheets shipped, so reading them only ever gave the fallback. */
+            top: calc(var(--spacing-large, 16px) - (var(--spacing-large, 16px) / 2.5));
+            right: calc(var(--spacing-large, 16px) - (var(--spacing-large, 16px) / 2.5) + 34px);
 
-            /* Increased to 30px to match the native button's bounding box exactly */
-            width: 30px;
-            height: 30px;
+            /* The native button is 28px square; the gap is in the offset above. */
+            width: 28px;
+            height: 28px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -136,9 +137,9 @@ class SendToGodbolt extends HTMLElement {
             background-color: var(--fragment-background-hover, var(--primary-light-color, #f0f0f0));
         }
         doxygen-awesome-godbolt-button svg {
-            /* Scaled proportionally to fit the new 30px container */
-            width: 20.5px;
-            height: 20.5px;
+            /* Scaled proportionally to fit the 28px container */
+            width: 19px;
+            height: 19px;
 
             /* CSS magic: Make it grey and slightly faded by default */
             filter: grayscale(100%) opacity(60%);
