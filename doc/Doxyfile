@@ -28,3 +28,6 @@ GENERATE_LATEX         = NO
 ## What the fleet shares, last so that it wins over anything above
 ##======================================================================================================================
 @INCLUDE               = $(DOXYGEN_ASSETS)/base.doxyfile
+
+## The image the social card metadata in head.html points at, published beside the pages.
+HTML_EXTRA_FILES      += card.png
