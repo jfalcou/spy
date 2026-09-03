@@ -11,36 +11,33 @@ if(DEFINED CMAKE_CUDA_COMPILER)
 endif()
 
 ##======================================================================================================================
-option( SPY_BUILD_TEST          "Build tests   for SPY"                                        ON  )
-option( SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY"                                        OFF )
-option( SPY_ENABLE_SANITIZERS   "Build tests with AddressSanitizer + UndefinedBehaviorSanitizer" OFF )
-option( SPY_ENABLE_COVERAGE     "Build tests with code coverage instrumentation"                 OFF )
 
 ##======================================================================================================================
 include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
 
-if(SPY_BUILD_TEST)
-  include(${PROJECT_SOURCE_DIR}/cmake/compiler.cmake)
-endif()
 
 ##======================================================================================================================
 ## Project setup via copacabana
 ##======================================================================================================================
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake ${COPACABANA_SOURCE_DIR}/copacabana/cmake)
 include(${COPACABANA_SOURCE_DIR}/copacabana/cmake/copacabana.cmake)
+
+copa_add_option(SPY_BUILD_TEST "Build tests for SPY" ON LABEL "Unit tests")
+copa_add_option(SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY" OFF LABEL "Doxygen")
+copa_add_option(SPY_ENABLE_SANITIZERS "Build tests with AddressSanitizer + UndefinedBehaviorSanitizer" OFF LABEL "Sanitizers")
+copa_add_option(SPY_ENABLE_COVERAGE "Build tests with code coverage instrumentation" OFF LABEL "Coverage")
+
+if(SPY_BUILD_TEST)
+  include(${PROJECT_SOURCE_DIR}/cmake/compiler.cmake)
+endif()
 copa_project_version(MAJOR 2 MINOR 0 PATCH 0 REPOSITORY https://github.com/jfalcou/spy)
 
 ##======================================================================================================================
 ## Summary Display
 ##======================================================================================================================
+copa_show_options()
+
 if(NOT SPY_QUIET)
-  if(CMAKE_BUILD_TYPE)
-    message(STATUS "[${PROJECT_NAME}] - Building in ${CMAKE_BUILD_TYPE} mode")
-  endif()
-  message(STATUS "[${PROJECT_NAME}] - Unit tests : ${SPY_BUILD_TEST} (via SPY_BUILD_TEST)")
-  message(STATUS "[${PROJECT_NAME}] - Doxygen    : ${SPY_BUILD_DOCUMENTATION} (via SPY_BUILD_DOCUMENTATION)")
-  message(STATUS "[${PROJECT_NAME}] - Sanitizers : ${SPY_ENABLE_SANITIZERS} (via SPY_ENABLE_SANITIZERS)")
-  message(STATUS "[${PROJECT_NAME}] - Coverage   : ${SPY_ENABLE_COVERAGE} (via SPY_ENABLE_COVERAGE)")
   set(QUIET_OPTION "")
 else()
   set(QUIET_OPTION "QUIET")
