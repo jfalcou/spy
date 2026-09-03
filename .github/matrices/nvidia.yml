@@ -3,17 +3,8 @@
 ##  Copyright : SPY Project Contributors
 ##  SPDX-License-Identifier: BSL-1.0
 ##======================================================================================================================
-name: SPY Standalone Generation
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  package-standalone:
-    permissions:
-      contents: write
-      pull-requests: write
-    uses: jfalcou/copacabana/.github/workflows/package-standalone.yml@05d0796125e284daa16d9a4f6424c58f98a2bb5a # v7
-    with:
-      project: spy
+## Read by copacabana's matrix.yml: the nvidia jobs, one per row and configuration.
+runs-on: self-hosted
+rows:
+  - { name: "nvcc"      , preset: "nvcc"       }
+  - { name: "clang-cuda", preset: "clang-cuda" }
