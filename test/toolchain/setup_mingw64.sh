@@ -13,18 +13,20 @@ for candidate in "${MINGW64_BIN}"                                               
                  "/c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/bin"  \
                  "/c/mingw64/bin"
 do
-  if [ -n "$candidate" ] && [ -x "$candidate/g++.exe" ]; then
+  if [[ -n "$candidate" && -x "$candidate/g++.exe" ]]; then
     mingw_bin="$candidate"
     break
   fi
 done
 
-if [ -z "$mingw_bin" ]; then
-  probe="$(command -v g++ 2>/dev/null)"
-  [ -n "$probe" ] && mingw_bin="$(dirname "$probe")"
+if [[ -z "$mingw_bin" ]]; then
+  probe="$(command -v g++ 2>/dev/null || true)"
+  if [[ -n "$probe" ]]; then
+    mingw_bin="$(dirname "$probe")"
+  fi
 fi
 
-if [ -z "$mingw_bin" ]; then
+if [[ -z "$mingw_bin" ]]; then
   echo "No MinGW g++ found. Looked in /c/msys64/mingw64/bin," \
        "/c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/bin, /c/mingw64/bin and PATH." >&2
   return 1 2>/dev/null || exit 1
@@ -43,6 +45,8 @@ esac
 
 ## CMake reads this one, and the following steps of the job get the directory through GITHUB_PATH.
 export MINGW64_BIN="$(cygpath -m "$mingw_bin" 2>/dev/null || echo "$mingw_bin")"
-[ -n "$GITHUB_PATH" ] && echo "$MINGW64_BIN" >> "$GITHUB_PATH"
+if [[ -n "$GITHUB_PATH" ]]; then
+  echo "$MINGW64_BIN" >> "$GITHUB_PATH"
+fi
 
 echo "Using $(g++ --version | head -1) from $MINGW64_BIN"
