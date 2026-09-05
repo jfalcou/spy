@@ -20,12 +20,12 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/compiler.hpp",
-            "function_covered": 29,
+            "function_covered": 1,
             "function_percent": 100.0,
-            "function_total": 29,
-            "line_covered": 26,
+            "function_total": 1,
+            "line_covered": 2,
             "line_percent": 100.0,
-            "line_total": 26
+            "line_total": 2
         },
         {
             "branch_covered": 0,
@@ -44,36 +44,36 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/detail.hpp",
-            "function_covered": 15,
+            "function_covered": 3,
             "function_percent": 100.0,
-            "function_total": 15,
-            "line_covered": 11,
+            "function_total": 3,
+            "line_covered": 2,
             "line_percent": 100.0,
-            "line_total": 11
+            "line_total": 2
         },
         {
             "branch_covered": 0,
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/libc.hpp",
-            "function_covered": 8,
+            "function_covered": 1,
             "function_percent": 100.0,
-            "function_total": 8,
-            "line_covered": 8,
+            "function_total": 1,
+            "line_covered": 2,
             "line_percent": 100.0,
-            "line_total": 8
+            "line_total": 2
         },
         {
             "branch_covered": 0,
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/os.hpp",
-            "function_covered": 9,
+            "function_covered": 1,
             "function_percent": 100.0,
-            "function_total": 9,
-            "line_covered": 4,
+            "function_total": 1,
+            "line_covered": 2,
             "line_percent": 100.0,
-            "line_total": 4
+            "line_total": 2
         },
         {
             "branch_covered": 0,
@@ -104,20 +104,20 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/stdlib.hpp",
-            "function_covered": 5,
+            "function_covered": 1,
             "function_percent": 100.0,
-            "function_total": 5,
-            "line_covered": 8,
+            "function_total": 1,
+            "line_covered": 2,
             "line_percent": 100.0,
-            "line_total": 8
+            "line_total": 2
         }
     ],
-    "function_covered": 84,
+    "function_covered": 25,
     "function_percent": 100.0,
-    "function_total": 84,
+    "function_total": 25,
     "gcovr/summary_format_version": "0.6",
-    "line_covered": 74,
+    "line_covered": 27,
     "line_percent": 100.0,
-    "line_total": 74,
+    "line_total": 27,
     "root": "../../.."
 }
