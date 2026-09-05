@@ -37,4 +37,6 @@ namespace spy
   }
 }
 
-#define SPY_ASSERT(MESSAGE, ...) spy::check<(__VA_ARGS__)>(MESSAGE, #__VA_ARGS__)
+// static_cast, because what spy reports is an object with an explicit operator bool, which a bool
+// template argument does not convert on its own.
+#define SPY_ASSERT(MESSAGE, ...) spy::check<static_cast<bool>(__VA_ARGS__)>(MESSAGE, #__VA_ARGS__)
