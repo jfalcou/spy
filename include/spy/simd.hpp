@@ -218,7 +218,7 @@ namespace spy
 //!
 //! | Architecture  | Supported SIMD instructions sets |
 //! | ------------- | ------------------------------------------------------------------------------------------------|
-//! | **X86 AVX**   | `xop_`, `fma_`, `fma4_`                                                                         |
+//! | **X86 AVX**   | `xop_`, `fma_`, `fma4_`, `f16c_`                                                                |
 //! | **X86 AVX512**| `bw_`, `cd_`, `dq_`, `er_`, `ifma_`, `pf_`, `vl_`, `popcntdq_`, `_4fmaps_`, `vnniw_`, `vbmi_`   |
 //! |               | `bf16_`, `bitalg_`, `vbmi2_`, `vnni_`, `vpintersect_`                                           |
 //!
