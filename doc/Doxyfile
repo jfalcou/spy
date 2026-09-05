@@ -8,7 +8,7 @@
 ## reason to restate.
 ##======================================================================================================================
 
-PROJECT_BRIEF          = "Denise Bloch"
+PROJECT_BRIEF          = "Andrée Borrel"
 PROJECT_LOGO           = logo.svg
 LAYOUT_FILE            = layout.xml
 

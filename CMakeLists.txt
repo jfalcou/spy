@@ -30,7 +30,7 @@ copa_add_option(SPY_ENABLE_COVERAGE "Build tests with code coverage instrumentat
 if(SPY_BUILD_TEST)
   include(${PROJECT_SOURCE_DIR}/cmake/compiler.cmake)
 endif()
-copa_project_version(MAJOR 2 MINOR 0 PATCH 0 REPOSITORY https://github.com/jfalcou/spy)
+copa_project_version(MAJOR 3 MINOR 0 PATCH 0 REPOSITORY https://github.com/jfalcou/spy)
 
 ##======================================================================================================================
 ## Summary Display
