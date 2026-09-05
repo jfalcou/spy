@@ -80,7 +80,12 @@
     },
 
     { "name": "msvc"    , "inherits": ["windows-base"]                      },
-    { "name": "clangcl" , "inherits": ["windows-base"], "toolset": "ClangCL" }
+    { "name": "clangcl" , "inherits": ["windows-base"], "toolset": "ClangCL" },
+
+    { "name": "mingw64" , "inherits": ["base"], "generator": "Ninja Multi-Config"
+    , "toolchainFile": "${sourceDir}/test/toolchain/gcc.mingw64.cmake"
+    , "cacheVariables": { "CMAKE_DEFAULT_BUILD_TYPE": "Debug" }
+    }
   ],
   "buildPresets": [
     { "name": "base-build", "hidden": true, "targets": ["spy-test"] },
@@ -102,7 +107,8 @@
     { "name": "icpx-sycl"       , "inherits": "base-build", "configurePreset": "icpx-sycl"        },
     { "name": "clang-macos"     , "inherits": "base-build", "configurePreset": "clang-macos"      },
     { "name": "msvc"            , "inherits": "base-build", "configurePreset": "msvc"             },
-    { "name": "clangcl"         , "inherits": "base-build", "configurePreset": "clangcl"          }
+    { "name": "clangcl"         , "inherits": "base-build", "configurePreset": "clangcl"          },
+    { "name": "mingw64"         , "inherits": "base-build", "configurePreset": "mingw64"          }
   ],
   "testPresets": [
     { "name": "base-test", "hidden": true, "output": { "outputOnFailure": true }, "configuration": "Debug" },
@@ -124,6 +130,7 @@
     { "name": "icpx-sycl"       , "inherits": "base-test", "configurePreset": "icpx-sycl"        },
     { "name": "clang-macos"     , "inherits": "base-test", "configurePreset": "clang-macos"      },
     { "name": "msvc"            , "inherits": "base-test", "configurePreset": "msvc"             },
-    { "name": "clangcl"         , "inherits": "base-test", "configurePreset": "clangcl"          }
+    { "name": "clangcl"         , "inherits": "base-test", "configurePreset": "clangcl"          },
+    { "name": "mingw64"         , "inherits": "base-test", "configurePreset": "mingw64"          }
   ]
 }

@@ -8,3 +8,4 @@ runs-on: windows-2022
 rows:
   - { name: "msvc"    , preset: "msvc"    }
   - { name: "clang-cl", preset: "clangcl" }
+  - { name: "mingw64" , preset: "mingw64", setup: "test/toolchain/setup_mingw64.sh" }
