@@ -6,28 +6,28 @@
 **/
 //==================================================================================================
 #include <spy/spy.hpp>
+
 #include <iostream>
+
+#include "assert.hpp"
 
 int main()
 {
-  std::cout << "Check that specified accelerator is supported: " << std::endl;
+  std::cout << "== specified accelerator is supported\n";
   {
     #if defined(SYCL_LANGUAGE_VERSION) && defined (__INTEL_LLVM_COMPILER)
-    static_assert( spy::supports::sycl );
-    std::cout << "Currently compiling with " << spy::supports::sycl << " enabled\n";
+    SPY_ASSERT("sycl is reported", spy::supports::sycl);
+    std::cout << "Compiled with " << spy::supports::sycl << "\n";
     #else
-    static_assert( !spy::supports::sycl );
-    std::cout << "Currently compiling without SYCL enabled\n";
+    SPY_ASSERT("sycl is not reported", !spy::supports::sycl);
     #endif
   }
   {
     #if defined (__CUDACC__)
-    static_assert( spy::supports::cuda );
-    std::cout << "Currently compiling with " << spy::supports::cuda << " enabled\n";
+    SPY_ASSERT("cuda is reported", spy::supports::cuda);
+    std::cout << "Compiled with " << spy::supports::cuda << "\n";
     #else
-    static_assert( !spy::supports::cuda );
-    std::cout << "Currently compiling without CUDA enabled\n";
+    SPY_ASSERT("cuda is not reported", !spy::supports::cuda);
     #endif
   }
-  std::cout << "Done." << std::endl;
 }
