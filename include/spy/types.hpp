@@ -52,34 +52,77 @@
 
 namespace spy::supports::fp16
 {
-  //! Whether the _Float16 type is provided by the compiler on the current platform.
-#ifdef SPY_SUPPORTS_FP16_TYPE
-  static constexpr bool type = true;
+#if defined(SPY_SUPPORTS_FP16_TYPE)
+  constexpr inline bool type = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup api
+  //! @brief Half-precision type availability indicator
+  //!
+  //! Evaluates to `true` when the `_Float16` type is provided by the compiler on the current
+  //! platform. The three other indicators of this namespace are meaningful only when this one
+  //! is `true`.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/fp16.cpp}
+  //================================================================================================
+  constexpr inline bool type = _::implementation_defined {};
 #else
-  static constexpr bool type = false;
+  constexpr inline bool type = false;
 #endif
 
-  //! Whether the current architecture supports scalar operations on IEEE-754 half-precision
-  //! floating-point numbers.
-#ifdef SPY_SUPPORTS_FP16_SCALAR_OPS
-  static constexpr bool scalar_ops = true;
+#if defined(SPY_SUPPORTS_FP16_SCALAR_OPS)
+  constexpr inline bool scalar_ops = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup api
+  //! @brief Half-precision scalar arithmetic indicator
+  //!
+  //! Evaluates to `true` when the current architecture supports scalar operations on IEEE-754
+  //! half-precision floating-point numbers.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/fp16.cpp}
+  //================================================================================================
+  constexpr inline bool scalar_ops = _::implementation_defined {};
 #else
-  static constexpr bool scalar_ops = false;
+  constexpr inline bool scalar_ops = false;
 #endif
 
-  //! Whether the current architecture supports packed conversion operations between IEEE-754
-  //! half-precision floating-point numbers and at least one other IEEE-754 floating-point type.
-#ifdef SPY_SUPPORTS_FP16_VECTOR_CONVERSION
-  static constexpr bool vector_conversion = true;
+#if defined(SPY_SUPPORTS_FP16_VECTOR_CONVERSION)
+  constexpr inline bool vector_conversion = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup api
+  //! @brief Half-precision packed conversion indicator
+  //!
+  //! Evaluates to `true` when the current architecture supports packed conversion operations
+  //! between IEEE-754 half-precision floating-point numbers and at least one other IEEE-754
+  //! floating-point type. It is implied by @ref spy::supports::fp16::vector_ops.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/fp16.cpp}
+  //================================================================================================
+  constexpr inline bool vector_conversion = _::implementation_defined {};
 #else
-  static constexpr bool vector_conversion = false;
+  constexpr inline bool vector_conversion = false;
 #endif
 
-  //! Whether the current architecture supports vector operations on IEEE-754 half-precision
-  //! floating-point numbers.
-#ifdef SPY_SUPPORTS_FP16_VECTOR_OPS
-  static constexpr bool vector_ops = true;
+#if defined(SPY_SUPPORTS_FP16_VECTOR_OPS)
+  constexpr inline bool vector_ops = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup api
+  //! @brief Half-precision vector arithmetic indicator
+  //!
+  //! Evaluates to `true` when the current architecture supports vector operations on IEEE-754
+  //! half-precision floating-point numbers.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/fp16.cpp}
+  //================================================================================================
+  constexpr inline bool vector_ops = _::implementation_defined {};
 #else
-  static constexpr bool vector_ops = false;
+  constexpr inline bool vector_ops = false;
 #endif
 }
