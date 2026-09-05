@@ -5,30 +5,30 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <cassert>
 #include <iostream>
 #include <spy/spy.hpp>
 
+#include "assert.hpp"
+
 int main()
 {
-  std::cout << "Check that detected stdlib is correct: " << std::flush;
+  std::cout << "== detected stdlib is correct\n";
   {
 #if defined(_LIBCPP_VERSION)
     {
-      assert(spy::stdlib == spy::libcpp_);
-      assert(!(spy::stdlib == spy::gnucpp_));
+      SPY_ASSERT("the standard library is libc++", spy::stdlib == spy::libcpp_);
+      SPY_ASSERT("the standard library is not libstdc++", !(spy::stdlib == spy::gnucpp_));
     }
 #elif defined(__GLIBCXX__)
     {
-      assert(!(spy::stdlib == spy::libcpp_));
-      assert(spy::stdlib == spy::gnucpp_);
+      SPY_ASSERT("the standard library is not libc++", !(spy::stdlib == spy::libcpp_));
+      SPY_ASSERT("the standard library is libstdc++", spy::stdlib == spy::gnucpp_);
     }
 #endif
   }
-  std::cout << "Done." << std::endl;
   std::cout << "Detected stdlib: " << spy::stdlib << std::endl;
 
-  std::cout << "Check that detected constexpr selection on exact stdlib is correct: " << std::flush;
+  std::cout << "== detected constexpr selection on exact stdlib is correct\n";
   {
     using namespace spy::literal;
 
@@ -42,12 +42,11 @@ int main()
 
     if constexpr(spy::stdlib)
     {
-      assert(!bool(wrong_constexpr_behavior));
+      SPY_ASSERT("a version that does not match is turned down", !bool(wrong_constexpr_behavior));
     }
     else
     {
-      assert(bool(wrong_constexpr_behavior));
+      SPY_ASSERT("a version that does not match selects nothing", bool(wrong_constexpr_behavior));
     }
   }
-  std::cout << "Done." << std::endl;
 }

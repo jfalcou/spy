@@ -31,5 +31,4 @@ int main(
     std::cout << "Currently compiling without CUDA enabled\n";
 #endif
   }
-  std::cout << "Done." << std::endl;
 }

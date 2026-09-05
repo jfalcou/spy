@@ -5,56 +5,56 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <cassert>
 #include <iostream>
 #include <spy/spy.hpp>
 
+#include "assert.hpp"
+
 int main()
 {
-  std::cout << "Check that detected libc is correct: " << std::flush;
+  std::cout << "== detected libc is correct\n";
   {
 #if defined(__cloudlibc__)
-    assert(spy::libc == spy::cloudabi_);
-    assert(!(spy::libc == spy::uc_));
-    assert(!(spy::libc == spy::vms_));
-    assert(!(spy::libc == spy::zos_));
-    assert(!(spy::libc == spy::gnu_));
+    SPY_ASSERT("the libc is cloudabi", spy::libc == spy::cloudabi_);
+    SPY_ASSERT("the libc is not uClibc", !(spy::libc == spy::uc_));
+    SPY_ASSERT("the libc is not vms", !(spy::libc == spy::vms_));
+    SPY_ASSERT("the libc is not z/OS", !(spy::libc == spy::zos_));
+    SPY_ASSERT("the libc is not glibc", !(spy::libc == spy::gnu_));
 #elif defined(__UCLIBC__)
-    assert(!(spy::libc == spy::cloudabi_));
-    assert(spy::libc == spy::uc_);
-    assert(!(spy::libc == spy::vms_));
-    assert(!(spy::libc == spy::zos_));
-    assert(!(spy::libc == spy::gnu_));
+    SPY_ASSERT("the libc is not cloudabi", !(spy::libc == spy::cloudabi_));
+    SPY_ASSERT("the libc is uClibc", spy::libc == spy::uc_);
+    SPY_ASSERT("the libc is not vms", !(spy::libc == spy::vms_));
+    SPY_ASSERT("the libc is not z/OS", !(spy::libc == spy::zos_));
+    SPY_ASSERT("the libc is not glibc", !(spy::libc == spy::gnu_));
 #elif defined(__CRTL_VER)
-    assert(!(spy::libc == spy::cloudabi_));
-    assert(!(spy::libc == spy::uc_));
-    assert(spy::libc == spy::vms_);
-    assert(!(spy::libc == spy::zos_));
-    assert(!(spy::libc == spy::gnu_));
+    SPY_ASSERT("the libc is not cloudabi", !(spy::libc == spy::cloudabi_));
+    SPY_ASSERT("the libc is not uClibc", !(spy::libc == spy::uc_));
+    SPY_ASSERT("the libc is vms", spy::libc == spy::vms_);
+    SPY_ASSERT("the libc is not z/OS", !(spy::libc == spy::zos_));
+    SPY_ASSERT("the libc is not glibc", !(spy::libc == spy::gnu_));
 #elif defined(__LIBREL__)
-    assert(!(spy::libc == spy::cloudabi_));
-    assert(!(spy::libc == spy::uc_));
-    assert(!(spy::libc == spy::vms_));
-    assert(spy::libc == spy::zos_);
-    assert(!(spy::libc == spy::gnu_));
+    SPY_ASSERT("the libc is not cloudabi", !(spy::libc == spy::cloudabi_));
+    SPY_ASSERT("the libc is not uClibc", !(spy::libc == spy::uc_));
+    SPY_ASSERT("the libc is not vms", !(spy::libc == spy::vms_));
+    SPY_ASSERT("the libc is z/OS", spy::libc == spy::zos_);
+    SPY_ASSERT("the libc is not glibc", !(spy::libc == spy::gnu_));
 #elif defined(__GLIBC__) || defined(__GNU_LIBRARY__)
-    assert(!(spy::libc == spy::cloudabi_));
-    assert(!(spy::libc == spy::uc_));
-    assert(!(spy::libc == spy::vms_));
-    assert(!(spy::libc == spy::zos_));
-    assert(spy::libc == spy::gnu_);
+    SPY_ASSERT("the libc is not cloudabi", !(spy::libc == spy::cloudabi_));
+    SPY_ASSERT("the libc is not uClibc", !(spy::libc == spy::uc_));
+    SPY_ASSERT("the libc is not vms", !(spy::libc == spy::vms_));
+    SPY_ASSERT("the libc is not z/OS", !(spy::libc == spy::zos_));
+    SPY_ASSERT("the libc is glibc", spy::libc == spy::gnu_);
 #else
-    assert(!(spy::libc == spy::cloudabi_));
-    assert(!(spy::libc == spy::uc_));
-    assert(!(spy::libc == spy::vms_));
-    assert(!(spy::libc == spy::zos_));
-    assert(!(spy::libc == spy::gnu_));
+    SPY_ASSERT("the libc is not cloudabi", !(spy::libc == spy::cloudabi_));
+    SPY_ASSERT("the libc is not uClibc", !(spy::libc == spy::uc_));
+    SPY_ASSERT("the libc is not vms", !(spy::libc == spy::vms_));
+    SPY_ASSERT("the libc is not z/OS", !(spy::libc == spy::zos_));
+    SPY_ASSERT("the libc is not glibc", !(spy::libc == spy::gnu_));
 #endif
   }
-  std::cout << "Done." << std::endl;
   std::cout << "Detected libc: " << spy::libc << std::endl;
 
-  std::cout << "Check that detected constexpr selection on exact libc is correct: " << std::flush;
+  std::cout << "== detected constexpr selection on exact libc is correct\n";
   {
     using namespace spy::literal;
 
@@ -74,12 +74,11 @@ int main()
 
     if constexpr(spy::libc)
     {
-      assert(!bool(wrong_constexpr_behavior));
+      SPY_ASSERT("a version that does not match is turned down", !bool(wrong_constexpr_behavior));
     }
     else
     {
-      assert(bool(wrong_constexpr_behavior));
+      SPY_ASSERT("a version that does not match selects nothing", bool(wrong_constexpr_behavior));
     }
   }
-  std::cout << "Done." << std::endl;
 }

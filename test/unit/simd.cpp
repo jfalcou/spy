@@ -5,7 +5,6 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <cassert>
 #include <iostream>
 #include <spy/spy.hpp>
 

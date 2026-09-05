@@ -5,9 +5,10 @@
   SPDX-License-Identifier: BSL-1.0
 **/
 //==================================================================================================
-#include <cassert>
 #include <iostream>
 #include <spy/spy.hpp>
+
+#include "assert.hpp"
 
 int main()
 {
@@ -16,58 +17,58 @@ int main()
 #if defined(i386) || defined(__i386__) || defined(__i486__) || defined(__i586__) ||                \
     defined(__i686__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) ||                  \
     defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
-    assert(spy::architecture == spy::x86_);
-    assert(!(spy::architecture == spy::amd64_));
-    assert(!(spy::architecture == spy::ppc_));
-    assert(!(spy::architecture == spy::arm_));
-    assert(!(spy::architecture == spy::wasm_));
-    assert(!(spy::architecture == spy::riscv_));
+    SPY_ASSERT("the architecture is x86", spy::architecture == spy::x86_);
+    SPY_ASSERT("the architecture is not amd64", !(spy::architecture == spy::amd64_));
+    SPY_ASSERT("the architecture is not ppc", !(spy::architecture == spy::ppc_));
+    SPY_ASSERT("the architecture is not arm", !(spy::architecture == spy::arm_));
+    SPY_ASSERT("the architecture is not wasm", !(spy::architecture == spy::wasm_));
+    SPY_ASSERT("the architecture is not riscv", !(spy::architecture == spy::riscv_));
 #elif defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) || defined(__amd64) ||        \
     defined(_M_X64)
-    assert(!(spy::architecture == spy::x86_));
-    assert(spy::architecture == spy::amd64_);
-    assert(!(spy::architecture == spy::ppc_));
-    assert(!(spy::architecture == spy::arm_));
-    assert(!(spy::architecture == spy::wasm_));
-    assert(!(spy::architecture == spy::riscv_));
+    SPY_ASSERT("the architecture is not x86", !(spy::architecture == spy::x86_));
+    SPY_ASSERT("the architecture is amd64", spy::architecture == spy::amd64_);
+    SPY_ASSERT("the architecture is not ppc", !(spy::architecture == spy::ppc_));
+    SPY_ASSERT("the architecture is not arm", !(spy::architecture == spy::arm_));
+    SPY_ASSERT("the architecture is not wasm", !(spy::architecture == spy::wasm_));
+    SPY_ASSERT("the architecture is not riscv", !(spy::architecture == spy::riscv_));
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) ||    \
     defined(_M_PPC) || defined(_ARCH_PPC) || defined(__PPCGECKO__) || defined(__PPCBROADWAY__) ||  \
     defined(_XENON)
-    assert(!(spy::architecture == spy::x86_));
-    assert(!(spy::architecture == spy::amd64_));
-    assert(spy::architecture == spy::ppc_);
-    assert(!(spy::architecture == spy::arm_));
-    assert(!(spy::architecture == spy::wasm_));
-    assert(!(spy::architecture == spy::riscv_));
+    SPY_ASSERT("the architecture is not x86", !(spy::architecture == spy::x86_));
+    SPY_ASSERT("the architecture is not amd64", !(spy::architecture == spy::amd64_));
+    SPY_ASSERT("the architecture is ppc", spy::architecture == spy::ppc_);
+    SPY_ASSERT("the architecture is not arm", !(spy::architecture == spy::arm_));
+    SPY_ASSERT("the architecture is not wasm", !(spy::architecture == spy::wasm_));
+    SPY_ASSERT("the architecture is not riscv", !(spy::architecture == spy::riscv_));
 #elif defined(__arm__) || defined(__arm64) || defined(__thumb__) || defined(__TARGET_ARCH_ARM) ||  \
     defined(__TARGET_ARCH_THUMB) || defined(_M_ARM) || defined(__ARM_ARCH_ISA_A64)
-    assert(!(spy::architecture == spy::x86_));
-    assert(!(spy::architecture == spy::amd64_));
-    assert(!(spy::architecture == spy::ppc_));
-    assert(spy::architecture == spy::arm_);
-    assert(!(spy::architecture == spy::wasm_));
-    assert(!(spy::architecture == spy::riscv_));
+    SPY_ASSERT("the architecture is not x86", !(spy::architecture == spy::x86_));
+    SPY_ASSERT("the architecture is not amd64", !(spy::architecture == spy::amd64_));
+    SPY_ASSERT("the architecture is not ppc", !(spy::architecture == spy::ppc_));
+    SPY_ASSERT("the architecture is arm", spy::architecture == spy::arm_);
+    SPY_ASSERT("the architecture is not wasm", !(spy::architecture == spy::wasm_));
+    SPY_ASSERT("the architecture is not riscv", !(spy::architecture == spy::riscv_));
 #elif defined(__wasm__)
-    assert(!(spy::architecture == spy::x86_));
-    assert(!(spy::architecture == spy::amd64_));
-    assert(!(spy::architecture == spy::ppc_));
-    assert(!(spy::architecture == spy::arm_));
-    assert(spy::architecture == spy::wasm_);
-    assert(!(spy::architecture == spy::riscv_));
+    SPY_ASSERT("the architecture is not x86", !(spy::architecture == spy::x86_));
+    SPY_ASSERT("the architecture is not amd64", !(spy::architecture == spy::amd64_));
+    SPY_ASSERT("the architecture is not ppc", !(spy::architecture == spy::ppc_));
+    SPY_ASSERT("the architecture is not arm", !(spy::architecture == spy::arm_));
+    SPY_ASSERT("the architecture is wasm", spy::architecture == spy::wasm_);
+    SPY_ASSERT("the architecture is not riscv", !(spy::architecture == spy::riscv_));
 #elif defined(__riscv)
-    assert(!(spy::architecture == spy::x86_));
-    assert(!(spy::architecture == spy::amd64_));
-    assert(!(spy::architecture == spy::ppc_));
-    assert(!(spy::architecture == spy::arm_));
-    assert(!(spy::architecture == spy::wasm_));
-    assert(spy::architecture == spy::riscv_);
+    SPY_ASSERT("the architecture is not x86", !(spy::architecture == spy::x86_));
+    SPY_ASSERT("the architecture is not amd64", !(spy::architecture == spy::amd64_));
+    SPY_ASSERT("the architecture is not ppc", !(spy::architecture == spy::ppc_));
+    SPY_ASSERT("the architecture is not arm", !(spy::architecture == spy::arm_));
+    SPY_ASSERT("the architecture is not wasm", !(spy::architecture == spy::wasm_));
+    SPY_ASSERT("the architecture is riscv", spy::architecture == spy::riscv_);
 #else
-    assert(!(spy::architecture == spy::x86_));
-    assert(!(spy::architecture == spy::amd64_));
-    assert(!(spy::architecture == spy::ppc_));
-    assert(!(spy::architecture == spy::arm_));
-    assert(!(spy::architecture == spy::wasm_));
-    assert(!(spy::architecture == spy::riscv_));
+    SPY_ASSERT("the architecture is not x86", !(spy::architecture == spy::x86_));
+    SPY_ASSERT("the architecture is not amd64", !(spy::architecture == spy::amd64_));
+    SPY_ASSERT("the architecture is not ppc", !(spy::architecture == spy::ppc_));
+    SPY_ASSERT("the architecture is not arm", !(spy::architecture == spy::arm_));
+    SPY_ASSERT("the architecture is not wasm", !(spy::architecture == spy::wasm_));
+    SPY_ASSERT("the architecture is not riscv", !(spy::architecture == spy::riscv_));
 #endif
 
     std::cout << "X86    status: " << std::boolalpha << (spy::architecture == spy::x86_)
@@ -83,5 +84,4 @@ int main()
     std::cout << "RISC-V status: " << std::boolalpha << (spy::architecture == spy::riscv_)
               << std::endl;
   }
-  std::cout << "Done." << std::endl;
 }
