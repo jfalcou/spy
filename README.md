@@ -2,10 +2,12 @@
 
 # SPY: C++ Information Broker
 
+[![Release](https://img.shields.io/github/v/release/jfalcou/spy?style=plastic&label=release)](https://github.com/jfalcou/spy/releases/latest)
 [![License](https://img.shields.io/badge/license-BSL-green?style=plastic)](./LICENSE.md)
 [![Discord](https://img.shields.io/discord/692734675726237696?style=plastic)](https://discord.gg/a9qVaEMeXd8)
-[![CI Status](https://github.com/jfalcou/spy/actions/workflows/integration.yml/badge.svg)](https://github.com/jfalcou/spy/actions/workflows/integration.yml)
+[![Integration](https://github.com/jfalcou/spy/actions/workflows/integration.yml/badge.svg)](https://github.com/jfalcou/spy/actions/workflows/integration.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://jfalcou.github.io/spy/coverage/badge.json&style=plastic&cacheSeconds=1800)](https://jfalcou.github.io/spy/coverage/)
+[![CI](https://github.com/jfalcou/spy/actions/workflows/ci.yml/badge.svg?event=schedule)](https://github.com/jfalcou/spy/actions/workflows/ci.yml?query=event%3Aschedule)
 
 <br clear="left"/>
 

@@ -5,6 +5,11 @@
 ##======================================================================================================================
 name: Unit Tests
 on:
+  ## Main gets the matrix once a night rather than on every merge: a run of its own queued behind each merge held
+  ## the pull requests back. 02:20 UTC, which is 03:20 in Paris in winter, an hour after kumi so the two do not
+  ## ask for the self-hosted agents at once, and off the hour that every other scheduled workflow asks for.
+  schedule:
+    - cron: '20 2 * * *'
   pull_request:
     branches:
       - main
