@@ -1,0 +1,28 @@
+##======================================================================================================================
+##  SPY - C++ Informations Broker
+##  Copyright : SPY Project Contributors
+##  SPDX-License-Identifier: BSL-1.0
+##======================================================================================================================
+## What every test unit costs to compile: a push to main leaves the reference, a pull request reports the delta.
+name: SPY Compile Cost
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: spy-compile-cost-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compile-cost:
+    ## Reading the reference off another run asks more than the contents scope the token defaults to.
+    permissions:
+      actions: read
+      contents: read
+    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@44053e713b1b57329ccbcbb8878c839024bf19ee # v8
+    with:
+      project: spy

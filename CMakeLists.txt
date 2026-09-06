@@ -26,6 +26,7 @@ copa_add_option(SPY_BUILD_TEST "Build tests for SPY" ON LABEL "Unit tests")
 copa_add_option(SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY" OFF LABEL "Doxygen")
 copa_add_option(SPY_ENABLE_SANITIZERS "Build tests with AddressSanitizer + UndefinedBehaviorSanitizer" OFF LABEL "Sanitizers")
 copa_add_option(SPY_ENABLE_COVERAGE "Build tests with code coverage instrumentation" OFF LABEL "Coverage")
+copa_add_option(SPY_COMPILE_COST "Measure what every test unit costs to compile" OFF LABEL "Compile cost")
 
 if(SPY_BUILD_TEST)
   include(${PROJECT_SOURCE_DIR}/cmake/compiler.cmake)
@@ -95,5 +96,10 @@ if(SPY_BUILD_TEST)
   # After the test targets exist, so the coverage targets can depend on them
   if(SPY_ENABLE_COVERAGE)
     copa_setup_coverage(spy_tests)
+  endif()
+
+  # clang only: -fproc-stat-report is its flag. After the test targets, as the measurement rebuilds them.
+  if(SPY_COMPILE_COST)
+    copa_setup_compile_cost(spy_tests)
   endif()
 endif()
