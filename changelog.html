@@ -69,9 +69,9 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.svg"/></td>
   <td id="projectalign">
-   <div id="projectname">spy<span id="projectnumber">&#160;v2.0.0</span>
+   <div id="projectname">spy<span id="projectnumber">&#160;v3.0.0</span>
    </div>
-   <div id="projectbrief">Denise Bloch</div>
+   <div id="projectbrief">Andrée Borrel</div>
   </td>
  </tr>
  </tbody>
@@ -137,8 +137,44 @@ $(function(){initNavTree('changelog.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__2____w_2spy_2spy_2doc_2changelog"></a></p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
-Version 2.0.0 - Denise Bloch</h1>
+Version 3.0.0 - Andrée Borrel</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Changelog</h2>
+<ul>
+<li><b>BREAKING CHANGES</b><ul>
+<li>Clang-CL now reports as <span class="tt">spy::clangcl_</span> and defines <span class="tt">SPY_COMPILER_IS_CLANGCL</span>. It reported as <span class="tt">spy::msvc_</span> up to 2.0.0.</li>
+<li>MINGW32 and MINGW64 now report as <span class="tt">spy::mingw32_</span> and <span class="tt">spy::mingw64_</span> and define <span class="tt">SPY_COMPILER_IS_MINGW32</span> or <span class="tt">SPY_COMPILER_IS_MINGW64</span>. They reported as <span class="tt">spy::gcc_</span> up to 2.0.0.</li>
+</ul>
+</li>
+<li>Features:<ul>
+<li>Report the C++ standard version through <span class="tt"><a class="el" href="group__api.html#ga2c2e1cf01b09e160c5aff3a529f47c15" title="C++ standard version reporting value.">spy::cpp_standard</a></span> and the <span class="tt">_cpp</span> literal.</li>
+<li>Detect half-precision support through <span class="tt">spy::supports::fp16</span>, covering the <span class="tt">_Float16</span> type, scalar and vector arithmetic, and packed conversions.</li>
+<li>Detect the x86 F16C extension through <span class="tt">spy::supports::f16c_</span>.</li>
+<li>Compiling below C++20 now stops on a diagnostic that names the required standard.</li>
+</ul>
+</li>
+<li>Bugs:<ul>
+<li>Restore <span class="tt">SPY_DISABLE_ADDRESS_SANITIZERS</span> and <span class="tt">SPY_DISABLE_THREAD_SANITIZERS</span> under MINGW, where the compiler reclassification had left them empty.</li>
+<li>Lower the MINGW version floors of the unit tests to the one gcc has, <span class="tt">7'2</span>. They asked for 15.2, which no runner carries, and the assertion had never run.</li>
+<li>Give every <span class="tt">spy::supports</span> indicator one object per program. The <span class="tt">fp16</span> ones were declared <span class="tt">static</span> and the sanitizer ones had no <span class="tt">inline</span>, so each translation unit held its own copy at its own address.</li>
+<li>Accept both spellings of the Emscripten version macros, renamed in Emscripten 5.</li>
+<li>Compile cleanly under <span class="tt">-Wshadow</span>.</li>
+</ul>
+</li>
+<li>Infrastructure:<ul>
+<li>Vendor CPM.cmake at v0.43.1, so a configure step no longer downloads it.</li>
+<li>Drive the CI from CMake presets and the copacabana v8 shared workflows, with coverage, sanitizers, standalone generation and pre-commit checks.</li>
+<li>Add Clang-CL and MINGW64 jobs to the Windows matrix, and cover every compiler tag in the unit tests.</li>
+<li>Check what a test claims under <span class="tt">NDEBUG</span> too: <span class="tt">assert</span> is compiled out in Release, so half the matrix only ever checked that the tests build. <span class="tt">test/assert.hpp</span> holds a <span class="tt">spy::check</span> that takes the condition as a template argument and names what it looked at either way.</li>
+</ul>
+</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Our SPY:</h2>
+<p><a href="https://en.wikipedia.org/wiki/Andr%C3%A9e_Borrel">Andrée Borrel</a></p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Version 2.0.0 - Denise Bloch</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
 Changelog</h2>
 <ul>
 <li>Features:<ul>
@@ -160,12 +196,12 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Denise_Bloch">Denise Bloch</a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Version 1.1.0 - Julienne Aisner</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
 Changelog</h2>
 <ul>
 <li>Features:<ul>
@@ -189,18 +225,18 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
 New Contributors</h2>
 <ul>
 <li><a href="https://github.com/ahoarau">@ahoarau</a> made their first contribution in <a href="https://github.com/jfalcou/spy/pull/40">https://github.com/jfalcou/spy/pull/40</a></li>
 <li><a href="https://github.com/jmgorius">@jmgorius</a> made their first contribution in <a href="https://github.com/jfalcou/spy/pull/44">https://github.com/jfalcou/spy/pull/44</a></li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Julienne_Aisner">Julienne Aisner</a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 Version 1.0.0 - Alix d'Unienville</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
 Changelog</h2>
 <ul>
 <li><b>BREAKING CHANGES</b><ul>
@@ -216,12 +252,12 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Alix_d%27Unienville">Alix d'Unienville</a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 Version 0.0.4 - Eileen Nearne</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
 Changelog</h2>
 <ul>
 <li>Infrastructure:<ul>
@@ -235,12 +271,12 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Eileen_Nearne">Eileen Nearne</a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
 Version 0.0.3 - Virginia Hall</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Changelog</h2>
 <ul>
 <li>Infrastructure:<ul>
@@ -256,12 +292,12 @@ Changelog</h2>
 </ul>
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Virginia_Hall">Virginia Hall</a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Version 0.0.2 - Blanche Charlet</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Changelog</h2>
 <ul>
 <li>Support for Continuous Integration</li>
@@ -269,12 +305,12 @@ Changelog</h2>
 <li>Added detectors for data model (LP64, LP32, and all that jazz)</li>
 <li>Added detectors for architecture brand</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Blanche_Charlet">Blanche Charlet</a></p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Version 0.0.1 - Peggy Knight</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 First public release.</h2>
 <p>Support for:</p><ul>
 <li>OS vendor</li>
@@ -282,7 +318,7 @@ First public release.</h2>
 <li>libc version &amp; vendor</li>
 <li>stdlib version &amp; vendor</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 Our SPY:</h2>
 <p><a href="https://en.wikipedia.org/wiki/Peggy_Knight">Peggy Knight</a> </p>
 </div></div><!-- contents -->

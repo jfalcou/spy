@@ -69,9 +69,9 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.svg"/></td>
   <td id="projectalign">
-   <div id="projectname">spy<span id="projectnumber">&#160;v2.0.0</span>
+   <div id="projectname">spy<span id="projectnumber">&#160;v3.0.0</span>
    </div>
-   <div id="projectbrief">Denise Bloch</div>
+   <div id="projectbrief">Andrée Borrel</div>
   </td>
  </tr>
  </tbody>
@@ -137,7 +137,7 @@ $(function(){initNavTree('index.html','',''); });
 <div class="contents">
 <div class="textblock"><p>Detection and versioning of operating systems, compilers, architecture, and other elements are traditionally done using preprocessor macros. Libraries like <a href="https://www.boost.org/doc/libs/release/doc/html/predef.html">Boost.Predef</a> provide a sanitized interface on top of those but still exist in a world where the preprocessor is king.</p>
 <p>SPY is a C++20 (and onward) library that gathers similar information and provides a <span class="tt">constexpr</span> compatible interface to access this information, making its exploitation within <span class="tt">constexpr</span> contexts possible.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Some References</h1>
 <ul>
 <li><a href="https://docs.google.com/presentation/d/1nSBhU4pr5EWznni0MYsyDkMCr3O3q2XS-KQdz2_BRRI/edit?usp=sharing">Our CppCon 2019 Lightning talk slides</a></li>
@@ -149,7 +149,7 @@ Some References</h1>
 </iframe>
 </center>
 </p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 A Short Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
@@ -164,12 +164,12 @@ A Short Example</h1>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;libstd            : &quot;</span> &lt;&lt; <a class="code hl_variable" href="group__api.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a>               &lt;&lt; std::endl;</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__api_html_ga03dc3f2a9b02b025902f9df3b2db53ab"><div class="ttname"><a href="group__api.html#ga03dc3f2a9b02b025902f9df3b2db53ab">spy::libc</a></div><div class="ttdeci">constexpr auto libc</div><div class="ttdoc">LIBC version reporting value.</div><div class="ttdef"><b>Definition</b> libc.hpp:130</div></div>
-<div class="ttc" id="agroup__api_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__api.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:178</div></div>
+<div class="ttc" id="agroup__api_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__api.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:182</div></div>
 <div class="ttc" id="agroup__api_html_ga45f64b82d4939d55865b0e6a311b2dde"><div class="ttname"><a href="group__api.html#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a></div><div class="ttdeci">constexpr auto simd_instruction_set</div><div class="ttdoc">SIMD extensions set reporting value.</div><div class="ttdef"><b>Definition</b> simd.hpp:233</div></div>
 <div class="ttc" id="agroup__api_html_gaad5f2aa34188a02b894a0d8c7e402d6e"><div class="ttname"><a href="group__api.html#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></div><div class="ttdeci">constexpr arch_type architecture</div><div class="ttdoc">Architecture reporting value.</div><div class="ttdef"><b>Definition</b> arch.hpp:103</div></div>
 <div class="ttc" id="agroup__api_html_gadb7c5be967e00cff21ae5b98cc12a7dc"><div class="ttname"><a href="group__api.html#gadb7c5be967e00cff21ae5b98cc12a7dc">spy::operating_system</a></div><div class="ttdeci">constexpr os_type operating_system</div><div class="ttdoc">OS reporting value.</div><div class="ttdef"><b>Definition</b> os.hpp:115</div></div>
 <div class="ttc" id="agroup__api_html_gafe99b815db524eacf659ba8348ca2e0d"><div class="ttname"><a href="group__api.html#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a></div><div class="ttdeci">constexpr auto stdlib</div><div class="ttdoc">C++ Standard Library version reporting value.</div><div class="ttdef"><b>Definition</b> stdlib.hpp:102</div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 Licence</h1>
 <p>This library is licensed under the <a href="https://opensource.org/licenses/BSL-1.0">Boost Software License</a>:</p>
 <div class="fragment"><div class="line">Copyright : SPY Project Contributors</div>

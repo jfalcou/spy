@@ -143,6 +143,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr bool</type>
+      <name>spy::supports::fp16::scalar_ops</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>gacb467de2dd95487df026f548109427c2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr auto</type>
       <name>spy::simd_instruction_set</name>
       <anchorfile>group__api.html</anchorfile>
@@ -168,6 +175,27 @@
       <name>spy::supports::thread_sanitizers_status</name>
       <anchorfile>group__api.html</anchorfile>
       <anchor>ga16591d3ea9aaa049682bfbedd519dc43</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>spy::supports::fp16::type</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga878333415f4bd4faba6f926c40c06761</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>spy::supports::fp16::vector_conversion</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga0c7ac286255786bb6af162c95f559368</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>spy::supports::fp16::vector_ops</name>
+      <anchorfile>group__api.html</anchorfile>
+      <anchor>ga9e2d4e00eebeefba6c87ec8327cce1a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">

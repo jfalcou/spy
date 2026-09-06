@@ -69,9 +69,9 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.svg"/></td>
   <td id="projectalign">
-   <div id="projectname">spy<span id="projectnumber">&#160;v2.0.0</span>
+   <div id="projectname">spy<span id="projectnumber">&#160;v3.0.0</span>
    </div>
-   <div id="projectbrief">Denise Bloch</div>
+   <div id="projectbrief">Andrée Borrel</div>
   </td>
  </tr>
  </tbody>
@@ -142,7 +142,7 @@ $(function(){initNavTree('group__api.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ga37e2c07363dadf1eb40e89a9a91f8121" id="r_ga37e2c07363dadf1eb40e89a9a91f8121"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga37e2c07363dadf1eb40e89a9a91f8121">spy::supports::address_sanitizers_status</a> = spy_implementation_defined {}</td></tr>
-<tr class="memdesc:ga37e2c07363dadf1eb40e89a9a91f8121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread sanitizer status indicator.  <br /></td></tr>
+<tr class="memdesc:ga37e2c07363dadf1eb40e89a9a91f8121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address sanitizer status indicator.  <br /></td></tr>
 <tr class="memitem:gaad5f2aa34188a02b894a0d8c7e402d6e" id="r_gaad5f2aa34188a02b894a0d8c7e402d6e"><td class="memItemLeft">constexpr arch_type&#160;</td><td class="memItemRight"><a class="el" href="#gaad5f2aa34188a02b894a0d8c7e402d6e">spy::architecture</a></td></tr>
 <tr class="memdesc:gaad5f2aa34188a02b894a0d8c7e402d6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Architecture reporting value.  <br /></td></tr>
 <tr class="memitem:ga2d96c18fea5b9a06ac37487ab570599d" id="r_ga2d96c18fea5b9a06ac37487ab570599d"><td class="memItemLeft">constexpr compiler_type&#160;</td><td class="memItemRight"><a class="el" href="#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></td></tr>
@@ -161,6 +161,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:ga63eef44bc05ea6f77f278ba5b394ada8"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX supports indicator.  <br /></td></tr>
 <tr class="memitem:ga28313e4f9673ea0f5d0ca44ffd1a967a" id="r_ga28313e4f9673ea0f5d0ca44ffd1a967a"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a> = <a class="el" href="#ga37e2c07363dadf1eb40e89a9a91f8121">address_sanitizers_status</a> || <a class="el" href="#ga16591d3ea9aaa049682bfbedd519dc43">thread_sanitizers_status</a></td></tr>
 <tr class="memdesc:ga28313e4f9673ea0f5d0ca44ffd1a967a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sanitizers status indicator.  <br /></td></tr>
+<tr class="memitem:gacb467de2dd95487df026f548109427c2" id="r_gacb467de2dd95487df026f548109427c2"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#gacb467de2dd95487df026f548109427c2">spy::supports::fp16::scalar_ops</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:gacb467de2dd95487df026f548109427c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half-precision scalar arithmetic indicator.  <br /></td></tr>
 <tr class="memitem:ga45f64b82d4939d55865b0e6a311b2dde" id="r_ga45f64b82d4939d55865b0e6a311b2dde"><td class="memItemLeft">constexpr auto&#160;</td><td class="memItemRight"><a class="el" href="#ga45f64b82d4939d55865b0e6a311b2dde">spy::simd_instruction_set</a> = spy_implementation_defined {}</td></tr>
 <tr class="memdesc:ga45f64b82d4939d55865b0e6a311b2dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">SIMD extensions set reporting value.  <br /></td></tr>
 <tr class="memitem:gafe99b815db524eacf659ba8348ca2e0d" id="r_gafe99b815db524eacf659ba8348ca2e0d"><td class="memItemLeft">constexpr auto&#160;</td><td class="memItemRight"><a class="el" href="#gafe99b815db524eacf659ba8348ca2e0d">spy::stdlib</a> = stdlib_type {}</td></tr>
@@ -169,6 +171,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:ga03e4a3ae6533a43cdf9bcbf1317707cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">SYCL usage indicator.  <br /></td></tr>
 <tr class="memitem:ga16591d3ea9aaa049682bfbedd519dc43" id="r_ga16591d3ea9aaa049682bfbedd519dc43"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga16591d3ea9aaa049682bfbedd519dc43">spy::supports::thread_sanitizers_status</a> = spy_implementation_defined {}</td></tr>
 <tr class="memdesc:ga16591d3ea9aaa049682bfbedd519dc43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread sanitizer status indicator.  <br /></td></tr>
+<tr class="memitem:ga878333415f4bd4faba6f926c40c06761" id="r_ga878333415f4bd4faba6f926c40c06761"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga878333415f4bd4faba6f926c40c06761">spy::supports::fp16::type</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga878333415f4bd4faba6f926c40c06761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half-precision type availability indicator.  <br /></td></tr>
+<tr class="memitem:ga0c7ac286255786bb6af162c95f559368" id="r_ga0c7ac286255786bb6af162c95f559368"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga0c7ac286255786bb6af162c95f559368">spy::supports::fp16::vector_conversion</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga0c7ac286255786bb6af162c95f559368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half-precision packed conversion indicator.  <br /></td></tr>
+<tr class="memitem:ga9e2d4e00eebeefba6c87ec8327cce1a8" id="r_ga9e2d4e00eebeefba6c87ec8327cce1a8"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">spy::supports::fp16::vector_ops</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga9e2d4e00eebeefba6c87ec8327cce1a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half-precision vector arithmetic indicator.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -253,15 +261,15 @@ template&lt;char... c&gt; </td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;spy/sanitizers.hpp&gt;</code></p>
 
-<p>Thread sanitizer status indicator. </p>
-<p>Indicate if current code is compile using <span class="tt">-fsanitize=address</span>.</p>
+<p>Address sanitizer status indicator. </p>
+<p>Evaluates to <span class="tt">true</span> when the current code is compiled with <span class="tt">-fsanitize=address</span>.</p>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
@@ -279,7 +287,7 @@ template&lt;char... c&gt; </td></tr>
 <div class="line">}</div>
 <div class="ttc" id="agroup__api_html_ga16591d3ea9aaa049682bfbedd519dc43"><div class="ttname"><a href="#ga16591d3ea9aaa049682bfbedd519dc43">spy::supports::thread_sanitizers_status</a></div><div class="ttdeci">constexpr bool thread_sanitizers_status</div><div class="ttdoc">Thread sanitizer status indicator.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:65</div></div>
 <div class="ttc" id="agroup__api_html_ga28313e4f9673ea0f5d0ca44ffd1a967a"><div class="ttname"><a href="#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a></div><div class="ttdeci">constexpr bool sanitizers_status</div><div class="ttdoc">Sanitizers status indicator.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:79</div></div>
-<div class="ttc" id="agroup__api_html_ga37e2c07363dadf1eb40e89a9a91f8121"><div class="ttname"><a href="#ga37e2c07363dadf1eb40e89a9a91f8121">spy::supports::address_sanitizers_status</a></div><div class="ttdeci">constexpr bool address_sanitizers_status</div><div class="ttdoc">Thread sanitizer status indicator.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:48</div></div>
+<div class="ttc" id="agroup__api_html_ga37e2c07363dadf1eb40e89a9a91f8121"><div class="ttname"><a href="#ga37e2c07363dadf1eb40e89a9a91f8121">spy::supports::address_sanitizers_status</a></div><div class="ttdeci">constexpr bool address_sanitizers_status</div><div class="ttdoc">Address sanitizer status indicator.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:48</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -383,24 +391,27 @@ template&lt;char... c&gt; </td></tr>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Name  </th><th class="markdownTableHeadNone">Compiler  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">spy::clang</span>  </td><td class="markdownTableBodyNone">Clang  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::clang_</span>  </td><td class="markdownTableBodyNone">Clang  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">spy::dpcpp</span>  </td><td class="markdownTableBodyNone">Intel DPC++/ICPX  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::clangcl_</span>  </td><td class="markdownTableBodyNone">Clang-CL, Clang driving the Microsoft toolchain  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">spy::emscripten</span>  </td><td class="markdownTableBodyNone">Emscripten  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::dpcpp_</span>  </td><td class="markdownTableBodyNone">Intel DPC++/ICPX  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">spy::gcc</span>  </td><td class="markdownTableBodyNone">G++  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::emscripten_</span>  </td><td class="markdownTableBodyNone">Emscripten  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">spy::intel</span>  </td><td class="markdownTableBodyNone">Intel ICC  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::gcc_</span>  </td><td class="markdownTableBodyNone">G++  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">spy::msvc</span>  </td><td class="markdownTableBodyNone">Microsoft Visual Studio  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::intel_</span>  </td><td class="markdownTableBodyNone">Intel ICC  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">spy::nvcc</span>  </td><td class="markdownTableBodyNone">NVIDIA NVCC  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::mingw32_</span>  </td><td class="markdownTableBodyNone">MINGW32  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">spy::mingw32</span>  </td><td class="markdownTableBodyNone">MINGW32  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::mingw64_</span>  </td><td class="markdownTableBodyNone">MINGW64  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">spy::mingw64</span>  </td><td class="markdownTableBodyNone">MINGW64  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">spy::msvc_</span>  </td><td class="markdownTableBodyNone">Microsoft Visual Studio  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">spy::nvcc_</span>  </td><td class="markdownTableBodyNone">NVIDIA NVCC  </td></tr>
 </table>
+<p>Clang-CL, MINGW32 and MINGW64 each report as themselves. Under MINGW, <span class="tt"><a class="el" href="#ga2d96c18fea5b9a06ac37487ab570599d" title="Compiler reporting value.">spy::compiler</a> == spy::gcc_</span> is false; under Clang-CL, <span class="tt"><a class="el" href="#ga2d96c18fea5b9a06ac37487ab570599d" title="Compiler reporting value.">spy::compiler</a> == spy::msvc_</span> is false.</p>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
@@ -423,7 +434,7 @@ template&lt;char... c&gt; </td></tr>
 <div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> &gt;= 15&#39;0_clang)</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with clang 15 or ulterior.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:178</div></div>
+<div class="ttc" id="agroup__api_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:182</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -450,7 +461,8 @@ template&lt;char... c&gt; </td></tr>
 <p><code>#include &lt;spy/standard.hpp&gt;</code></p>
 
 <p>C++ standard version reporting value. </p>
-<p>The <span class="tt">spy::current_standard</span> object can be compared to any other current_standard related value to verify if the code being compiled with a specific version of the C++ standard.</p>
+<p>The <span class="tt"><a class="el" href="#ga2c2e1cf01b09e160c5aff3a529f47c15" title="C++ standard version reporting value.">spy::cpp_standard</a></span> object can be compared to any other C++ standard related value to verify if the code being compiled with a specific version of the C++ standard. It reports <span class="tt">20</span>, <span class="tt">23</span> or <span class="tt">26</span>, and <span class="tt">0</span> when the standard version is unknown.</p>
+<p>The targeted version is specified either as an integer or with the <span class="tt">_cpp</span> literal.</p>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
 <div class="line"> </div>
@@ -469,7 +481,7 @@ template&lt;char... c&gt; </td></tr>
 <div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga2c2e1cf01b09e160c5aff3a529f47c15">spy::cpp_standard</a> &gt;= 17)</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;This code compiled with C++ 17 or ulterior.\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__api_html_ga2c2e1cf01b09e160c5aff3a529f47c15"><div class="ttname"><a href="#ga2c2e1cf01b09e160c5aff3a529f47c15">spy::cpp_standard</a></div><div class="ttdeci">constexpr spy_implementation_defined cpp_standard</div><div class="ttdoc">C++ standard version reporting value.</div><div class="ttdef"><b>Definition</b> standard.hpp:75</div></div>
+<div class="ttc" id="agroup__api_html_ga2c2e1cf01b09e160c5aff3a529f47c15"><div class="ttname"><a href="#ga2c2e1cf01b09e160c5aff3a529f47c15">spy::cpp_standard</a></div><div class="ttdeci">constexpr spy_implementation_defined cpp_standard</div><div class="ttdoc">C++ standard version reporting value.</div><div class="ttdef"><b>Definition</b> standard.hpp:78</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -759,7 +771,7 @@ template&lt;char... c&gt; </td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -767,7 +779,7 @@ template&lt;char... c&gt; </td></tr>
 <p><code>#include &lt;spy/sanitizers.hpp&gt;</code></p>
 
 <p>Sanitizers status indicator. </p>
-<p>Aggregate the status of all detected sanitizers</p>
+<p>Evaluates to <span class="tt">true</span> when any of the sanitizers spy detects is enabled.</p>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
@@ -783,6 +795,60 @@ template&lt;char... c&gt; </td></tr>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Any sanitizers status: &quot;</span> &lt;&lt; std::boolalpha &lt;&lt; <a class="code hl_variable" href="#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a></div>
 <div class="line">            &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">}</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="gacb467de2dd95487df026f548109427c2" name="gacb467de2dd95487df026f548109427c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacb467de2dd95487df026f548109427c2">&#9670;&#160;</a></span>scalar_ops</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool spy::supports::fp16::scalar_ops = spy_implementation_defined {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;spy/types.hpp&gt;</code></p>
+
+<p>Half-precision scalar arithmetic indicator. </p>
+<p>Evaluates to <span class="tt">true</span> when the current architecture supports scalar operations on IEEE-754 half-precision floating-point numbers.</p>
+<h2 class="groupheader">Example </h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga878333415f4bd4faba6f926c40c06761">spy::supports::fp16::type</a>)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#gacb467de2dd95487df026f548109427c2">spy::supports::fp16::scalar_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Scalar half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">spy::supports::fp16::vector_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Vector half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line">    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga0c7ac286255786bb6af162c95f559368">spy::supports::fp16::vector_conversion</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Packed half-precision conversions are available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">else</span></div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is not available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__api_html_ga0c7ac286255786bb6af162c95f559368"><div class="ttname"><a href="#ga0c7ac286255786bb6af162c95f559368">spy::supports::fp16::vector_conversion</a></div><div class="ttdeci">constexpr bool vector_conversion</div><div class="ttdoc">Half-precision packed conversion indicator.</div><div class="ttdef"><b>Definition</b> types.hpp:106</div></div>
+<div class="ttc" id="agroup__api_html_ga878333415f4bd4faba6f926c40c06761"><div class="ttname"><a href="#ga878333415f4bd4faba6f926c40c06761">spy::supports::fp16::type</a></div><div class="ttdeci">constexpr bool type</div><div class="ttdoc">Half-precision type availability indicator.</div><div class="ttdef"><b>Definition</b> types.hpp:69</div></div>
+<div class="ttc" id="agroup__api_html_ga9e2d4e00eebeefba6c87ec8327cce1a8"><div class="ttname"><a href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">spy::supports::fp16::vector_ops</a></div><div class="ttdeci">constexpr bool vector_ops</div><div class="ttdoc">Half-precision vector arithmetic indicator.</div><div class="ttdef"><b>Definition</b> types.hpp:124</div></div>
+<div class="ttc" id="agroup__api_html_gacb467de2dd95487df026f548109427c2"><div class="ttname"><a href="#gacb467de2dd95487df026f548109427c2">spy::supports::fp16::scalar_ops</a></div><div class="ttdeci">constexpr bool scalar_ops</div><div class="ttdoc">Half-precision scalar arithmetic indicator.</div><div class="ttdef"><b>Definition</b> types.hpp:87</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -907,7 +973,7 @@ template&lt;char... c&gt; </td></tr>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Architecture  </th><th class="markdownTableHeadNone">Supported SIMD instructions sets  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>X86 AVX</b>  </td><td class="markdownTableBodyNone"><span class="tt">xop_</span>, <span class="tt">fma_</span>, <span class="tt">fma4_</span>  </td></tr>
+<td class="markdownTableBodyNone"><b>X86 AVX</b>  </td><td class="markdownTableBodyNone"><span class="tt">xop_</span>, <span class="tt">fma_</span>, <span class="tt">fma4_</span>, <span class="tt">f16c_</span>  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>X86 AVX512</b>  </td><td class="markdownTableBodyNone"><span class="tt">bw_</span>, <span class="tt">cd_</span>, <span class="tt">dq_</span>, <span class="tt">er_</span>, <span class="tt">ifma_</span>, <span class="tt">pf_</span>, <span class="tt">vl_</span>, <span class="tt">popcntdq_</span>, <span class="tt">_4fmaps_</span>, <span class="tt">vnniw_</span>, <span class="tt">vbmi_</span>  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -1037,7 +1103,7 @@ template&lt;char... c&gt; </td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1045,7 +1111,7 @@ template&lt;char... c&gt; </td></tr>
 <p><code>#include &lt;spy/sanitizers.hpp&gt;</code></p>
 
 <p>Thread sanitizer status indicator. </p>
-<p>Indicate if current code is compile using <span class="tt">-fsanitize=threads</span>.</p>
+<p>Evaluates to <span class="tt">true</span> when the current code is compiled with <span class="tt">-fsanitize=thread</span>.</p>
 <h2 class="groupheader">Example </h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
@@ -1060,6 +1126,156 @@ template&lt;char... c&gt; </td></tr>
 <div class="line"> </div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Any sanitizers status: &quot;</span> &lt;&lt; std::boolalpha &lt;&lt; <a class="code hl_variable" href="#ga28313e4f9673ea0f5d0ca44ffd1a967a">spy::supports::sanitizers_status</a></div>
 <div class="line">            &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="ga878333415f4bd4faba6f926c40c06761" name="ga878333415f4bd4faba6f926c40c06761"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga878333415f4bd4faba6f926c40c06761">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool spy::supports::fp16::type = spy_implementation_defined {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;spy/types.hpp&gt;</code></p>
+
+<p>Half-precision type availability indicator. </p>
+<p>Evaluates to <span class="tt">true</span> when the <span class="tt">_Float16</span> type is provided by the compiler on the current platform. The three other indicators of this namespace are meaningful only when this one is <span class="tt">true</span>.</p>
+<h2 class="groupheader">Example </h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga878333415f4bd4faba6f926c40c06761">spy::supports::fp16::type</a>)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#gacb467de2dd95487df026f548109427c2">spy::supports::fp16::scalar_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Scalar half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">spy::supports::fp16::vector_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Vector half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line">    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga0c7ac286255786bb6af162c95f559368">spy::supports::fp16::vector_conversion</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Packed half-precision conversions are available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">else</span></div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is not available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="ga0c7ac286255786bb6af162c95f559368" name="ga0c7ac286255786bb6af162c95f559368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0c7ac286255786bb6af162c95f559368">&#9670;&#160;</a></span>vector_conversion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool spy::supports::fp16::vector_conversion = spy_implementation_defined {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;spy/types.hpp&gt;</code></p>
+
+<p>Half-precision packed conversion indicator. </p>
+<p>Evaluates to <span class="tt">true</span> when the current architecture supports packed conversion operations between IEEE-754 half-precision floating-point numbers and at least one other IEEE-754 floating-point type. It is implied by <a class="el" href="#ga9e2d4e00eebeefba6c87ec8327cce1a8" title="spy::supports::fp16::vector_ops">spy::supports::fp16::vector_ops</a>.</p>
+<h2 class="groupheader">Example </h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga878333415f4bd4faba6f926c40c06761">spy::supports::fp16::type</a>)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#gacb467de2dd95487df026f548109427c2">spy::supports::fp16::scalar_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Scalar half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">spy::supports::fp16::vector_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Vector half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line">    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga0c7ac286255786bb6af162c95f559368">spy::supports::fp16::vector_conversion</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Packed half-precision conversions are available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">else</span></div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is not available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="ga9e2d4e00eebeefba6c87ec8327cce1a8" name="ga9e2d4e00eebeefba6c87ec8327cce1a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">&#9670;&#160;</a></span>vector_ops</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool spy::supports::fp16::vector_ops = spy_implementation_defined {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;spy/types.hpp&gt;</code></p>
+
+<p>Half-precision vector arithmetic indicator. </p>
+<p>Evaluates to <span class="tt">true</span> when the current architecture supports vector operations on IEEE-754 half-precision floating-point numbers.</p>
+<h2 class="groupheader">Example </h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;spy/spy.hpp&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main()</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga878333415f4bd4faba6f926c40c06761">spy::supports::fp16::type</a>)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#gacb467de2dd95487df026f548109427c2">spy::supports::fp16::scalar_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Scalar half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga9e2d4e00eebeefba6c87ec8327cce1a8">spy::supports::fp16::vector_ops</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Vector half-precision arithmetic is available.\n&quot;</span>;</div>
+<div class="line">    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="#ga0c7ac286255786bb6af162c95f559368">spy::supports::fp16::vector_conversion</a>)</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;Packed half-precision conversions are available.\n&quot;</span>;</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keywordflow">else</span></div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;_Float16 is not available.\n&quot;</span>;</div>
+<div class="line">  }</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
 </div>
