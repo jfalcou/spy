@@ -707,23 +707,24 @@ namespace spy::supports
 namespace spy::supports
 {
 #if defined(SPY_ADDRESS_SANITIZERS_ENABLED)
-  constexpr bool address_sanitizers_status = true;
+  constexpr inline bool address_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
-  constexpr bool address_sanitizers_status = _::implementation_defined {};
+  constexpr inline bool address_sanitizers_status = _::implementation_defined {};
 #else
-  constexpr bool address_sanitizers_status = false;
+  constexpr inline bool address_sanitizers_status = false;
 #endif
 #if defined(SPY_THREAD_SANITIZERS_ENABLED)
-  constexpr bool thread_sanitizers_status = true;
+  constexpr inline bool thread_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
-  constexpr bool thread_sanitizers_status = _::implementation_defined {};
+  constexpr inline bool thread_sanitizers_status = _::implementation_defined {};
 #else
-  constexpr bool thread_sanitizers_status = false;
+  constexpr inline bool thread_sanitizers_status = false;
 #endif
-  constexpr bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
+  constexpr inline bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
 }
 #if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC) ||                              \
-    defined(SPY_COMPILER_IS_CLANGCL)
+    defined(SPY_COMPILER_IS_CLANGCL) || defined(SPY_COMPILER_IS_MINGW32) ||                        \
+    defined(SPY_COMPILER_IS_MINGW64)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
 #define SPY_DISABLE_THREAD_SANITIZERS  __attribute__((no_sanitize_thread))
 #elif defined(SPY_COMPILER_IS_MSVC)
@@ -1441,25 +1442,33 @@ namespace spy::literal
 #endif
 namespace spy::supports::fp16
 {
-#ifdef SPY_SUPPORTS_FP16_TYPE
-  static constexpr bool type = true;
+#if defined(SPY_SUPPORTS_FP16_TYPE)
+  constexpr inline bool type = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  constexpr inline bool type = _::implementation_defined {};
 #else
-  static constexpr bool type = false;
+  constexpr inline bool type = false;
 #endif
-#ifdef SPY_SUPPORTS_FP16_SCALAR_OPS
-  static constexpr bool scalar_ops = true;
+#if defined(SPY_SUPPORTS_FP16_SCALAR_OPS)
+  constexpr inline bool scalar_ops = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  constexpr inline bool scalar_ops = _::implementation_defined {};
 #else
-  static constexpr bool scalar_ops = false;
+  constexpr inline bool scalar_ops = false;
 #endif
-#ifdef SPY_SUPPORTS_FP16_VECTOR_CONVERSION
-  static constexpr bool vector_conversion = true;
+#if defined(SPY_SUPPORTS_FP16_VECTOR_CONVERSION)
+  constexpr inline bool vector_conversion = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  constexpr inline bool vector_conversion = _::implementation_defined {};
 #else
-  static constexpr bool vector_conversion = false;
+  constexpr inline bool vector_conversion = false;
 #endif
-#ifdef SPY_SUPPORTS_FP16_VECTOR_OPS
-  static constexpr bool vector_ops = true;
+#if defined(SPY_SUPPORTS_FP16_VECTOR_OPS)
+  constexpr inline bool vector_ops = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  constexpr inline bool vector_ops = _::implementation_defined {};
 #else
-  static constexpr bool vector_ops = false;
+  constexpr inline bool vector_ops = false;
 #endif
 }
 #endif
