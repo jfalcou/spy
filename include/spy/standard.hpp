@@ -66,8 +66,11 @@ namespace spy
   //! @ingroup api
   //! @brief C++ standard version reporting value
   //!
-  //! The `spy::current_standard` object can be compared to any other current_standard related value
-  //! to verify if the code being compiled with a specific version of the C++ standard.
+  //! The `spy::cpp_standard` object can be compared to any other C++ standard related value to
+  //! verify if the code being compiled with a specific version of the C++ standard. It reports
+  //! `20`, `23` or `26`, and `0` when the standard version is unknown.
+  //!
+  //! The targeted version is specified either as an integer or with the `_cpp` literal.
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/standard.cpp}

@@ -1,6 +1,49 @@
 Change Log {#changelog}
 ==========
 
+# Version 3.0.0 - Andrée Borrel
+
+## Changelog
+
+- **BREAKING CHANGES**
+  - Clang-CL now reports as `spy::clangcl_` and defines `SPY_COMPILER_IS_CLANGCL`. It reported as
+    `spy::msvc_` up to 2.0.0.
+  - MINGW32 and MINGW64 now report as `spy::mingw32_` and `spy::mingw64_` and define
+    `SPY_COMPILER_IS_MINGW32` or `SPY_COMPILER_IS_MINGW64`. They reported as `spy::gcc_` up to
+    2.0.0.
+
+- Features:
+  - Report the C++ standard version through `spy::cpp_standard` and the `_cpp` literal.
+  - Detect half-precision support through `spy::supports::fp16`, covering the `_Float16` type,
+    scalar and vector arithmetic, and packed conversions.
+  - Detect the x86 F16C extension through `spy::supports::f16c_`.
+  - Compiling below C++20 now stops on a diagnostic that names the required standard.
+
+- Bugs:
+  - Restore `SPY_DISABLE_ADDRESS_SANITIZERS` and `SPY_DISABLE_THREAD_SANITIZERS` under MINGW, where
+    the compiler reclassification had left them empty.
+  - Lower the MINGW version floors of the unit tests to the one gcc has, `7'2`. They asked for 15.2,
+    which no runner carries, and the assertion had never run.
+  - Give every `spy::supports` indicator one object per program. The `fp16` ones were declared
+    `static` and the sanitizer ones had no `inline`, so each translation unit held its own copy at
+    its own address.
+  - Accept both spellings of the Emscripten version macros, renamed in Emscripten 5.
+  - Compile cleanly under `-Wshadow`.
+
+- Infrastructure:
+  - Vendor CPM.cmake at v0.43.1, so a configure step no longer downloads it.
+  - Drive the CI from CMake presets and the copacabana v8 shared workflows, with coverage,
+    sanitizers, standalone generation and pre-commit checks.
+  - Add Clang-CL and MINGW64 jobs to the Windows matrix, and cover every compiler tag in the unit
+    tests.
+  - Check what a test claims under `NDEBUG` too: `assert` is compiled out in Release, so half the
+    matrix only ever checked that the tests build. `test/assert.hpp` holds a `spy::check` that takes
+    the condition as a template argument and names what it looked at either way.
+
+## Our SPY:
+
+[Andrée Borrel](https://en.wikipedia.org/wiki/Andr%C3%A9e_Borrel)
+
 # Version 2.0.0 - Denise Bloch
 
 ## Changelog

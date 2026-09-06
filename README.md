@@ -75,7 +75,7 @@ include(FetchContent)
 FetchContent_Declare(
   spy
   GIT_REPOSITORY [https://github.com/jfalcou/spy.git](https://github.com/jfalcou/spy.git)
-  GIT_TAG        v2.0.0 # Replace with latest tag
+  GIT_TAG        3.0.0 # Replace with latest tag
 )
 FetchContent_MakeAvailable(spy)
 
@@ -88,7 +88,7 @@ target_link_libraries(your_target PRIVATE spy::spy)
 CPMAddPackage(
   NAME spy
   GITHUB_REPOSITORY jfalcou/spy
-  GIT_TAG v2.0.0
+  GIT_TAG 3.0.0
 )
 target_link_libraries(your_target PRIVATE spy::spy)
 ```

@@ -160,17 +160,21 @@ namespace spy
   //!
   //! @groupheader{Supported Value}
   //!
-  //! Name              | Compiler
-  //! ----------------- | -------------
-  //! `spy::clang`      | Clang
-  //! `spy::dpcpp`      | Intel DPC++/ICPX
-  //! `spy::emscripten` | Emscripten
-  //! `spy::gcc`        | G++
-  //! `spy::intel`      | Intel ICC
-  //! `spy::msvc`       | Microsoft Visual Studio
-  //! `spy::nvcc`       | NVIDIA NVCC
-  //! `spy::mingw32`    | MINGW32
-  //! `spy::mingw64`    | MINGW64
+  //! Name                | Compiler
+  //! ------------------- | -------------
+  //! `spy::clang_`       | Clang
+  //! `spy::clangcl_`     | Clang-CL, Clang driving the Microsoft toolchain
+  //! `spy::dpcpp_`       | Intel DPC++/ICPX
+  //! `spy::emscripten_`  | Emscripten
+  //! `spy::gcc_`         | G++
+  //! `spy::intel_`       | Intel ICC
+  //! `spy::mingw32_`     | MINGW32
+  //! `spy::mingw64_`     | MINGW64
+  //! `spy::msvc_`        | Microsoft Visual Studio
+  //! `spy::nvcc_`        | NVIDIA NVCC
+  //!
+  //! Clang-CL, MINGW32 and MINGW64 each report as themselves. Under MINGW,
+  //! `spy::compiler == spy::gcc_` is false; under Clang-CL, `spy::compiler == spy::msvc_` is false.
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/compiler.cpp}

@@ -34,53 +34,54 @@
 namespace spy::supports
 {
 #if defined(SPY_ADDRESS_SANITIZERS_ENABLED)
-  constexpr bool address_sanitizers_status = true;
+  constexpr inline bool address_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
   //==================================================================================================
   //! @ingroup api
-  //! @brief Thread sanitizer status indicator.
+  //! @brief Address sanitizer status indicator.
   //!
-  //! Indicate if current code is compile using `-fsanitize=address`.
+  //! Evaluates to `true` when the current code is compiled with `-fsanitize=address`.
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool address_sanitizers_status = _::implementation_defined {};
+  constexpr inline bool address_sanitizers_status = _::implementation_defined {};
 #else
-  constexpr bool address_sanitizers_status = false;
+  constexpr inline bool address_sanitizers_status = false;
 #endif
 
 #if defined(SPY_THREAD_SANITIZERS_ENABLED)
-  constexpr bool thread_sanitizers_status = true;
+  constexpr inline bool thread_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
   //==================================================================================================
   //! @ingroup api
   //! @brief Thread sanitizer status indicator.
   //!
-  //! Indicate if current code is compile using `-fsanitize=threads`.
+  //! Evaluates to `true` when the current code is compiled with `-fsanitize=thread`.
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool thread_sanitizers_status = _::implementation_defined {};
+  constexpr inline bool thread_sanitizers_status = _::implementation_defined {};
 #else
-  constexpr bool thread_sanitizers_status = false;
+  constexpr inline bool thread_sanitizers_status = false;
 #endif
 
   //==================================================================================================
   //! @ingroup api
   //! @brief Sanitizers status indicator.
   //!
-  //! Aggregate the status of all detected sanitizers
+  //! Evaluates to `true` when any of the sanitizers spy detects is enabled.
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/sanitizers.cpp}
   //==================================================================================================
-  constexpr bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
+  constexpr inline bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
 }
 
 #if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC) ||                              \
-    defined(SPY_COMPILER_IS_CLANGCL)
+    defined(SPY_COMPILER_IS_CLANGCL) || defined(SPY_COMPILER_IS_MINGW32) ||                        \
+    defined(SPY_COMPILER_IS_MINGW64)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
 #define SPY_DISABLE_THREAD_SANITIZERS  __attribute__((no_sanitize_thread))
 #elif defined(SPY_COMPILER_IS_MSVC)
