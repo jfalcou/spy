@@ -19,7 +19,7 @@ EXAMPLE_PATH           = ../test .
 FILE_PATTERNS          = *.hpp *.md
 
 ## The implementation namespace is not part of the interface
-EXCLUDE_SYMBOLS        = detail*
+EXCLUDE_SYMBOLS        = spy::_*
 
 TOC_INCLUDE_HEADINGS   = 5
 GENERATE_LATEX         = NO
