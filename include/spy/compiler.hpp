@@ -146,7 +146,7 @@ namespace spy
 #endif
 
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief Compiler reporting value
   //!
   //! The `spy::compiler` object can be compared to any other compiler related value to verify
@@ -210,67 +210,67 @@ namespace spy
 
 namespace spy::literal
 {
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for NVCC version definition
   template<char... c> constexpr auto operator""_nvcc()
   {
     return _::literal_wrap<_::nvcc_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for MSVC version definition
   template<char... c> constexpr auto operator""_msvc()
   {
     return _::literal_wrap<_::msvc_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for MINGW32 version definition
   template<char... c> constexpr auto operator""_mingw32()
   {
     return _::literal_wrap<_::mingw32_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for MINGW64 version definition
   template<char... c> constexpr auto operator""_mingw64()
   {
     return _::literal_wrap<_::mingw64_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for Intel ICC version definition
   template<char... c> constexpr auto operator""_intel()
   {
     return _::literal_wrap<_::intel_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for Intel DCP++/ICPX version definition
   template<char... c> constexpr auto operator""_dpcpp()
   {
     return _::literal_wrap<_::dpcpp_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for Clang version definition
   template<char... c> constexpr auto operator""_clang()
   {
     return _::literal_wrap<_::clang_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for G++ version definition
   template<char... c> constexpr auto operator""_gcc() { return _::literal_wrap<_::gcc_t, c...>(); }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for Emscripten version definition
   template<char... c> constexpr auto operator""_em()
   {
     return _::literal_wrap<_::emscripten_t, c...>();
   }
 
-  //! @ingroup api
+  //! @ingroup spy_compiler
   //! @brief User-defined suffix for ClangCL version definition
   template<char... c> constexpr auto operator""_clangcl()
   {

@@ -166,7 +166,7 @@ namespace spy
 {
   // clang-format off
 //================================================================================================
-//! @ingroup api
+//! @ingroup spy_isa
 //! @brief SIMD extensions set  reporting value
 //!
 //! @groupheader{SIMD Instructions Sets}

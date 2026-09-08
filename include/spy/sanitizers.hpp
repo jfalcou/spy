@@ -37,7 +37,7 @@ namespace spy::supports
   constexpr inline bool address_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
   //==================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_sanitizers
   //! @brief Address sanitizer status indicator.
   //!
   //! Evaluates to `true` when the current code is compiled with `-fsanitize=address`.
@@ -54,7 +54,7 @@ namespace spy::supports
   constexpr inline bool thread_sanitizers_status = true;
 #elif defined(SPY_DOXYGEN_INVOKED)
   //==================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_sanitizers
   //! @brief Thread sanitizer status indicator.
   //!
   //! Evaluates to `true` when the current code is compiled with `-fsanitize=thread`.
@@ -68,7 +68,7 @@ namespace spy::supports
 #endif
 
   //==================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_sanitizers
   //! @brief Sanitizers status indicator.
   //!
   //! Evaluates to `true` when any of the sanitizers spy detects is enabled.

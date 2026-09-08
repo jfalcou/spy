@@ -63,7 +63,7 @@ namespace spy
 #endif
 
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_standards
   //! @brief C++ standard version reporting value
   //!
   //! The `spy::cpp_standard` object can be compared to any other C++ standard related value to
@@ -80,7 +80,7 @@ namespace spy
 
 namespace spy::literal
 {
-  //! @ingroup api
+  //! @ingroup spy_standards
   //! @brief User-defined suffix for C++ standard definition
   template<char... c>
     requires(sizeof...(c) == 2)

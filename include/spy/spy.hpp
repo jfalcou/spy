@@ -16,6 +16,27 @@ namespace spy
 {
   //====================================================================================================================
   //! @defgroup api Main API
+  //! @brief What spy reports, one group per detection axis
+  //!
+  //! @{
+  //!   @defgroup spy_platform Target Platforms
+  //!   @brief The system, the processor and the data model the code is compiled for
+  //!
+  //!   @defgroup spy_compiler Compilers
+  //!   @brief The compiler processing the code, and the literals naming its versions
+  //!
+  //!   @defgroup spy_standards Language Standards
+  //!   @brief The C++ standard in force, and the C and C++ standard library implementations
+  //!
+  //!   @defgroup spy_isa Instruction Sets
+  //!   @brief The SIMD extensions the flags turn on, and what they can compute
+  //!
+  //!   @defgroup spy_accelerator Accelerators
+  //!   @brief The accelerator programming models the code is compiled with
+  //!
+  //!   @defgroup spy_sanitizers Sanitizers
+  //!   @brief The sanitizers the code is compiled with
+  //! @}
   //====================================================================================================================
 
   //====================================================================================================================

@@ -77,7 +77,7 @@ namespace spy
 #endif
 
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_platform
   //! @brief Architecture reporting value
   //!
   //! The `spy::architecture` object can be compared to any other architecture related value to

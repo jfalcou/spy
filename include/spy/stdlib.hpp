@@ -77,7 +77,7 @@ namespace spy
 #endif
 
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_standards
   //! @brief C++ Standard Library version reporting value
   //!
   //! The `spy::stdlib` object can be compared to any other stdlib related value to verify
