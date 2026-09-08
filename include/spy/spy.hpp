@@ -76,6 +76,13 @@ namespace spy
   //!   `spy::simd_instruction_set` names the extension the flags enabled and the width of its
   //!   registers, and the `spy::supports::fp16` indicators say what that unit does with
   //!   half-precision, which the same architecture macros decide.
+  //!   @{
+  //!     @defgroup spy_isa_supplemental Supplemental Instruction Sets
+  //!     @brief The instructions some extensions add on top of an existing set
+  //!
+  //!     One indicator per supplemental set, `true` when the flags turned it on. The AVX family
+  //!     adds FMA3, FMA4, XOP and F16C, and the AVX-512 subsets live in their own namespace.
+  //!   @}
   //!
   //!   @defgroup spy_accelerator Accelerators
   //!   @brief The accelerator programming models the code is compiled with

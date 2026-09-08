@@ -129,144 +129,368 @@ namespace spy::supports
   //================================================================================================
 #if defined(__FMA__)
 #define SPY_SIMD_SUPPORTS_FMA
-  constexpr inline auto fma_ = true;
+  constexpr inline bool fma_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup spy_isa_supplemental
+  //! @brief Fused multiply-add availability indicator
+  //!
+  //! Evaluates to `true` when the FMA3 instructions of the AVX family are enabled.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/simd-additional.cpp}
+  //================================================================================================
+  constexpr inline bool fma_ = _::implementation_defined {};
 #else
-  constexpr inline auto fma_ = false;
+  constexpr inline bool fma_ = false;
 #endif
 
 #if defined(__FMA4__)
 #define SPY_SIMD_SUPPORTS_FMA4
-  constexpr inline auto fma4_ = true;
+  constexpr inline bool fma4_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup spy_isa_supplemental
+  //! @brief FMA4 availability indicator
+  //!
+  //! Evaluates to `true` when the FMA4 instructions of AMD's AVX implementation are enabled.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/simd-additional.cpp}
+  //================================================================================================
+  constexpr inline bool fma4_ = _::implementation_defined {};
 #else
-  constexpr inline auto fma4_ = false;
+  constexpr inline bool fma4_ = false;
 #endif
 
 #if defined(__XOP__)
 #define SPY_SIMD_SUPPORTS_XOP
-  constexpr inline auto xop_ = true;
+  constexpr inline bool xop_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup spy_isa_supplemental
+  //! @brief XOP availability indicator
+  //!
+  //! Evaluates to `true` when the XOP instructions of AMD's AVX implementation are enabled.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/simd-additional.cpp}
+  //================================================================================================
+  constexpr inline bool xop_ = _::implementation_defined {};
 #else
-  constexpr inline auto xop_ = false;
+  constexpr inline bool xop_ = false;
 #endif
 
 #if defined(__F16C__)
 #define SPY_SIMD_SUPPORTS_F16C
-  constexpr inline auto f16c_ = true;
+  constexpr inline bool f16c_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+  //================================================================================================
+  //! @ingroup spy_isa_supplemental
+  //! @brief Half-precision conversion availability indicator
+  //!
+  //! Evaluates to `true` when the F16C instructions converting between half and single
+  //! precision are enabled.
+  //!
+  //! @groupheader{Example}
+  //! @godbolt{samples/simd-additional.cpp}
+  //================================================================================================
+  constexpr inline bool f16c_ = _::implementation_defined {};
 #else
-  constexpr inline auto f16c_ = false;
+  constexpr inline bool f16c_ = false;
 #endif
 
   namespace avx512
   {
 #if defined(__AVX512BW__)
 #define SPY_SIMD_IS_X86_AVX512_BW
-    constexpr inline auto bw_ = true;
+    constexpr inline bool bw_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Byte and Word availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Byte and Word subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool bw_ = _::implementation_defined {};
 #else
-    constexpr inline auto bw_ = false;
+    constexpr inline bool bw_ = false;
 #endif
 
 #if defined(__AVX512CD__)
 #define SPY_SIMD_IS_X86_AVX512_CD
-    constexpr inline auto cd_ = true;
+    constexpr inline bool cd_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Conflict Detection availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Conflict Detection subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool cd_ = _::implementation_defined {};
 #else
-    constexpr inline auto cd_ = false;
+    constexpr inline bool cd_ = false;
 #endif
 
 #if defined(__AVX512DQ__)
 #define SPY_SIMD_IS_X86_AVX512_DQ
-    constexpr inline auto dq_ = true;
+    constexpr inline bool dq_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Doubleword and Quadword availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Doubleword and Quadword subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool dq_ = _::implementation_defined {};
 #else
-    constexpr inline auto dq_ = false;
+    constexpr inline bool dq_ = false;
 #endif
 
 #if defined(__AVX512ER__)
 #define SPY_SIMD_IS_X86_AVX512_ER
-    constexpr inline auto er_ = true;
+    constexpr inline bool er_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Exponential and Reciprocal availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Exponential and Reciprocal subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool er_ = _::implementation_defined {};
 #else
-    constexpr inline auto er_ = false;
+    constexpr inline bool er_ = false;
 #endif
 
 #if defined(__AVX512IFMA__)
 #define SPY_SIMD_IS_X86_AVX512_IFMA
-    constexpr inline auto ifma_ = true;
+    constexpr inline bool ifma_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Integer Fused Multiply-Add availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Integer Fused Multiply-Add subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool ifma_ = _::implementation_defined {};
 #else
-    constexpr inline auto ifma_ = false;
+    constexpr inline bool ifma_ = false;
 #endif
 
 #if defined(__AVX512PF__)
 #define SPY_SIMD_IS_X86_AVX512_PF
-    constexpr inline auto pf_ = true;
+    constexpr inline bool pf_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Prefetch availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Prefetch subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool pf_ = _::implementation_defined {};
 #else
-    constexpr inline auto pf_ = false;
+    constexpr inline bool pf_ = false;
 #endif
 
 #if defined(__AVX512VL__)
 #define SPY_SIMD_IS_X86_AVX512_VL
-    constexpr inline auto vl_ = true;
+    constexpr inline bool vl_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Vector Length availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Vector Length subset, which applies the AVX-512
+    //! instructions to 128 and 256 bit registers, is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool vl_ = _::implementation_defined {};
 #else
-    constexpr inline auto vl_ = false;
+    constexpr inline bool vl_ = false;
 #endif
 
 #if defined(__AVX512VPOPCNTDQ__)
 #define SPY_SIMD_IS_X86_AVX512_POPCNTDQ
-    constexpr inline auto popcntdq_ = true;
+    constexpr inline bool popcntdq_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 population count availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 population count subset for doubleword and quadword
+    //! elements is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool popcntdq_ = _::implementation_defined {};
 #else
-    constexpr inline auto popcntdq_ = false;
+    constexpr inline bool popcntdq_ = false;
 #endif
 
 #if defined(__AVX5124FMAPS__)
 #define SPY_SIMD_IS_X86_AVX512_4FMAPS
-    constexpr inline auto _4fmaps_ = true;
+    constexpr inline bool _4fmaps_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 4FMAPS availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 four-iteration packed single-precision fused
+    //! multiply-add subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool _4fmaps_ = _::implementation_defined {};
 #else
-    constexpr inline auto _4fmaps_ = false;
+    constexpr inline bool _4fmaps_ = false;
 #endif
 
 #if defined(__AVX5124VNNIW__)
 #define SPY_SIMD_IS_X86_AVX512_VNNIW
-    constexpr inline auto vnniw_ = true;
+    constexpr inline bool vnniw_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 4VNNIW availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 four-iteration word neural network subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool vnniw_ = _::implementation_defined {};
 #else
-    constexpr inline auto vnniw_ = false;
+    constexpr inline bool vnniw_ = false;
 #endif
 
 #if defined(__AVX512VBMI__)
 #define SPY_SIMD_IS_X86_AVX512_VBMI
-    constexpr inline auto vbmi_ = true;
+    constexpr inline bool vbmi_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Vector Byte Manipulation availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Vector Byte Manipulation subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool vbmi_ = _::implementation_defined {};
 #else
-    constexpr inline auto vbmi_ = false;
+    constexpr inline bool vbmi_ = false;
 #endif
 
 #if defined(__AVX512BF16__)
 #define SPY_SIMD_IS_X86_AVX512_BF16
-    constexpr inline auto bf16_ = true;
+    constexpr inline bool bf16_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 bfloat16 availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 bfloat16 subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool bf16_ = _::implementation_defined {};
 #else
-    constexpr inline auto bf16_ = false;
+    constexpr inline bool bf16_ = false;
 #endif
 
 #if defined(__AVX512BITALG__)
 #define SPY_SIMD_IS_X86_AVX512_BITALG
-    constexpr inline auto bitalg_ = true;
+    constexpr inline bool bitalg_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Bit Algorithms availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Bit Algorithms subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool bitalg_ = _::implementation_defined {};
 #else
-    constexpr inline auto bitalg_ = false;
+    constexpr inline bool bitalg_ = false;
 #endif
 
 #if defined(__AVX512VBMI2__)
 #define SPY_SIMD_IS_X86_AVX512_VBMI2
-    constexpr inline auto vbmi2_ = true;
+    constexpr inline bool vbmi2_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Vector Byte Manipulation 2 availability indicator
+    //!
+    //! Evaluates to `true` when the second AVX-512 Vector Byte Manipulation subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool vbmi2_ = _::implementation_defined {};
 #else
-    constexpr inline auto vbmi2_ = false;
+    constexpr inline bool vbmi2_ = false;
 #endif
 
 #if defined(__AVX512VNNI__)
 #define SPY_SIMD_IS_X86_AVX512_VNNI
-    constexpr inline auto vnni_ = true;
+    constexpr inline bool vnni_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 Vector Neural Network availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 Vector Neural Network subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool vnni_ = _::implementation_defined {};
 #else
-    constexpr inline auto vnni_ = false;
+    constexpr inline bool vnni_ = false;
 #endif
 
 #if defined(__AVX512VP2INTERSECT__)
 #define SPY_SIMD_IS_X86_AVX512_VP2INTERSECT
-    constexpr inline auto vpintersect_ = true;
+    constexpr inline bool vpintersect_ = true;
+#elif defined(SPY_DOXYGEN_INVOKED)
+    //==============================================================================================
+    //! @ingroup spy_isa_supplemental
+    //! @brief AVX-512 vector pair intersection availability indicator
+    //!
+    //! Evaluates to `true` when the AVX-512 vector pair intersection subset is enabled.
+    //!
+    //! @groupheader{Example}
+    //! @godbolt{samples/simd-additional.cpp}
+    //==============================================================================================
+    constexpr inline bool vpintersect_ = _::implementation_defined {};
 #else
-    constexpr inline auto vpintersect_ = false;
+    constexpr inline bool vpintersect_ = false;
 #endif
   }
 
