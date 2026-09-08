@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['libc_0',['libc',['../group__api.html#ga03dc3f2a9b02b025902f9df3b2db53ab',1,'spy']]],
-  ['licence_1',['Licence',['../licence.html',1,'Licence'],['../index.html#autotoc_md27',1,'Licence']]],
-  ['literal_2',['literal',['../namespaceliteral.html',1,'']]],
-  ['log_3',['Change Log',['../changelog.html',1,'']]]
+  ['knight_0',['Version 0.0.1 - Peggy Knight',['../changelog.html#autotoc_md22',1,'']]]
 ];

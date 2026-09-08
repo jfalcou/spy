@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['knight_0',['Version 0.0.1 - Peggy Knight',['../changelog.html#autotoc_md22',1,'']]]
+  ['julienne_20aisner_0',['Version 1.1.0 - Julienne Aisner',['../changelog.html#autotoc_md6',1,'']]]
 ];

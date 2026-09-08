@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['information_20broker_0',['The C++ Information Broker',['../index.html',1,'']]],
-  ['install_20from_20the_20source_1',['Install from the source',['../setup.html#setup-source',1,'']]]
+  ['hall_0',['Version 0.0.3 - Virginia Hall',['../changelog.html#autotoc_md16',1,'']]]
 ];

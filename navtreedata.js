@@ -26,7 +26,16 @@ var NAVTREE =
 [
   [ "spy", "index.html", [
     [ "The C++ Information Broker", "index.html", "index" ],
-    [ "Main API", "group__api.html", null ],
+    [ "Main API", "group__api.html", [
+      [ "Target Platforms", "group__spy__platform.html", null ],
+      [ "Compilers", "group__spy__compiler.html", null ],
+      [ "Language Standards", "group__spy__standards.html", null ],
+      [ "Instruction Sets", "group__spy__isa.html", [
+        [ "Supplemental Instruction Sets", "group__spy__isa__supplemental.html", null ]
+      ] ],
+      [ "Accelerators", "group__spy__accelerator.html", null ],
+      [ "Sanitizers", "group__spy__sanitizers.html", null ]
+    ] ],
     [ "About The Library", "setup.html", [
       [ "Setup", "setup.html", null ],
       [ "Changelog", "changelog.html", null ],

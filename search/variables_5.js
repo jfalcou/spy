@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['posix_5f_0',['posix_',['../group__api.html#ga63eef44bc05ea6f77f278ba5b394ada8',1,'spy::supports']]]
+  ['er_5f_0',['er_',['../group__spy__isa__supplemental.html#ga2af7a619473903840c09de8ea05978c0',1,'spy::supports::avx512']]]
 ];

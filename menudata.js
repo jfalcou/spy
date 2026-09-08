@@ -24,7 +24,14 @@
 */
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
-{text:"Main API",url:"group__api.html"},
+{text:"Main API",url:"group__api.html",children:[
+{text:"Target Platforms",url:"group__spy__platform.html"},
+{text:"Compilers",url:"group__spy__compiler.html"},
+{text:"Language Standards",url:"group__spy__standards.html"},
+{text:"Instruction Sets",url:"group__spy__isa.html",children:[
+{text:"Supplemental Instruction Sets",url:"group__spy__isa__supplemental.html"}]},
+{text:"Accelerators",url:"group__spy__accelerator.html"},
+{text:"Sanitizers",url:"group__spy__sanitizers.html"}]},
 {text:"About The Library",url:"setup.html",children:[
 {text:"Setup",url:"setup.html"},
 {text:"Changelog",url:"changelog.html"},

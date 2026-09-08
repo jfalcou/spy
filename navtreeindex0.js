@@ -2,6 +2,13 @@ var NAVTREEINDEX0 =
 {
 "changelog.html":[2,1],
 "group__api.html":[1],
+"group__spy__accelerator.html":[1,4],
+"group__spy__compiler.html":[1,1],
+"group__spy__isa.html":[1,3],
+"group__spy__isa__supplemental.html":[1,3,0],
+"group__spy__platform.html":[1,0],
+"group__spy__sanitizers.html":[1,5],
+"group__spy__standards.html":[1,2],
 "index.html":[],
 "index.html":[0],
 "index.html#autotoc_md25":[0,0],

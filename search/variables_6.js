@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['sanitizers_5fstatus_0',['sanitizers_status',['../group__api.html#ga28313e4f9673ea0f5d0ca44ffd1a967a',1,'spy::supports']]],
-  ['scalar_5fops_1',['scalar_ops',['../group__api.html#gacb467de2dd95487df026f548109427c2',1,'spy::supports::fp16']]],
-  ['simd_5finstruction_5fset_2',['simd_instruction_set',['../group__api.html#ga45f64b82d4939d55865b0e6a311b2dde',1,'spy']]],
-  ['stdlib_3',['stdlib',['../group__api.html#gafe99b815db524eacf659ba8348ca2e0d',1,'spy']]],
-  ['sycl_4',['sycl',['../group__api.html#ga03e4a3ae6533a43cdf9bcbf1317707cd',1,'spy::supports']]]
+  ['f16c_5f_0',['f16c_',['../group__spy__isa__supplemental.html#ga41d35d12c0c667cd4bff56e34f63db0e',1,'spy::supports']]],
+  ['fma4_5f_1',['fma4_',['../group__spy__isa__supplemental.html#gab9f3868171c0d7fb154d4b1977a74291',1,'spy::supports']]],
+  ['fma_5f_2',['fma_',['../group__spy__isa__supplemental.html#ga0200f9494553c13698aeb5afbaa62c22',1,'spy::supports']]]
 ];

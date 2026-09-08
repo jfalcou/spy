@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['compiler_0',['compiler',['../group__api.html#ga2d96c18fea5b9a06ac37487ab570599d',1,'spy']]],
-  ['cpp_5fstandard_1',['cpp_standard',['../group__api.html#ga2c2e1cf01b09e160c5aff3a529f47c15',1,'spy']]],
-  ['cuda_2',['cuda',['../group__api.html#gaad706954aedb6aaf6ff1a9858a971e00',1,'spy::supports']]]
+  ['address_5fsanitizers_5fstatus_0',['address_sanitizers_status',['../group__spy__sanitizers.html#ga37e2c07363dadf1eb40e89a9a91f8121',1,'spy::supports']]],
+  ['architecture_1',['architecture',['../group__spy__platform.html#gaad5f2aa34188a02b894a0d8c7e402d6e',1,'spy']]]
 ];

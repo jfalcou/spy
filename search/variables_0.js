@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['address_5fsanitizers_5fstatus_0',['address_sanitizers_status',['../group__api.html#ga37e2c07363dadf1eb40e89a9a91f8121',1,'spy::supports']]],
-  ['architecture_1',['architecture',['../group__api.html#gaad5f2aa34188a02b894a0d8c7e402d6e',1,'spy']]]
+  ['_5f4fmaps_5f_0',['_4fmaps_',['../group__spy__isa__supplemental.html#ga4d7a6ebf565e6f398494ea4d467f966b',1,'spy::supports::avx512']]]
 ];
