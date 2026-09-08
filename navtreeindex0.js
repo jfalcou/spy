@@ -9,6 +9,6 @@ var NAVTREEINDEX0 =
 "index.html#autotoc_md27":[0,2],
 "licence.html":[2,2],
 "pages.html":[],
-"setup.html":[2,0],
-"usergroup0.html":[2]
+"setup.html":[2],
+"setup.html":[2,0]
 };

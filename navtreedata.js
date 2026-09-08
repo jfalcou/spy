@@ -27,7 +27,7 @@ var NAVTREE =
   [ "spy", "index.html", [
     [ "The C++ Information Broker", "index.html", "index" ],
     [ "Main API", "group__api.html", null ],
-    [ "About The Library", "usergroup0.html", [
+    [ "About The Library", "setup.html", [
       [ "Setup", "setup.html", null ],
       [ "Changelog", "changelog.html", null ],
       [ "Licence", "licence.html", null ]

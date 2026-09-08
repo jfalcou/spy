@@ -25,7 +25,7 @@
 var menudata={children:[
 {text:"Main Page",url:"index.html"},
 {text:"Main API",url:"group__api.html"},
-{text:"About The Library",url:"usergroup0.html",children:[
+{text:"About The Library",url:"setup.html",children:[
 {text:"Setup",url:"setup.html"},
 {text:"Changelog",url:"changelog.html"},
 {text:"Licence",url:"licence.html"}]}]}
