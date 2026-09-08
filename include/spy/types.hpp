@@ -98,7 +98,7 @@ namespace spy::supports::fp16
   //!
   //! Evaluates to `true` when the current architecture supports packed conversion operations
   //! between IEEE-754 half-precision floating-point numbers and at least one other IEEE-754
-  //! floating-point type. It is implied by @ref spy::supports::fp16::vector_ops.
+  //! floating-point type. It is implied by spy::supports::fp16::vector_ops.
   //!
   //! @groupheader{Example}
   //! @godbolt{samples/fp16.cpp}
