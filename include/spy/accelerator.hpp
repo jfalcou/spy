@@ -57,7 +57,7 @@ namespace spy::supports
       sycl_t<SYCL_LANGUAGE_VERSION / 100, SYCL_LANGUAGE_VERSION % 100, 0> {};
 #elif defined(SPY_DOXYGEN_INVOKED)
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_accelerator
   //! @brief SYCL usage indicator.
   //!
   //! Retrieves the information about wether or not current file is compiled with SYCL supports.
@@ -82,7 +82,7 @@ namespace spy::supports
 #endif
 #elif defined(SPY_DOXYGEN_INVOKED)
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_accelerator
   //! @brief CUDA usage indicator.
   //!
   //! Retrieves the information about wether or not current file is compiled using NVCC.

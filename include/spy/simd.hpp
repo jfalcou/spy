@@ -166,7 +166,7 @@ namespace spy
 {
   // clang-format off
 //================================================================================================
-//! @ingroup api
+//! @ingroup spy_isa
 //! @brief SIMD extensions set  reporting value
 //!
 //! @groupheader{SIMD Instructions Sets}
@@ -213,16 +213,13 @@ namespace spy
 //!
 //! @groupheader{Supplemental Instructions sets}
 //!
-//! Some SIMD instructions set provides supplemental instructions on top of existing system.
-//! Those supplemental instruction set can be checked using the `spy::supports` namespace.
+//! Some SIMD instructions sets provide supplemental instructions on top of an existing one. The
+//! `spy::supports` namespace carries one indicator per supplemental set, `spy::supports::fma_`,
+//! `spy::supports::fma4_`, `spy::supports::xop_` and `spy::supports::f16c_` for the AVX family, and
+//! the `spy::supports::avx512` namespace for the AVX-512 subsets. Each of them is documented on its
+//! own in this group.
 //!
-//! | Architecture  | Supported SIMD instructions sets |
-//! | ------------- | ------------------------------------------------------------------------------------------------|
-//! | **X86 AVX**   | `xop_`, `fma_`, `fma4_`, `f16c_`                                                                |
-//! | **X86 AVX512**| `bw_`, `cd_`, `dq_`, `er_`, `ifma_`, `pf_`, `vl_`, `popcntdq_`, `_4fmaps_`, `vnniw_`, `vbmi_`   |
-//! |               | `bf16_`, `bitalg_`, `vbmi2_`, `vnni_`, `vpintersect_`                                           |
-//!
-//! @subgroupheader{Example - SIMD Architectures}
+//! @subgroupheader{Example - Supplemental Instructions Sets}
 //! @godbolt{samples/simd-additional.cpp}
 //!
 //================================================================================================

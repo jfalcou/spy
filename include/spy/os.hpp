@@ -87,7 +87,7 @@ namespace spy
 #endif
 
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_platform
   //! @brief OS reporting value
   //!
   //! The `spy::operating_system` object can be compared to any other OS related value to verify
@@ -139,7 +139,7 @@ namespace spy::supports
 {
 #if defined(SPY_DOXYGEN_INVOKED)
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_platform
   //! @brief POSIX supports indicator.
   //!
   //! Evaluates to `true` if current OS supports POSIX system calls and functions.

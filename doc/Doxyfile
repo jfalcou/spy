@@ -31,3 +31,6 @@ GENERATE_LATEX         = NO
 
 ## The image the social card metadata in head.html points at, published beside the pages.
 HTML_EXTRA_FILES      += card.png
+
+## The API groups read in the order the axes are declared, the one the navigation panel shows, rather than alphabetically.
+SORT_GROUP_NAMES       = NO

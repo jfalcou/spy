@@ -42,7 +42,7 @@ namespace spy
       _::data_model_info<sizeof(short), sizeof(int), sizeof(long), sizeof(void*)>;
 
   //================================================================================================
-  //! @ingroup api
+  //! @ingroup spy_platform
   //! @brief Data Model reporting value
   //!
   //! The `spy::data_model` object can be compared to any other data model related value to verify

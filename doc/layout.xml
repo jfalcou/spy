@@ -3,7 +3,16 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
-    <tab type="user" url="@ref api"   title="Main API"/>
+    <tab type="usergroup" visible="yes" title="Main API" url="@ref api">
+      <tab type="user" url="@ref spy_platform"    title="Target Platforms"/>
+      <tab type="user" url="@ref spy_compiler"    title="Compilers"/>
+      <tab type="user" url="@ref spy_standards"   title="Language Standards"/>
+      <tab type="usergroup" visible="yes" title="Instruction Sets" url="@ref spy_isa">
+        <tab type="user" url="@ref spy_isa_supplemental" title="Supplemental Instruction Sets"/>
+      </tab>
+      <tab type="user" url="@ref spy_accelerator" title="Accelerators"/>
+      <tab type="user" url="@ref spy_sanitizers"  title="Sanitizers"/>
+    </tab>
     <tab type="usergroup" visible="yes" title="About The Library" url="@ref setup">
       <tab type="user" url="@ref setup"     title="Setup"/>
       <tab type="user" url="@ref changelog" title="Changelog"/>
@@ -150,6 +159,7 @@
   <!-- Layout definition for a group page -->
   <group>
     <briefdescription visible="yes"/>
+    <detaileddescription title=""/>
     <groupgraph visible="$GROUP_GRAPHS"/>
     <memberdecl>
       <nestedgroups visible="yes" title=""/>
