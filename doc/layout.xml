@@ -4,7 +4,7 @@
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
     <tab type="user" url="@ref api"   title="Main API"/>
-    <tab type="usergroup" visible="yes" title="About The Library">
+    <tab type="usergroup" visible="yes" title="About The Library" url="@ref setup">
       <tab type="user" url="@ref setup"     title="Setup"/>
       <tab type="user" url="@ref changelog" title="Changelog"/>
       <tab type="user" url="@ref licence"   title="Licence"/>
