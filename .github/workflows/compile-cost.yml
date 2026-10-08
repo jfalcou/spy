@@ -23,6 +23,7 @@ jobs:
     permissions:
       actions: read
       contents: read
-    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@44053e713b1b57329ccbcbb8878c839024bf19ee # v8
+    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@main
     with:
       project: spy
+      exclude: '^samples\.'
