@@ -19,10 +19,13 @@ concurrency:
 
 jobs:
   compile-cost:
-    ## Reading the reference off another run asks more than the contents scope the token defaults to.
+    ## Reading the reference off another run asks more than the contents scope the token defaults to, and keeping the
+    ## series asks for a write: the job that publishes it is the only one that uses it.
     permissions:
       actions: read
-      contents: read
-    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@44053e713b1b57329ccbcbb8878c839024bf19ee # v8
+      contents: write
+    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@main
     with:
       project: spy
+      series: true
+      exclude: '^samples\.'
