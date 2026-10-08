@@ -213,7 +213,9 @@ svg .mark { stroke: var(--primary-color); stroke-width: 1; stroke-dasharray: 3 3
 svg .bar { fill: var(--primary-color); }
 svg .bar:hover, svg .modbar:hover { opacity: .75; }
 svg .modbar { cursor: pointer; }
-svg .dot { opacity: .72; }
+svg .dot { opacity: .72; fill: var(--primary-color); }
+svg .line { stroke: var(--primary-color); stroke-width: 2; fill: none; }
+p.note { color: var(--page-secondary-foreground-color); margin: var(--spacing-medium) 0 0; }
 svg .dot:hover { opacity: 1; stroke: var(--page-foreground-color); stroke-width: 1.5; }
 
 /* ---- controls and table ------------------------------------------------------------------- */
@@ -302,6 +304,8 @@ footer a { color: var(--primary-color); }
       <button type="button" role="tab" id="tab-scatter" aria-controls="panel-scatter" aria-selected="false">Time against memory</button>
       <button type="button" role="tab" id="tab-modules-cpu" aria-controls="panel-modules-cpu" aria-selected="false">Modules by CPU time</button>
       <button type="button" role="tab" id="tab-modules-rss" aria-controls="panel-modules-rss" aria-selected="false">Modules by peak RSS</button>
+      <button type="button" role="tab" id="tab-links" aria-controls="panel-links" aria-selected="false">Linking</button>
+      <button type="button" role="tab" id="tab-history" aria-controls="panel-history" aria-selected="false" hidden>Over time</button>
       <button type="button" role="tab" id="tab-units" aria-controls="panel-units" aria-selected="false">Every unit</button>
     </div>
 
@@ -321,6 +325,29 @@ footer a { color: var(--primary-color); }
       <button type="button" class="icon save" data-chart="modules-rss" title="Save as PNG" aria-label="Save as PNG"></button>
       <svg id="modules-rss" viewBox="0 0 1080 320" role="img" aria-label="Peak memory per module"></svg>
     </div>
+    <div class="panel chart" id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+      <div class="controls">
+        <select id="hist-branch" aria-label="Filter by branch"></select>
+        <select id="hist-scope" aria-label="What the curve follows"></select>
+        <select id="hist-metric" aria-label="What the curve measures">
+          <option value="cpu_us">CPU time</option>
+          <option value="peak_kib">Peak memory</option>
+        </select>
+        <span class="count" id="hist-count"></span>
+      </div>
+      <svg id="series" viewBox="0 0 1080 380" role="img" aria-label="The measurement over time"></svg>
+      <p class="note" id="hist-help">Click a point to read that commit, a second one to compare the two.</p>
+    </div>
+
+    <div class="panel" id="panel-links" role="tabpanel" aria-labelledby="tab-links" hidden>
+      <div class="tablewrap">
+        <table>
+          <thead><tr id="link-head"></tr></thead>
+          <tbody id="link-body"></tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="panel" id="panel-units" role="tabpanel" aria-labelledby="tab-units" hidden>
       <div class="controls">
         <input type="search" id="q" placeholder="Filter by name" aria-label="Filter units"/>
@@ -339,6 +366,7 @@ footer a { color: var(--primary-color); }
 
   <div class="empty" id="empty">
     <p>Drop the <code>compile-cost.csv</code> a run attaches, or choose it above.</p>
+    <p id="empty-series" hidden>Or read the series this project keeps, in <b>Over time</b> above.</p>
   </div>
 </main>
 <div id="tip" role="tooltip"></div>
@@ -378,8 +406,10 @@ function splitRow(line) {
   return out;
 }
 
+// The first column is the program the driver spawned, so a line whose program is not the compiler is
+// the linker's: an executable, not a unit, and a figure that belongs in neither total.
 function parse(text) {
-  var rows = [], seen = Object.create(null);
+  var rows = [], links = [], seen = Object.create(null), linked = Object.create(null);
   var lines = text.split(/\r?\n/);
   for (var i = 0; i < lines.length; i++) {
     if (!lines[i]) continue;
@@ -387,11 +417,17 @@ function parse(text) {
     if (f.length !== 5) continue;
     var rss = parseInt(f[4], 10), cpu = parseInt(f[3], 10);
     if (!isFinite(rss) || !isFinite(cpu)) continue;
+    if (f[0].indexOf("clang") < 0) {
+      var exe = f[1].split("/").pop();
+      linked[exe] = { unit: exe, rss: rss, cpu: cpu };
+      continue;
+    }
     var unit = unitOf(f[1]);
     seen[unit] = { unit: unit, module: moduleOf(unit), rss: rss, cpu: cpu };
   }
   for (var k in seen) rows.push(seen[k]);
-  return rows;
+  for (var e in linked) links.push(linked[e]);
+  return { rows: rows, links: links };
 }
 
 // ---- formatting --------------------------------------------------------------------------------
@@ -456,7 +492,8 @@ function moduleColor(i, n) {
 }
 
 // ---- state -------------------------------------------------------------------------------------
-var state = { rows: [], base: null, sort: { key: "rss", dir: -1 }, q: "", mod: "", colors: {} };
+var state = { rows: [], links: [], base: null, linkBase: null, sort: { key: "rss", dir: -1 },
+              q: "", mod: "", colors: {}, series: [], picked: [] };
 var SVGNS = "http://www.w3.org/2000/svg";
 
 function el(name, attrs, text) {
@@ -502,6 +539,14 @@ function renderFacts() {
   out.push("<span class=\"mono\">" + esc(top.module) + "</span> carries " + duration(top.cpu) +
            " of that CPU on its own, " + (100 * top.cpu / totalCpu).toFixed(0) +
            " % of the build, over " + top.units.length + " units.");
+
+  if (state.links.length) {
+    var linkCpu = state.links.reduce(function (a, r) { return a + r.cpu; }, 0);
+    var worstLink = state.links.reduce(function (a, r) { return r.rss > a.rss ? r : a; }, state.links[0]);
+    out.push("<b>" + state.links.length + " link" + (state.links.length === 1 ? "" : "s") + "</b>, " +
+             duration(linkCpu) + " of CPU, the heaviest <span class=\"mono\">" + esc(worstLink.unit) +
+             "</span> peaking at " + size(worstLink.rss) + ".");
+  }
 
   if (state.base) {
     var grew = rows.filter(function (r) {
@@ -782,6 +827,7 @@ function renderAll() {
   groups.forEach(function (g, i) { state.colors[g.module] = moduleColor(i, groups.length); });
   document.getElementById("empty").hidden = true;
   document.getElementById("report").hidden = false;
+  MEASURED_TABS.forEach(function (id) { document.getElementById(id).hidden = false; });
   renderFacts();
   histogram();
   scatter();
@@ -790,26 +836,244 @@ function renderAll() {
   renderModuleFilter();
   renderHead();
   renderTable();
+  renderLinks();
+  if (state.series.length) drawSeries();
 }
+
+// ---- linking ------------------------------------------------------------------------------------
+// One row per executable, heaviest first: an executable is not a unit, so it has no module and its
+// figures stay out of every total above.
+function renderLinks() {
+  var head = document.getElementById("link-head"), body = document.getElementById("link-body");
+  head.innerHTML = "";
+  body.innerHTML = "";
+  document.getElementById("tab-links").hidden = !state.links.length;
+  if (!state.links.length) return;
+
+  var cols = ["Executable", "Peak RSS", "CPU"];
+  if (state.linkBase) cols.push("\u0394 RSS");
+  cols.forEach(function (label, i) {
+    var th = document.createElement("th");
+    th.textContent = label;
+    if (i) th.className = "num";
+    head.appendChild(th);
+  });
+
+  state.links.slice().sort(function (a, b) { return b.rss - a.rss; }).forEach(function (r) {
+    var tr = document.createElement("tr");
+    tr.innerHTML = '<td class="mono">' + esc(r.unit) + "</td>" +
+                   '<td class="num">' + size(r.rss) + "</td>" +
+                   '<td class="num">' + duration(r.cpu) + "</td>";
+    if (state.linkBase) {
+      var p = pct(r.rss, state.linkBase[r.unit]);
+      tr.innerHTML += '<td class="num ' + p.cls + '">' + p.text + "</td>";
+    }
+    body.appendChild(tr);
+  });
+}
+
+// ---- the series ---------------------------------------------------------------------------------
+// Every measurement of a push lands on the ct-measures branch, one CSV named by its commit and one
+// index holding what a curve needs. The index is read raw, which needs no token on a public
+// repository, and a CSV is only fetched for a commit someone asks to read.
+var SERIES = "https://raw.githubusercontent.com/jfalcou/spy/ct-measures";
+
+function seriesUrl(name) { return SERIES + "/" + name; }
+
+function loadSeries() {
+  if (!SERIES || SERIES.indexOf("@") === 0) return;
+  fetch(seriesUrl("index.json")).then(function (r) {
+    return r.ok ? r.json() : null;
+  }).then(function (index) {
+    if (!index || !index.length) return;
+    state.series = index;
+    document.getElementById("tab-history").hidden = false;
+    fillSeriesControls();
+    drawSeries();
+    if (!state.rows.length) openOnSeries();
+  }).catch(function () { /* no series published yet, and the tab stays hidden */ });
+}
+
+// Without a measurement loaded, every other tab has nothing to draw: the page opens on the curve, and the rest
+// comes back the moment a point is clicked or a file is dropped.
+var MEASURED_TABS = ["tab-hist", "tab-scatter", "tab-modules-cpu", "tab-modules-rss", "tab-links", "tab-units"];
+
+function openOnSeries() {
+  MEASURED_TABS.forEach(function (id) { document.getElementById(id).hidden = true; });
+  document.getElementById("empty").hidden = true;
+  document.getElementById("empty-series").hidden = false;
+  document.getElementById("report").hidden = false;
+  showTab("tab-history");
+}
+
+function seriesShown() {
+  var branch = document.getElementById("hist-branch").value;
+  return state.series.filter(function (e) { return !branch || e.branch === branch; });
+}
+
+function seriesValue(entry, scope, metric) {
+  if (scope === "") return entry[metric];
+  var m = entry.modules && entry.modules[scope];
+  return m ? m[metric] : undefined;
+}
+
+function fillSeriesControls() {
+  var branches = [], scopes = [];
+  state.series.forEach(function (e) {
+    if (e.branch && branches.indexOf(e.branch) < 0) branches.push(e.branch);
+    for (var m in (e.modules || {})) if (scopes.indexOf(m) < 0) scopes.push(m);
+  });
+  branches.sort();
+  scopes.sort();
+
+  var b = document.getElementById("hist-branch");
+  b.innerHTML = "";
+  branches.forEach(function (name) {
+    var o = document.createElement("option");
+    o.value = name;
+    o.textContent = name;
+    b.appendChild(o);
+  });
+  if (branches.indexOf("main") >= 0) b.value = "main";
+
+  var sc = document.getElementById("hist-scope");
+  sc.innerHTML = '<option value="">The whole build</option>';
+  scopes.forEach(function (name) {
+    var o = document.createElement("option");
+    o.value = name;
+    o.textContent = name;
+    sc.appendChild(o);
+  });
+}
+
+// A gridline lands on 1, 2 or 5 times a power of ten, so the labels read as numbers rather than as the quarters
+// of whatever the largest measurement happens to be.
+function niceStep(rough) {
+  var power = Math.pow(10, Math.floor(Math.log(rough) / Math.LN10));
+  var scaled = rough / power;
+  return power * (scaled > 5 ? 10 : (scaled > 2 ? 5 : (scaled > 1 ? 2 : 1)));
+}
+
+// In the unit the axis is written in, not the one it is stored in: a round number of kibibytes is a ragged number
+// of mebibytes, and time is read in seconds, minutes and hours rather than in powers of ten.
+var CLOCK = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10800, 21600];
+
+function axisStep(metric, rough) {
+  if (metric === "cpu_us") {
+    var seconds = rough / 1e6;
+    for (var i = 0; i < CLOCK.length; i++) if (CLOCK[i] >= seconds) return CLOCK[i] * 1e6;
+    return niceStep(seconds) * 1e6;
+  }
+  return Math.max(1, niceStep(rough / 1024)) * 1024;
+}
+
+function drawSeries() {
+  var svg = document.getElementById("series");
+  clear(svg);
+  var scope = document.getElementById("hist-scope").value;
+  var metric = document.getElementById("hist-metric").value;
+  var shown = seriesShown().filter(function (e) { return seriesValue(e, scope, metric) !== undefined; });
+
+  var values = shown.map(function (e) { return seriesValue(e, scope, metric); });
+  var write = metric === "cpu_us" ? duration : size;
+  var top = Math.max.apply(null, values), low = Math.min.apply(null, values);
+
+  // What a curve is read for is a regression, so the axis starts at zero: fitted to its own spread, a build that
+  // never moved fills the panel with the noise of a shared runner. The spread is written out instead.
+  var count = document.getElementById("hist-count");
+  count.textContent = shown.length + " measurement" + (shown.length === 1 ? "" : "s") +
+                      (shown.length > 1 ? " \u00b7 " + write(low) + " to " + write(top) : "");
+  if (shown.length < 2) return;
+
+  var W = 1080, H = 380, L = 74, R = 12, T = 16, B = 38;
+  var lo = 0, step = axisStep(metric, top / 4), hi = Math.ceil(top / step) * step;
+
+  for (var v = 0; v <= hi + step / 2; v += step) {
+    var y = T + (H - T - B) * (1 - v / hi);
+    svg.appendChild(el("line", { class: "grid", x1: L, y1: y, x2: W - R, y2: y }));
+    svg.appendChild(el("text", { x: L - 6, y: y + 4, "text-anchor": "end" }, write(v)));
+  }
+
+  var x = function (i) { return L + (W - L - R) * (shown.length === 1 ? 0.5 : i / (shown.length - 1)); };
+  var y = function (v) { return T + (H - T - B) * (1 - (v - lo) / (hi - lo)); };
+
+  var d = shown.map(function (e, i) { return (i ? "L" : "M") + x(i) + " " + y(values[i]); }).join(" ");
+  svg.appendChild(el("path", { class: "line", d: d, fill: "none" }));
+
+  shown.forEach(function (e, i) {
+    var picked = state.picked.indexOf(e.sha) >= 0;
+    var c = el("circle", { class: "dot", cx: x(i), cy: y(values[i]), r: picked ? 5.5 : 3.4 });
+    attachTip(c, "<span class=\"mono\">" + esc(e.sha.slice(0, 7)) + "</span>" +
+                 esc(e.date.slice(0, 10)) + " &middot; " + write(values[i]));
+    c.style.cursor = "pointer";
+    c.addEventListener("click", function () { pick(e); });
+    svg.appendChild(c);
+  });
+
+  svg.appendChild(el("line", { class: "axis", x1: L, y1: H - B, x2: W - R, y2: H - B }));
+  svg.appendChild(el("text", { x: L, y: H - B + 16 }, shown[0].date.slice(0, 10)));
+  svg.appendChild(el("text", { x: W - R, y: H - B + 16, "text-anchor": "end" },
+                     shown[shown.length - 1].date.slice(0, 10)));
+}
+
+// A first click reads that commit, a second compares it against the first: the two slots the page
+// already has, filled from the branch rather than from a file someone downloaded.
+function pick(entry) {
+  var help = document.getElementById("hist-help");
+  fetch(seriesUrl(entry.sha + ".csv")).then(function (r) {
+    if (!r.ok) throw new Error("gone");
+    return r.text();
+  }).then(function (text) {
+    var read = parse(text), which = state.picked.length ? "base" : "now";
+    if (which === "now") {
+      state.rows = read.rows;
+      state.links = read.links;
+      state.picked = [entry.sha];
+    } else {
+      state.base = {};
+      state.linkBase = {};
+      read.rows.forEach(function (r) { state.base[r.unit] = r.rss; });
+      read.links.forEach(function (r) { state.linkBase[r.unit] = r.rss; });
+      state.picked.push(entry.sha);
+    }
+    document.getElementById("slot-" + which).classList.add("filled");
+    document.getElementById("name-" + which).textContent =
+      entry.sha.slice(0, 7) + " — " + read.rows.length + " units, " + read.links.length + " links";
+    help.textContent = state.picked.length === 1
+      ? "Reading " + entry.sha.slice(0, 7) + ". Click another point to compare it against this one."
+      : "Comparing " + state.picked[0].slice(0, 7) + " against " + state.picked[1].slice(0, 7) + ".";
+    renderAll();
+  }).catch(function () {
+    help.textContent = "The measurement of " + entry.sha.slice(0, 7) + " is no longer on the branch.";
+  });
+}
+
+["hist-branch", "hist-scope", "hist-metric"].forEach(function (id) {
+  document.getElementById(id).addEventListener("change", drawSeries);
+});
 
 // ---- loading -------------------------------------------------------------------------------
 function load(file, which) {
   var reader = new FileReader();
   reader.onload = function () {
-    var rows = parse(String(reader.result));
-    if (!rows.length) {
+    var read = parse(String(reader.result)), rows = read.rows;
+    if (!rows.length && !read.links.length) {
       document.getElementById("name-" + which).textContent =
         "no -fproc-stat-report line in that file";
       return;
     }
     if (which === "now") {
       state.rows = rows;
+      state.links = read.links;
     } else {
       state.base = {};
+      state.linkBase = {};
       rows.forEach(function (r) { state.base[r.unit] = r.rss; });
+      read.links.forEach(function (r) { state.linkBase[r.unit] = r.rss; });
     }
     document.getElementById("slot-" + which).classList.add("filled");
-    document.getElementById("name-" + which).textContent = file.name + " — " + rows.length + " units";
+    document.getElementById("name-" + which).textContent =
+      file.name + " — " + rows.length + " units, " + read.links.length + " links";
     renderAll();
   };
   reader.readAsText(file);
@@ -870,6 +1134,7 @@ document.getElementById("theme").addEventListener("click", function () {
   root.classList.add(dark ? "light-mode" : "dark-mode");
   if (state.rows.length) renderAll();
 });
+
 
 var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
 function showTab(id) {
@@ -951,6 +1216,8 @@ Array.prototype.slice.call(document.querySelectorAll("button.save")).forEach(fun
   window.addEventListener(e, function (ev) { ev.preventDefault(); }, false);
 });
 
+// the tabs are wired above, and the series may switch to one as soon as it lands
+loadSeries();
 })();
 </script>
 </body>
