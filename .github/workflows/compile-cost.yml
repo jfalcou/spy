@@ -19,10 +19,11 @@ concurrency:
 
 jobs:
   compile-cost:
-    ## Reading the reference off another run asks more than the contents scope the token defaults to.
+    ## Reading the reference off another run asks more than the contents scope the token defaults to, and the
+    ## reusable workflow holds a job that publishes, whose write GitHub checks even when it does not run.
     permissions:
       actions: read
-      contents: read
+      contents: write
     uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@main
     with:
       project: spy
