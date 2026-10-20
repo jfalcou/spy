@@ -11,6 +11,8 @@ on:
   ## sits in its middle, the two heaviest matrices taking the emptiest slots.
   schedule:
     - cron: '5 2 * * *'
+  ## Runs main on demand, since a re-run keeps the shared workflows its first attempt resolved.
+  workflow_dispatch:
   pull_request:
     branches:
       - main
