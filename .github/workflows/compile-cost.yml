@@ -29,3 +29,4 @@ jobs:
       project: spy
       series: true
       exclude: '^samples\.'
+      image: ghcr.io/jfalcou/compilers:v11
