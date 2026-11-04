@@ -17,3 +17,4 @@ jobs:
     uses: jfalcou/copacabana/.github/workflows/package-standalone.yml@main
     with:
       project: spy
+      image: ghcr.io/jfalcou/compilers:v11
