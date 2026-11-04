@@ -8,9 +8,9 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/arch.hpp",
-            "function_covered": 0,
-            "function_percent": null,
-            "function_total": 0,
+            "function_covered": 6,
+            "function_percent": 100.0,
+            "function_total": 6,
             "line_covered": 2,
             "line_percent": 100.0,
             "line_total": 2
@@ -80,9 +80,9 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/simd.hpp",
-            "function_covered": 10,
+            "function_covered": 35,
             "function_percent": 100.0,
-            "function_total": 10,
+            "function_total": 35,
             "line_covered": 9,
             "line_percent": 100.0,
             "line_total": 9
@@ -112,9 +112,9 @@
             "line_total": 2
         }
     ],
-    "function_covered": 25,
+    "function_covered": 56,
     "function_percent": 100.0,
-    "function_total": 25,
+    "function_total": 56,
     "gcovr/summary_format_version": "0.6",
     "line_covered": 27,
     "line_percent": 100.0,
