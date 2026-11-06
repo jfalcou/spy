@@ -1,0 +1,16 @@
+"clang","test/CMakeFiles/unit.accelerator.exe.dir/Debug/unit/accelerator.cpp.o",398524,354687,130148
+"clang","test/CMakeFiles/unit.arch.exe.dir/Debug/unit/arch.cpp.o",411107,364095,133096
+"clang","test/CMakeFiles/unit.data_model.exe.dir/Debug/unit/data_model.cpp.o",403115,359212,137736
+"clang","test/CMakeFiles/unit.compiler.exe.dir/Debug/unit/compiler.cpp.o",418358,379325,133524
+"clang","test/CMakeFiles/unit.libc.exe.dir/Debug/unit/libc.cpp.o",408947,363953,134728
+"clang","test/CMakeFiles/unit.os.exe.dir/Debug/unit/os.cpp.o",407524,367473,133088
+"clang","test/CMakeFiles/unit.stdlib.exe.dir/Debug/unit/stdlib.cpp.o",404952,369870,133824
+"clang","test/CMakeFiles/unit.simd.exe.dir/Debug/unit/simd.cpp.o",434043,390940,136892
+"ld","unit/Debug/unit.accelerator.exe",43547,25318,76528
+"ld","unit/Debug/unit.arch.exe",42096,27062,76896
+"ld","unit/Debug/unit.compiler.exe",42872,23929,76268
+"ld","unit/Debug/unit.data_model.exe",42560,23904,75668
+"ld","unit/Debug/unit.libc.exe",42293,31474,77176
+"ld","unit/Debug/unit.os.exe",42214,28401,77128
+"ld","unit/Debug/unit.simd.exe",42520,24297,75964
+"ld","unit/Debug/unit.stdlib.exe",40695,31539,76460
