@@ -12,6 +12,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ## The jfalcou references move through minato, which opens its own pull requests.
+    ignore:
+      - dependency-name: "jfalcou/*"
     groups:
       github-actions:
         patterns:
