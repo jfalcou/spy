@@ -1,6 +1,5 @@
 exclude: |
     (?x)^(
-        ^test_package/.*|
         ^doc/.*
     )
 
