@@ -15,7 +15,6 @@ endif()
 ##======================================================================================================================
 include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
 
-
 ##======================================================================================================================
 ## Project setup via copacabana
 ##======================================================================================================================
@@ -24,14 +23,19 @@ include(${COPACABANA_SOURCE_DIR}/copacabana/cmake/copacabana.cmake)
 
 copa_add_option(SPY_BUILD_TEST "Build tests for SPY" ON LABEL "Unit tests")
 copa_add_option(SPY_BUILD_DOCUMENTATION "Build Doxygen for SPY" OFF LABEL "Doxygen")
-copa_add_option(SPY_ENABLE_SANITIZERS "Build tests with AddressSanitizer + UndefinedBehaviorSanitizer" OFF LABEL "Sanitizers")
+copa_add_option(SPY_ENABLE_SANITIZERS "Build tests with AddressSanitizer + UndefinedBehaviorSanitizer" OFF
+                LABEL "Sanitizers")
 copa_add_option(SPY_ENABLE_COVERAGE "Build tests with code coverage instrumentation" OFF LABEL "Coverage")
 copa_add_option(SPY_COMPILE_COST "Measure what every test unit costs to compile" OFF LABEL "Compile cost")
 
 if(SPY_BUILD_TEST)
   include(${PROJECT_SOURCE_DIR}/cmake/compiler.cmake)
 endif()
-copa_project_version(MAJOR 3 MINOR 0 PATCH 0 REPOSITORY https://github.com/jfalcou/spy)
+copa_project_version(
+  MAJOR 3
+  MINOR 0
+  PATCH 0
+  REPOSITORY https://github.com/jfalcou/spy)
 
 ##======================================================================================================================
 ## Summary Display
@@ -52,34 +56,38 @@ copa_setup_precommit_hooks(${QUIET_OPTION})
 ##======================================================================================================================
 ## Install Process setup
 ##======================================================================================================================
-copa_setup_install( LIBRARY spy
-                    FEATURES cxx_std_20
-                    DOC     ${PROJECT_SOURCE_DIR}/LICENSE.md
-                    INCLUDE ${PROJECT_SOURCE_DIR}/include/spy
-                  )
+copa_setup_install(
+  LIBRARY spy
+  FEATURES cxx_std_20
+  DOC ${PROJECT_SOURCE_DIR}/LICENSE.md
+  INCLUDE ${PROJECT_SOURCE_DIR}/include/spy)
 
 ##======================================================================================================================
 ## Setup doxygen
 ##======================================================================================================================
 if(SPY_BUILD_DOCUMENTATION)
-  copa_setup_doxygen(${QUIET_OPTION}
-                     TARGET spy-doxygen
-                     DESTINATION "${PROJECT_BINARY_DIR}/doc"
-                     GODBOLT_LIBRARIES spy
-                     GODBOLT_COMPILER clang1600
-                     GODBOLT_OPTIONS "-O3 -std=c++20 -DNDEBUG"
-                     COLOR_HUE 165
-                     COLOR_SATURATION 95
-                     COLOR_LIGHTNESS 30)
+  copa_setup_doxygen(
+    ${QUIET_OPTION}
+    TARGET spy-doxygen
+    DESTINATION "${PROJECT_BINARY_DIR}/doc"
+    GODBOLT_LIBRARIES spy
+    GODBOLT_COMPILER clang1600
+    GODBOLT_OPTIONS "-O3 -std=c++20 -DNDEBUG"
+    COLOR_HUE 165
+    COLOR_SATURATION 95
+    COLOR_LIGHTNESS 30)
 endif()
 
 ##======================================================================================================================
 ## Standalone generation
 ##======================================================================================================================
-copa_setup_standalone ( QUIET
-                        FILE spy.hpp SOURCE include ROOT spy TARGET spy-standalone
-                        OUTPUT "${PROJECT_BINARY_DIR}"
-                      )
+copa_setup_standalone(
+  QUIET
+  FILE spy.hpp
+  SOURCE include
+  ROOT spy
+  TARGET spy-standalone
+  OUTPUT "${PROJECT_BINARY_DIR}")
 
 ##======================================================================================================================
 ## Tests setup
@@ -90,7 +98,7 @@ if(SPY_BUILD_TEST)
   endif()
 
   enable_testing()
-  add_custom_target(spy-unit)
+  add_custom_target(spy-unit COMMENT "[spy] - Building the unit tests")
   add_subdirectory(test)
 
   # After the test targets exist, so the coverage targets can depend on them
