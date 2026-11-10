@@ -44,7 +44,11 @@ html {
   --font-family-monospace: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
   --page-font-size: 15.6px;
   --code-font-size: 14px;
+  --control-font-size: 14px;
+  --small-font-size: 13px;
+  --label-font-size: 12px;
   --title-font-size: 22px;
+  --growth-color: #b61825;
   color-scheme: light;
 }
 
@@ -67,6 +71,7 @@ html {
     --box-shadow: 0 2px 8px 0 rgba(0,0,0,.35);
     --grid-color: rgba(255,255,255,.10);
     --drop-hint: rgba(255,255,255,.03);
+    --growth-color: #f06b6b;
   }
 }
 html.dark-mode {
@@ -82,9 +87,10 @@ html.dark-mode {
   --tablehead-background: #2a2c2f;
   --blockquote-background: #222325;
   --code-background: #2a2c2f;
-  --box-shadow: 0 2px 8px 0 rgba(0,0,0,.30);
+  --box-shadow: 0 2px 8px 0 rgba(0,0,0,.35);
   --grid-color: rgba(255,255,255,.10);
   --drop-hint: rgba(255,255,255,.03);
+  --growth-color: #f06b6b;
 }
 
 * { box-sizing: border-box; }
@@ -115,7 +121,6 @@ header h1 {
   font-weight: 600;
   color: var(--page-foreground-color);
 }
-header p { margin: 0; color: var(--page-secondary-foreground-color); font-size: 14px; }
 header .spacer { flex: 1 1 auto; }
 
 button, label.filebtn {
@@ -123,7 +128,7 @@ button, label.filebtn {
   overflow: hidden;
   display: inline-block;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--control-font-size);
   cursor: pointer;
   border: 1px solid var(--separator-color);
   background: var(--page-background-color);
@@ -135,8 +140,6 @@ button, label.filebtn {
 button:hover, label.filebtn:hover { color: var(--page-foreground-color); background: var(--odd-color); }
 button:focus-visible, label.filebtn:focus-within,
 input:focus-visible, select:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 1px; }
-button.primary { background: var(--primary-color); color: var(--page-background-color); border-color: transparent; }
-button.primary:hover { background: var(--primary-light-color); color: var(--page-background-color); }
 
 /* ---- the two drop slots ------------------------------------------------------------------- */
 .slots { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-large); margin: var(--spacing-large) 0; }
@@ -152,9 +155,8 @@ button.primary:hover { background: var(--primary-light-color); color: var(--page
 }
 .slot.over { border-color: var(--primary-color); background: var(--odd-color); }
 .slot.filled { border-style: solid; border-color: var(--primary-light-color); }
-.slot h2 { margin: 0 0 var(--spacing-small); font-size: 15px; font-weight: 600; }
-.slot p { margin: 0 0 var(--spacing-medium); font-size: 13px; color: var(--page-secondary-foreground-color); }
-.slot .name { font-family: var(--font-family-monospace); font-size: 13px; word-break: break-all; }
+.slot h2 { margin: 0 0 var(--spacing-small); font-size: var(--page-font-size); font-weight: 600; }
+.slot .name { font-family: var(--font-family-monospace); font-size: var(--small-font-size); word-break: break-all; }
 .slot input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
 
 /* ---- summary ------------------------------------------------------------------------------ */
@@ -168,18 +170,15 @@ button.primary:hover { background: var(--primary-light-color); color: var(--page
 code, .mono { font-family: var(--font-family-monospace); font-size: var(--code-font-size); }
 code { background: var(--code-background); border-radius: var(--border-radius-small); padding: 1px 5px; }
 
-h2.section {
-  font-size: 17px; font-weight: 600; margin: 32px 0 var(--spacing-medium);
-  padding-bottom: var(--spacing-small); border-bottom: 1px solid var(--separator-color);
-}
-
-.tabs { display: flex; gap: var(--spacing-small); margin: 28px 0 0; border-bottom: 1px solid var(--separator-color); }
+.tabs { display: flex; flex-wrap: wrap; gap: var(--spacing-small); margin: 28px 0 0; border-bottom: 1px solid var(--separator-color); }
 .tabs [role=tab] {
   border: none; border-bottom: 2px solid transparent; border-radius: 0; background: none;
   padding: var(--spacing-medium) var(--spacing-large); margin-bottom: -1px;
 }
 .tabs [role=tab]:hover { background: none; color: var(--page-foreground-color); }
 .tabs [role=tab][aria-selected=true] { color: var(--page-foreground-color); border-bottom-color: var(--primary-color); }
+/* The display above overrides the hidden attribute, which the page sets on a tab with nothing to draw. */
+.tabs [role=tab][hidden] { display: none; }
 .panel {
   position: relative;
   border: 1px solid var(--separator-color); border-top: none;
@@ -206,7 +205,7 @@ button.save {
 .panel:hover button.save, button.save:focus-visible { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { #theme svg { transition: none; } }
 svg { display: block; width: 100%; height: auto; overflow: visible; }
-svg text { font-family: var(--font-family); font-size: 12px; fill: var(--page-secondary-foreground-color); }
+svg text { font-family: var(--font-family); font-size: var(--label-font-size); fill: var(--page-secondary-foreground-color); }
 svg .grid { stroke: var(--grid-color); stroke-width: 1; }
 svg .axis { stroke: var(--separator-color); stroke-width: 1; }
 svg .mark { stroke: var(--primary-color); stroke-width: 1; stroke-dasharray: 3 3; }
@@ -221,16 +220,16 @@ svg .dot:hover { opacity: 1; stroke: var(--page-foreground-color); stroke-width:
 /* ---- controls and table ------------------------------------------------------------------- */
 .controls { display: flex; gap: var(--spacing-medium); align-items: center; flex-wrap: wrap; margin-bottom: var(--spacing-medium); }
 input[type=search], select {
-  font-family: inherit; font-size: 14px;
+  font-family: inherit; font-size: var(--control-font-size);
   color: var(--page-foreground-color); background: var(--page-background-color);
   border: 1px solid var(--separator-color); border-radius: var(--border-radius-medium);
   padding: var(--spacing-small) var(--spacing-medium);
 }
 input[type=search] { min-width: 260px; }
-.controls .count { margin-left: auto; font-size: 13px; color: var(--page-secondary-foreground-color); }
+.controls .count { margin-left: auto; font-size: var(--small-font-size); color: var(--page-secondary-foreground-color); }
 
 .tablewrap { overflow-x: auto; border: 1px solid var(--separator-color); border-radius: var(--border-radius-large); }
-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: var(--control-font-size); }
 th, td { padding: 7px var(--spacing-medium); text-align: left; white-space: nowrap; }
 th {
   position: sticky; top: 0; z-index: 1;
@@ -243,28 +242,24 @@ th[aria-sort]::after { content: " \25B4"; color: var(--primary-color); }
 th[aria-sort="descending"]::after { content: " \25BE"; }
 tbody tr:nth-child(even) { background: var(--odd-color); }
 tbody tr:hover { background: var(--odd-color); }
-td.unit { font-family: var(--font-family-monospace); font-size: 13px; white-space: normal; }
+td.unit { font-family: var(--font-family-monospace); font-size: var(--small-font-size); white-space: normal; }
 td.swatch-cell { width: 1px; padding-right: 0; }
 .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; vertical-align: middle; }
-.up { color: #b61825; font-weight: 600; }
+.up { color: var(--growth-color); font-weight: 600; }
 .down { color: var(--primary-color); }
+.noise { color: var(--page-secondary-foreground-color); }
 
 .empty { text-align: center; padding: 48px var(--spacing-large); color: var(--page-secondary-foreground-color); }
 .empty code { display: inline-block; margin-top: var(--spacing-medium); text-align: left; white-space: pre; padding: var(--spacing-medium); }
-
-.panel .controls { margin-top: 0; }
 
 #tip {
   position: fixed; pointer-events: none; z-index: 10; display: none;
   background: var(--page-background-color); color: var(--page-foreground-color);
   border: 1px solid var(--separator-color); border-radius: var(--border-radius-medium);
   box-shadow: var(--box-shadow); padding: var(--spacing-small) var(--spacing-medium);
-  font-size: 12.5px; max-width: 340px;
+  font-size: var(--label-font-size); max-width: 340px;
 }
 #tip .mono { display: block; word-break: break-all; }
-footer { margin-top: 40px; padding-top: var(--spacing-large); border-top: 1px solid var(--separator-color);
-         font-size: 13px; color: var(--page-secondary-foreground-color); }
-footer a { color: var(--primary-color); }
 </style>
 <!-- Served beside a documentation, this is the sheet copa_setup_doxygen wrote and the page takes the
      project's colours. Opened from a disk it is missing, and the values above stand. -->
@@ -310,19 +305,15 @@ footer a { color: var(--primary-color); }
     </div>
 
     <div class="panel chart" id="panel-hist" role="tabpanel" aria-labelledby="tab-hist">
-      <button type="button" class="icon save" data-chart="hist" title="Save as PNG" aria-label="Save as PNG"></button>
       <svg id="hist" viewBox="0 0 1080 380" role="img" aria-label="Histogram of peak memory"></svg>
     </div>
     <div class="panel chart" id="panel-scatter" role="tabpanel" aria-labelledby="tab-scatter" hidden>
-      <button type="button" class="icon save" data-chart="scatter" title="Save as PNG" aria-label="Save as PNG"></button>
       <svg id="scatter" viewBox="0 0 1080 380" role="img" aria-label="Peak memory against CPU time"></svg>
     </div>
     <div class="panel chart" id="panel-modules-cpu" role="tabpanel" aria-labelledby="tab-modules-cpu" hidden>
-      <button type="button" class="icon save" data-chart="modules-cpu" title="Save as PNG" aria-label="Save as PNG"></button>
       <svg id="modules-cpu" viewBox="0 0 1080 320" role="img" aria-label="CPU time per module"></svg>
     </div>
     <div class="panel chart" id="panel-modules-rss" role="tabpanel" aria-labelledby="tab-modules-rss" hidden>
-      <button type="button" class="icon save" data-chart="modules-rss" title="Save as PNG" aria-label="Save as PNG"></button>
       <svg id="modules-rss" viewBox="0 0 1080 320" role="img" aria-label="Peak memory per module"></svg>
     </div>
     <div class="panel chart" id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
@@ -331,6 +322,7 @@ footer a { color: var(--primary-color); }
         <select id="hist-scope" aria-label="What the curve follows"></select>
         <select id="hist-metric" aria-label="What the curve measures">
           <option value="cpu_us">CPU time</option>
+          <option value="cpu_per_unit">CPU time per unit</option>
           <option value="peak_kib">Peak memory</option>
         </select>
         <span class="count" id="hist-count"></span>
@@ -373,35 +365,41 @@ footer a { color: var(--primary-color); }
 
 <script>
 "use strict";
-(function () {
+(() => {
 
 // ---- reading -----------------------------------------------------------------------------------
 // clang writes, with no header: "program","output",total_us,user_us,peak_rss_kb
 
 // The source a CMake object path came from. Objects live in
 // <build>/test/unit/CMakeFiles/<target>.dir/<path>.o, so everything before the .dir/ is build
-// layout and everything after it is what a reader recognises.
+// layout and everything after it is what a reader recognises. A multi-config generator adds the
+// configuration after the .dir/, which compile_cost.py strips as well, so both name the same modules.
+const CONFIGS = /^(Debug|Release|RelWithDebInfo|MinSizeRel)[/]/;
+
 function unitOf(output) {
-  var i = output.indexOf(".dir/");
-  var name = i >= 0 ? output.slice(i + 5) : output.slice(output.lastIndexOf("/") + 1);
+  const i = output.indexOf(".dir/");
+  const name = i >= 0 ? output.slice(i + 5).replace(CONFIGS, "") : output.slice(output.lastIndexOf("/") + 1);
   return name.slice(-2) === ".o" ? name.slice(0, -2) : name;
 }
 
 function moduleOf(unit) {
-  var p = unit.split("/");
-  if (p.length > 2) return p[0] + "/" + p[1];
+  const p = unit.split("/");
+  if (p.length > 2) return `${p[0]}/${p[1]}`;
   return p.length > 1 ? p[0] : "top level";
 }
 
 // A quoted field may itself hold a comma, so the split has to know about the quotes.
 function splitRow(line) {
-  var out = [], cur = "", quoted = false;
-  for (var i = 0; i < line.length; i++) {
-    var c = line[i];
+  const out = [];
+  let cur = "";
+  let quoted = false;
+
+  for (const c of line) {
     if (c === '"') { quoted = !quoted; continue; }
     if (c === "," && !quoted) { out.push(cur); cur = ""; continue; }
     cur += c;
   }
+
   out.push(cur);
   return out;
 }
@@ -409,160 +407,163 @@ function splitRow(line) {
 // The first column is the program the driver spawned, so a line whose program is not the compiler is
 // the linker's: an executable, not a unit, and a figure that belongs in neither total.
 function parse(text) {
-  var rows = [], links = [], seen = Object.create(null), linked = Object.create(null);
-  var lines = text.split(/\r?\n/);
-  for (var i = 0; i < lines.length; i++) {
-    if (!lines[i]) continue;
-    var f = splitRow(lines[i]);
+  const rows = [], links = [], seen = Object.create(null), linked = Object.create(null);
+  for (const line of text.split(/\r?\n/)) {
+    if (!line) continue;
+    const f = splitRow(line);
     if (f.length !== 5) continue;
-    var rss = parseInt(f[4], 10), cpu = parseInt(f[3], 10);
+    const rss = parseInt(f[4], 10), cpu = parseInt(f[3], 10);
     if (!isFinite(rss) || !isFinite(cpu)) continue;
-    if (f[0].indexOf("clang") < 0) {
-      var exe = f[1].split("/").pop();
-      linked[exe] = { unit: exe, rss: rss, cpu: cpu };
+    if (!f[0].includes("clang")) {
+      const exe = f[1].split("/").pop();
+      linked[exe] = { unit: exe, rss, cpu };
       continue;
     }
-    var unit = unitOf(f[1]);
-    seen[unit] = { unit: unit, module: moduleOf(unit), rss: rss, cpu: cpu };
+    const unit = unitOf(f[1]);
+    seen[unit] = { unit, module: moduleOf(unit), rss, cpu };
   }
-  for (var k in seen) rows.push(seen[k]);
-  for (var e in linked) links.push(linked[e]);
-  return { rows: rows, links: links };
+  for (const k in seen) rows.push(seen[k]);
+  for (const e in linked) links.push(linked[e]);
+  return { rows, links };
 }
 
 // ---- formatting --------------------------------------------------------------------------------
 function size(kib) {
-  return kib < 1024 * 1024 ? (kib / 1024).toFixed(0) + " MiB"
-                           : (kib / 1048576).toFixed(2) + " GiB";
+  return kib < 1024 * 1024 ? `${(kib / 1024).toFixed(0)} MiB`
+                           : `${(kib / 1048576).toFixed(2)} GiB`;
 }
 // Tenths of a second under a minute, then hours, minutes and seconds, a part written only when it
 // is not zero: "4 min 12 s", "1 h 14 min", "3 h 49 s". Rounding the seconds can carry upwards.
 function duration(usec) {
-  var s = usec / 1e6;
-  if (s < 59.95) return s.toFixed(1) + " s";
-  var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), r = Math.round(s % 60);
+  const s = usec / 1e6;
+  if (s < 59.95) return `${s.toFixed(1)} s`;
+  let h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), r = Math.round(s % 60);
   if (r === 60) { r = 0; m += 1; }
   if (m === 60) { m = 0; h += 1; }
-  var parts = [];
-  if (h) parts.push(h + " h");
-  if (m) parts.push(m + " min");
-  if (r) parts.push(r + " s");
+  const parts = [];
+  if (h) parts.push(`${h} h`);
+  if (m) parts.push(`${m} min`);
+  if (r) parts.push(`${r} s`);
   return parts.join(" ");
 }
+function plural(n, word) { return `${n} ${word}${n === 1 ? "" : "s"}`; }
 function quantile(sorted, q) {           // nearest-rank, as the report generator does it
   return sorted[Math.min(sorted.length - 1, Math.floor(q * sorted.length))];
 }
+// A peak moves by a few percent between two runs of the same code on a shared runner, so a change counts only
+// past both bounds: a share of the peak, and an amount a machine notices.
+const NOISE_RATIO = 0.05, NOISE_KIB = 16 * 1024;
+
+function significant(now, before) {
+  return Math.abs(now - before) > before * NOISE_RATIO && Math.abs(now - before) > NOISE_KIB;
+}
+
 function pct(now, before) {
   if (before === undefined) return { text: "new", cls: "" };
   if (before === 0) return { text: "n/a", cls: "" };
-  var p = 100 * (now - before) / before;
-  if (Math.abs(p) < 1) return { text: "=", cls: "" };
-  return { text: (p > 0 ? "+" : "") + p.toFixed(0) + " %", cls: p > 0 ? "up" : "down" };
+  if (!significant(now, before)) return { text: "noise", cls: "noise" };
+  const p = 100 * (now - before) / before;
+  return { text: `${p > 0 ? "+" : ""}${p.toFixed(0)} %`, cls: p > 0 ? "up" : "down" };
 }
 
 // Modules are ranked, so they take an ordered palette rather than one hue apiece: inferno, sampled
 // at thirty-two stops from matplotlib, reads in order for everyone, colour vision aside, and prints
 // in grey. The heaviest module takes the hot end. The ends themselves are left out, black on the dark
 // theme and pale yellow on the light one being the two colours a page cannot show a dot in.
-var INFERNO = ["#000004","#040312","#0B0724","#150B37","#230C4C","#310A5C","#3E0966","#4C0C6B","#5A116E","#67166E","#741A6E","#801F6C","#8F2469","#9B2964","#A82E5F","#B43359","#C13A50","#CC4248","#D74B3F","#E05536","#E9612B","#EF6E21","#F57B17","#F8890C","#FB9906","#FCA80D","#FBB81D","#F9C72F","#F5D949","#F2E865","#F3F586","#FCFFA4"];
+const INFERNO = ["#000004","#040312","#0B0724","#150B37","#230C4C","#310A5C","#3E0966","#4C0C6B","#5A116E","#67166E","#741A6E","#801F6C","#8F2469","#9B2964","#A82E5F","#B43359","#C13A50","#CC4248","#D74B3F","#E05536","#E9612B","#EF6E21","#F57B17","#F8890C","#FB9906","#FCA80D","#FBB81D","#F9C72F","#F5D949","#F2E865","#F3F586","#FCFFA4"];
 
 function inferno(t) {
-  var x = Math.min(1, Math.max(0, t)) * (INFERNO.length - 1);
-  var i = Math.floor(x), f = x - i;
+  const x = Math.min(1, Math.max(0, t)) * (INFERNO.length - 1);
+  const i = Math.floor(x), f = x - i;
   if (i >= INFERNO.length - 1) return INFERNO[INFERNO.length - 1];
-  var a = INFERNO[i], b = INFERNO[i + 1], out = "#";
-  for (var k = 1; k < 7; k += 2) {
-    var v = Math.round(parseInt(a.substr(k, 2), 16) * (1 - f) + parseInt(b.substr(k, 2), 16) * f);
+  const a = INFERNO[i];
+  const b = INFERNO[i + 1];
+  let out = "#";
+  for (let k = 1; k < 7; k += 2) {
+    const v = Math.round(parseInt(a.substr(k, 2), 16) * (1 - f) + parseInt(b.substr(k, 2), 16) * f);
     out += (v < 16 ? "0" : "") + v.toString(16);
   }
   return out;
 }
 
 function darkTheme() {
-  var root = document.documentElement;
+  const root = document.documentElement;
   return root.classList.contains("dark-mode") ||
          (window.matchMedia("(prefers-color-scheme: dark)").matches && !root.classList.contains("light-mode"));
 }
 
 // Rank i of n modules, the heaviest first, spread over the readable part of the ramp for the theme.
 function moduleColor(i, n) {
-  var lo = darkTheme() ? 0.35 : 0.12, hi = darkTheme() ? 0.95 : 0.82;
-  var t = n > 1 ? 1 - i / (n - 1) : 1;
+  const lo = darkTheme() ? 0.35 : 0.12, hi = darkTheme() ? 0.95 : 0.82;
+  const t = n > 1 ? 1 - i / (n - 1) : 1;
   return inferno(lo + (hi - lo) * t);
 }
 
 // ---- state -------------------------------------------------------------------------------------
-var state = { rows: [], links: [], base: null, linkBase: null, sort: { key: "rss", dir: -1 },
+const state = { rows: [], links: [], base: null, linkBase: null, sort: { key: "rss", dir: -1 },
               q: "", mod: "", colors: {}, series: [], picked: [] };
-var SVGNS = "http://www.w3.org/2000/svg";
+const SVGNS = "http://www.w3.org/2000/svg";
 
 function el(name, attrs, text) {
-  var n = document.createElementNS(SVGNS, name);
-  for (var k in attrs) n.setAttribute(k, attrs[k]);
+  const n = document.createElementNS(SVGNS, name);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
   if (text !== undefined) n.textContent = text;
   return n;
 }
 
-var tip = document.getElementById("tip");
+const tip = document.getElementById("tip");
 function showTip(evt, html) {
   tip.innerHTML = html;
   tip.style.display = "block";
-  var r = tip.getBoundingClientRect();
-  var x = Math.min(evt.clientX + 14, window.innerWidth - r.width - 8);
-  var y = Math.max(8, evt.clientY - r.height - 12);
-  tip.style.left = x + "px";
-  tip.style.top = y + "px";
+  const r = tip.getBoundingClientRect();
+  const x = Math.min(evt.clientX + 14, window.innerWidth - r.width - 8);
+  const y = Math.max(8, evt.clientY - r.height - 12);
+  tip.style.left = `${x}px`;
+  tip.style.top = `${y}px`;
 }
 function hideTip() { tip.style.display = "none"; }
 
 function attachTip(node, html) {
-  node.addEventListener("mousemove", function (e) { showTip(e, html); });
+  node.addEventListener("mousemove", e => { showTip(e, html); });
   node.addEventListener("mouseleave", hideTip);
 }
 
 // ---- the facts ---------------------------------------------------------------------------------
 function renderFacts() {
-  var rows = state.rows;
-  var peaks = rows.map(function (r) { return r.rss; }).sort(function (a, b) { return a - b; });
-  var totalCpu = rows.reduce(function (a, r) { return a + r.cpu; }, 0);
-  var worst = rows.reduce(function (a, r) { return r.rss > a.rss ? r : a; }, rows[0]);
+  const rows = state.rows;
+  const peaks = rows.map(r => r.rss).sort((a, b) => a - b);
+  const totalCpu = rows.reduce((a, r) => a + r.cpu, 0);
+  const worst = rows.reduce((a, r) => r.rss > a.rss ? r : a, rows[0]);
 
-  var mods = groupByModule(rows);
-  var top = mods[0];
+  const mods = groupByModule(rows);
+  const top = mods[0];
 
-  var out = [];
-  out.push("<b>" + rows.length + " translation units</b>, " + duration(totalCpu) + " of CPU in all.");
-  out.push("The heaviest one is <span class=\"mono\">" + esc(worst.unit) + "</span>, peaking at <b>" +
-           size(worst.rss) + "</b> over " + duration(worst.cpu) + ".");
-  out.push("Half of them peak under " + size(quantile(peaks, 0.5)) +
-           ", a tenth above " + size(quantile(peaks, 0.9)) + ".");
-  out.push("<span class=\"mono\">" + esc(top.module) + "</span> carries " + duration(top.cpu) +
-           " of that CPU on its own, " + (100 * top.cpu / totalCpu).toFixed(0) +
-           " % of the build, over " + top.units.length + " units.");
+  const out = [];
+  out.push(`<b>${rows.length} translation units</b>, ${duration(totalCpu)} of CPU in all.`);
+  out.push(`The heaviest one is <span class="mono">${esc(worst.unit)}</span>, peaking at <b>${size(worst.rss)}</b> over ${duration(worst.cpu)}.`);
+  out.push(`Half of them peak under ${size(quantile(peaks, 0.5))}, a tenth above ${size(quantile(peaks, 0.9))}.`);
+  out.push(`<span class="mono">${esc(top.module)}</span> carries ${duration(top.cpu)} of that CPU on its own, ${(100 * top.cpu / totalCpu).toFixed(0)} % of the build, over ${top.units.length} units.`);
 
   if (state.links.length) {
-    var linkCpu = state.links.reduce(function (a, r) { return a + r.cpu; }, 0);
-    var worstLink = state.links.reduce(function (a, r) { return r.rss > a.rss ? r : a; }, state.links[0]);
-    out.push("<b>" + state.links.length + " link" + (state.links.length === 1 ? "" : "s") + "</b>, " +
-             duration(linkCpu) + " of CPU, the heaviest <span class=\"mono\">" + esc(worstLink.unit) +
-             "</span> peaking at " + size(worstLink.rss) + ".");
+    const linkCpu = state.links.reduce((a, r) => a + r.cpu, 0);
+    const worstLink = state.links.reduce((a, r) => r.rss > a.rss ? r : a, state.links[0]);
+    out.push(`<b>${plural(state.links.length, "link")}</b>, ${duration(linkCpu)} of CPU, the heaviest <span class="mono">${esc(worstLink.unit)}</span> peaking at ${size(worstLink.rss)}.`);
   }
 
   if (state.base) {
-    var grew = rows.filter(function (r) {
-      var b = state.base[r.unit];
-      return b !== undefined && r.rss > b * 1.05 && r.rss - b > 16 * 1024;
+    const grew = rows.filter(r => {
+      const b = state.base[r.unit];
+      return b !== undefined && r.rss > b && significant(r.rss, b);
     });
     out.push(grew.length
-      ? "<b>" + grew.length + " unit" + (grew.length === 1 ? "" : "s") +
-        " grew</b> by more than 5 % and 16 MiB against the baseline."
-      : "Nothing grew by more than 5 % against the baseline.");
+      ? `<b>${plural(grew.length, "unit")} grew</b> by more than 5 % and 16 MiB against the baseline.`
+      : "Nothing grew by more than 5 % and 16 MiB against the baseline.");
   }
 
-  var ul = document.getElementById("facts");
+  const ul = document.getElementById("facts");
   ul.innerHTML = "";
-  out.forEach(function (h) {
-    var li = document.createElement("li");
+  out.forEach(h => {
+    const li = document.createElement("li");
     li.innerHTML = h;
     ul.appendChild(li);
   });
@@ -573,137 +574,146 @@ function esc(s) {
 }
 
 function groupByModule(rows) {
-  var by = {};
-  rows.forEach(function (r) {
-    var g = by[r.module] || (by[r.module] = { module: r.module, cpu: 0, units: [] });
+  const by = {};
+  rows.forEach(r => {
+    const g = by[r.module] || (by[r.module] = { module: r.module, cpu: 0, units: [] });
     g.cpu += r.cpu;
     g.units.push(r);
   });
-  var list = Object.keys(by).map(function (k) { return by[k]; });
-  list.sort(function (a, b) { return b.cpu - a.cpu; });
-  list.forEach(function (g) { g.units.sort(function (a, b) { return b.rss - a.rss; }); });
+  const list = Object.values(by);
+  list.sort((a, b) => b.cpu - a.cpu);
+  list.forEach(g => { g.units.sort((a, b) => b.rss - a.rss); });
   return list;
 }
 
 // ---- charts ------------------------------------------------------------------------------------
 function clear(svg) { while (svg.firstChild) svg.removeChild(svg.firstChild); }
 
+// The drawing every chart over time or memory shares, in viewBox units: the left margin varies with the width
+// of the labels the vertical axis carries, the rest does not.
+const W = 1080, H = 380, R = 12, T = 16, B = 38;
+
+function yOf(v, hi) { return T + (H - T - B) * (1 - v / hi); }
+
+// The vertical scale: the top on a whole step, and one gridline per step from zero.
+function scale(top, step) {
+  const hi = Math.max(step, Math.ceil(top / step) * step), values = [];
+  for (let v = 0; v <= hi + step / 2; v += step) values.push(v);
+  return { hi, values };
+}
+
+// What a chart draws around its marks: a gridline and a label per step of its scale, the horizontal axis, the
+// labels of its two ends, and its title.
+function frame(svg, o) {
+  o.scale.values.forEach(v => {
+    const y = yOf(v, o.scale.hi);
+    svg.appendChild(el("line", { class: "grid", x1: o.left, y1: y, x2: W - R, y2: y }));
+    svg.appendChild(el("text", { x: o.left - 6, y: y + 4, "text-anchor": "end" }, o.write(v)));
+  });
+  svg.appendChild(el("line", { class: "axis", x1: o.left, y1: H - B, x2: W - R, y2: H - B }));
+  svg.appendChild(el("text", { x: o.left, y: H - B + 16 }, o.from));
+  svg.appendChild(el("text", { x: W - R, y: H - B + 16, "text-anchor": "end" }, o.to));
+  if (o.title) svg.appendChild(el("text", { x: (o.left + W - R) / 2, y: H - 4, "text-anchor": "middle" }, o.title));
+}
+
 function histogram() {
-  var svg = document.getElementById("hist");
+  const svg = document.getElementById("hist");
   clear(svg);
-  var W = 1080, H = 380, L = 44, R = 8, T = 14, B = 34;
-  var peaks = state.rows.map(function (r) { return r.rss; }).sort(function (a, b) { return a - b; });
-  var max = peaks[peaks.length - 1], bins = 48, counts = new Array(bins).fill(0);
-  peaks.forEach(function (v) { counts[Math.min(bins - 1, Math.floor(v / max * bins))]++; });
-  var top = Math.max.apply(null, counts);
+  const L = 54;
+  const peaks = state.rows.map(r => r.rss).sort((a, b) => a - b);
+  const max = peaks[peaks.length - 1], bins = 48, counts = new Array(bins).fill(0);
+  // From the lowest peak rounded down to a step rather than from zero: units of one suite peak close to each
+  // other, and an axis from zero packs them all into its last bins.
+  const step = axisStep("peak_kib", Math.max(1, max - peaks[0]) / 4);
+  const min = Math.floor(peaks[0] / step) * step, span = Math.max(1, max - min);
+  const bin = v => Math.min(bins - 1, Math.floor((v - min) / span * bins));
+  peaks.forEach(v => { counts[bin(v)]++; });
+  const top = Math.max(...counts), sc = scale(top, Math.max(1, niceStep(top / 4)));
 
-  for (var g = 0; g <= 4; g++) {
-    var y = T + (H - T - B) * g / 4;
-    svg.appendChild(el("line", { class: "grid", x1: L, y1: y, x2: W - R, y2: y }));
-    svg.appendChild(el("text", { x: L - 6, y: y + 4, "text-anchor": "end" },
-                       Math.round(top * (1 - g / 4))));
-  }
+  frame(svg, { left: L, scale: sc, write: String, from: size(min), to: size(max), title: "peak resident memory" });
 
-  var bw = (W - L - R) / bins;
-  counts.forEach(function (c, i) {
+  const bw = (W - L - R) / bins;
+  counts.forEach((c, i) => {
     if (!c) return;
-    var h = (H - T - B) * c / top;
-    var rect = el("rect", { class: "bar", x: L + i * bw + 0.5, y: H - B - h,
+    const h = (H - T - B) * c / sc.hi;
+    const rect = el("rect", { class: "bar", x: L + i * bw + 0.5, y: H - B - h,
                             width: Math.max(1, bw - 1), height: h, rx: 1 });
-    attachTip(rect, "<b>" + c + " unit" + (c === 1 ? "" : "s") + "</b><br/>between " +
-                    size(max * i / bins) + " and " + size(max * (i + 1) / bins));
+    attachTip(rect, `<b>${plural(c, "unit")}</b><br/>between ${size(min + span * i / bins)} and ${size(min + span * (i + 1) / bins)}`);
     svg.appendChild(rect);
   });
 
-  [[0.5, "median"], [0.9, "ninth decile"]].forEach(function (m) {
-    var x = L + (W - L - R) * quantile(peaks, m[0]) / max;
+  [[0.5, "median"], [0.9, "ninth decile"]].forEach(m => {
+    const x = L + (W - L - R) * (quantile(peaks, m[0]) - min) / span;
     svg.appendChild(el("line", { class: "mark", x1: x, y1: T, x2: x, y2: H - B }));
     svg.appendChild(el("text", { x: x + 4, y: T + 10 }, m[1]));
   });
-
-  svg.appendChild(el("line", { class: "axis", x1: L, y1: H - B, x2: W - R, y2: H - B }));
-  svg.appendChild(el("text", { x: L, y: H - B + 16 }, "0"));
-  svg.appendChild(el("text", { x: W - R, y: H - B + 16, "text-anchor": "end" }, size(max)));
-  svg.appendChild(el("text", { x: (L + W - R) / 2, y: H - 4, "text-anchor": "middle" },
-                     "peak resident memory"));
 }
 
 function scatter() {
-  var svg = document.getElementById("scatter");
+  const svg = document.getElementById("scatter");
   clear(svg);
-  var W = 1080, H = 380, L = 64, R = 8, T = 14, B = 34;
-  var maxRss = 0, maxCpu = 0;
-  state.rows.forEach(function (r) {
+  const L = 74;
+  let maxRss = 0, maxCpu = 0;
+  state.rows.forEach(r => {
     if (r.rss > maxRss) maxRss = r.rss;
     if (r.cpu > maxCpu) maxCpu = r.cpu;
   });
+  const sc = scale(maxRss, axisStep("peak_kib", maxRss / 4));
 
-  for (var g = 0; g <= 4; g++) {
-    var y = T + (H - T - B) * g / 4;
-    svg.appendChild(el("line", { class: "grid", x1: L, y1: y, x2: W - R, y2: y }));
-    svg.appendChild(el("text", { x: L - 6, y: y + 4, "text-anchor": "end" },
-                       size(maxRss * (1 - g / 4))));
-  }
+  frame(svg, { left: L, scale: sc, write: size, from: "0", to: duration(maxCpu), title: "CPU time" });
 
-  state.rows.forEach(function (r) {
-    var x = L + (W - L - R) * (r.cpu / maxCpu);
-    var y = T + (H - T - B) * (1 - r.rss / maxRss);
-    var c = el("circle", { class: "dot", cx: x, cy: y, r: 3.4, fill: state.colors[r.module] });
-    attachTip(c, "<span class=\"mono\">" + esc(r.unit) + "</span>" +
-                 size(r.rss) + " &middot; " + duration(r.cpu));
+  state.rows.forEach(r => {
+    const x = L + (W - L - R) * (r.cpu / maxCpu);
+    const y = yOf(r.rss, sc.hi);
+    // A style, since the fill of the .dot rule would win over an attribute.
+    const c = el("circle", { class: "dot", cx: x, cy: y, r: 3.4, style: `fill: ${state.colors[r.module]}` });
+    attachTip(c, `<span class="mono">${esc(r.unit)}</span>${size(r.rss)} &middot; ${duration(r.cpu)}`);
     svg.appendChild(c);
   });
-
-  svg.appendChild(el("line", { class: "axis", x1: L, y1: H - B, x2: W - R, y2: H - B }));
-  svg.appendChild(el("text", { x: L, y: H - B + 16 }, "0"));
-  svg.appendChild(el("text", { x: W - R, y: H - B + 16, "text-anchor": "end" }, duration(maxCpu)));
-  svg.appendChild(el("text", { x: (L + W - R) / 2, y: H - 4, "text-anchor": "middle" }, "CPU time"));
 }
 
 // One bar per module, ranked either by the CPU it adds up to or by the heaviest unit it holds. The
 // second is deliberately not a sum: peaks belong to processes that never run at the same time, and
 // what a module costs in memory is the one unit a machine has to fit.
 function moduleBars(id, metric) {
-  var svg = document.getElementById(id);
+  const svg = document.getElementById(id);
   clear(svg);
-  var list = groupByModule(state.rows).slice();
-  var value = metric === "cpu" ? function (g) { return g.cpu; } : function (g) { return g.units[0].rss; };
-  list.sort(function (a, b) { return value(b) - value(a); });
+  const list = groupByModule(state.rows).slice();
+  const value = metric === "cpu" ? g => g.cpu : g => g.units[0].rss;
+  list.sort((a, b) => value(b) - value(a));
 
-  var W = 1080, L = 150, R = 110, T = 6, rowH = 20;
-  var H = T + list.length * rowH + 24;
-  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  const W = 1080, L = 150, R = 110, T = 6, rowH = 20;
+  const H = T + list.length * rowH + 24;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
-  var max = value(list[0]);
-  list.forEach(function (g, i) {
-    var y = T + i * rowH;
-    var w = (W - L - R) * value(g) / max;
+  const max = value(list[0]);
+  list.forEach((g, i) => {
+    const y = T + i * rowH;
+    const w = (W - L - R) * value(g) / max;
 
-    var label = el("text", { x: L - 8, y: y + 13, "text-anchor": "end",
+    const label = el("text", { x: L - 8, y: y + 13, "text-anchor": "end",
                              fill: "var(--page-foreground-color)" }, g.module);
     svg.appendChild(label);
 
-    var rect = el("rect", { class: "modbar", x: L, y: y + 3, width: Math.max(1, w),
+    const rect = el("rect", { class: "modbar", x: L, y: y + 3, width: Math.max(1, w),
                             height: rowH - 7, rx: 2, fill: state.colors[g.module] });
-    rect.addEventListener("click", function () {
+    rect.addEventListener("click", () => {
       document.getElementById("mod").value = state.mod === g.module ? "" : g.module;
       state.mod = document.getElementById("mod").value;
       renderTable();
       showTab("tab-units");
     });
-    attachTip(rect, "<b>" + esc(g.module) + "</b><br/>" + g.units.length + " units &middot; " +
-                    duration(g.cpu) + " of CPU<br/>heaviest " + size(g.units[0].rss) + " in " +
-                    "<span class=\"mono\">" + esc(g.units[0].unit) + "</span>");
+    attachTip(rect, `<b>${esc(g.module)}</b><br/>${g.units.length} units &middot; ${duration(g.cpu)} of CPU<br/>heaviest ${size(g.units[0].rss)} in <span class="mono">${esc(g.units[0].unit)}</span>`);
     svg.appendChild(rect);
 
     svg.appendChild(el("text", { x: L + w + 8, y: y + 13 },
-                       metric === "cpu" ? duration(g.cpu) + "  ·  " + g.units.length + " units"
-                                        : size(g.units[0].rss) + "  ·  " + g.units.length + " units"));
+                       metric === "cpu" ? `${duration(g.cpu)}  ·  ${g.units.length} units`
+                                        : `${size(g.units[0].rss)}  ·  ${g.units.length} units`));
   });
 }
 
 // ---- table -------------------------------------------------------------------------------------
-var COLS = [
+const COLS = [
   { key: "unit",   label: "Translation unit", num: false },
   { key: "module", label: "Module",           num: false },
   { key: "rss",    label: "Peak RSS",         num: true  },
@@ -711,18 +721,18 @@ var COLS = [
 ];
 
 function visible() {
-  var q = state.q.toLowerCase();
-  var rows = state.rows.filter(function (r) {
+  const q = state.q.toLowerCase();
+  const rows = state.rows.filter(r => {
     if (state.mod && r.module !== state.mod) return false;
-    return !q || r.unit.toLowerCase().indexOf(q) >= 0;
+    return !q || r.unit.toLowerCase().includes(q);
   });
-  var k = state.sort.key, d = state.sort.dir;
-  rows.sort(function (a, b) {
+  const k = state.sort.key, d = state.sort.dir;
+  rows.sort((a, b) => {
     if (k === "delta") {
-      var da = delta(a), db = delta(b);
+      const da = delta(a), db = delta(b);
       return (da - db) * d;
     }
-    var va = a[k], vb = b[k];
+    const va = a[k], vb = b[k];
     if (typeof va === "string") return va.localeCompare(vb) * d;
     return (va - vb) * d;
   });
@@ -731,103 +741,118 @@ function visible() {
 
 function delta(r) {
   if (!state.base) return 0;
-  var b = state.base[r.unit];
-  return b === undefined || b === 0 ? 0 : (r.rss - b) / b;
+  const b = state.base[r.unit];
+  return b === undefined || b === 0 || !significant(r.rss, b) ? 0 : (r.rss - b) / b;
+}
+
+function cell(tr, text, cls) {
+  const td = document.createElement("td");
+  td.textContent = text;
+  if (cls) td.className = cls;
+  tr.appendChild(td);
+  return td;
+}
+
+function headCell(tr, label, num) {
+  const th = document.createElement("th");
+  th.textContent = label;
+  if (num) th.className = "num";
+  tr.appendChild(th);
+  return th;
 }
 
 function renderHead() {
-  var tr = document.getElementById("head");
+  const tr = document.getElementById("head");
   tr.innerHTML = "";
   tr.appendChild(document.createElement("th")).className = "swatch-cell";
-  var cols = COLS.slice();
-  if (state.base) cols.push({ key: "delta", label: "Δ RSS", num: true });
-  cols.forEach(function (c) {
-    var th = document.createElement("th");
-    th.textContent = c.label;
-    if (c.num) th.className = "num";
+  const cols = COLS.slice();
+  if (state.base) cols.push({ key: "delta", label: "\u0394 RSS", num: true });
+  cols.forEach(c => {
+    const th = headCell(tr, c.label, c.num);
     if (state.sort.key === c.key) th.setAttribute("aria-sort", state.sort.dir < 0 ? "descending" : "ascending");
-    th.addEventListener("click", function () {
+    th.addEventListener("click", () => {
       if (state.sort.key === c.key) state.sort.dir = -state.sort.dir;
       else state.sort = { key: c.key, dir: c.num ? -1 : 1 };
       renderHead();
       renderTable();
     });
-    tr.appendChild(th);
   });
 }
 
 function renderTable() {
-  var rows = visible();
-  var body = document.getElementById("body");
+  const rows = visible();
+  const body = document.getElementById("body");
   body.innerHTML = "";
-  var frag = document.createDocumentFragment();
+  const frag = document.createDocumentFragment();
 
-  rows.forEach(function (r) {
-    var tr = document.createElement("tr");
-
-    var sw = document.createElement("td");
-    sw.className = "swatch-cell";
-    var dot = document.createElement("span");
+  rows.forEach(r => {
+    const tr = document.createElement("tr");
+    const dot = document.createElement("span");
     dot.className = "swatch";
     dot.style.background = state.colors[r.module];
-    sw.appendChild(dot);
-    tr.appendChild(sw);
-
-    var u = document.createElement("td");
-    u.className = "unit";
-    u.textContent = r.unit;
-    tr.appendChild(u);
-
-    var m = document.createElement("td");
-    m.textContent = r.module;
-    tr.appendChild(m);
-
-    var a = document.createElement("td");
-    a.className = "num";
-    a.textContent = size(r.rss);
-    tr.appendChild(a);
-
-    var c = document.createElement("td");
-    c.className = "num";
-    c.textContent = duration(r.cpu);
-    tr.appendChild(c);
-
-    if (state.base) {
-      var d = document.createElement("td");
-      d.className = "num";
-      var p = pct(r.rss, state.base[r.unit]);
-      d.textContent = p.text;
-      if (p.cls) d.className += " " + p.cls;
-      tr.appendChild(d);
-    }
+    cell(tr, "", "swatch-cell").appendChild(dot);
+    cell(tr, r.unit, "unit");
+    cell(tr, r.module);
+    measures(tr, r, state.base);
     frag.appendChild(tr);
   });
 
   body.appendChild(frag);
   document.getElementById("count").textContent =
-    rows.length + " of " + state.rows.length + " units shown";
+    `${rows.length} of ${state.rows.length} units shown`;
+}
+
+// The peak, the CPU, and against a baseline the change of the peak: the columns a unit and a link share.
+function measures(tr, r, base) {
+  cell(tr, size(r.rss), "num");
+  cell(tr, duration(r.cpu), "num");
+  if (!base) return;
+  const p = pct(r.rss, base[r.unit]);
+  cell(tr, p.text, p.cls ? `num ${p.cls}` : "num");
 }
 
 function renderModuleFilter() {
-  var sel = document.getElementById("mod");
-  var keep = sel.value;
+  const sel = document.getElementById("mod");
+  const keep = sel.value;
   sel.innerHTML = "<option value=\"\">All modules</option>";
-  groupByModule(state.rows).forEach(function (g) {
-    var o = document.createElement("option");
+  groupByModule(state.rows).forEach(g => {
+    const o = document.createElement("option");
     o.value = g.module;
-    o.textContent = g.module + "  (" + g.units.length + ")";
+    o.textContent = `${g.module}  (${g.units.length})`;
     sel.appendChild(o);
   });
   sel.value = keep;
 }
 
+function peaksByUnit(list) {
+  const by = {};
+  list.forEach(r => { by[r.unit] = r.rss; });
+  return by;
+}
+
+// A measurement goes into one of the two slots, read from a file or from the series alike: the one shown, or
+// the baseline its deltas are taken against.
+function apply(read, which, label) {
+  if (which === "now") {
+    state.rows = read.rows;
+    state.links = read.links;
+  } else {
+    state.base = peaksByUnit(read.rows);
+    state.linkBase = peaksByUnit(read.links);
+  }
+  document.getElementById(`slot-${which}`).classList.add("filled");
+  document.getElementById(`name-${which}`).textContent =
+    `${label} \u2014 ${read.rows.length} units, ${read.links.length} links`;
+  renderAll();
+}
+
 function renderAll() {
   if (!state.rows.length) return;
-  var groups = groupByModule(state.rows);
-  groups.forEach(function (g, i) { state.colors[g.module] = moduleColor(i, groups.length); });
+  const groups = groupByModule(state.rows);
+  groups.forEach((g, i) => { state.colors[g.module] = moduleColor(i, groups.length); });
   document.getElementById("empty").hidden = true;
   document.getElementById("report").hidden = false;
-  MEASURED_TABS.forEach(function (id) { document.getElementById(id).hidden = false; });
+  MEASURED_TABS.forEach(id => { document.getElementById(id).hidden = false; });
   renderFacts();
   histogram();
   scatter();
@@ -844,30 +869,20 @@ function renderAll() {
 // One row per executable, heaviest first: an executable is not a unit, so it has no module and its
 // figures stay out of every total above.
 function renderLinks() {
-  var head = document.getElementById("link-head"), body = document.getElementById("link-body");
+  const head = document.getElementById("link-head"), body = document.getElementById("link-body");
   head.innerHTML = "";
   body.innerHTML = "";
   document.getElementById("tab-links").hidden = !state.links.length;
   if (!state.links.length) return;
 
-  var cols = ["Executable", "Peak RSS", "CPU"];
+  const cols = ["Executable", "Peak RSS", "CPU"];
   if (state.linkBase) cols.push("\u0394 RSS");
-  cols.forEach(function (label, i) {
-    var th = document.createElement("th");
-    th.textContent = label;
-    if (i) th.className = "num";
-    head.appendChild(th);
-  });
+  cols.forEach((label, i) => { headCell(head, label, i > 0); });
 
-  state.links.slice().sort(function (a, b) { return b.rss - a.rss; }).forEach(function (r) {
-    var tr = document.createElement("tr");
-    tr.innerHTML = '<td class="mono">' + esc(r.unit) + "</td>" +
-                   '<td class="num">' + size(r.rss) + "</td>" +
-                   '<td class="num">' + duration(r.cpu) + "</td>";
-    if (state.linkBase) {
-      var p = pct(r.rss, state.linkBase[r.unit]);
-      tr.innerHTML += '<td class="num ' + p.cls + '">' + p.text + "</td>";
-    }
+  state.links.slice().sort((a, b) => b.rss - a.rss).forEach(r => {
+    const tr = document.createElement("tr");
+    cell(tr, r.unit, "mono");
+    measures(tr, r, state.linkBase);
     body.appendChild(tr);
   });
 }
@@ -876,70 +891,84 @@ function renderLinks() {
 // Every measurement of a push lands on the ct-measures branch, one CSV named by its commit and one
 // index holding what a curve needs. The index is read raw, which needs no token on a public
 // repository, and a CSV is only fetched for a commit someone asks to read.
-var SERIES = "https://raw.githubusercontent.com/jfalcou/spy/ct-measures";
+const SERIES = "https://raw.githubusercontent.com/jfalcou/spy/ct-measures";
 
-function seriesUrl(name) { return SERIES + "/" + name; }
+function seriesUrl(name) { return `${SERIES}/${name}`; }
 
 function loadSeries() {
-  if (!SERIES || SERIES.indexOf("@") === 0) return;
-  fetch(seriesUrl("index.json")).then(function (r) {
-    return r.ok ? r.json() : null;
-  }).then(function (index) {
+  if (!SERIES || SERIES.startsWith("@")) return;
+  fetch(seriesUrl("index.json")).then(r => r.ok ? r.json() : null).then(index => {
     if (!index || !index.length) return;
     state.series = index;
     document.getElementById("tab-history").hidden = false;
     fillSeriesControls();
     drawSeries();
-    if (!state.rows.length) openOnSeries();
-  }).catch(function () { /* no series published yet, and the tab stays hidden */ });
+    if (!state.rows.length) openOnLatest();
+  }).catch(() => { /* no series published yet, and the tab stays hidden */ });
 }
 
 // Without a measurement loaded, every other tab has nothing to draw: the page opens on the curve, and the rest
 // comes back the moment a point is clicked or a file is dropped.
-var MEASURED_TABS = ["tab-hist", "tab-scatter", "tab-modules-cpu", "tab-modules-rss", "tab-links", "tab-units"];
+const MEASURED_TABS = ["tab-hist", "tab-scatter", "tab-modules-cpu", "tab-modules-rss", "tab-links", "tab-units"];
 
 function openOnSeries() {
-  MEASURED_TABS.forEach(function (id) { document.getElementById(id).hidden = true; });
+  MEASURED_TABS.forEach(id => { document.getElementById(id).hidden = true; });
   document.getElementById("empty").hidden = true;
   document.getElementById("empty-series").hidden = false;
   document.getElementById("report").hidden = false;
   showTab("tab-history");
 }
 
-function seriesShown() {
-  var branch = document.getElementById("hist-branch").value;
-  return state.series.filter(function (e) { return !branch || e.branch === branch; });
+// Opened from the published site with no file chosen, the page reads the last measurement of the branch the curve
+// shows. The curve stays the fallback when that CSV is gone from the branch.
+function openOnLatest() {
+  openOnSeries();
+  const shown = seriesShown();
+  if (shown.length) pick(shown[shown.length - 1], true);
 }
 
+function seriesShown() {
+  const branch = document.getElementById("hist-branch").value;
+  return state.series.filter(e => !branch || e.branch === branch);
+}
+
+// The total grows with every unit a commit adds, so a curve of it reads a new test as a regression. Divided by
+// the units the same measurement counts, it follows what one unit costs.
 function seriesValue(entry, scope, metric) {
-  if (scope === "") return entry[metric];
-  var m = entry.modules && entry.modules[scope];
-  return m ? m[metric] : undefined;
+  const from = scope === "" ? entry : entry.modules && entry.modules[scope];
+  if (!from) return undefined;
+  if (metric === "cpu_per_unit") return from.units ? from.cpu_us / from.units : undefined;
+  return from[metric];
+}
+
+// Hundredths of a second, which the mean of a unit needs where a total reads in tenths.
+function unitDuration(usec) {
+  return usec < 9.995e6 ? `${(usec / 1e6).toFixed(2)} s` : duration(usec);
 }
 
 function fillSeriesControls() {
-  var branches = [], scopes = [];
-  state.series.forEach(function (e) {
-    if (e.branch && branches.indexOf(e.branch) < 0) branches.push(e.branch);
-    for (var m in (e.modules || {})) if (scopes.indexOf(m) < 0) scopes.push(m);
+  const branches = [], scopes = [];
+  state.series.forEach(e => {
+    if (e.branch && !branches.includes(e.branch)) branches.push(e.branch);
+    for (const m in (e.modules || {})) if (!scopes.includes(m)) scopes.push(m);
   });
   branches.sort();
   scopes.sort();
 
-  var b = document.getElementById("hist-branch");
+  const b = document.getElementById("hist-branch");
   b.innerHTML = "";
-  branches.forEach(function (name) {
-    var o = document.createElement("option");
+  branches.forEach(name => {
+    const o = document.createElement("option");
     o.value = name;
     o.textContent = name;
     b.appendChild(o);
   });
-  if (branches.indexOf("main") >= 0) b.value = "main";
+  if (branches.includes("main")) b.value = "main";
 
-  var sc = document.getElementById("hist-scope");
+  const sc = document.getElementById("hist-scope");
   sc.innerHTML = '<option value="">The whole build</option>';
-  scopes.forEach(function (name) {
-    var o = document.createElement("option");
+  scopes.forEach(name => {
+    const o = document.createElement("option");
     o.value = name;
     o.textContent = name;
     sc.appendChild(o);
@@ -949,171 +978,138 @@ function fillSeriesControls() {
 // A gridline lands on 1, 2 or 5 times a power of ten, so the labels read as numbers rather than as the quarters
 // of whatever the largest measurement happens to be.
 function niceStep(rough) {
-  var power = Math.pow(10, Math.floor(Math.log(rough) / Math.LN10));
-  var scaled = rough / power;
+  const power = 10 ** Math.floor(Math.log10(rough));
+  const scaled = rough / power;
   return power * (scaled > 5 ? 10 : (scaled > 2 ? 5 : (scaled > 1 ? 2 : 1)));
 }
 
 // In the unit the axis is written in, not the one it is stored in: a round number of kibibytes is a ragged number
 // of mebibytes, and time is read in seconds, minutes and hours rather than in powers of ten.
-var CLOCK = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10800, 21600];
+const CLOCK = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10800, 21600];
 
 function axisStep(metric, rough) {
-  if (metric === "cpu_us") {
-    var seconds = rough / 1e6;
-    for (var i = 0; i < CLOCK.length; i++) if (CLOCK[i] >= seconds) return CLOCK[i] * 1e6;
-    return niceStep(seconds) * 1e6;
+  if (metric !== "peak_kib") {
+    const seconds = rough / 1e6;
+    if (seconds < 1) return niceStep(seconds) * 1e6;
+    return (CLOCK.find(c => c >= seconds) ?? niceStep(seconds)) * 1e6;
   }
   return Math.max(1, niceStep(rough / 1024)) * 1024;
 }
 
 function drawSeries() {
-  var svg = document.getElementById("series");
+  const svg = document.getElementById("series");
   clear(svg);
-  var scope = document.getElementById("hist-scope").value;
-  var metric = document.getElementById("hist-metric").value;
-  var shown = seriesShown().filter(function (e) { return seriesValue(e, scope, metric) !== undefined; });
+  const scope = document.getElementById("hist-scope").value;
+  const metric = document.getElementById("hist-metric").value;
+  const shown = seriesShown().filter(e => seriesValue(e, scope, metric) !== undefined);
 
-  var values = shown.map(function (e) { return seriesValue(e, scope, metric); });
-  var write = metric === "cpu_us" ? duration : size;
-  var top = Math.max.apply(null, values), low = Math.min.apply(null, values);
+  const values = shown.map(e => seriesValue(e, scope, metric));
+  const write = metric === "peak_kib" ? size : (metric === "cpu_per_unit" ? unitDuration : duration);
+  const top = Math.max(...values), low = Math.min(...values);
 
   // What a curve is read for is a regression, so the axis starts at zero: fitted to its own spread, a build that
   // never moved fills the panel with the noise of a shared runner. The spread is written out instead.
-  var count = document.getElementById("hist-count");
-  count.textContent = shown.length + " measurement" + (shown.length === 1 ? "" : "s") +
-                      (shown.length > 1 ? " \u00b7 " + write(low) + " to " + write(top) : "");
+  const count = document.getElementById("hist-count");
+  count.textContent = plural(shown.length, "measurement") +
+                      (shown.length > 1 ? ` \u00b7 ${write(low)} to ${write(top)}` : "");
   if (shown.length < 2) return;
 
-  var W = 1080, H = 380, L = 74, R = 12, T = 16, B = 38;
-  var lo = 0, step = axisStep(metric, top / 4), hi = Math.ceil(top / step) * step;
+  const L = 74, sc = scale(top, axisStep(metric, top / 4));
+  frame(svg, { left: L, scale: sc, write, from: shown[0].date.slice(0, 10),
+               to: shown[shown.length - 1].date.slice(0, 10) });
 
-  for (var v = 0; v <= hi + step / 2; v += step) {
-    var y = T + (H - T - B) * (1 - v / hi);
-    svg.appendChild(el("line", { class: "grid", x1: L, y1: y, x2: W - R, y2: y }));
-    svg.appendChild(el("text", { x: L - 6, y: y + 4, "text-anchor": "end" }, write(v)));
-  }
+  const x = i => L + (W - L - R) * i / (shown.length - 1);
+  const y = v => yOf(v, sc.hi);
 
-  var x = function (i) { return L + (W - L - R) * (shown.length === 1 ? 0.5 : i / (shown.length - 1)); };
-  var y = function (v) { return T + (H - T - B) * (1 - (v - lo) / (hi - lo)); };
+  const d = shown.map((e, i) => `${i ? "L" : "M"}${x(i)} ${y(values[i])}`).join(" ");
+  svg.appendChild(el("path", { class: "line", d, fill: "none" }));
 
-  var d = shown.map(function (e, i) { return (i ? "L" : "M") + x(i) + " " + y(values[i]); }).join(" ");
-  svg.appendChild(el("path", { class: "line", d: d, fill: "none" }));
-
-  shown.forEach(function (e, i) {
-    var picked = state.picked.indexOf(e.sha) >= 0;
-    var c = el("circle", { class: "dot", cx: x(i), cy: y(values[i]), r: picked ? 5.5 : 3.4 });
-    attachTip(c, "<span class=\"mono\">" + esc(e.sha.slice(0, 7)) + "</span>" +
-                 esc(e.date.slice(0, 10)) + " &middot; " + write(values[i]));
+  shown.forEach((e, i) => {
+    const picked = state.picked.includes(e.sha);
+    const c = el("circle", { class: "dot", cx: x(i), cy: y(values[i]), r: picked ? 5.5 : 3.4 });
+    attachTip(c, `<span class="mono">${esc(e.sha.slice(0, 7))}</span>${esc(e.date.slice(0, 10))} &middot; ${write(values[i])}`);
     c.style.cursor = "pointer";
-    c.addEventListener("click", function () { pick(e); });
+    c.addEventListener("click", () => { pick(e); });
     svg.appendChild(c);
   });
-
-  svg.appendChild(el("line", { class: "axis", x1: L, y1: H - B, x2: W - R, y2: H - B }));
-  svg.appendChild(el("text", { x: L, y: H - B + 16 }, shown[0].date.slice(0, 10)));
-  svg.appendChild(el("text", { x: W - R, y: H - B + 16, "text-anchor": "end" },
-                     shown[shown.length - 1].date.slice(0, 10)));
 }
 
 // A first click reads that commit, a second compares it against the first: the two slots the page
 // already has, filled from the branch rather than from a file someone downloaded.
-function pick(entry) {
-  var help = document.getElementById("hist-help");
-  fetch(seriesUrl(entry.sha + ".csv")).then(function (r) {
+function pick(entry, opening) {
+  const help = document.getElementById("hist-help");
+  fetch(seriesUrl(`${entry.sha}.csv`)).then(r => {
     if (!r.ok) throw new Error("gone");
     return r.text();
-  }).then(function (text) {
-    var read = parse(text), which = state.picked.length ? "base" : "now";
-    if (which === "now") {
-      state.rows = read.rows;
-      state.links = read.links;
-      state.picked = [entry.sha];
-    } else {
-      state.base = {};
-      state.linkBase = {};
-      read.rows.forEach(function (r) { state.base[r.unit] = r.rss; });
-      read.links.forEach(function (r) { state.linkBase[r.unit] = r.rss; });
-      state.picked.push(entry.sha);
-    }
-    document.getElementById("slot-" + which).classList.add("filled");
-    document.getElementById("name-" + which).textContent =
-      entry.sha.slice(0, 7) + " — " + read.rows.length + " units, " + read.links.length + " links";
+  }).then(text => {
+    // Do not let the opening read overwrite a file dropped while it was in flight.
+    if (opening && state.rows.length) return;
+    const which = state.picked.length ? "base" : "now";
+    state.picked = which === "now" ? [entry.sha] : state.picked.concat(entry.sha);
     help.textContent = state.picked.length === 1
-      ? "Reading " + entry.sha.slice(0, 7) + ". Click another point to compare it against this one."
-      : "Comparing " + state.picked[0].slice(0, 7) + " against " + state.picked[1].slice(0, 7) + ".";
-    renderAll();
-  }).catch(function () {
-    help.textContent = "The measurement of " + entry.sha.slice(0, 7) + " is no longer on the branch.";
+      ? `Reading ${entry.sha.slice(0, 7)}. Click another point to compare it against this one.`
+      : `Comparing ${state.picked[0].slice(0, 7)} against ${state.picked[1].slice(0, 7)}.`;
+    apply(parse(text), which, entry.sha.slice(0, 7));
+    if (opening) showTab("tab-hist");
+  }).catch(() => {
+    help.textContent = `The measurement of ${entry.sha.slice(0, 7)} is no longer on the branch.`;
   });
 }
 
-["hist-branch", "hist-scope", "hist-metric"].forEach(function (id) {
+["hist-branch", "hist-scope", "hist-metric"].forEach(id => {
   document.getElementById(id).addEventListener("change", drawSeries);
 });
 
 // ---- loading -------------------------------------------------------------------------------
 function load(file, which) {
-  var reader = new FileReader();
-  reader.onload = function () {
-    var read = parse(String(reader.result)), rows = read.rows;
-    if (!rows.length && !read.links.length) {
-      document.getElementById("name-" + which).textContent =
-        "no -fproc-stat-report line in that file";
+  const reader = new FileReader();
+  reader.onload = () => {
+    const read = parse(String(reader.result));
+    if (!read.rows.length && !read.links.length) {
+      document.getElementById(`name-${which}`).textContent = "no -fproc-stat-report line in that file";
       return;
     }
-    if (which === "now") {
-      state.rows = rows;
-      state.links = read.links;
-    } else {
-      state.base = {};
-      state.linkBase = {};
-      rows.forEach(function (r) { state.base[r.unit] = r.rss; });
-      read.links.forEach(function (r) { state.linkBase[r.unit] = r.rss; });
-    }
-    document.getElementById("slot-" + which).classList.add("filled");
-    document.getElementById("name-" + which).textContent =
-      file.name + " — " + rows.length + " units, " + read.links.length + " links";
-    renderAll();
+    apply(read, which, file.name);
   };
   reader.readAsText(file);
 }
 
-["now", "base"].forEach(function (which) {
-  var slot = document.getElementById("slot-" + which);
-  var input = document.getElementById("file-" + which);
-  input.addEventListener("change", function () {
-    if (input.files && input.files[0]) load(input.files[0], which);
+["now", "base"].forEach(which => {
+  const slot = document.getElementById(`slot-${which}`);
+  const input = document.getElementById(`file-${which}`);
+  input.addEventListener("change", () => {
+    if (input.files?.[0]) load(input.files[0], which);
   });
-  ["dragenter", "dragover"].forEach(function (e) {
-    slot.addEventListener(e, function (ev) { ev.preventDefault(); slot.classList.add("over"); });
+  ["dragenter", "dragover"].forEach(e => {
+    slot.addEventListener(e, ev => { ev.preventDefault(); slot.classList.add("over"); });
   });
-  ["dragleave", "drop"].forEach(function (e) {
-    slot.addEventListener(e, function (ev) { ev.preventDefault(); slot.classList.remove("over"); });
+  ["dragleave", "drop"].forEach(e => {
+    slot.addEventListener(e, ev => { ev.preventDefault(); slot.classList.remove("over"); });
   });
-  slot.addEventListener("drop", function (ev) {
-    var f = ev.dataTransfer && ev.dataTransfer.files && ev.dataTransfer.files[0];
+  slot.addEventListener("drop", ev => {
+    const f = ev.dataTransfer?.files?.[0];
     if (f) load(f, which);
   });
 });
 
-document.getElementById("q").addEventListener("input", function (e) {
+document.getElementById("q").addEventListener("input", e => {
   state.q = e.target.value;
   renderTable();
 });
-document.getElementById("mod").addEventListener("change", function (e) {
+document.getElementById("mod").addEventListener("change", e => {
   state.mod = e.target.value;
   renderTable();
 });
 
-document.getElementById("csv").addEventListener("click", function () {
-  var rows = visible();
-  var head = "unit,module,peak_rss_kb,cpu_us" + (state.base ? ",baseline_rss_kb" : "") + "\n";
-  var text = head + rows.map(function (r) {
-    var b = state.base ? "," + (state.base[r.unit] === undefined ? "" : state.base[r.unit]) : "";
-    return r.unit + "," + r.module + "," + r.rss + "," + r.cpu + b;
-  }).join("\n") + "\n";
-  var a = document.createElement("a");
+document.getElementById("csv").addEventListener("click", () => {
+  const rows = visible();
+  const head = `unit,module,peak_rss_kb,cpu_us${state.base ? ",baseline_rss_kb" : ""}\n`;
+  const line = r => {
+    const b = state.base ? `,${state.base[r.unit] ?? ""}` : "";
+    return `${r.unit},${r.module},${r.rss},${r.cpu}${b}\n`;
+  };
+  const text = head + rows.map(line).join("");
+  const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([text], { type: "text/csv" }));
   a.download = "compile-cost-selection.csv";
   a.click();
@@ -1122,49 +1118,46 @@ document.getElementById("csv").addEventListener("click", function () {
 
 // The theme toggle uses the class names doxygen-awesome uses, so a reader who has already picked
 // a side in the documentation recognises the behaviour here.
-var turns = 0;
-document.getElementById("theme").addEventListener("click", function () {
+let turns = 0;
+document.getElementById("theme").addEventListener("click", () => {
   turns += 1;
-  document.querySelector("#theme svg").style.transform = "rotate(" + (turns * 180) + "deg)";
-  var root = document.documentElement;
-  var dark = root.classList.contains("dark-mode") ||
-             (window.matchMedia("(prefers-color-scheme: dark)").matches &&
-              !root.classList.contains("light-mode"));
+  document.querySelector("#theme svg").style.transform = `rotate(${turns * 180}deg)`;
+  const root = document.documentElement, dark = darkTheme();
   root.classList.remove("dark-mode", "light-mode");
   root.classList.add(dark ? "light-mode" : "dark-mode");
   if (state.rows.length) renderAll();
 });
 
 
-var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
 function showTab(id) {
-  tabs.forEach(function (tab) {
-    var on = tab.id === id;
+  tabs.forEach(tab => {
+    const on = tab.id === id;
     tab.setAttribute("aria-selected", String(on));
     document.getElementById(tab.getAttribute("aria-controls")).hidden = !on;
   });
 }
-tabs.forEach(function (tab) {
-  tab.addEventListener("click", function () { showTab(tab.id); });
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => { showTab(tab.id); });
 });
 
 // ---- saving a chart --------------------------------------------------------------------------
 // The SVG is drawn with classes and theme variables, none of which survive a trip through an image.
 // So a clone gets every visual property written down as an attribute, a background the colour of
 // the page, and goes through a canvas three times the size it is drawn at.
-var SAVE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
+const SAVE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
                 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
                 '<path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M4 19h16"/></svg>';
-var INLINED = ["fill", "stroke", "stroke-width", "stroke-dasharray", "opacity",
+const INLINED = ["fill", "stroke", "stroke-width", "stroke-dasharray", "opacity",
                "font-family", "font-size", "font-weight"];
 
 function inlineStyles(source, clone) {
-  var from = [source].concat(Array.prototype.slice.call(source.querySelectorAll("*")));
-  var to = [clone].concat(Array.prototype.slice.call(clone.querySelectorAll("*")));
-  from.forEach(function (node, i) {
-    var cs = getComputedStyle(node);
-    INLINED.forEach(function (prop) {
-      var v = cs.getPropertyValue(prop);
+  const from = [source, ...source.querySelectorAll("*")];
+  const to = [clone, ...clone.querySelectorAll("*")];
+  from.forEach((node, i) => {
+    const cs = getComputedStyle(node);
+    INLINED.forEach(prop => {
+      const v = cs.getPropertyValue(prop);
       if (v && v !== "none" || prop === "fill") to[i].setAttribute(prop, v);
     });
     to[i].removeAttribute("class");
@@ -1172,31 +1165,31 @@ function inlineStyles(source, clone) {
 }
 
 function savePng(svg, name) {
-  var vb = svg.viewBox.baseVal, w = vb.width, h = vb.height;
-  var clone = svg.cloneNode(true);
+  const vb = svg.viewBox.baseVal, w = vb.width, h = vb.height;
+  const clone = svg.cloneNode(true);
   inlineStyles(svg, clone);
   clone.setAttribute("xmlns", SVGNS);
   clone.setAttribute("width", w);
   clone.setAttribute("height", h);
-  var bg = el("rect", { x: vb.x, y: vb.y, width: w, height: h,
+  const bg = el("rect", { x: vb.x, y: vb.y, width: w, height: h,
                         fill: getComputedStyle(document.body).backgroundColor });
   clone.insertBefore(bg, clone.firstChild);
 
-  var url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],
+  const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],
                                          { type: "image/svg+xml;charset=utf-8" }));
-  var img = new Image();
-  img.onload = function () {
-    var scale = 3, canvas = document.createElement("canvas");
+  const img = new Image();
+  img.onload = () => {
+    const scale = 3, canvas = document.createElement("canvas");
     canvas.width = w * scale;
     canvas.height = h * scale;
-    var ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     ctx.scale(scale, scale);
     ctx.drawImage(img, 0, 0, w, h);
     URL.revokeObjectURL(url);
-    canvas.toBlob(function (blob) {
-      var a = document.createElement("a");
+    canvas.toBlob(blob => {
+      const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = name + ".png";
+      a.download = `${name}.png`;
       a.click();
       URL.revokeObjectURL(a.href);
     }, "image/png");
@@ -1204,16 +1197,21 @@ function savePng(svg, name) {
   img.src = url;
 }
 
-Array.prototype.slice.call(document.querySelectorAll("button.save")).forEach(function (btn) {
+// One export button per chart, written here rather than once per panel in the markup.
+document.querySelectorAll(".panel.chart > svg").forEach(svg => {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "icon save";
+  btn.title = "Save as PNG";
+  btn.setAttribute("aria-label", "Save as PNG");
   btn.innerHTML = SAVE_ICON;
-  btn.addEventListener("click", function () {
-    savePng(document.getElementById(btn.getAttribute("data-chart")), "compile-cost-" + btn.getAttribute("data-chart"));
-  });
+  btn.addEventListener("click", () => { savePng(svg, `compile-cost-${svg.id}`); });
+  svg.parentNode.insertBefore(btn, svg.parentNode.firstChild);
 });
 
 // Dropping anywhere else must not navigate the browser away from the page.
-["dragover", "drop"].forEach(function (e) {
-  window.addEventListener(e, function (ev) { ev.preventDefault(); }, false);
+["dragover", "drop"].forEach(e => {
+  window.addEventListener(e, ev => { ev.preventDefault(); }, false);
 });
 
 // the tabs are wired above, and the series may switch to one as soon as it lands
