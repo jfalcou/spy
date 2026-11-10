@@ -13,11 +13,11 @@ message(STATUS "Testing CPM for branch ${GIT_BRANCH}")
 include(cpm.cmake)
 
 # Add dependencies
-CPMAddPackage ( NAME spy
-                GIT_REPOSITORY "https://github.com/jfalcou/spy.git"
-                GIT_TAG "${GIT_BRANCH}"
-                OPTIONS "SPY_BUILD_TEST OFF"
-              )
+CPMAddPackage(
+  NAME spy
+  GIT_REPOSITORY "https://github.com/jfalcou/spy.git"
+  GIT_TAG "${GIT_BRANCH}"
+  OPTIONS "SPY_BUILD_TEST OFF")
 
 # Use spy
 add_executable(test_spy ../main.cpp)

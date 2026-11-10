@@ -13,10 +13,7 @@ message(STATUS "Testing FetchContent for branch ${GIT_BRANCH}")
 include(FetchContent)
 
 # Retrieve SPY from relative git directory
-FetchContent_Declare(spy
-  GIT_REPOSITORY "https://github.com/jfalcou/spy.git"
-  GIT_TAG ${GIT_BRANCH}
-)
+FetchContent_Declare(spy GIT_REPOSITORY "https://github.com/jfalcou/spy.git" GIT_TAG ${GIT_BRANCH})
 
 ## FetchContent has no per-package OPTIONS: what spy reads is pinned here.
 set(SPY_BUILD_TEST OFF CACHE BOOL "" FORCE)
