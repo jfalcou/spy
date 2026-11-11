@@ -1,4 +1,4 @@
-Boost Software License 1.0
+Boost Software License - Version 1.0 - August 17th, 2003
 
 Copyright : SPY Project Contributors
 
