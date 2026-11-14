@@ -27,6 +27,8 @@ copa_add_option(SPY_ENABLE_SANITIZERS "Build tests with AddressSanitizer + Undef
                 LABEL "Sanitizers")
 copa_add_option(SPY_ENABLE_COVERAGE "Build tests with code coverage instrumentation" OFF LABEL "Coverage")
 copa_add_option(SPY_COMPILE_COST "Measure what every test unit costs to compile" OFF LABEL "Compile cost")
+copa_add_option(SPY_EXTERNAL_DEPENDENCIES "Take dependencies from the environment instead of fetching them" OFF
+                LABEL "External dependencies")
 
 if(SPY_BUILD_TEST)
   include(${PROJECT_SOURCE_DIR}/cmake/compiler.cmake)
