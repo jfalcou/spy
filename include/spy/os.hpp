@@ -30,27 +30,28 @@ namespace spy::_
   {
     static constexpr systems            vendor = OpSys;
 
-    inline constexpr explicit           operator bool() const noexcept;
+    constexpr explicit                  operator bool() const noexcept;
 
     template<systems C2> constexpr bool operator==(os_info<C2> const&) const noexcept
     {
       return C2 == vendor;
     }
+
+    template<_::stream OS> friend auto& operator<<(OS& os, os_info const&)
+    {
+      using enum systems;
+      if(OpSys == android_) return os << "Android";
+      if(OpSys == bsd_) return os << "BSD";
+      if(OpSys == cygwin_) return os << "Cygwin";
+      if(OpSys == ios_) return os << "iOs";
+      if(OpSys == linux_) return os << "Linux";
+      if(OpSys == macos_) return os << "MacOs";
+      if(OpSys == unix_) return os << "UNIX";
+      if(OpSys == windows_) return os << "Windows";
+
+      return os << "Undefined Operating System";
+    }
   };
-
-  template<_::stream OS, systems OpSys> auto& operator<<(OS& os, os_info<OpSys> const&)
-  {
-    if(OpSys == systems::android_) return os << "Android";
-    if(OpSys == systems::bsd_) return os << "BSD";
-    if(OpSys == systems::cygwin_) return os << "Cygwin";
-    if(OpSys == systems::ios_) return os << "iOs";
-    if(OpSys == systems::linux_) return os << "Linux";
-    if(OpSys == systems::macos_) return os << "MacOs";
-    if(OpSys == systems::unix_) return os << "UNIX";
-    if(OpSys == systems::windows_) return os << "Windows";
-
-    return os << "Undefined Operating System";
-  }
 }
 
 namespace spy
@@ -117,7 +118,7 @@ namespace spy
 
 namespace spy::_
 {
-  template<systems OS> inline constexpr os_info<OS>::operator bool() const noexcept
+  template<systems OS> constexpr os_info<OS>::operator bool() const noexcept
   {
     return spy::operating_system == *this;
   }

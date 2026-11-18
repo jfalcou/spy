@@ -26,7 +26,7 @@ namespace spy::_
     static constexpr stdlib              vendor  = Lib;
     static constexpr version_id<M, N, P> version = {};
 
-    inline constexpr explicit            operator bool() const noexcept;
+    constexpr explicit                   operator bool() const noexcept;
 
     template<stdlib C2> constexpr bool   operator==(stdlib_info<C2, -1, 0, 0> const&) const noexcept
     {
@@ -46,16 +46,15 @@ namespace spy::_
       if constexpr(vendor == C2) return version <=> c2.version;
       else return std::partial_ordering::unordered;
     }
+
+    template<_::stream OS> friend auto& operator<<(OS& os, stdlib_info const& p)
+    {
+      if(Lib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
+      if(Lib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
+
+      return os << "Undefined Standard C++ Library";
+    }
   };
-
-  template<_::stream OS, stdlib SLib, int M, int N, int P>
-  auto& operator<<(OS& os, stdlib_info<SLib, M, N, P> const& p)
-  {
-    if(SLib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
-    if(SLib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
-
-    return os << "Undefined Standard C++ Library";
-  }
 
   template<int M, int N, int P> using libcpp_t = stdlib_info<stdlib::libcpp_, M, N, P>;
   template<int M, int N, int P> using gnucpp_t = stdlib_info<stdlib::gnucpp_, M, N, P>;
@@ -105,7 +104,7 @@ namespace spy
 namespace spy::_
 {
   template<stdlib SLib, int M, int N, int P>
-  inline constexpr stdlib_info<SLib, M, N, P>::operator bool() const noexcept
+  constexpr stdlib_info<SLib, M, N, P>::operator bool() const noexcept
   {
     return spy::stdlib == *this;
   }
@@ -122,12 +121,12 @@ namespace spy
 
 namespace spy::literal
 {
-  template<char... c> constexpr auto operator""_libcpp()
+  template<char... c> consteval auto operator""_libcpp()
   {
     return _::literal_wrap<_::libcpp_t, c...>();
   }
 
-  template<char... c> constexpr auto operator""_gnucpp()
+  template<char... c> consteval auto operator""_gnucpp()
   {
     return _::literal_wrap<_::gnucpp_t, c...>();
   }

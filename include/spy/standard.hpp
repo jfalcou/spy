@@ -32,13 +32,13 @@ namespace spy::_
     constexpr auto operator<=>(int other_year) const { return year <=> other_year; }
 
     constexpr bool operator==(int other_year) const { return year == other_year; }
-  };
 
-  template<_::stream OS, int Y> auto& operator<<(OS& os, cpp_standard_t<Y> const&)
-  {
-    if constexpr(Y != 0) return os << "C++" << Y;
-    else return os << "Unknown C++ standard version";
-  }
+    template<_::stream OS> friend auto& operator<<(OS& os, cpp_standard_t const&)
+    {
+      if constexpr(Year != 0) return os << "C++" << Year;
+      else return os << "Unknown C++ standard version";
+    }
+  };
 }
 
 namespace spy
@@ -84,7 +84,7 @@ namespace spy::literal
   //! @brief User-defined suffix for C++ standard definition
   template<char... c>
     requires(sizeof...(c) == 2)
-  constexpr auto operator""_cpp()
+  consteval auto operator""_cpp()
   {
     return _::cpp_standard_t<_::parse<c...>(0, 2)> {};
   }

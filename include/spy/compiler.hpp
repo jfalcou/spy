@@ -39,7 +39,7 @@ namespace spy::_
     static constexpr compilers           vendor  = Compiler;
     static constexpr version_id<M, N, P> version = {};
 
-    inline constexpr explicit            operator bool() const noexcept;
+    constexpr explicit                   operator bool() const noexcept;
 
     template<compilers C2>
     constexpr bool operator==(compilers_info<C2, -1, 0, 0> const&) const noexcept
@@ -60,24 +60,24 @@ namespace spy::_
       if constexpr(vendor == C2) return version <=> c2.version;
       else return std::partial_ordering::unordered;
     }
+
+    template<_::stream OS> friend auto& operator<<(OS& os, compilers_info const& c)
+    {
+      using enum compilers;
+      if(Compiler == nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
+      if(Compiler == msvc_) return os << "Microsoft Visual Studio " << c.version;
+      if(Compiler == intel_) return os << "Intel(R) C++ Compiler " << c.version;
+      if(Compiler == dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
+      if(Compiler == clang_) return os << "clang " << c.version;
+      if(Compiler == gcc_) return os << "g++ " << c.version;
+      if(Compiler == emscripten_) return os << "Emscripten " << c.version;
+      if(Compiler == clangcl_) return os << "Clang with MSVC-like command-line" << c.version;
+      if(Compiler == mingw32_) return os << "MINGW32 g++ " << c.version;
+      if(Compiler == mingw64_) return os << "MINGW64 g++ " << c.version;
+
+      return os << "Undefined " << c.version;
+    }
   };
-
-  template<_::stream OS, compilers C, int M, int N, int P>
-  auto& operator<<(OS& os, compilers_info<C, M, N, P> const& c)
-  {
-    if(C == compilers::nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
-    if(C == compilers::msvc_) return os << "Microsoft Visual Studio " << c.version;
-    if(C == compilers::intel_) return os << "Intel(R) C++ Compiler " << c.version;
-    if(C == compilers::dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
-    if(C == compilers::clang_) return os << "clang " << c.version;
-    if(C == compilers::gcc_) return os << "g++ " << c.version;
-    if(C == compilers::emscripten_) return os << "Emscripten " << c.version;
-    if(C == compilers::clangcl_) return os << "Clang with MSVC-like command-line" << c.version;
-    if(C == compilers::mingw32_) return os << "MINGW32 g++ " << c.version;
-    if(C == compilers::mingw64_) return os << "MINGW64 g++ " << c.version;
-
-    return os << "Undefined " << c.version;
-  }
 
   template<int M, int N, int P> using msvc_t    = compilers_info<compilers::msvc_, M, N, P>;
   template<int M, int N, int P> using intel_t   = compilers_info<compilers::intel_, M, N, P>;
@@ -185,7 +185,7 @@ namespace spy
 namespace spy::_
 {
   template<compilers C, int M, int N, int P>
-  inline constexpr compilers_info<C, M, N, P>::operator bool() const noexcept
+  constexpr compilers_info<C, M, N, P>::operator bool() const noexcept
   {
     return spy::compiler == *this;
   }
@@ -212,67 +212,67 @@ namespace spy::literal
 {
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for NVCC version definition
-  template<char... c> constexpr auto operator""_nvcc()
+  template<char... c> consteval auto operator""_nvcc()
   {
     return _::literal_wrap<_::nvcc_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for MSVC version definition
-  template<char... c> constexpr auto operator""_msvc()
+  template<char... c> consteval auto operator""_msvc()
   {
     return _::literal_wrap<_::msvc_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for MINGW32 version definition
-  template<char... c> constexpr auto operator""_mingw32()
+  template<char... c> consteval auto operator""_mingw32()
   {
     return _::literal_wrap<_::mingw32_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for MINGW64 version definition
-  template<char... c> constexpr auto operator""_mingw64()
+  template<char... c> consteval auto operator""_mingw64()
   {
     return _::literal_wrap<_::mingw64_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for Intel ICC version definition
-  template<char... c> constexpr auto operator""_intel()
+  template<char... c> consteval auto operator""_intel()
   {
     return _::literal_wrap<_::intel_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for Intel DCP++/ICPX version definition
-  template<char... c> constexpr auto operator""_dpcpp()
+  template<char... c> consteval auto operator""_dpcpp()
   {
     return _::literal_wrap<_::dpcpp_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for Clang version definition
-  template<char... c> constexpr auto operator""_clang()
+  template<char... c> consteval auto operator""_clang()
   {
     return _::literal_wrap<_::clang_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for G++ version definition
-  template<char... c> constexpr auto operator""_gcc() { return _::literal_wrap<_::gcc_t, c...>(); }
+  template<char... c> consteval auto operator""_gcc() { return _::literal_wrap<_::gcc_t, c...>(); }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for Emscripten version definition
-  template<char... c> constexpr auto operator""_em()
+  template<char... c> consteval auto operator""_em()
   {
     return _::literal_wrap<_::emscripten_t, c...>();
   }
 
   //! @ingroup spy_compiler
   //! @brief User-defined suffix for ClangCL version definition
-  template<char... c> constexpr auto operator""_clangcl()
+  template<char... c> consteval auto operator""_clangcl()
   {
     return _::literal_wrap<_::clangcl_t, c...>();
   }
