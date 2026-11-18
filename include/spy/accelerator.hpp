@@ -21,7 +21,7 @@ namespace spy::supports
     }
 
     template<int M1, int N1, int P1>
-    constexpr inline bool operator==(sycl_t<M1, N1, P1> const&) const noexcept
+    constexpr bool operator==(sycl_t<M1, N1, P1> const&) const noexcept
     {
       return M == M1 && N == N1 && P == P1;
     }
@@ -32,7 +32,7 @@ namespace spy::supports
     explicit constexpr operator bool() const noexcept { return M > 0 && N > 0; }
 
     template<int M1, int N1, int P1>
-    constexpr inline bool operator==(cuda_t<M1, N1, P1> const&) const noexcept
+    constexpr bool operator==(cuda_t<M1, N1, P1> const&) const noexcept
     {
       return M == M1 && N == N1 && P == P1;
     }

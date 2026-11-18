@@ -11,7 +11,7 @@ namespace spy::_
 {
   template<int Short, int Integer, int Long, int Pointer> struct data_model_info
   {
-    inline constexpr explicit operator bool() const noexcept;
+    constexpr explicit operator bool() const noexcept;
 
     template<int Short2, int Integer2, int Long2, int Pointer2>
     constexpr bool
@@ -19,21 +19,22 @@ namespace spy::_
     {
       return (Short == Short2) && (Integer == Integer2) && (Long == Long2) && (Pointer == Pointer2);
     }
-  };
 
-  template<_::stream OS, int Short, int Integer, int Long, int Pointer>
-  auto& operator<<(OS& os, data_model_info<Short, Integer, Long, Pointer> const&)
-  {
-    if constexpr(Pointer == 4 && Integer == 4) return os << "ILP32";
-    else if constexpr(Pointer == 4 && Integer == 2) return os << "LP32";
-    else if constexpr(Pointer == 8 && Long == 8 && Integer == 8 && Short == 8)
-      return os << "IntegerLP64";
-    else if constexpr(Pointer == 8 && Short == 8 && Integer == 8 && Short == 2)
-      return os << "ILP64";
-    else if constexpr(Pointer == 8 && Long == 4 && Integer == 8 && Short == 2) return os << "LLP64";
-    else if constexpr(Pointer == 8 && Long == 8 && Integer == 4 && Short == 2) return os << "LP64";
-    else return os << "Unknown data model";
-  }
+    template<_::stream OS> friend auto& operator<<(OS& os, data_model_info const&)
+    {
+      if constexpr(Pointer == 4 && Integer == 4) return os << "ILP32";
+      else if constexpr(Pointer == 4 && Integer == 2) return os << "LP32";
+      else if constexpr(Pointer == 8 && Long == 8 && Integer == 8 && Short == 8)
+        return os << "IntegerLP64";
+      else if constexpr(Pointer == 8 && Short == 8 && Integer == 8 && Short == 2)
+        return os << "ILP64";
+      else if constexpr(Pointer == 8 && Long == 4 && Integer == 8 && Short == 2)
+        return os << "LLP64";
+      else if constexpr(Pointer == 8 && Long == 8 && Integer == 4 && Short == 2)
+        return os << "LP64";
+      else return os << "Unknown data model";
+    }
+  };
 }
 
 namespace spy
@@ -71,7 +72,7 @@ namespace spy
 namespace spy::_
 {
   template<int Short, int Integer, int Long, int Pointer>
-  inline constexpr data_model_info<Short, Integer, Long, Pointer>::operator bool() const noexcept
+  constexpr data_model_info<Short, Integer, Long, Pointer>::operator bool() const noexcept
   {
     return spy::data_model == *this;
   }

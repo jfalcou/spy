@@ -24,7 +24,7 @@ namespace spy::_
   {
     static constexpr archs            vendor = Arch;
 
-    inline constexpr explicit         operator bool() const noexcept;
+    constexpr explicit                operator bool() const noexcept;
 
     template<archs A2> constexpr bool operator==(arch_info<A2> const&) const noexcept
     {
@@ -33,12 +33,13 @@ namespace spy::_
 
     template<_::stream OS> friend auto& operator<<(OS& os, arch_info const&)
     {
-      if(Arch == archs::x86_) return os << "X86";
-      if(Arch == archs::amd64_) return os << "AMD64";
-      if(Arch == archs::ppc_) return os << "PowerPC";
-      if(Arch == archs::arm_) return os << "ARM";
-      if(Arch == archs::wasm_) return os << "WebAssembly";
-      if(Arch == archs::riscv_) return os << "RISC-V";
+      using enum archs;
+      if(Arch == x86_) return os << "X86";
+      if(Arch == amd64_) return os << "AMD64";
+      if(Arch == ppc_) return os << "PowerPC";
+      if(Arch == arm_) return os << "ARM";
+      if(Arch == wasm_) return os << "WebAssembly";
+      if(Arch == riscv_) return os << "RISC-V";
 
       return os << "Undefined Architecture";
     }
@@ -105,7 +106,7 @@ namespace spy
 
 namespace spy::_
 {
-  template<archs Arch> inline constexpr arch_info<Arch>::operator bool() const noexcept
+  template<archs Arch> constexpr arch_info<Arch>::operator bool() const noexcept
   {
     return spy::architecture == *this;
   }

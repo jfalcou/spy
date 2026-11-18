@@ -18,12 +18,12 @@ namespace spy::_
   enum class simd_isa
   {
     undefined_ = -1,
-    x86_       = 1000,
-    ppc_       = 2000,
-    arm_       = 3000,
+    x86_       = 1000, // NOSONAR - scoped enumerator, always named through simd_isa::
+    ppc_       = 2000, // NOSONAR - scoped enumerator, always named through simd_isa::
+    arm_       = 3000, // NOSONAR - scoped enumerator, always named through simd_isa::
     arm_sve_   = 3500,
-    wasm_      = 4000,
-    riscv_     = 5000
+    wasm_      = 4000, // NOSONAR - scoped enumerator, always named through simd_isa::
+    riscv_     = 5000  // NOSONAR - scoped enumerator, always named through simd_isa::
   };
 
   enum class simd_version
@@ -61,105 +61,108 @@ namespace spy::_
     fixed_rvv_  = 7500
   };
 
+  template<simd_version Version> constexpr int simd_width()
+  {
+    using enum simd_version;
+    if constexpr(Version == simd128_ || (Version >= sse1_ && Version <= sse42_) ||
+                 Version == neon_ || Version == asimd_ ||
+                 (Version >= vmx_2_03_ && Version <= vsx_3_01_))
+      return 128;
+    else if constexpr(Version == avx_ || Version == avx2_) return 256;
+    else if constexpr(Version == avx512_) return 512;
+    else if constexpr(Version == rvv_) return -1;
+    else if constexpr(Version == fixed_rvv_)
+    {
+#if defined(__riscv_v_fixed_vlen)
+      return __riscv_v_fixed_vlen;
+#else
+      return -1;
+#endif
+    }
+    else if constexpr(Version == sve_ || Version == sve2_)
+    {
+      return -1;
+    }
+    else if constexpr(Version == fixed_sve_ || Version == fixed_sve2_)
+    {
+#if defined(__ARM_FEATURE_SVE_BITS)
+      return __ARM_FEATURE_SVE_BITS;
+#else
+      return -1;
+#endif
+    }
+    else return -1;
+  }
+
+  template<_::stream OS> void print_supplemental_sets(OS& os)
+  {
+    if constexpr(spy::supports::fma_) os << " (with FMA3 support)";
+    if constexpr(spy::supports::fma4_) os << " (with FMA4 support)";
+    if constexpr(spy::supports::xop_) os << " (with XOP support)";
+  }
+
   template<simd_isa     InsSetArch = simd_isa::undefined_,
            simd_version Version    = simd_version::undefined_>
   struct simd_info
   {
     static constexpr auto isa     = InsSetArch;
     static constexpr auto version = Version;
+    static constexpr int  width   = simd_width<Version>();
 
-    static constexpr int  width   = []()
+    static constexpr bool has_fixed_cardinal() { return width != -1; }
+
+    template<simd_isa I2, simd_version V2>
+    friend constexpr bool operator==(simd_info, simd_info<I2, V2>) noexcept
     {
-      if constexpr(Version == simd_version::simd128_ ||
-                   (Version >= simd_version::sse1_ && Version <= simd_version::sse42_) ||
-                   Version == simd_version::neon_ || Version == simd_version::asimd_ ||
-                   (Version >= simd_version::vmx_2_03_ && Version <= simd_version::vsx_3_01_))
-        return 128;
-      else if constexpr(Version == simd_version::avx_ || Version == simd_version::avx2_) return 256;
-      else if constexpr(Version == simd_version::avx512_) return 512;
-      else if constexpr(Version == simd_version::rvv_) return -1;
-      else if constexpr(Version == simd_version::fixed_rvv_)
-      {
-#if defined(__riscv_v_fixed_vlen)
-        return __riscv_v_fixed_vlen;
-#else
-        return -1;
-#endif
-      }
-      else if constexpr(Version == simd_version::sve_ || Version == simd_version::sve2_)
-      {
-        return -1;
-      }
-      else if constexpr(Version == simd_version::fixed_sve_ || Version == simd_version::fixed_sve2_)
-      {
-#if defined(__ARM_FEATURE_SVE_BITS)
-        return __ARM_FEATURE_SVE_BITS;
-#else
-        return -1;
-#endif
-      }
-      else return -1;
-    }();
+      if constexpr(Version != simd_version::undefined_ && V2 != simd_version::undefined_)
+        return (InsSetArch == I2) && (Version == V2);
+      else return InsSetArch == I2;
+    }
 
-    static constexpr bool               has_fixed_cardinal() { return width != -1; }
+    template<simd_isa I2, simd_version V2>
+    friend constexpr std::partial_ordering operator<=>(simd_info, simd_info<I2, V2>) noexcept
+    {
+      if constexpr(InsSetArch != I2) return std::partial_ordering::unordered;
+      else return Version <=> V2;
+    }
 
     template<_::stream OS> friend auto& operator<<(OS& os, simd_info const&)
     {
-      if constexpr(Version == simd_version::simd128_) os << "WASM SIMD128";
-      else if constexpr(Version == simd_version::sse1_) os << "X86 SSE";
-      else if constexpr(Version == simd_version::sse2_) os << "X86 SSE2";
-      else if constexpr(Version == simd_version::sse3_) os << "X86 SSE3";
-      else if constexpr(Version == simd_version::ssse3_) os << "X86 SSSE3";
-      else if constexpr(Version == simd_version::sse41_) os << "X86 SSE4.1";
-      else if constexpr(Version == simd_version::sse42_) os << "X86 SSE4.2";
-      else if constexpr(Version == simd_version::avx_) os << "X86 AVX";
-      else if constexpr(Version == simd_version::avx2_) os << "X86 AVX2";
-      else if constexpr(Version == simd_version::avx512_) os << "X86 AVX512";
-      else if constexpr(Version >= simd_version::vmx_2_03_ && Version <= simd_version::vmx_3_01_)
+      using enum simd_version;
+      if constexpr(Version == simd128_) os << "WASM SIMD128";
+      else if constexpr(Version == sse1_) os << "X86 SSE";
+      else if constexpr(Version == sse2_) os << "X86 SSE2";
+      else if constexpr(Version == sse3_) os << "X86 SSE3";
+      else if constexpr(Version == ssse3_) os << "X86 SSSE3";
+      else if constexpr(Version == sse41_) os << "X86 SSE4.1";
+      else if constexpr(Version == sse42_) os << "X86 SSE4.2";
+      else if constexpr(Version == avx_) os << "X86 AVX";
+      else if constexpr(Version == avx2_) os << "X86 AVX2";
+      else if constexpr(Version == avx512_) os << "X86 AVX512";
+      else if constexpr(Version >= vmx_2_03_ && Version <= vmx_3_01_)
       {
-        constexpr auto v = static_cast<int>(Version);
+        constexpr auto v = static_cast<int>(Version); // NOSONAR - std::to_underlying needs C++23
         os << "PPC VMX with ISA v" << ((v - 2000) / 100.);
       }
-      else if constexpr(Version >= simd_version::vsx_2_06_ && Version <= simd_version::vsx_3_01_)
+      else if constexpr(Version >= vsx_2_06_ && Version <= vsx_3_01_)
       {
-        constexpr auto v = static_cast<int>(Version);
+        constexpr auto v = static_cast<int>(Version); // NOSONAR - std::to_underlying needs C++23
         os << "PPC VSX with ISA v" << ((v - 3000) / 100.);
       }
-      else if constexpr(Version == simd_version::neon_) os << "ARM NEON";
-      else if constexpr(Version == simd_version::asimd_) os << "ARM ASIMD";
-      else if constexpr(Version == simd_version::sve_) os << "ARM SVE (dyn.)";
-      else if constexpr(Version == simd_version::fixed_sve_)
-        os << "ARM SVE (" << simd_info::width << " bits)";
-      else if constexpr(Version == simd_version::sve2_) os << "ARM SVE2 (dyn.)";
-      else if constexpr(Version == simd_version::fixed_sve2_)
-        os << "ARM SVE2 (" << simd_info::width << " bits)";
-      else if constexpr(Version == simd_version::rvv_) os << "RISC-V RVV (dyn.)";
-      else if constexpr(Version == simd_version::fixed_rvv_)
-        os << "RISC-V RVV (" << simd_info::width << " bits)";
+      else if constexpr(Version == neon_) os << "ARM NEON";
+      else if constexpr(Version == asimd_) os << "ARM ASIMD";
+      else if constexpr(Version == sve_) os << "ARM SVE (dyn.)";
+      else if constexpr(Version == fixed_sve_) os << "ARM SVE (" << simd_info::width << " bits)";
+      else if constexpr(Version == sve2_) os << "ARM SVE2 (dyn.)";
+      else if constexpr(Version == fixed_sve2_) os << "ARM SVE2 (" << simd_info::width << " bits)";
+      else if constexpr(Version == rvv_) os << "RISC-V RVV (dyn.)";
+      else if constexpr(Version == fixed_rvv_) os << "RISC-V RVV (" << simd_info::width << " bits)";
       else return os << "Undefined SIMD instructions set";
 
-      if constexpr(spy::supports::fma_) os << " (with FMA3 support)";
-      if constexpr(spy::supports::fma4_) os << " (with FMA4 support)";
-      if constexpr(spy::supports::xop_) os << " (with XOP support)";
-
+      _::print_supplemental_sets(os);
       return os;
     }
   };
-
-  template<simd_isa I1, simd_version V1, simd_isa I2, simd_version V2>
-  constexpr bool operator==(simd_info<I1, V1>, simd_info<I2, V2>) noexcept
-  {
-    if constexpr(V1 != simd_version::undefined_ && V2 != simd_version::undefined_)
-      return (I1 == I2) && (V1 == V2);
-    else return I1 == I2;
-  }
-
-  template<simd_isa I1, simd_version V1, simd_isa I2, simd_version V2>
-  constexpr std::partial_ordering operator<=>(simd_info<I1, V1>, simd_info<I2, V2>) noexcept
-  {
-    if constexpr(I1 != I2) return std::partial_ordering::unordered;
-    else return static_cast<int>(V1) <=> static_cast<int>(V2);
-  }
 }
 
 namespace spy

@@ -30,7 +30,7 @@ namespace spy::_
     static constexpr libC                vendor  = Lib;
     static constexpr version_id<M, N, P> version = {};
 
-    inline constexpr explicit            operator bool() const noexcept;
+    constexpr explicit                   operator bool() const noexcept;
 
     template<libC C2> constexpr bool     operator==(libc_info<C2, -1, 0, 0> const&) const noexcept
     {
@@ -49,19 +49,19 @@ namespace spy::_
       if constexpr(vendor == C2) return version <=> c2.version;
       else return vendor <=> C2;
     }
+
+    template<_::stream OS> friend auto& operator<<(OS& os, libc_info const&)
+    {
+      using enum libC;
+      if(vendor == cloudabi_) return os << "CloudABI Standard C Library " << version;
+      if(vendor == uc_) return os << "uClibc Standard C Library " << version;
+      if(vendor == vms_) return os << "VMS Standard C Library " << version;
+      if(vendor == zos_) return os << "z/OS Standard C Library " << version;
+      if(vendor == gnu_) return os << "GNU Standard C Library " << version;
+
+      return os << "Undefined Standard C Library";
+    }
   };
-
-  template<_::stream OS, libC C, int M, int N, int P>
-  auto& operator<<(OS& os, libc_info<C, M, N, P> const& c)
-  {
-    if(c.vendor == libC::cloudabi_) return os << "CloudABI Standard C Library " << c.version;
-    if(c.vendor == libC::uc_) return os << "uClibc Standard C Library " << c.version;
-    if(c.vendor == libC::vms_) return os << "VMS Standard C Library " << c.version;
-    if(c.vendor == libC::zos_) return os << "z/OS Standard C Library " << c.version;
-    if(c.vendor == libC::gnu_) return os << "GNU Standard C Library " << c.version;
-
-    return os << "Undefined Standard C Library";
-  }
 
   template<int M, int N, int P> using cloudabi_t = libc_info<libC::cloudabi_, M, N, P>;
   template<int M, int N, int P> using uc_t       = libc_info<libC::uc_, M, N, P>;
@@ -133,7 +133,7 @@ namespace spy
 namespace spy::_
 {
   template<libC C, int M, int N, int P>
-  inline constexpr libc_info<C, M, N, P>::operator bool() const noexcept
+  constexpr libc_info<C, M, N, P>::operator bool() const noexcept
   {
     return spy::libc == *this;
   }
@@ -155,24 +155,24 @@ namespace spy::literal
 {
   //! @ingroup spy_standards
   //! @brief User-defined suffix for the CloudABI libc version definition
-  template<char... c> constexpr auto operator""_cloud()
+  template<char... c> consteval auto operator""_cloud()
   {
     return _::literal_wrap<_::cloudabi_t, c...>();
   }
 
   //! @ingroup spy_standards
   //! @brief User-defined suffix for the uClibc version definition
-  template<char... c> constexpr auto operator""_uc() { return _::literal_wrap<_::uc_t, c...>(); }
+  template<char... c> consteval auto operator""_uc() { return _::literal_wrap<_::uc_t, c...>(); }
 
   //! @ingroup spy_standards
   //! @brief User-defined suffix for the VMS libc version definition
-  template<char... c> constexpr auto operator""_vms() { return _::literal_wrap<_::vms_t, c...>(); }
+  template<char... c> consteval auto operator""_vms() { return _::literal_wrap<_::vms_t, c...>(); }
 
   //! @ingroup spy_standards
   //! @brief User-defined suffix for the zOS libc version definition
-  template<char... c> constexpr auto operator""_zos() { return _::literal_wrap<_::zos_t, c...>(); }
+  template<char... c> consteval auto operator""_zos() { return _::literal_wrap<_::zos_t, c...>(); }
 
   //! @ingroup spy_standards
   //! @brief User-defined suffix for the GNU libc version definition
-  template<char... c> constexpr auto operator""_gnu() { return _::literal_wrap<_::gnu_t, c...>(); }
+  template<char... c> consteval auto operator""_gnu() { return _::literal_wrap<_::gnu_t, c...>(); }
 }
