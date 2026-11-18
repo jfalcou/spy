@@ -61,21 +61,21 @@ namespace spy::_
       else return std::partial_ordering::unordered;
     }
 
-    template<_::stream OS> friend auto& operator<<(OS& os, compilers_info const& c)
+    template<_::stream OS> friend auto& operator<<(OS& os, compilers_info const&)
     {
       using enum compilers;
-      if(Compiler == nvcc_) return os << "NVIDIA CUDA Compiler " << c.version;
-      if(Compiler == msvc_) return os << "Microsoft Visual Studio " << c.version;
-      if(Compiler == intel_) return os << "Intel(R) C++ Compiler " << c.version;
-      if(Compiler == dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << c.version;
-      if(Compiler == clang_) return os << "clang " << c.version;
-      if(Compiler == gcc_) return os << "g++ " << c.version;
-      if(Compiler == emscripten_) return os << "Emscripten " << c.version;
-      if(Compiler == clangcl_) return os << "Clang with MSVC-like command-line" << c.version;
-      if(Compiler == mingw32_) return os << "MINGW32 g++ " << c.version;
-      if(Compiler == mingw64_) return os << "MINGW64 g++ " << c.version;
+      if(Compiler == nvcc_) return os << "NVIDIA CUDA Compiler " << version;
+      if(Compiler == msvc_) return os << "Microsoft Visual Studio " << version;
+      if(Compiler == intel_) return os << "Intel(R) C++ Compiler " << version;
+      if(Compiler == dpcpp_) return os << "Intel(R) oneAPI DPC++/C++ Compiler " << version;
+      if(Compiler == clang_) return os << "clang " << version;
+      if(Compiler == gcc_) return os << "g++ " << version;
+      if(Compiler == emscripten_) return os << "Emscripten " << version;
+      if(Compiler == clangcl_) return os << "Clang with MSVC-like command-line" << version;
+      if(Compiler == mingw32_) return os << "MINGW32 g++ " << version;
+      if(Compiler == mingw64_) return os << "MINGW64 g++ " << version;
 
-      return os << "Undefined " << c.version;
+      return os << "Undefined " << version;
     }
   };
 

@@ -50,14 +50,14 @@ namespace spy::_
       else return vendor <=> C2;
     }
 
-    template<_::stream OS> friend auto& operator<<(OS& os, libc_info const& c)
+    template<_::stream OS> friend auto& operator<<(OS& os, libc_info const&)
     {
       using enum libC;
-      if(c.vendor == cloudabi_) return os << "CloudABI Standard C Library " << c.version;
-      if(c.vendor == uc_) return os << "uClibc Standard C Library " << c.version;
-      if(c.vendor == vms_) return os << "VMS Standard C Library " << c.version;
-      if(c.vendor == zos_) return os << "z/OS Standard C Library " << c.version;
-      if(c.vendor == gnu_) return os << "GNU Standard C Library " << c.version;
+      if(vendor == cloudabi_) return os << "CloudABI Standard C Library " << version;
+      if(vendor == uc_) return os << "uClibc Standard C Library " << version;
+      if(vendor == vms_) return os << "VMS Standard C Library " << version;
+      if(vendor == zos_) return os << "z/OS Standard C Library " << version;
+      if(vendor == gnu_) return os << "GNU Standard C Library " << version;
 
       return os << "Undefined Standard C Library";
     }

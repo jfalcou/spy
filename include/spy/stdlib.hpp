@@ -47,10 +47,10 @@ namespace spy::_
       else return std::partial_ordering::unordered;
     }
 
-    template<_::stream OS> friend auto& operator<<(OS& os, stdlib_info const& p)
+    template<_::stream OS> friend auto& operator<<(OS& os, stdlib_info const&)
     {
-      if(Lib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << p.version;
-      if(Lib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << p.version;
+      if(Lib == stdlib::libcpp_) return os << "libc++ Standard C++ Library " << version;
+      if(Lib == stdlib::gnucpp_) return os << "GNU Standard C++ Library " << version;
 
       return os << "Undefined Standard C++ Library";
     }
