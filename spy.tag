@@ -1,12 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <tagfile doxygen_version="1.16.1" doxygen_gitid="669aeeefca743c148e2d935b3d3c69535c7491e6">
   <compound kind="namespace">
-    <name>literal</name>
-    <filename>namespaceliteral.html</filename>
-  </compound>
-  <compound kind="namespace">
     <name>spy</name>
     <filename>namespacespy.html</filename>
+    <namespace>spy::literal</namespace>
+    <namespace>spy::supports</namespace>
     <member kind="variable">
       <type>constexpr arch_type</type>
       <name>architecture</name>
@@ -65,8 +63,194 @@
     </member>
   </compound>
   <compound kind="namespace">
-    <name>supports</name>
-    <filename>namespacesupports.html</filename>
+    <name>spy::literal</name>
+    <filename>namespacespy_1_1literal.html</filename>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_clang</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga81b2598ebb928c8c7f8783f26fb48885</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_clangcl</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga6bf673f9bbc19eb9f577e38100600837</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_cloud</name>
+      <anchorfile>group__spy__standards.html</anchorfile>
+      <anchor>ga177242c184a25fccfb29f5f9106c7bdd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_cpp</name>
+      <anchorfile>group__spy__standards.html</anchorfile>
+      <anchor>ga6cbf736e8502fd81aee7022421d0d9d6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_dpcpp</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga615bd5bd7fdf3aded150f3cc966acb60</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_em</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga4d769a4fb5398be8e56f75de9286dcac</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_gcc</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga9c26a1eeadb260c13107db9c216b3450</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_gnu</name>
+      <anchorfile>group__spy__standards.html</anchorfile>
+      <anchor>ga61b6c2a2a168e93c0957667c8365bd70</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_intel</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>gae2398fd5f44696d3d390e5b9e6394914</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_mingw32</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>gae1a6ca2d9e96cd3cba9c91840e920a37</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_mingw64</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga8ab4336da33496eb1db9b1020fd430f4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_msvc</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>gacf8d41aec95248ff210d3ab0b7ae44f5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_nvcc</name>
+      <anchorfile>group__spy__compiler.html</anchorfile>
+      <anchor>ga83e6ed1e1f7be0f1cd319af90c3df06e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_uc</name>
+      <anchorfile>group__spy__standards.html</anchorfile>
+      <anchor>ga141ca35abeaa849f24024f4be7f7f4ad</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_vms</name>
+      <anchorfile>group__spy__standards.html</anchorfile>
+      <anchor>ga0185af5f34808d630b5bb5ae3298ebd4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>consteval auto</type>
+      <name>operator&quot;&quot;_zos</name>
+      <anchorfile>group__spy__standards.html</anchorfile>
+      <anchor>gad3128246b59ebf104d95e6ad1656e6a6</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>spy::supports</name>
+    <filename>namespacespy_1_1supports.html</filename>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>address_sanitizers_status</name>
+      <anchorfile>group__spy__sanitizers.html</anchorfile>
+      <anchor>ga37e2c07363dadf1eb40e89a9a91f8121</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr auto</type>
+      <name>cuda</name>
+      <anchorfile>group__spy__accelerator.html</anchorfile>
+      <anchor>gaad706954aedb6aaf6ff1a9858a971e00</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>f16c_</name>
+      <anchorfile>group__spy__isa__supplemental.html</anchorfile>
+      <anchor>ga41d35d12c0c667cd4bff56e34f63db0e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>fma4_</name>
+      <anchorfile>group__spy__isa__supplemental.html</anchorfile>
+      <anchor>gab9f3868171c0d7fb154d4b1977a74291</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>fma_</name>
+      <anchorfile>group__spy__isa__supplemental.html</anchorfile>
+      <anchor>ga0200f9494553c13698aeb5afbaa62c22</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr auto</type>
+      <name>posix_</name>
+      <anchorfile>group__spy__platform.html</anchorfile>
+      <anchor>ga63eef44bc05ea6f77f278ba5b394ada8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>sanitizers_status</name>
+      <anchorfile>group__spy__sanitizers.html</anchorfile>
+      <anchor>ga28313e4f9673ea0f5d0ca44ffd1a967a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr auto</type>
+      <name>sycl</name>
+      <anchorfile>group__spy__accelerator.html</anchorfile>
+      <anchor>ga03e4a3ae6533a43cdf9bcbf1317707cd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>thread_sanitizers_status</name>
+      <anchorfile>group__spy__sanitizers.html</anchorfile>
+      <anchor>ga16591d3ea9aaa049682bfbedd519dc43</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr bool</type>
+      <name>xop_</name>
+      <anchorfile>group__spy__isa__supplemental.html</anchorfile>
+      <anchor>gab4eea9623f65aa8bdf398321323a6256</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="group">
     <name>api</name>
@@ -124,73 +308,73 @@
       <arglist></arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_clang</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>gab3e0f11a5ec1b2963564755b84630970</anchor>
+      <anchor>ga81b2598ebb928c8c7f8783f26fb48885</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_clangcl</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>ga4de7991e386c7271b2c5263af9668054</anchor>
+      <anchor>ga6bf673f9bbc19eb9f577e38100600837</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_dpcpp</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>gab38166c11c2a99b2257e00630db206ec</anchor>
+      <anchor>ga615bd5bd7fdf3aded150f3cc966acb60</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_em</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>ga8b0155c33f6f54c0d1d2dd498417c536</anchor>
+      <anchor>ga4d769a4fb5398be8e56f75de9286dcac</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_gcc</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>ga542b6a98ac5e95f906da14325a2064be</anchor>
+      <anchor>ga9c26a1eeadb260c13107db9c216b3450</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_intel</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>ga17b7828b022e763e749aebf056d24195</anchor>
+      <anchor>gae2398fd5f44696d3d390e5b9e6394914</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_mingw32</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>ga0b1362faae4cda836aa5f0bb3ca90272</anchor>
+      <anchor>gae1a6ca2d9e96cd3cba9c91840e920a37</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_mingw64</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>gabd0874beb5d93fdc4aec65ab782f6da5</anchor>
+      <anchor>ga8ab4336da33496eb1db9b1020fd430f4</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_msvc</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>gaafdbca6599d9792e579da8041b5addcd</anchor>
+      <anchor>gacf8d41aec95248ff210d3ab0b7ae44f5</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_nvcc</name>
       <anchorfile>group__spy__compiler.html</anchorfile>
-      <anchor>ga39f9d138ef1adb4b5c12f4279878f1fc</anchor>
+      <anchor>ga83e6ed1e1f7be0f1cd319af90c3df06e</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -220,45 +404,45 @@
       <arglist></arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_cloud</name>
       <anchorfile>group__spy__standards.html</anchorfile>
-      <anchor>ga1dc236e3cae2ef3c7ec23d45659b7b30</anchor>
+      <anchor>ga177242c184a25fccfb29f5f9106c7bdd</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_cpp</name>
       <anchorfile>group__spy__standards.html</anchorfile>
-      <anchor>ga1707aa93f7df0e6d9b57f8d79ff1688c</anchor>
+      <anchor>ga6cbf736e8502fd81aee7022421d0d9d6</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_gnu</name>
       <anchorfile>group__spy__standards.html</anchorfile>
-      <anchor>ga01fac6d9d1025344d16c3ab4fee137c8</anchor>
+      <anchor>ga61b6c2a2a168e93c0957667c8365bd70</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_uc</name>
       <anchorfile>group__spy__standards.html</anchorfile>
-      <anchor>ga0c3666ca0bb5f551cc0103e355a28569</anchor>
+      <anchor>ga141ca35abeaa849f24024f4be7f7f4ad</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_vms</name>
       <anchorfile>group__spy__standards.html</anchorfile>
-      <anchor>ga772746f665f6dd13b9a6c8bd19564dab</anchor>
+      <anchor>ga0185af5f34808d630b5bb5ae3298ebd4</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>consteval auto</type>
       <name>spy::literal::operator&quot;&quot;_zos</name>
       <anchorfile>group__spy__standards.html</anchorfile>
-      <anchor>ga3c0e24636d16a543f4bf2ed64875eaeb</anchor>
+      <anchor>gad3128246b59ebf104d95e6ad1656e6a6</anchor>
       <arglist>()</arglist>
     </member>
   </compound>

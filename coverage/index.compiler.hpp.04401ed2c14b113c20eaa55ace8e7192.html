@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <th scope="row">Date:</th>
-      <td>2026-11-14 08:40:58</td>
+      <td>2026-11-18 16:38:07</td>
     </tr>
   </table>
 </div>
@@ -73,7 +73,7 @@
       <th>Call count</th>
       <th>Block coverage</th>
     </tr>
-    <tr><td><a href="#l66">auto&amp; spy::_::operator&lt;&lt; &lt;std::ostream, (spy::_::compilers)3, 16, 0, 1&gt;(std::ostream&amp;, spy::_::compilers_info&lt;(spy::_::compilers)3, 16, 0, 1&gt; const&amp;) (line 66)</a></td><td>called 1 time, returned 1 time</td><td>100.0%</td></tr>
+    <tr><td><a href="#l64">auto&amp; spy::_::operator&lt;&lt; &lt;std::ostream&gt;(std::ostream&amp;, spy::_::compilers_info&lt;(spy::_::compilers)3, 16, 0, 1&gt; const&amp;) (line 64)</a></td><td>called 1 time, returned 1 time</td><td>100.0%</td></tr>
   </table>
 </details>
 
@@ -380,7 +380,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">explicit</span><span class="w">            </span><span class="k">operator</span><span class="w"> </span><span class="kt">bool</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span></td>
+      <td class="src "><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">explicit</span><span class="w">                   </span><span class="k">operator</span><span class="w"> </span><span class="kt">bool</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l43" href="#l43">43</a></td>
@@ -527,126 +527,126 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="p">};</span></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l64" href="#l64">64</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount coveredLine">1</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="n">_</span><span class="o">::</span><span class="n">stream</span><span class="w"> </span><span class="n">OS</span><span class="o">&gt;</span><span class="w"> </span><span class="k">friend</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">OS</span><span class="o">&amp;</span><span class="w"> </span><span class="n">os</span><span class="p">,</span><span class="w"> </span><span class="n">compilers_info</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l65" href="#l65">65</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="n">_</span><span class="o">::</span><span class="n">stream</span><span class="w"> </span><span class="n">OS</span><span class="p">,</span><span class="w"> </span><span class="n">compilers</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">P</span><span class="o">&gt;</span></td>
+      <td class="src "><span class="w">    </span><span class="p">{</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l66" href="#l66">66</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">  </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">OS</span><span class="o">&amp;</span><span class="w"> </span><span class="n">os</span><span class="p">,</span><span class="w"> </span><span class="n">compilers_info</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">c</span><span class="p">)</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">      </span><span class="k">using</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">compilers</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l67" href="#l67">67</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="p">{</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nvcc_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;NVIDIA CUDA Compiler &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l68" href="#l68">68</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">nvcc_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;NVIDIA CUDA Compiler &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">msvc_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Microsoft Visual Studio &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l69" href="#l69">69</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">msvc_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Microsoft Visual Studio &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">intel_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Intel(R) C++ Compiler &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l70" href="#l70">70</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">intel_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Intel(R) C++ Compiler &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">dpcpp_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Intel(R) oneAPI DPC++/C++ Compiler &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l71" href="#l71">71</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">dpcpp_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Intel(R) oneAPI DPC++/C++ Compiler &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">clang_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;clang &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l72" href="#l72">72</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">clang_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;clang &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="linecount coveredLine">1</td>
+      <td class="src coveredLine"><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">gcc_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;g++ &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l73" href="#l73">73</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">gcc_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;g++ &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">emscripten_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Emscripten &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l74" href="#l74">74</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">emscripten_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Emscripten &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">clangcl_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Clang with MSVC-like command-line&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l75" href="#l75">75</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">clangcl_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Clang with MSVC-like command-line&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">mingw32_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;MINGW32 g++ &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l76" href="#l76">76</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">mingw32_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;MINGW32 g++ &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">Compiler</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">mingw64_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;MINGW64 g++ &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l77" href="#l77">77</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">compilers</span><span class="o">::</span><span class="n">mingw64_</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;MINGW64 g++ &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l78" href="#l78">78</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Undefined &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">version</span><span class="p">;</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l79" href="#l79">79</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Undefined &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">version</span><span class="p">;</span></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l80" href="#l80">80</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="p">}</span></td>
+      <td class="src "><span class="w">  </span><span class="p">};</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l81" href="#l81">81</a></td>
@@ -1402,7 +1402,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="n">compilers_info</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="o">&gt;::</span><span class="k">operator</span><span class="w"> </span><span class="kt">bool</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span></td>
+      <td class="src "><span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="n">compilers_info</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="o">&gt;::</span><span class="k">operator</span><span class="w"> </span><span class="kt">bool</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l189" href="#l189">189</a></td>
@@ -1591,7 +1591,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_nvcc</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_nvcc</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l216" href="#l216">216</a></td>
@@ -1640,7 +1640,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_msvc</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_msvc</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l223" href="#l223">223</a></td>
@@ -1689,7 +1689,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_mingw32</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_mingw32</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l230" href="#l230">230</a></td>
@@ -1738,7 +1738,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_mingw64</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_mingw64</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l237" href="#l237">237</a></td>
@@ -1787,7 +1787,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_intel</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_intel</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l244" href="#l244">244</a></td>
@@ -1836,7 +1836,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_dpcpp</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_dpcpp</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l251" href="#l251">251</a></td>
@@ -1885,7 +1885,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_clang</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_clang</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l258" href="#l258">258</a></td>
@@ -1934,7 +1934,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_gcc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_</span><span class="o">::</span><span class="n">literal_wrap</span><span class="o">&lt;</span><span class="n">_</span><span class="o">::</span><span class="n">gcc_t</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">...</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="p">}</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_gcc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_</span><span class="o">::</span><span class="n">literal_wrap</span><span class="o">&lt;</span><span class="n">_</span><span class="o">::</span><span class="n">gcc_t</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">...</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="p">}</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l265" href="#l265">265</a></td>
@@ -1962,7 +1962,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_em</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_em</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l269" href="#l269">269</a></td>
@@ -2011,7 +2011,7 @@
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_clangcl</span><span class="p">()</span></td>
+      <td class="src "><span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">...</span><span class="w"> </span><span class="n">c</span><span class="o">&gt;</span><span class="w"> </span><span class="k">consteval</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="s">&quot;&quot;</span><span class="n">_clangcl</span><span class="p">()</span></td>
     </tr>
     <tr class="source-line">
       <td class="lineno"><a id="l276" href="#l276">276</a></td>

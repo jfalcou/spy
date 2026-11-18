@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="SPY - C++ Information Broker" />
 <meta name="twitter:description" content="SPY gathers compiler, operating system, architecture and SIMD information behind a constexpr interface, replacing preprocessor conditionals with plain control flow." />
 <meta name="twitter:image" content="https://jfalcou.github.io/spy/card.png" />
-<title>spy: literal Namespace Reference</title>
+<title>spy: spy::supports Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,7 +106,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('namespaceliteral.html','',''); });
+$(function(){initNavTree('namespacespy_1_1supports.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -132,22 +132,48 @@ $(function(){initNavTree('namespaceliteral.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">literal Namespace Reference</div></div>
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">spy::supports Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>SPY User-defined literal namespace.  
+<p>Support detection SPY namespace.  
 <a href="#details">More...</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>SPY User-defined literal namespace. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Support detection SPY namespace. </p>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga37e2c07363dadf1eb40e89a9a91f8121" id="r_ga37e2c07363dadf1eb40e89a9a91f8121"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__sanitizers.html#ga37e2c07363dadf1eb40e89a9a91f8121">address_sanitizers_status</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga37e2c07363dadf1eb40e89a9a91f8121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address sanitizer status indicator.  <br /></td></tr>
+<tr class="memitem:gaad706954aedb6aaf6ff1a9858a971e00" id="r_gaad706954aedb6aaf6ff1a9858a971e00"><td class="memItemLeft">constexpr auto&#160;</td><td class="memItemRight"><a class="el" href="group__spy__accelerator.html#gaad706954aedb6aaf6ff1a9858a971e00">cuda</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:gaad706954aedb6aaf6ff1a9858a971e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">CUDA usage indicator.  <br /></td></tr>
+<tr class="memitem:ga41d35d12c0c667cd4bff56e34f63db0e" id="r_ga41d35d12c0c667cd4bff56e34f63db0e"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__isa__supplemental.html#ga41d35d12c0c667cd4bff56e34f63db0e">f16c_</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga41d35d12c0c667cd4bff56e34f63db0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half-precision conversion availability indicator.  <br /></td></tr>
+<tr class="memitem:gab9f3868171c0d7fb154d4b1977a74291" id="r_gab9f3868171c0d7fb154d4b1977a74291"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__isa__supplemental.html#gab9f3868171c0d7fb154d4b1977a74291">fma4_</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:gab9f3868171c0d7fb154d4b1977a74291"><td class="mdescLeft">&#160;</td><td class="mdescRight">FMA4 availability indicator.  <br /></td></tr>
+<tr class="memitem:ga0200f9494553c13698aeb5afbaa62c22" id="r_ga0200f9494553c13698aeb5afbaa62c22"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__isa__supplemental.html#ga0200f9494553c13698aeb5afbaa62c22">fma_</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga0200f9494553c13698aeb5afbaa62c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fused multiply-add availability indicator.  <br /></td></tr>
+<tr class="memitem:ga63eef44bc05ea6f77f278ba5b394ada8" id="r_ga63eef44bc05ea6f77f278ba5b394ada8"><td class="memItemLeft">constexpr auto&#160;</td><td class="memItemRight"><a class="el" href="group__spy__platform.html#ga63eef44bc05ea6f77f278ba5b394ada8">posix_</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga63eef44bc05ea6f77f278ba5b394ada8"><td class="mdescLeft">&#160;</td><td class="mdescRight">POSIX supports indicator.  <br /></td></tr>
+<tr class="memitem:ga28313e4f9673ea0f5d0ca44ffd1a967a" id="r_ga28313e4f9673ea0f5d0ca44ffd1a967a"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__sanitizers.html#ga28313e4f9673ea0f5d0ca44ffd1a967a">sanitizers_status</a> = <a class="el" href="group__spy__sanitizers.html#ga37e2c07363dadf1eb40e89a9a91f8121">address_sanitizers_status</a> || <a class="el" href="group__spy__sanitizers.html#ga16591d3ea9aaa049682bfbedd519dc43">thread_sanitizers_status</a></td></tr>
+<tr class="memdesc:ga28313e4f9673ea0f5d0ca44ffd1a967a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sanitizers status indicator.  <br /></td></tr>
+<tr class="memitem:ga03e4a3ae6533a43cdf9bcbf1317707cd" id="r_ga03e4a3ae6533a43cdf9bcbf1317707cd"><td class="memItemLeft">constexpr auto&#160;</td><td class="memItemRight"><a class="el" href="group__spy__accelerator.html#ga03e4a3ae6533a43cdf9bcbf1317707cd">sycl</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga03e4a3ae6533a43cdf9bcbf1317707cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">SYCL usage indicator.  <br /></td></tr>
+<tr class="memitem:ga16591d3ea9aaa049682bfbedd519dc43" id="r_ga16591d3ea9aaa049682bfbedd519dc43"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__sanitizers.html#ga16591d3ea9aaa049682bfbedd519dc43">thread_sanitizers_status</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:ga16591d3ea9aaa049682bfbedd519dc43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread sanitizer status indicator.  <br /></td></tr>
+<tr class="memitem:gab4eea9623f65aa8bdf398321323a6256" id="r_gab4eea9623f65aa8bdf398321323a6256"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="group__spy__isa__supplemental.html#gab4eea9623f65aa8bdf398321323a6256">xop_</a> = spy_implementation_defined {}</td></tr>
+<tr class="memdesc:gab4eea9623f65aa8bdf398321323a6256"><td class="mdescLeft">&#160;</td><td class="mdescRight">XOP availability indicator.  <br /></td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- HTML footer for doxygen 1.8.20-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="namespaceliteral.html">literal</a></li>
+    <li class="navelem"><a href="namespacespy.html">spy</a></li><li class="navelem"><a href="namespacespy_1_1supports.html">supports</a></li>
   </ul>
 </div>
 </div> <!-- DOXYSTRAP RELATED -->

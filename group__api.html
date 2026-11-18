@@ -153,11 +153,12 @@ $(function(){initNavTree('group__api.html','',''); });
 <div class="line"><span class="comment">// and any of them prints</span></div>
 <div class="line">std::cout &lt;&lt; <a class="code hl_variable" href="group__spy__compiler.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a>;</div>
 <div class="ttc" id="agroup__spy__compiler_html_ga2d96c18fea5b9a06ac37487ab570599d"><div class="ttname"><a href="group__spy__compiler.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a></div><div class="ttdeci">constexpr compiler_type compiler</div><div class="ttdoc">Compiler reporting value.</div><div class="ttdef"><b>Definition</b> compiler.hpp:182</div></div>
-</div><!-- fragment --><p>Versions are named by a user-defined literal per vendor, gathered in <span class="tt"><a class="el" href="namespaceliteral.html" title="SPY User-defined literal namespace.">spy::literal</a></span>, and the ordering operators compare against them:</p>
-<div class="fragment"><div class="line"><span class="keyword">using namespace </span>spy::literal;</div>
+</div><!-- fragment --><p>Versions are named by a user-defined literal per vendor, gathered in <span class="tt"><a class="el" href="namespacespy_1_1literal.html" title="SPY User-defined literal namespace.">spy::literal</a></span>, and the ordering operators compare against them:</p>
+<div class="fragment"><div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacespy_1_1literal.html">spy::literal</a>;</div>
 <div class="line"><span class="keywordflow">if</span> <span class="keyword">constexpr</span>(<a class="code hl_variable" href="group__spy__compiler.html#ga2d96c18fea5b9a06ac37487ab570599d">spy::compiler</a> &gt;= 15&#39;0_clang) { } <span class="comment">// clang 15 or later</span></div>
+<div class="ttc" id="anamespacespy_1_1literal_html"><div class="ttname"><a href="namespacespy_1_1literal.html">spy::literal</a></div><div class="ttdoc">SPY User-defined literal namespace.</div><div class="ttdef"><b>Definition</b> compiler.hpp:212</div></div>
 </div><!-- fragment --><p>Two different vendors compare as <span class="tt">std::partial_ordering::unordered</span> rather than as <span class="tt">false</span>, so <span class="tt">spy::gcc_ &lt; spy::clang_</span> has no answer instead of a wrong one.</p>
-<p>Capabilities that are not an axis of their own live in <span class="tt"><a class="el" href="namespacesupports.html" title="Support detection SPY namespace.">spy::supports</a></span>, each a plain <span class="tt">constexpr inline bool</span>. </p>
+<p>Capabilities that are not an axis of their own live in <span class="tt"><a class="el" href="namespacespy_1_1supports.html" title="Support detection SPY namespace.">spy::supports</a></span>, each a plain <span class="tt">constexpr inline bool</span>. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
 Topics</h2></td></tr>

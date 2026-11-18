@@ -13,10 +13,11 @@ var searchData=
   ['source_10',['Install from the source',['../setup.html#setup-source',1,'']]],
   ['spy_11',['spy',['../namespacespy.html',1,'']]],
   ['spy_3a_12',['SPY:',['../changelog.html#autotoc_md2',1,'Our SPY:'],['../changelog.html#autotoc_md5',1,'Our SPY:'],['../changelog.html#autotoc_md9',1,'Our SPY:'],['../changelog.html#autotoc_md12',1,'Our SPY:'],['../changelog.html#autotoc_md15',1,'Our SPY:'],['../changelog.html#autotoc_md18',1,'Our SPY:'],['../changelog.html#autotoc_md21',1,'Our SPY:'],['../changelog.html#autotoc_md24',1,'Our SPY:']]],
-  ['standalone_20setup_13',['Standalone setup',['../setup.html#setup-standalone',1,'']]],
-  ['standards_14',['Language Standards',['../group__spy__standards.html',1,'']]],
-  ['stdlib_15',['stdlib',['../group__spy__standards.html#gafe99b815db524eacf659ba8348ca2e0d',1,'spy']]],
-  ['supplemental_20instruction_20sets_16',['Supplemental Instruction Sets',['../group__spy__isa__supplemental.html',1,'']]],
-  ['supports_17',['supports',['../namespacesupports.html',1,'']]],
-  ['sycl_18',['sycl',['../group__spy__accelerator.html#ga03e4a3ae6533a43cdf9bcbf1317707cd',1,'spy::supports']]]
+  ['spy_3a_3aliteral_13',['literal',['../namespacespy_1_1literal.html',1,'spy']]],
+  ['spy_3a_3asupports_14',['supports',['../namespacespy_1_1supports.html',1,'spy']]],
+  ['standalone_20setup_15',['Standalone setup',['../setup.html#setup-standalone',1,'']]],
+  ['standards_16',['Language Standards',['../group__spy__standards.html',1,'']]],
+  ['stdlib_17',['stdlib',['../group__spy__standards.html#gafe99b815db524eacf659ba8348ca2e0d',1,'spy']]],
+  ['supplemental_20instruction_20sets_18',['Supplemental Instruction Sets',['../group__spy__isa__supplemental.html',1,'']]],
+  ['sycl_19',['sycl',['../group__spy__accelerator.html#ga03e4a3ae6533a43cdf9bcbf1317707cd',1,'spy::supports']]]
 ];

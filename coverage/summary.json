@@ -80,12 +80,12 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/simd.hpp",
-            "function_covered": 35,
+            "function_covered": 36,
             "function_percent": 100.0,
-            "function_total": 35,
-            "line_covered": 9,
+            "function_total": 36,
+            "line_covered": 12,
             "line_percent": 100.0,
-            "line_total": 9
+            "line_total": 12
         },
         {
             "branch_covered": 0,
@@ -112,12 +112,12 @@
             "line_total": 2
         }
     ],
-    "function_covered": 56,
+    "function_covered": 57,
     "function_percent": 100.0,
-    "function_total": 56,
+    "function_total": 57,
     "gcovr/summary_format_version": "0.6",
-    "line_covered": 27,
+    "line_covered": 30,
     "line_percent": 100.0,
-    "line_total": 27,
+    "line_total": 30,
     "root": "../../.."
 }
