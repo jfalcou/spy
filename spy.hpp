@@ -91,8 +91,9 @@
 //!   @defgroup spy_sanitizers Sanitizers
 //!   @brief The sanitizers the code is compiled with
 //!
-//!   Whether the binary carries the instrumentation of the address or the thread sanitizer, so
-//!   that code which the instrumentation would slow down or trip can step aside at compile time.
+//!   Whether the current translation unit carries the instrumentation of the address or the
+//!   thread sanitizer, so that code which the instrumentation would slow down or trip can step
+//!   aside at compile time.
 //! @}
 //======================================================================================================================
 //======================================================================================================================
@@ -803,6 +804,9 @@ namespace spy::supports
 #elif defined(SPY_COMPILER_IS_MSVC)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __declspec(no_sanitize_address)
 #define SPY_DISABLE_THREAD_SANITIZERS
+#elif defined(SPY_DOXYGEN_INVOKED)
+#define SPY_DISABLE_ADDRESS_SANITIZERS _::implementation_defined
+#define SPY_DISABLE_THREAD_SANITIZERS  _::implementation_defined
 #else
 #define SPY_DISABLE_ADDRESS_SANITIZERS
 #define SPY_DISABLE_THREAD_SANITIZERS
