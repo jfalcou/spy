@@ -149,7 +149,7 @@ $(function(){initNavTree('group__spy__sanitizers.html','',''); });
 Macros</h2></td></tr>
 <tr class="memitem:ga1dcd5b477c5678ec92012c142fc388ac" id="r_ga1dcd5b477c5678ec92012c142fc388ac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1dcd5b477c5678ec92012c142fc388ac">SPY_DISABLE_ADDRESS_SANITIZERS</a>&#160;&#160;&#160;spy_implementation_defined</td></tr>
 <tr class="memdesc:ga1dcd5b477c5678ec92012c142fc388ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevents the address sanitizer from analyzing the function following this macro.  <br /></td></tr>
-<tr class="memitem:ga066daa8dccdb3b7d026c43bf2bf4ea4d" id="r_ga066daa8dccdb3b7d026c43bf2bf4ea4d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga066daa8dccdb3b7d026c43bf2bf4ea4d">SPY_DISABLE_SANITIZERS</a>&#160;&#160;&#160;<a class="el" href="#ga1dcd5b477c5678ec92012c142fc388ac">SPY_DISABLE_ADDRESS_SANITIZERS</a> <a class="el" href="#ga2c7f48eb3736dff40ef075a2e079259a">SPY_DISABLE_THREAD_SANITIZERS</a></td></tr>
+<tr class="memitem:ga066daa8dccdb3b7d026c43bf2bf4ea4d" id="r_ga066daa8dccdb3b7d026c43bf2bf4ea4d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga066daa8dccdb3b7d026c43bf2bf4ea4d">SPY_DISABLE_SANITIZERS</a>&#160;&#160;&#160;spy_implementation_defined</td></tr>
 <tr class="memdesc:ga066daa8dccdb3b7d026c43bf2bf4ea4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevents the sanitizers from analyzing the function following this macro.  <br /></td></tr>
 <tr class="memitem:ga2c7f48eb3736dff40ef075a2e079259a" id="r_ga2c7f48eb3736dff40ef075a2e079259a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2c7f48eb3736dff40ef075a2e079259a">SPY_DISABLE_THREAD_SANITIZERS</a>&#160;&#160;&#160;spy_implementation_defined</td></tr>
 <tr class="memdesc:ga2c7f48eb3736dff40ef075a2e079259a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevents the thread sanitizer from analyzing the function following this macro.  <br /></td></tr>
@@ -200,9 +200,9 @@ Variables</h2></td></tr>
 <div class="line">  <span class="keywordtype">int</span> <span class="keyword">const</span>*         data   = values.data();</div>
 <div class="line">  std::cout &lt;&lt; first(data) + second(data) + sum(data) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup__spy__sanitizers_html_ga066daa8dccdb3b7d026c43bf2bf4ea4d"><div class="ttname"><a href="#ga066daa8dccdb3b7d026c43bf2bf4ea4d">SPY_DISABLE_SANITIZERS</a></div><div class="ttdeci">#define SPY_DISABLE_SANITIZERS</div><div class="ttdoc">Prevents the sanitizers from analyzing the function following this macro.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:120</div></div>
-<div class="ttc" id="agroup__spy__sanitizers_html_ga1dcd5b477c5678ec92012c142fc388ac"><div class="ttname"><a href="#ga1dcd5b477c5678ec92012c142fc388ac">SPY_DISABLE_ADDRESS_SANITIZERS</a></div><div class="ttdeci">#define SPY_DISABLE_ADDRESS_SANITIZERS</div><div class="ttdoc">Prevents the address sanitizer from analyzing the function following this macro.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:98</div></div>
-<div class="ttc" id="agroup__spy__sanitizers_html_ga2c7f48eb3736dff40ef075a2e079259a"><div class="ttname"><a href="#ga2c7f48eb3736dff40ef075a2e079259a">SPY_DISABLE_THREAD_SANITIZERS</a></div><div class="ttdeci">#define SPY_DISABLE_THREAD_SANITIZERS</div><div class="ttdoc">Prevents the thread sanitizer from analyzing the function following this macro.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:107</div></div>
+<div class="ttc" id="agroup__spy__sanitizers_html_ga066daa8dccdb3b7d026c43bf2bf4ea4d"><div class="ttname"><a href="#ga066daa8dccdb3b7d026c43bf2bf4ea4d">SPY_DISABLE_SANITIZERS</a></div><div class="ttdeci">#define SPY_DISABLE_SANITIZERS</div><div class="ttdoc">Prevents the sanitizers from analyzing the function following this macro.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:112</div></div>
+<div class="ttc" id="agroup__spy__sanitizers_html_ga1dcd5b477c5678ec92012c142fc388ac"><div class="ttname"><a href="#ga1dcd5b477c5678ec92012c142fc388ac">SPY_DISABLE_ADDRESS_SANITIZERS</a></div><div class="ttdeci">#define SPY_DISABLE_ADDRESS_SANITIZERS</div><div class="ttdoc">Prevents the address sanitizer from analyzing the function following this macro.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:94</div></div>
+<div class="ttc" id="agroup__spy__sanitizers_html_ga2c7f48eb3736dff40ef075a2e079259a"><div class="ttname"><a href="#ga2c7f48eb3736dff40ef075a2e079259a">SPY_DISABLE_THREAD_SANITIZERS</a></div><div class="ttdeci">#define SPY_DISABLE_THREAD_SANITIZERS</div><div class="ttdoc">Prevents the thread sanitizer from analyzing the function following this macro.</div><div class="ttdef"><b>Definition</b> sanitizers.hpp:103</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -213,7 +213,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SPY_DISABLE_SANITIZERS&#160;&#160;&#160;<a class="el" href="#ga1dcd5b477c5678ec92012c142fc388ac">SPY_DISABLE_ADDRESS_SANITIZERS</a> <a class="el" href="#ga2c7f48eb3736dff40ef075a2e079259a">SPY_DISABLE_THREAD_SANITIZERS</a></td>
+          <td class="memname">#define SPY_DISABLE_SANITIZERS&#160;&#160;&#160;spy_implementation_defined</td>
         </tr>
       </table>
 </div><div class="memdoc">
