@@ -79,14 +79,10 @@ namespace spy::supports
   constexpr inline bool sanitizers_status = address_sanitizers_status || thread_sanitizers_status;
 }
 
-#if defined(SPY_COMPILER_IS_CLANG) || defined(SPY_COMPILER_IS_GCC) ||                              \
-    defined(SPY_COMPILER_IS_CLANGCL) || defined(SPY_COMPILER_IS_MINGW32) ||                        \
-    defined(SPY_COMPILER_IS_MINGW64)
-#define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
-#define SPY_DISABLE_THREAD_SANITIZERS  __attribute__((no_sanitize_thread))
-#elif defined(SPY_COMPILER_IS_MSVC)
+#if defined(SPY_COMPILER_IS_MSVC)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __declspec(no_sanitize_address)
 #define SPY_DISABLE_THREAD_SANITIZERS
+#define SPY_DISABLE_SANITIZERS __declspec(no_sanitize_address)
 #elif defined(SPY_DOXYGEN_INVOKED)
 //==================================================================================================
 //! @ingroup spy_sanitizers
@@ -105,10 +101,6 @@ namespace spy::supports
 //! @godbolt{samples/disable-sanitizers.cpp}
 //==================================================================================================
 #define SPY_DISABLE_THREAD_SANITIZERS  _::implementation_defined
-#else
-#define SPY_DISABLE_ADDRESS_SANITIZERS
-#define SPY_DISABLE_THREAD_SANITIZERS
-#endif
 
 //==================================================================================================
 //! @ingroup spy_sanitizers
@@ -117,4 +109,27 @@ namespace spy::supports
 //! @groupheader{Example}
 //! @godbolt{samples/disable-sanitizers.cpp}
 //==================================================================================================
+#define SPY_DISABLE_SANITIZERS         _::implementation_defined
+#else
+#if defined(__has_attribute)
+#if __has_attribute(no_sanitize_address)
+#define SPY_DISABLE_ADDRESS_SANITIZERS __attribute__((no_sanitize_address))
+#endif
+#if __has_attribute(no_sanitize_thread)
+#define SPY_DISABLE_THREAD_SANITIZERS __attribute__((no_sanitize_thread))
+#endif
+// Do not spell this as the two attributes above: clang keeps only the first on a declaration alone
+#if __has_attribute(no_sanitize)
+#define SPY_DISABLE_SANITIZERS __attribute__((no_sanitize("address", "thread")))
+#endif
+#endif
+#if !defined(SPY_DISABLE_ADDRESS_SANITIZERS)
+#define SPY_DISABLE_ADDRESS_SANITIZERS
+#endif
+#if !defined(SPY_DISABLE_THREAD_SANITIZERS)
+#define SPY_DISABLE_THREAD_SANITIZERS
+#endif
+#if !defined(SPY_DISABLE_SANITIZERS)
 #define SPY_DISABLE_SANITIZERS SPY_DISABLE_ADDRESS_SANITIZERS SPY_DISABLE_THREAD_SANITIZERS
+#endif
+#endif
