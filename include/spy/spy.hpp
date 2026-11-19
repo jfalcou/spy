@@ -93,8 +93,9 @@
 //!   @defgroup spy_sanitizers Sanitizers
 //!   @brief The sanitizers the code is compiled with
 //!
-//!   Whether the binary carries the instrumentation of the address or the thread sanitizer, so
-//!   that code which the instrumentation would slow down or trip can step aside at compile time.
+//!   Whether the current translation unit carries the instrumentation of the address or the
+//!   thread sanitizer, so that code which the instrumentation would slow down or trip can step
+//!   aside at compile time.
 //! @}
 //======================================================================================================================
 

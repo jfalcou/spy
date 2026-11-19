@@ -87,9 +87,34 @@ namespace spy::supports
 #elif defined(SPY_COMPILER_IS_MSVC)
 #define SPY_DISABLE_ADDRESS_SANITIZERS __declspec(no_sanitize_address)
 #define SPY_DISABLE_THREAD_SANITIZERS
+#elif defined(SPY_DOXYGEN_INVOKED)
+//==================================================================================================
+//! @ingroup spy_sanitizers
+//! @brief Prevents the address sanitizer from analyzing the function following this macro.
+//!
+//! @groupheader{Example}
+//! @godbolt{samples/disable-sanitizers.cpp}
+//==================================================================================================
+#define SPY_DISABLE_ADDRESS_SANITIZERS _::implementation_defined
+
+//==================================================================================================
+//! @ingroup spy_sanitizers
+//! @brief Prevents the thread sanitizer from analyzing the function following this macro.
+//!
+//! @groupheader{Example}
+//! @godbolt{samples/disable-sanitizers.cpp}
+//==================================================================================================
+#define SPY_DISABLE_THREAD_SANITIZERS  _::implementation_defined
 #else
 #define SPY_DISABLE_ADDRESS_SANITIZERS
 #define SPY_DISABLE_THREAD_SANITIZERS
 #endif
 
+//==================================================================================================
+//! @ingroup spy_sanitizers
+//! @brief Prevents the sanitizers from analyzing the function following this macro.
+//!
+//! @groupheader{Example}
+//! @godbolt{samples/disable-sanitizers.cpp}
+//==================================================================================================
 #define SPY_DISABLE_SANITIZERS SPY_DISABLE_ADDRESS_SANITIZERS SPY_DISABLE_THREAD_SANITIZERS
