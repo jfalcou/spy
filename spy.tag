@@ -655,6 +655,27 @@
     <name>spy_sanitizers</name>
     <title>Sanitizers</title>
     <filename>group__spy__sanitizers.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>SPY_DISABLE_ADDRESS_SANITIZERS</name>
+      <anchorfile>group__spy__sanitizers.html</anchorfile>
+      <anchor>ga1dcd5b477c5678ec92012c142fc388ac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SPY_DISABLE_SANITIZERS</name>
+      <anchorfile>group__spy__sanitizers.html</anchorfile>
+      <anchor>ga066daa8dccdb3b7d026c43bf2bf4ea4d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SPY_DISABLE_THREAD_SANITIZERS</name>
+      <anchorfile>group__spy__sanitizers.html</anchorfile>
+      <anchor>ga2c7f48eb3736dff40ef075a2e079259a</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="variable">
       <type>constexpr bool</type>
       <name>spy::supports::address_sanitizers_status</name>

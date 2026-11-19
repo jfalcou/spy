@@ -154,7 +154,7 @@ Changelog</h2>
 </ul>
 </li>
 <li>Bugs:<ul>
-<li>Restore <span class="tt">SPY_DISABLE_ADDRESS_SANITIZERS</span> and <span class="tt">SPY_DISABLE_THREAD_SANITIZERS</span> under MINGW, where the compiler reclassification had left them empty.</li>
+<li>Restore <span class="tt"><a class="el" href="group__spy__sanitizers.html#ga1dcd5b477c5678ec92012c142fc388ac" title="Prevents the address sanitizer from analyzing the function following this macro.">SPY_DISABLE_ADDRESS_SANITIZERS</a></span> and <span class="tt"><a class="el" href="group__spy__sanitizers.html#ga2c7f48eb3736dff40ef075a2e079259a" title="Prevents the thread sanitizer from analyzing the function following this macro.">SPY_DISABLE_THREAD_SANITIZERS</a></span> under MINGW, where the compiler reclassification had left them empty.</li>
 <li>Lower the MINGW version floors of the unit tests to the one gcc has, <span class="tt">7'2</span>. They asked for 15.2, which no runner carries, and the assertion had never run.</li>
 <li>Give every <span class="tt"><a class="el" href="namespacespy_1_1supports.html" title="Support detection SPY namespace.">spy::supports</a></span> indicator one object per program. The <span class="tt">fp16</span> ones were declared <span class="tt">static</span> and the sanitizer ones had no <span class="tt">inline</span>, so each translation unit held its own copy at its own address.</li>
 <li>Accept both spellings of the Emscripten version macros, renamed in Emscripten 5.</li>

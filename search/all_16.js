@@ -15,9 +15,12 @@ var searchData=
   ['spy_3a_12',['SPY:',['../changelog.html#autotoc_md2',1,'Our SPY:'],['../changelog.html#autotoc_md5',1,'Our SPY:'],['../changelog.html#autotoc_md9',1,'Our SPY:'],['../changelog.html#autotoc_md12',1,'Our SPY:'],['../changelog.html#autotoc_md15',1,'Our SPY:'],['../changelog.html#autotoc_md18',1,'Our SPY:'],['../changelog.html#autotoc_md21',1,'Our SPY:'],['../changelog.html#autotoc_md24',1,'Our SPY:']]],
   ['spy_3a_3aliteral_13',['literal',['../namespacespy_1_1literal.html',1,'spy']]],
   ['spy_3a_3asupports_14',['supports',['../namespacespy_1_1supports.html',1,'spy']]],
-  ['standalone_20setup_15',['Standalone setup',['../setup.html#setup-standalone',1,'']]],
-  ['standards_16',['Language Standards',['../group__spy__standards.html',1,'']]],
-  ['stdlib_17',['stdlib',['../group__spy__standards.html#gafe99b815db524eacf659ba8348ca2e0d',1,'spy']]],
-  ['supplemental_20instruction_20sets_18',['Supplemental Instruction Sets',['../group__spy__isa__supplemental.html',1,'']]],
-  ['sycl_19',['sycl',['../group__spy__accelerator.html#ga03e4a3ae6533a43cdf9bcbf1317707cd',1,'spy::supports']]]
+  ['spy_5fdisable_5faddress_5fsanitizers_15',['SPY_DISABLE_ADDRESS_SANITIZERS',['../group__spy__sanitizers.html#ga1dcd5b477c5678ec92012c142fc388ac',1,'sanitizers.hpp']]],
+  ['spy_5fdisable_5fsanitizers_16',['SPY_DISABLE_SANITIZERS',['../group__spy__sanitizers.html#ga066daa8dccdb3b7d026c43bf2bf4ea4d',1,'sanitizers.hpp']]],
+  ['spy_5fdisable_5fthread_5fsanitizers_17',['SPY_DISABLE_THREAD_SANITIZERS',['../group__spy__sanitizers.html#ga2c7f48eb3736dff40ef075a2e079259a',1,'sanitizers.hpp']]],
+  ['standalone_20setup_18',['Standalone setup',['../setup.html#setup-standalone',1,'']]],
+  ['standards_19',['Language Standards',['../group__spy__standards.html',1,'']]],
+  ['stdlib_20',['stdlib',['../group__spy__standards.html#gafe99b815db524eacf659ba8348ca2e0d',1,'spy']]],
+  ['supplemental_20instruction_20sets_21',['Supplemental Instruction Sets',['../group__spy__isa__supplemental.html',1,'']]],
+  ['sycl_22',['sycl',['../group__spy__accelerator.html#ga03e4a3ae6533a43cdf9bcbf1317707cd',1,'spy::supports']]]
 ];
