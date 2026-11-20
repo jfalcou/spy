@@ -514,10 +514,10 @@ namespace spy::_
       if constexpr(Pointer == 4 && Integer == 4) return os << "ILP32";
       else if constexpr(Pointer == 4 && Integer == 2) return os << "LP32";
       else if constexpr(Pointer == 8 && Long == 8 && Integer == 8 && Short == 8)
-        return os << "IntegerLP64";
-      else if constexpr(Pointer == 8 && Short == 8 && Integer == 8 && Short == 2)
+        return os << "SILP64";
+      else if constexpr(Pointer == 8 && Long == 8 && Integer == 8 && Short == 2)
         return os << "ILP64";
-      else if constexpr(Pointer == 8 && Long == 4 && Integer == 8 && Short == 2)
+      else if constexpr(Pointer == 8 && Long == 4 && Integer == 4 && Short == 2)
         return os << "LLP64";
       else if constexpr(Pointer == 8 && Long == 8 && Integer == 4 && Short == 2)
         return os << "LP64";
@@ -545,7 +545,7 @@ namespace spy
   constexpr inline auto lp32_   = _::data_model_info<2, 2, sizeof(long), 4> {};
   constexpr inline auto silp64_ = _::data_model_info<8, 8, 8, 8> {};
   constexpr inline auto ilp64_  = _::data_model_info<2, 8, 8, 8> {};
-  constexpr inline auto llp64_  = _::data_model_info<2, 8, 4, 8> {};
+  constexpr inline auto llp64_  = _::data_model_info<2, 4, 4, 8> {};
   constexpr inline auto lp64_   = _::data_model_info<2, 4, 8, 8> {};
 }
 #include <compare>
