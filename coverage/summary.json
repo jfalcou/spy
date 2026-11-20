@@ -32,12 +32,12 @@
             "branch_percent": null,
             "branch_total": 0,
             "filename": "include/spy/data_model.hpp",
-            "function_covered": 7,
+            "function_covered": 13,
             "function_percent": 100.0,
-            "function_total": 7,
-            "line_covered": 4,
+            "function_total": 13,
+            "line_covered": 9,
             "line_percent": 100.0,
-            "line_total": 4
+            "line_total": 9
         },
         {
             "branch_covered": 0,
@@ -112,12 +112,12 @@
             "line_total": 2
         }
     ],
-    "function_covered": 57,
+    "function_covered": 63,
     "function_percent": 100.0,
-    "function_total": 57,
+    "function_total": 63,
     "gcovr/summary_format_version": "0.6",
-    "line_covered": 30,
+    "line_covered": 35,
     "line_percent": 100.0,
-    "line_total": 30,
+    "line_total": 35,
     "root": "../../.."
 }
