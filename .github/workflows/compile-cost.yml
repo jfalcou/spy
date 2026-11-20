@@ -24,7 +24,7 @@ jobs:
     permissions:
       actions: read
       contents: write
-    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@main
+    uses: jfalcou/copacabana/.github/workflows/compile-cost.yml@a0bec47b2425c7c3ac782793eb87c888b88c66c0
     with:
       project: spy
       series: true
