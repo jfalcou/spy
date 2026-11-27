@@ -19,7 +19,7 @@ jobs:
   documentation:
     permissions:
       contents: write
-    uses: jfalcou/copacabana/.github/workflows/documentation.yml@a0bec47b2425c7c3ac782793eb87c888b88c66c0
+    uses: jfalcou/copacabana/.github/workflows/documentation.yml@e96014671dfb262482346ddcaa3a1a810b3eebaf
     with:
       project: spy
       coverage: true
